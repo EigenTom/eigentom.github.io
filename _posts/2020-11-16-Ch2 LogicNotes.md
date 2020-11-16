@@ -298,7 +298,7 @@ $\frac{\Gamma \vdash A}{\Gamma \vdash \neg \neg A}$
 **定理 3.3 (量词对偶定理)**
 >以下等价式成立:<br>
 >      <center>$\neg \forall x. A \equiv \exists x. \neg A$<br></center>
->      <center>$\neg \exist x. A \equiv \forall x . \neg A$</center>
+>      <center>$\neg \exists x. A \equiv \forall x . \neg A$</center>
 
 <Br>
 
