@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      COMP11120 逻辑学探幽 Part1
+title:      逻辑学探幽 Part1
 subtitle:   没有逻辑, 只有heip
 date:       2020-11-16
 author:     R1NG
