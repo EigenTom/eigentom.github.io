@@ -37,8 +37,8 @@ tags:
 
 
 **定理1.1 替代定理**
-><center>
->
+<center>
+
 |公式|性质|
 |-|-|
 |$\neg \neg P \equiv P$|双否定性|
@@ -54,12 +54,16 @@ $P \vee (Q \wedge R) \equiv (P \vee Q)\wedge(P \vee R)$|分配律|
 |$P \vee (P \wedge Q) \equiv P$|吸收性|
 |$\neg(P \wedge Q) \equiv \neg P \vee \neg Q$|`De Morgan`|
 |$\neg(P \vee Q) \equiv \neg P \wedge \neg Q$|`De Morgan`|
+|$P \rightarrow Q \equiv \neg P \vee Q$|逆否性|
+|$P \rightarrow Q \equiv \neg(P \wedge \neg Q)$|逆否性|
+|$P \rightarrow Q \equiv \neg Q \rightarrow \neg P$|逆否性|
+|$P \leftrightarrow Q \equiv (P \rightarrow Q) \wedge (Q \rightarrow P)$|逆否性|
+|$P \leftrightarrow Q \equiv (\neg P \vee Q) \wedge (P \vee \neg Q)$|逆否性|
+|$P \leftrightarrow Q \equiv (P \wedge Q) \vee (\neg P \wedge \neg Q)$|逆否性|
+</center>
 
->
-></center>
 
-
-
+<br>
 
 **定理1.2 一般化的基本语义等价定理**
 
