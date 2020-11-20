@@ -160,7 +160,7 @@ tags:
 |$\neg$|否定联结词|$X\backslash$|集合补运算|
 |$\vee$|析取联结词|$\cup$|集合并运算|
 |$\wedge$|合取联结词|$\cap$|集合交运算|
-|$B \rightarrow B'$|蕴含联结词|$(X\backslash S_{B} \cup S_{B'})$||
+|$B \rightarrow B'$|蕴含联结词|$(X\backslash S_{B} \cup S_{B'})$|---|
 
 
 
