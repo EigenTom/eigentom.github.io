@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      COMP11120 逻辑学探幽 Part1
+title:      COMP11120 逻辑学探幽 Part3
 subtitle:   没有逻辑 只有heip
 date:       2020-11-16
 author:     R1NG
@@ -319,3 +319,11 @@ $\frac{\Gamma \vdash A}{\Gamma \vdash \neg \neg A}$
 >     <center>$A \equiv B$</center>
 > 则
 >     <center>$C(\cdots A \cdots) \equiv C(\cdots B \cdots)$</center>
+
+
+
+
+
+
+
+我们应用数学归纳法, 在 $n = 0$ 的情况下, 需要证明这个集合中基数为 $2$ 的子集的个数为 $\frac{n * (n-1)}{2} = 0$. 显然, 由于要找的子集的基数大于这个集合的基数, 因此在这个集合中不存在这样的子集, 也就是说, 这个集合中基数为 $2$ 的子集的个数为 $0$, 和式子 $\frac{n * (n-1)}{2}, n=0$ 的结果计算一致, 因此在 $n = 0$ 的时候原假设成立. 
