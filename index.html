@@ -15,17 +15,16 @@ header-img: "img/post-bg-desk.png"
             {{ post.subtitle }}
         </h3>
         {% endif %}
-
-        {% if post.description %}
-        <div class="post-content-preview">
             {% if post.description %}
-            {{ post.description }}
-            {% endif %}
+        <div class="post-content-preview">
+                {% if post.description %}
+                    {{ post.description }}
+                {% endif %}
         </div>
-        {% endif %}
+            {% endif %}
 
     <p class="post-meta">
-        Posted by {% if post.author %}{{ post.author }}{% else %}{{ site.title }}{% endif %} on {{ post.date | date: "%B %-d, %Y" }}
+        Posted on {{ post.date | date: "%B %-d, %Y" }}
     </p>
 </div>
 <hr>
