@@ -5,7 +5,7 @@ subtitle:   没有逻辑, 只有heip
 date:       2020-11-16
 author:     R1NG
 header-img: img/post-bg-ios9-web.jpg
-description: 在本章中, 我们将引入最基本的逻辑系统: 命题逻辑, 简要介绍其基本概念, 并进一步地引入两种广泛应用于计算机科学领域的命题语义: 布尔语义和幂集语义. 
+description: 本章简要介绍命题逻辑, 并进一步引入两种广泛应用于计算机科学领域的命题语义.
 catalog: true
 tags:
     - 逻辑学
