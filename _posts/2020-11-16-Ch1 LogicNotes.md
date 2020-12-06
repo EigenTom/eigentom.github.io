@@ -178,11 +178,11 @@ $C(\cdots A \cdots)$
 
 
 **定理1.6 含逻辑常量的一般化基本语义等价定理**
-<center>
+
 
 ![20201121093615](https://cdn.jsdelivr.net/gh/KirisameMarisaa/KirisameMarisaa.github.io/img/blogpost_images/20201121093615.png)
 
-</center>
+
 
 
 
