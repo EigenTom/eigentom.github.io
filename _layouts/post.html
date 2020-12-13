@@ -202,6 +202,9 @@ layout: default
       s.parentNode.insertBefore(o, s);
     }
 </script>
+{% endif %}
+
+{% if site.anchorjs %}
 <!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
 <script>
     async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
@@ -215,6 +218,8 @@ layout: default
     })
 </script>
 {% endif %}
+
+{% if site.anchorjs %}
 <style>
     /* place left on bigger screen */
     @media all and (min-width: 800px) {
@@ -226,3 +231,4 @@ layout: default
         }
     }
 </style>
+{% endif %}
