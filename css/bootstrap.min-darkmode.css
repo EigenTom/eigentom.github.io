@@ -4749,7 +4749,7 @@ select[multiple].input-group-sm > .form-control, select[multiple].input-group-sm
 }
 
 .navbar-default .navbar-nav > li > a:focus, .navbar-default .navbar-nav > li > a:hover {
-    color: #333;
+    color: #fff;
     background-color:transparent
 }
 
