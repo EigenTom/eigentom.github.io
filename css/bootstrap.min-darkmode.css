@@ -1758,8 +1758,8 @@ code, kbd, pre, samp {
 code {
     padding: 2px 4px;
     font-size: 90%;
-    color: #ff628a;
-    background-color: #4a2e2b;
+    color: #bee2ff;
+    background-color: #rgba(0, 105, 189, 0.45);
     border-radius:4px
 }
 
