@@ -26,14 +26,14 @@
 }
 .sidebar-container a:hover,
 .sidebar-container a:active {
-  color: #0085a1 !important;
+  color: #0068bd !important;
 }
 .sidebar-container .tags a {
   border-color: #bfbfbf;
 }
 .sidebar-container .tags a:hover,
 .sidebar-container .tags a:active {
-  border-color: #0085a1;
+  border-color: #0068bd;
 }
 .sidebar-container .short-about img {
   width: 80%;
@@ -662,7 +662,7 @@ pre code {
   color: #a3a3a3;
 }
 .post-content-preview:hover {
-  color: #0085a1;
+  color: #0068bd;
 }
 @media only screen and (min-width: 768px) {
   .post-content-preview {
@@ -811,8 +811,8 @@ form .row:first-child .floating-label-form-group {
 .pager li > a:hover,
 .pager li > a:focus {
   color: white;
-  background-color: #0085a1;
-  border: 1px solid #0085a1;
+  background-color: #0068bd;
+  border: 1px solid;
 }
 .pager li > a:hover > span,
 .pager li > a:focus > span {
@@ -867,7 +867,6 @@ img::-moz-selection {
 .tags .tag:active {
   color: white;
   border-color: white;
-  background-color: rgba(255, 255, 255, 0.4);
   text-decoration: none;
 }
 @media only screen and (min-width: 768px) {
@@ -919,7 +918,7 @@ img::-moz-selection {
   margin-top: 0px;
 }
 .listing-seperator {
-  color: #0085a1;
+  color: #0068bd;
   font-size: 21px !important;
 }
 .listing-seperator::before {

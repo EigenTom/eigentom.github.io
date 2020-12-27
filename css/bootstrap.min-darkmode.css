@@ -1709,7 +1709,9 @@ blockquote {
     padding: 10px 20px;
     margin: 0 0 20px;
     font-size: 17.5px;
-    border-left:5px solid #eee
+    border-left:5px solid #0068bd;
+    background:rgba(0, 105, 189, 0.45);
+
 }
 
 blockquote ol:last-child, blockquote p:last-child, blockquote ul:last-child {

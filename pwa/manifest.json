@@ -1,7 +1,7 @@
 {
-  "name": "BY Blog",
-  "short_name": "BY Blog",
-  "description": "A personal blog by engineer",
+  "name": "random-linear-space",
+  "short_name": "RLS",
+  "description": "None",
   "icons": [{
     "src": "icons/pwa_icon_128.png",
     "sizes": "128x128",
