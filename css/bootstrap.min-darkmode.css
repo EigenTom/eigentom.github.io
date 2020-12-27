@@ -1436,7 +1436,7 @@ hr {
     font-family: inherit;
     font-weight: 500;
     line-height: 1.1;
-    color:inherit
+    color: #fff
 }
 
 .h1 .small, .h1 small, .h2 .small, .h2 small, .h3 .small, .h3 small, .h4 .small, .h4 small, .h5 .small, .h5 small, .h6 .small, .h6 small, h1 .small, h1 small, h2 .small, h2 small, h3 .small, h3 small, h4 .small, h4 small, h5 .small, h5 small, h6 .small, h6 small {
@@ -1756,8 +1756,8 @@ code, kbd, pre, samp {
 code {
     padding: 2px 4px;
     font-size: 90%;
-    color: #c7254e;
-    background-color: #f9f2f4;
+    color: #ff628a;
+    background-color: #4a2e2b;
     border-radius:4px
 }
 
