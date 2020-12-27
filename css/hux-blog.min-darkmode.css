@@ -26,14 +26,15 @@
 }
 .sidebar-container a:hover,
 .sidebar-container a:active {
-  color: #0068bd !important;
+  color: #fff !important;
 }
 .sidebar-container .tags a {
   border-color: #bfbfbf;
 }
 .sidebar-container .tags a:hover,
 .sidebar-container .tags a:active {
-  border-color: #0068bd;
+  border-color: #fff;
+  background: #0068bd;
 }
 .sidebar-container .short-about img {
   width: 80%;
@@ -236,7 +237,7 @@ pre code {
 }
 .post-container a:hover,
 .post-container a:focus {
-  color: #0085a1;
+  color: #0068bd;
 }
 .post-container h1,
 .post-container h2,
@@ -832,12 +833,12 @@ form .row:first-child .floating-label-form-group {
 ::-moz-selection {
   color: white;
   text-shadow: none;
-  background: #0085a1;
+  background: rgba(0, 105, 189, 0.45);
 }
 ::selection {
   color: white;
   text-shadow: none;
-  background: #0085a1;
+  background: rgba(0, 105, 189, 0.45);
 }
 img::selection {
   color: white;
