@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+        <style>
+            .counter
+            {
+                width: 320px;
+                height: 480px;
+                background-color: #333;
+                border: 1px solid #000000;
+                margin: 50px auto;
+                border-radius: 6px;
+            }
+
+            #box
+            {
+                height: 70px;
+                width: 280px;
+                background-color: #0068bd;
+                border: none;
+                margin: 15px 25px 32px 10px;
+                font: 700 40px/70px "Arial";
+                color: #fff;
+                padding-right: 20px;
+                border-radius: 6px;
+            }
+
+            .keys-bg
+            {
+                background-color: rgb(117, 117, 117);
+                padding: 10px 10px;
+                position: relative;
+                left: 10px;
+                right: 2px;
+                top: -20px;
+                height: 310px;
+                width: 280px;
+
+                border-radius: 6px;
+            }
+            
+            .fun-keys input
+            {
+                height: 25px;
+                width: 55px;
+                color: #fff;
+                background-color: rgb(94, 94, 94);
+                margin: 5px 5px;
+                font: 200 20px "Arial";
+                border-width: 0px;
+                border-radius: 6px;
+                text-align: center;
+                vertical-align: middle;
+            }
+
+            .fun-keys input:hover
+            {
+                background-color: #0068bd;
+            }
+
+            .num-keys
+            {
+                
+                padding: 0px 0px;
+                position: relative;
+                left: 0px;
+                right: 0px;
+                top: 0px;
+                height: 360px;
+                width: 210px;
+
+                border-radius: 6px;
+            }
+            
+            .num-keys input
+            {
+                height: 55px;
+                width: 55px;
+                color: #fff;
+                background-color: #333;
+                margin: 5px 5px;
+                font: 900 30px "Arial";
+                border-width: 0px;
+                border-radius: 6px;
+                text-align: center;
+            }
+
+            .num-keys input:hover
+            {
+                background-color: rgb(94, 94, 94);
+            }
+
+            .equal-key input
+            {
+                height: 55px;
+                width: 126px;
+                color: #fff;
+                
+                background-color: #0068bd;
+                margin: 5px 5px;
+                font: 900 30px "Arial";
+                border-width: 0px;
+                border-radius: 6px;
+                text-align: center;
+                position: relative;
+                top: -159px;
+                left: 71px;
+            }
+
+            .equal-key input:hover
+            {
+                background-color: rgba(0, 105, 189, 0.45);
+            }
+
+
+            .more-fun-keys
+            {
+                position: relative;
+                left: 213px;
+                top: -427px;
+                height: 200px;
+                width: 80px;
+
+                border-radius: 6px;
+            }
+
+            .more-fun-keys input
+            {
+                height: 55px;
+                width: 55px;
+                color: #fff;
+                background-color: rgba(0, 105, 189, 0.45);
+                background-color: #0068bd;
+                margin: 5px 5px;
+                font: 200 20px "Arial";
+                border-width: 0px;
+                border-radius: 6px;
+                text-align: center;
+                vertical-align: middle;
+            }
+
+            .more-fun-keys input:hover
+            {
+                background-color: rgba(0, 105, 189, 0.45);
+            }
+
+        </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yet Another Calculator</title>
+</head>
+<body>
+    <div class="counter">
+        <input type="text" id="box" style="text-align:right" readonly="true" value="114514">
+        <div class="keys-bg">
+
+            <div class="fun-keys">
+                <input type="pi" id="res" value="π">
+                <input type="e" id="res" value="e">
+                <input type="del" id="res" value="DEL">
+                <input type="ac" id="res" value="AC">
+            </div>
+
+            <div class="num-keys">
+                <input type="1" id="res" value="1">
+                <input type="2" id="res" value="2">
+                <input type="3" id="res" value="3">
+                <input type="4" id="res" value="4">
+                <input type="5" id="res" value="5">
+                <input type="6" id="res" value="6">
+                <input type="7" id="res" value="7">
+                <input type="8" id="res" value="8">
+                <input type="9" id="res" value="9">
+                <input type="0" id="res" value="0">
+            </div>
+
+            <div class="equal-key">
+                <input type="equal" id="res" value="=">
+            </div>
+
+            <div class="more-fun-keys">
+                <input type="exp" id="res" value="√">
+                <input type="sin" id="res" value="sin">
+                <input type="cos" id="res" value="cos">
+                <input type="tan" id="res" value="tan">
+            </div>
+
+        </div>
+
+    </div>
+</body>
+</html>
