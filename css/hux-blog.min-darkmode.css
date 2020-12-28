@@ -903,7 +903,7 @@ img::-moz-selection {
 #tag_cloud .tag:hover,
 #tag_cloud a:active,
 #tag_cloud .tag:active {
-  background-color: #0085a1 !important;
+  background-color: #0068bd !important;
 }
 @media only screen and (min-width: 768px) {
   #tag_cloud {
