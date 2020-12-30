@@ -107,7 +107,7 @@
 	  div.softkbd
 	  {
 		width: 1200px;
-    height: 200px;
+    height: 167px;
 		position: relative;
 		bottom: 20pt;
 		opacity: 1;
@@ -120,8 +120,8 @@
   .arrow_keys_bg
     {
       position: relative;
-      top:-52px;
-      right: -850px;
+      top:-134px;
+      right: -895px;
       width: 295px;
       height:145px;
       background: green;
@@ -152,9 +152,13 @@
 
   .ctrl_keys_bg
     {
-        background: blue;
-        width:500px;
-        height:80px;
+      position: relative;
+      left:10px;
+      top:13px;
+      background: green;
+      border:1px solid red;
+      width:500px;
+      height:80px;
     }
 
   .ctrl_keys
@@ -172,6 +176,17 @@
       border: 1px solid red;
     }
 
+    .settings_bg
+    {
+        position: relative;
+        left:10px;
+        top:10px;
+        background: green;
+        border:1px solid red;
+        width:500px;
+        height:60px;
+    }
+
     </style>
   </head>
   <body>
@@ -179,14 +194,6 @@
 
     <div class="spinner" id='spinner'></div>
     <div class="emscripten" id="status">Downloading...</div>
-
-<span id='controls'>
-  <span><input type="checkbox" id="resize">Resize canvas</span>
-  <span><input type="checkbox" id="pointerLock" checked>Lock/hide mouse pointer &nbsp;&nbsp;&nbsp;</span>
-  <span><input type="button" value="Fullscreen" onclick="Module.requestFullscreen(document.getElementById('pointerLock').checked, 
-                                                                            document.getElementById('resize').checked)">
-  </span>
-</span>
 
     <div class="emscripten">
       <progress value="0" max="100" id="progress" hidden=1></progress>
@@ -200,6 +207,15 @@
 
 	<div id="softkbd" class="softkbd">
 	
+    <div id="settings_bg" class="settings_bg">
+      <span id='controls'>
+        <span><input type="checkbox" id="resize">Resize canvas</span>
+        <span><input type="checkbox" id="pointerLock" checked>Lock/hide mouse pointer &nbsp;&nbsp;&nbsp;</span>
+        <span><input type="button" value="Fullscreen" onclick=
+          "Module.requestFullscreen(document.getElementById('pointerLock').checked, document.getElementById('resize').checked)" style="height: 10px;"></span>
+      </span>
+    </div>
+
 
     <div id="ctrl_keys_bg" class="ctrl_keys_bg">
       <button class="ctrl_keys" onpointerdown='kd(this, 16)', onpointerup='ku(this, 16)' style="width: 180px;">Shift</button>
