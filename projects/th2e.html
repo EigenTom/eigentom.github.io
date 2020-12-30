@@ -125,7 +125,7 @@
       background: red;
       border-radius: 50px;
     }
-  .arrow_keys button
+  .arrow_keys input
     {
       height: 55px;
       width: 65px;
@@ -139,7 +139,7 @@
       vertical-align: middle;
     }
 
-  .arrow_keys button:hover
+  .arrow_keys input:hover
     {
       background-color: #000000;
     }
@@ -180,12 +180,12 @@
     </div>
 
     <div id="arrow_keys" class="arrow_keys">
-      <button class='arrow_keys' type="button" mousedown='kd(this, 32)', mouseup='ku(this, 32)' style="border-top-left-radius: 100px;">SP</button>
-    	<button class='arrow_keys' type="button" mousedown='kd(this, 38)', mouseup='ku(this, 38)'>⬆︎</button>
-      <button class='arrow_keys' type="button" mousedown='kd(this, 27)', mouseup='ku(this, 27)' style="border-top-right-radius: 100px;">ESC</button>
-      <button class='arrow_keys' type="button" mousedown='kd(this, 37)', mouseup='ku(this, 37)'>⬅︎</button>
-      <button class='arrow_keys' type="button" mousedown='kd(this, 40)', mouseup='ku(this, 40)'>⬇︎</button>
-      <button class='arrow_keys' type="button" mousedown='kd(this, 39)', mouseup='ku(this, 39)'>⮕</button>
+      <input type="button" onpointerdown='kd(this, 32)', onpointerup='ku(this, 32)' style="border-top-left-radius: 100px;">SP</button>
+    	<input type="button" mousedown='kd(this, 38)', mouseup='ku(this, 38)'>⬆︎</button>
+      <input type="button" mousedown='kd(this, 27)', mouseup='ku(this, 27)' style="border-top-right-radius: 100px;">ESC</button>
+      <input type="button" mousedown='kd(this, 37)', mouseup='ku(this, 37)'>⬅︎</button>
+      <input type="button" mousedown='kd(this, 40)', mouseup='ku(this, 40)'>⬇︎</button>
+      <button class='arrow_keys' type="button" onpointerdown='kd(this, 39)', onpointerup='ku(this, 39)'>⮕</button>
     </div>
 
 
