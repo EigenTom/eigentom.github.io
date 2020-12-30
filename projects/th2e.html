@@ -106,42 +106,70 @@
 
 	  div.softkbd
 	  {
-		width: 90%;
-    height: 40%;
-		position: fixed;
+		width: 800px;
+    height: 200px;
+		position: relative;
 		bottom: 20pt;
-		left: 5%;
-		opacity: 0.5;
+		opacity: 1;
     background: #333;
     border: 1px solid #000000;
     margin: 50px auto;
-    border-radius: 6px;
+    border-radius: 1px;
 	  }
 
-  .arrow_keys
+  .arrow_keys_bg
     {
-      width: 235px;
-      height:132px;
-      background: red;
-      border-radius: 50px;
+      position: relative;
+      top:-52px;
+      right: -500px;
+      width: 295px;
+      height:145px;
+      background: green;
+      border-radius: 0px;
+      border: 1px solid red;
     }
-  .arrow_keys input
+
+  .arrow_keys 
     {
       height: 55px;
-      width: 65px;
+      width: 85px;
       color: #fff;
       background-color: #0068bd;
       margin: 5px 5px;
       font: 200 20px "Arial";
       border-width: 0px;
-      border-radius: 6px;
+      border-radius: 0px;
       text-align: center;
       vertical-align: middle;
+      border: 1px solid red;
     }
 
-  .arrow_keys input:hover
+  .arrow_keys:hover
     {
       background-color: #000000;
+    }
+
+
+  .ctrl_keys_bg
+    {
+        background: blue;
+        width:500px;
+        height:80px;
+    }
+
+  .ctrl_keys
+    {
+      height: 55px;
+      width: 85px;
+      color: #fff;
+      background-color: #0068bd;
+      margin: 5px 5px;
+      font: 200 20px "Arial";
+      border-width: 0px;
+      border-radius: 0px;
+      text-align: center;
+      vertical-align: middle;
+      border: 1px solid red;
     }
 
     </style>
@@ -173,18 +201,18 @@
 	<div id="softkbd" class="softkbd">
 	
 
-    <div id="ctrl_keys" class="ctrl_keys">
-      <button class="ctrl_keys" mousedown='kd(this, 16)', mouseup='ku(this, 16)'>Shift</button>
-      <button class="ctrl_keys" mousedown='kd(this, 90)', mouseup='ku(this, 90)'>Z</button>
-      <button class="ctrl_keys" mousedown='kd(this, 88)', mouseup='ku(this, 88)'>X</button>
+    <div id="ctrl_keys_bg" class="ctrl_keys_bg">
+      <button class="ctrl_keys" onpointerdown='kd(this, 16)', onpointerup='ku(this, 16)' style="width: 180px;">Shift</button>
+      <button class="ctrl_keys" onpointerdown='kd(this, 90)', onpointerup='ku(this, 90)'>Z</button>
+      <button class="ctrl_keys" onpointerdown='kd(this, 88)', onpointerup='ku(this, 88)'>X</button>
     </div>
 
-    <div id="arrow_keys" class="arrow_keys">
-      <input type="button" onpointerdown='kd(this, 32)', onpointerup='ku(this, 32)' style="border-top-left-radius: 100px;">SP</button>
-    	<input type="button" mousedown='kd(this, 38)', mouseup='ku(this, 38)'>⬆︎</button>
-      <input type="button" mousedown='kd(this, 27)', mouseup='ku(this, 27)' style="border-top-right-radius: 100px;">ESC</button>
-      <input type="button" mousedown='kd(this, 37)', mouseup='ku(this, 37)'>⬅︎</button>
-      <input type="button" mousedown='kd(this, 40)', mouseup='ku(this, 40)'>⬇︎</button>
+    <div id="arrow_keys_bg" class="arrow_keys_bg">
+      <button class='arrow_keys' type="button" onpointerdown='kd(this, 32)', onpointerup='ku(this, 32)' style="height: 70px;">SP</button>
+    	<button class='arrow_keys' type="button" onpointerdown='kd(this, 38)', onpointerup='ku(this, 38)' style="height: 70px;">⬆︎</button>
+      <button class='arrow_keys' type="button" onpointerdown='kd(this, 27)', onpointerup='ku(this, 27)' style="height: 70px;">ESC</button>
+      <button class='arrow_keys' type="button" onpointerdown='kd(this, 37)', onpointerup='ku(this, 37)'>⬅︎</button>
+      <button class='arrow_keys' type="button" onpointerdown='kd(this, 40)', onpointerup='ku(this, 40)'>⬇︎</button>
       <button class='arrow_keys' type="button" onpointerdown='kd(this, 39)', onpointerup='ku(this, 39)'>⮕</button>
     </div>
 
