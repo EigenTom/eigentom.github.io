@@ -4,7 +4,7 @@ title:      逻辑学探幽 Part0
 subtitle:   没有逻辑, 只有heip
 date:       2020-11-16
 author:     R1NG
-header-img: img/post-bg-ios9-web.jpg
+header-img: img/post-bg-logicnotes.jpg
 description: 本章简要介绍命题逻辑, 并进一步引入两种广泛应用于计算机科学领域的命题语义.
 catalog: true
 tags:

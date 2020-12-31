@@ -4,7 +4,7 @@ title:      逻辑学探幽 Part2
 subtitle:   没有逻辑 只有heip
 date:       2020-11-16
 author:     R1NG
-header-img: img/post-bg-ios9-web.jpg
+header-img: img/post-bg-logicnotes.jpg
 description: 本章简要介绍自然演绎推理和一阶谓词逻辑. 
 catalog: true
 tags:

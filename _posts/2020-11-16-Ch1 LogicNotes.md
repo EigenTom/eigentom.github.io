@@ -4,7 +4,7 @@ title:      逻辑学探幽 Part1
 subtitle:   没有逻辑, 只有heip
 date:       2020-11-16
 author:     R1NG
-header-img: img/post-bg-ios9-web.jpg
+header-img: img/post-bg-logicnotes.jpg
 description: 本章进一步探讨对逻辑表达式的简化方法, 引入逻辑表达式等价定义和正规化的概念. 
 catalog: true
 tags:
