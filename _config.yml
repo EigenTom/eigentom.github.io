@@ -15,18 +15,18 @@ github_repo: "https://github.com/kirisamemarisaa/kirisamemarisaa.github.io.git" 
 # Sidebar settings
 sidebar: False                           # whether or not using Sidebar.
 # sidebar-about-description: "Goals determine what you going to be!"
-# sidebar-avatar: /img/about-BY-gentle.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
+# sidebar-avatar: /img/about.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
 
 # SNS settings
 RSS: false
-# weibo_username:     qiubaiying
-# zhihu_username:     qiubaiying
-# github_username:    qiubaiying
-# facebook_username:  baiying.qiu.7
-# jianshu_username:   e71990ada2fd
-#twitter_username:   qiubaiying
+# weibo_username:     
+# zhihu_username:     
+# github_username:    
+# facebook_username:  
+# jianshu_username:   
+#twitter_username:   
 
 
 
@@ -60,7 +60,7 @@ kramdown:
 
 # 评论系统
 # Disqus（https://disqus.com/）
-# disqus_username: qiubaiying
+# disqus_username: 
 
 # Gitalk
 gitalk:
@@ -94,7 +94,7 @@ featured-condition-size: 1              # 相同标签数量大于这个数，�
 
 
 # Progressive Web Apps
-chrome-tab-theme-color: "#000000"
+chrome-tab-theme-color: "#333"
 service-worker: true
 
 
