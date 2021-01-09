@@ -23,7 +23,7 @@ tags:
 2. 与每一个输入所对应的权值 (`Weights`)
 3. 激活函数 (`Function`)
 
-![perceptron](https://cdn.jsdelivr.net/gh/KirisameMarisaa/KirisameMarisaa.github.io/img/blogpost_images/perceptron.jpg)
+![perceptron](https://cdn.jsdelivr.net/gh/KirisameMarisaa/KirisameMarisaa.github.io@master/img/blogpost_images/perceptron.jpg)
 
 我们定义:
 
@@ -55,6 +55,7 @@ $f(X) = \begin{cases}
 [例] 使用感知机实现与, 或, 与非门:
 
 与, 或, 与非门的真值表如下:
+
 |$x_1$|$x_2$|AND|OR|NAND|
 |:-:|:-:|:-:|:-:|:-:|
 |$1$|$1$|$1$|$1$|$0$|
@@ -105,6 +106,7 @@ def NAND(x1, x2):
 下面, 我们以异或门电路的分析和实现说明感知机 (单层感知机) 的局限性. 
 
 异或逻辑门的真值表如下:
+
 |$x_1$|$x_2$|XOR|
 |:-:|:-:|:-:|
 |$1$|$1$|$0$|
@@ -114,7 +116,7 @@ def NAND(x1, x2):
 
 实际上, 我们并不能使用单层感知机实现异或逻辑门. 不妨这样思考: 假定我们使用单层感知机实现了一个异或逻辑门函数 `XOR(x_1, x_2)`, 则它在几何意义上必定是一个使用线性函数对二维平面的二分. 而在平面上描点观察可知, 我们并不能使用线性函数对其基于函数输出的不同而进行分割, 因此由矛盾推出, 单层感知机无法实现异或逻辑门:
 
-![perceptron](https://cdn.jsdelivr.net/gh/KirisameMarisaa/KirisameMarisaa.github.io/img/blogpost_images/xor-gate.jpg)
+![xor-gate](https://cdn.jsdelivr.net/gh/KirisameMarisaa/KirisameMarisaa.github.io@master/img/blogpost_images/xor-gate.jpg)
 
 <br>
 
