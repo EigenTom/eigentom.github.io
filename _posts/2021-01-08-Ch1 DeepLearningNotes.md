@@ -154,21 +154,22 @@ def XOR(x1, x2):
 下面, 我们介绍数个常用的神经网络激活函数:
 
 1. `Sigmoid` 函数<br>
-   `Sigmoid` 函数 $s(x)$:
+   `Sigmoid` 函数 $S(x)$:
 
    <center>
 
-    $s(X) = \frac{1}{1 + \exp^{(-x)}}.$
+    $S(X) = \frac{1}{1 + \exp^{(-x)}}.$
 
    </center>
 
-在 `Python` 中, `Sigmoid` 函数实现如下:
-```
-def sigmoid(X):
-    return 1/ (1 + numpy.exp(-x))
-```
+    在 `Python` 中, `Sigmoid` 函数实现如下:
+    ```
+    import numpy as np
 
-
+    def sigmoid(X):
+        return 1/ (1 + np.exp(-x))
+    ```
+    <br>
 
 2. `ReLU` 函数<br>
     `ReLU` 函数 $r(x)$: 
@@ -179,18 +180,124 @@ def sigmoid(X):
 
     </center>
 
-在 `Python` 中, `ReLU` 函数实现如下:
-```
-def relu(X):
-    return numpy.maximum(0, x)
-```
+    在 `Python` 中, `ReLU` 函数实现如下:
+    ```
+    import numpy as np
+
+    def relu(X):
+        return np.maximum(0, x)
+    ```
+
+    <br>
+
+3. `softmax` 函数<br>
+   `softmax` 函数 $s(x)$:
+
+   <center>
+
+    $S(x) = \frac{\exp(a_k)}{\sum_{1}^{n}exp(a_i)}$
+
+   </center>
+    
+    需要注意的是, `softmax` 函数的实现中涉及指数函数计算, 而在指数函数值过大时可能会溢出为 `inf`. 若分子和分母均溢出的话, 就无法正常地进行除法运算. 
+
+    要解决这一问题, 我们对 `softmax` 函数作如下修正:
+    
+    <center>
+
+    $m = \max(a_1, a_2, \cdots, a_n) \\ 
+    ~~ \\ S_1(x) = \frac{\exp(a_k - m)}{\sum_{1}^{n}exp(a_i - m)}$
+
+    </center>
+
+    这样, 就在不改变运算的结果 (思考一下: 为什么?) 的情况下, 实现了函数的修正. 合理的 `Python` 实现如下:
+
+    ```
+    import numpy as np
+
+    def softmax(a):
+        c = np.max(a)
+        exp_a = np.exp(a - c)
+        sum_exp_a = np.sum(exp_a)
+        y = exp_a / sum_exp_a
+
+        return y
+    ```
+
+    `softmax` 函数的一个有趣的特性是, 对任何输入值, 其函数值均在 $0, 1$ 之间, 且输出总和为 $1$. 基于这个性质, 我们可以将函数的输出解读为概率, 并用概率的工具和方法处理问题. 
+
+    <br>
+
+神经网络在解决不同类型问题, 如分类问题或回归问题 (预测问题)上时, 需要基于问题类型相应地选择输出层的激活函数. 一般地, 回归问题要用恒等函数, 而分类问题使用 `softmax` 函数. 
 
 <br>
 
-
 ## 5. 三层神经网络的实现
 
+下面我们实现连接结构如下图所示的 $3$ 层神经网络:
 
+![3-layers-neural-network](https://cdn.jsdelivr.net/gh/KirisameMarisaa/KirisameMarisaa.github.io/img/blogpost_images/3-layers-neural-network.jpg)
+
+为了分辨复杂的层间连接, 我们引入下图所示的记号方法: 
+
+![3-layers-neural-network-notations](https://cdn.jsdelivr.net/gh/KirisameMarisaa/KirisameMarisaa.github.io/img/blogpost_images/3-layers-neural-network-notations.jpg)
+
+在本例中, 我们在全部两层中间层处均使用 `softmax` 函数作为激活函数, 在输出层采用恒等函数作为激活函数. 并且为了更好地表示偏置, 我们在每一层都添加了一个用于表示偏置的 **偏置神经元**, 其输入恒为 $1$, 且不和任何其他层连接. 
+
+基于以上的连接结构和记号,  对于中间层的第一层, 我们有: 
+
+<center>
+
+$a_{1}^{(1)} = w_{11}^{(1)}x_1 + w_{12}^{(1)}x_2 + b_1$
+
+</center>
+
+推广到全部的三个加权和, 有:
+
+<center>
+
+$A^{(1)} = (a_{1}^{(1)}, a_{2}^{(1)}, a_{3}^{(1)}), ~~~ X = (x_1, x_2), ~~~ B^{(1)} = (b_{1}^{(1)}, b_{2}^{(1)}, b_{1}^{(3)}) \\ ~~ \\  W^{(1)} = \begin{pmatrix} w^{(1)}_{11}, w^{(1)}_{21}, w^{(1)}_{31} \\ ~ \\ w^{(1)}_{12}, w^{(1)}_{22}, w^{(1)}_{32} \end{pmatrix} \\ ~ \\ A^{(1)} = XW^{(1)} + B^{(1)}$
+
+</center>
+
+
+而被激活函数转换后所得的信号 $Z_1 = \mathbf{Sigmoid}(A^{(1)}).$
+
+我们可以将该实现方式进一步推广至全部层, 这样就实现了三层神经网络的设计. 其 `Python` 实现如下:
+
+```
+from functions import sigmoid, identity_function
+import numpy as np
+
+def init_network():
+    network = {}
+    network['W1'] = np.array([[0.1, 0.3, 0.5], [0.2, 0.4, 0.6]])
+    network['b1'] = np.array([0.1, 0.2, 0.3)
+    network['W2'] = np.array([[0.1, 0.4], [0.2, 0.5], [0.3, 0.6]])
+    network['b2'] = np.array([0.1, 0.2)
+    network['W3'] = np.array([[0.1, 0.3] ], [0.2, 0.4]])
+    network['b3'] = np.array([0.1, 0.2)
+    
+    return network
+
+def forward(network, x):
+    W1, W2, W3 = network['W1'], network['W2'], network['W3']
+    b1, b2, b3 = network['b1'], network['b2'], network['b3']
+
+    a1 = np.dot(x, W1) + b1
+    z1 = sigmoid(a1)
+    a2 = np.dot(z1, W2) + b2
+    z2 = sigmoid(a2)
+    a3 = np.dot(z2, W3) + b3
+    y = identity_function(a3)
+
+    return y
+
+network = init_network()
+x = np.array([1.0, 0.5])
+y = forward(network, x)
+print(y)    #the output should be [0.31682708 0.69627909]
+```
 
 <br>
 
