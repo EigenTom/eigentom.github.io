@@ -23,11 +23,7 @@ tags:
 2. 与每一个输入所对应的权值 (`Weights`)
 3. 激活函数 (`Function`)
 
-
-
-<div class="mxgraph" style="max-width:100%;border:1px solid transparent;" data-mxgraph="{&quot;highlight&quot;:&quot;#0000FF&quot;,&quot;nav&quot;:true,&quot;resize&quot;:true,&quot;toolbar&quot;:&quot;zoom layers lightbox&quot;,&quot;edit&quot;:&quot;_blank&quot;,&quot;xml&quot;:&quot;&lt;mxfile host=\&quot;app.diagrams.net\&quot; modified=\&quot;2021-01-10T06:50:46.769Z\&quot; agent=\&quot;5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Safari/605.1.15\&quot; etag=\&quot;IEvWtRO5AjtvVuHnyxng\&quot; version=\&quot;14.1.9\&quot; type=\&quot;device\&quot;&gt;&lt;diagram id=\&quot;02z9DBB4H2bCFNeVZXgb\&quot; name=\&quot;Page-1\&quot;&gt;7VtLl6I4FP41LKsOSQB1qWXVzCy6T8+pRfes5iBETQ+vDqHE/vWT8CaEKstGsbVcKPkCN7n3+8jjghp68NM/qB1tP4Uu9jSou6mGlhqExtTi3wLY5wBCMAc2lLg5BGrgmfzEBagXaEJcHLdOZGHoMRK1QScMAuywFmZTGu7ap61Dr91qZG9wB3h2bK+LfiUu2+boFE5q/E9MNtuyZWDN8hrfLk8uPIm3thvuGhB61NADDUOWH/npA/ZE7Mq45Nc99dRWHaM4YIdc8NmZen+/JCv8r760vk9QON/9uINFb19sLyk8LnrL9mUIaJgELhZWdA0tdlvC8HNkO6J2xznn2Jb5Hi8BfliYw5ThtLejoHKfywaHPmZ0z08pLkBFwArFgDKAuzr+plFg20bs4aQA7YLzTWW6Dgs/KCLzjigBRZAsjze7iFqhsn4kgs2Fb9MNCTQ057V6lPLvLDJcfQG7ixnFzNnmtUFIfdurTvBIgO9KnxT1mYG17RNvn9fzNm0/yioRMvhvzEi6wQGm4iqpru4gP9oUv5kbwq7Sk7zH2V0pmjMybzpWnnRtttRmc20xLy3yOOdG2w1xOKoxSWicCX5b47dFZsdRfq+vSSqEyb2m4X/4IfRCmplCum49zp8KBxr4OvsInHheAwcrG2A4jH6h1RZwJeiGgKcK/U5PJV/UK19ScrErkThZlZjeIK0BN1DSS2U9ZoC36ZS4WAHXXesqVoE+QTM8DEtAYqkqN1hSjTLGqVgyjmMJ3BRLUDEZnJUl8ziW4G2xNB2ZJes4loKbYgkZI7M06bAErnVNYFzYZDPthD59z9xyEySNPtd092YqknqnltsgaeyppkxUvMFS79RyEyyNPtWAjy38QVt4qE0n42zhR1kSGfqFbdUBVOhUjnHgzkVmk5ccz45j4rRDy32n+29anq7LCv+Iwr1ZFpdps3K5L0p5Q9jtJESlaEKd8ZsDs1fcQOqoNzN4iqiWGMWezchLuxuqUBctfAlJpv20TU651pLJisOEOri4qJkwlewAORGJJEN5GDqGMuIrr39BC6q8zYVp4UI4hmh2bx7Jcidb1zF1ap5VmZ8PnlU8I/3Ye1ne+8qGTs2xKm/0wbGSY3Owe1lh6tQ8qzJP7+U5Jexb47jBMi/VJIvCvsn4Sef8nINXXLcOXBuMqrWO2KwjBxQkLQ4QOPOA0k2e3YrQzN9CaEDSh/xw+lChwVlPwuNcQuumCi9u5rp4McjbTDnPcbAYTGlLMjuzGA54XeRKRx30WwhNnt6OFZo8vcEzC61MvQ8hNP1+NjNaYjOs19XGC18wJdwJTN9QYG7qFQlmJdnagLo8eAD8EOYgwlQlko8dAe91ANvCNKbvVuaQWhpVI8ZQGjHllI5lnVcjUKGRPHlePfj5msUPu/y058Rv5Nb7Hw0xnDIpie6RTSBUxpkWeliIZDhxbG9eVPjEdcXlC4pj8tNeZaaEaCLhexYNc6GZS2ErYWH+lGCo9zjlxUq1CmrICegKPUG9Xzq/lF2H/W/CVWF/Zlg8EXpKAoeRMLhKZpC8pxifmf6336qw/xVECY/MVRJitvgAisdQqoH3dHT0v+YmjWDXyQeQ91kKQqxhCOHF+j8A+QxU/5ECPf4P&lt;/diagram&gt;&lt;/mxfile&gt;&quot;}"></div>
-
-
+![perceptron](https://cdn.jsdelivr.net/gh/KirisameMarisaa/KirisameMarisaa.github.io@master/img/blogpost_images/perceptron.jpg)
 
 我们定义:
 
@@ -146,18 +142,54 @@ def XOR(x1, x2):
 ## 3. 神经网络的定义和层级结构
 感知机可以通过多层叠加表示复杂函数, 适应多种分类问题. 但感知机的权重需要人为设定, 而且不同的权重会影响感知机的分类表现. 神经网络的作用是自动地从数据中 “学习” 并更新到合适的权重参数. 
 
-<div class="mxgraph" style="max-width:100%;border:1px solid transparent;" data-mxgraph="{&quot;highlight&quot;:&quot;#0000FF&quot;,&quot;nav&quot;:true,&quot;resize&quot;:true,&quot;toolbar&quot;:&quot;zoom lightbox&quot;,&quot;edit&quot;:&quot;_blank&quot;,&quot;xml&quot;:&quot;&lt;mxfile host=\&quot;app.diagrams.net\&quot; modified=\&quot;2021-01-10T06:48:39.900Z\&quot; agent=\&quot;5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Safari/605.1.15\&quot; etag=\&quot;hOoH4pZXKsEQ_Rn00lTR\&quot; version=\&quot;14.1.9\&quot; type=\&quot;device\&quot;&gt;&lt;diagram id=\&quot;02z9DBB4H2bCFNeVZXgb\&quot; name=\&quot;Page-1\&quot;&gt;7Vptk5owEP41frwbIPL28U7PtjN9uc596PVTJ0LUtEhsiKfer28iASHgGK3AaevN3JANWZJnH3Y3S3pgMF+/o3Ax+0RCFPUsI1z3wLBnWX3P4f+FYJMKALBSwZTiMBWZO8ETfkVSaEjpEocoKd3ICIkYXpSFAYljFLCSDFJKVuXbJiQqP3UBp6gieApgVJV+wyGbpVLPcnfy9whPZ9mTTcdPe+Ywu1muJJnBkKwKIvDQAwNKCEuv5usBigR2GS7puNGe3nxiFMVMZ8DnwIu+vizH6IcxdH66gNytft/YdqrmBUZLuWI5W7bJIKBkGYdIaDF64H41www9LWAgelfc5lw2Y/OIt0x+OcFRNCARoduxYGKLPy5PGCW/UKHH2f7ECBKzgjz9cbmcGKIMrfcu2cyB5AREZI4Y3fBb5ABPQi+515fN1c6Q+S2zghFzk0FJnmmueYcvv5AQHwE3MA/DzdVwcqPDUMNkkTJ+gtfCPCr2IUTeJKjFPvDQeHIejE2rDHLeLqDcrwG53xjG1vVj7HWNMWgR47EZhhOjDmPTcIGPzoOxZSgY211j3L96jPMo3xnGGuHvwjH2u4bYaRFiw3BHo9GZgPTeWmBzrwXJzsOXr4FkHN6J/QNvBRFMEhyUAeRrp5tnmRRvG99F49bOmsN1sXO4yVprzJ4zHfy6MIq3doNEIxuTTg6Fla2KYgG+ALKkAdLweAzSKWIH39uqTQs2s2tslskoiiDDL+UJ1xlSPuGRYL6UHWXUjMdUuJAuVI4q7npURW5ZkaPoSXGo6NnSKl/16UzLKHwept3yt7LMNqcBtm01PCKK+eIR7ZKCbqcUtPf4/6Mp6O/JLNvioM6m8xAHO/ZaoFMmOIoBwalMUAOhGuGaZoLO1rgBJpwaK8/JoP5lxD3V6XiX6nR0KgRXSjVwGfFN9Wr+iVQDauWk7RxLp1DSJNVueGLm+kduA5pOsrT9XbckVNLzvHpxNAlNhYRuyyTUqSRdqb/LvssdpJrdKdWU5Ms6dUsJ9lXj26KaTkXtSqlm6VKt3ynVlOTLUpMvbar1D7jHpqmmU3K8Uqppe7VO96amGkBPLpQpAbRSfW2aat5/qr1tr6ZSrbKlPJVqrQfQDsv/+rR5647HOVPmXin1q/vQhtmQ4fEvOh7tdKrTzN1Ua1nq3k6baqDbdMquVuI/xIulmOFHuEG0wjuG1qzMtPLZgZjESPl2K0UwwtNY0JWTQtQX7sUXXBzA6E52zHEYisfUfiguH/mTk/6bT8C+XQK+5lCCX8Ofxs7h2VaNIThOcxRiyND120M9JaJ52Kk5g1TLxV+W7LhXQx9iihL8CsdbVQLQhXjht0uy73v2UOhaMpKkh5HNMyFut/UK8ObuVHHqunZHs8HDHw==&lt;/diagram&gt;&lt;/mxfile&gt;&quot;}"></div>
+如下图所示, 神经网络一般有三种分层: 输入层, 中间层 (隐藏层) 和输出层. 神经网络的结构和多层感知机所组成的网络没有区别, 但其本质差异是: 神经网络采用连续函数而非线性分段函数作为激活函数. 
 
+![neural-network-diagram](https://cdn.jsdelivr.net/gh/KirisameMarisaa/KirisameMarisaa.github.io/img/blogpost_images/neural-network-diagram.jpg)
 
 <br>
 
 
 ## 4. 激活函数的定义和常见的激活函数
+在介绍感知机时我们已经了解, 激活函数接收所有的输入信号, 并将输入信号的总和转换为输出信号, 而其核心作用在于决定如何激活输入信号的总和. 
+下面, 我们介绍数个常用的神经网络激活函数:
 
+1. `Sigmoid` 函数<br>
+   `Sigmoid` 函数 $s(x)$:
+
+   <center>
+
+    $s(X) = \frac{1}{1 + \exp^{(-x)}}.$
+
+   </center>
+
+在 `Python` 中, `Sigmoid` 函数实现如下:
+```
+def sigmoid(X):
+    return 1/ (1 + numpy.exp(-x))
+```
+
+
+
+2. `ReLU` 函数<br>
+    `ReLU` 函数 $r(x)$: 
+
+    <center>
+    
+    $r(X) = \begin{cases} x ~~~ (x > 0) \\ 0 ~~~ (x \leqslant 0)\end{cases}$
+
+    </center>
+
+在 `Python` 中, `ReLU` 函数实现如下:
+```
+def relu(X):
+    return numpy.maximum(0, x)
+```
 
 <br>
 
+
 ## 5. 三层神经网络的实现
+
 
 
 <br>
