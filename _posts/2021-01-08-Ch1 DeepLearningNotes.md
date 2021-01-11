@@ -4,7 +4,7 @@ title:      从零开始的深度学习 Ch1
 subtitle:   Perceptron & Neural Network 
 date:       2021-01-08
 author:     R1NG
-header-img: img/post-bg-algorithm.jpg
+header-img: img/post-bg-deeplearning.jpg
 description: 感知机, 神经网络的定义, 实现与扩展
 catalog: true
 tags:

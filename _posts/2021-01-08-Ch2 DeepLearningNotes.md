@@ -4,7 +4,7 @@ title:      从零开始的深度学习 Ch2
 subtitle:   Neural Networks learn by...?
 date:       2021-01-08
 author:     R1NG
-header-img: img/post-bg-algorithm.jpg
+header-img: img/post-bg-deeplearning.jpg
 description: 神经网络的学习-损失函数和梯度下降法
 catalog: true
 tags:

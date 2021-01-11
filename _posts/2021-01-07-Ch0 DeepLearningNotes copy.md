@@ -4,7 +4,7 @@ title:      从零开始的深度学习 Ch0
 subtitle:   Let's dive in!
 date:       2021-01-07
 author:     R1NG
-header-img: img/post-bg-algorithm.jpg
+header-img: img/post-bg-deeplearning.jpg
 description: 行而上学, 不行退学
 catalog: true
 tags:
