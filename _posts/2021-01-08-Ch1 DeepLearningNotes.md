@@ -12,7 +12,7 @@ tags:
     - 2020
 ---
 
-# 从零开始的深度学习: 感知机与神经网络
+# 感知机与神经网络
 ## 1. 感知机的定义
 动物的神经系统中最基础的组成单元为神经元 (神经细胞), 用于接受刺激, 产生兴奋并传导兴奋. 神经元有且只有激活态和非激活态两种状态, 并且只有神经元处于激活态时, 传入的兴奋才会由它传出. 
 
@@ -50,7 +50,7 @@ $f(X) = \begin{cases}
 
 其中, $\theta$ 称为激活函数 $f$ 的 **阈值**. 函数的分段条件可被转为 $X \cdot W^{T} + b ~~~(b = -\theta)$. 称 $b$ 为 **偏置**, 控制该感知机被激活的难易程度, $W$ 为 **权重**. 控制各个变量的重要程度. 
 
-不难看出, 激活函数 $f$ 是一个线性分段函数, 该函数的行为可看作对一个二维平面使用一条直线进行分割. 激活函数的线性性质决定了它无法对二维平面进行较复杂的分割, 这一问题在我们使用感知机处理某些分类问题时会立即凸显, 比如使用感知机实现异或逻辑门. 首先, 我们来看几个简单的例子:
+不难看出, 激活函数 $f$ 是一个线性分段函数, 该函数的行为可看作对一个二维平面使用一条直线进行分割. 激活函数的线性性质决定了它无法对二维平面进行较复杂 (非线性) 的分割, 这一问题在我们使用感知机处理某些分类问题时会立即凸显, 比如使用感知机实现异或逻辑门. 首先, 我们来看几个简单的例子:
 
 [例] 使用感知机实现与, 或, 与非门:
 
@@ -203,12 +203,17 @@ def XOR(x1, x2):
 
     要解决这一问题, 我们对 `softmax` 函数作如下修正:
     
+    <br>
+
     <center>
 
-    $m = \max(a_1, a_2, \cdots, a_n) \\ 
-    ~~ \\ S_1(x) = \frac{\exp(a_k - m)}{\sum_{1}^{n}exp(a_i - m)}$
+    $m = \max(a_1, a_2, \cdots, a_n)$
+    
+    $S_1(x) = \frac{\exp(a_k - m)}{\sum_{1}^{n}exp(a_i - m)}$
 
     </center>
+
+    <br>
 
     这样, 就在不改变运算的结果 (思考一下: 为什么?) 的情况下, 实现了函数的修正. 合理的 `Python` 实现如下:
 
@@ -254,12 +259,19 @@ $a_{1}^{(1)} = w_{11}^{(1)}x_1 + w_{12}^{(1)}x_2 + b_1$
 
 推广到全部的三个加权和, 有:
 
+<br>
+
 <center>
 
-$A^{(1)} = (a_{1}^{(1)}, a_{2}^{(1)}, a_{3}^{(1)}), ~~~ X = (x_1, x_2), ~~~ B^{(1)} = (b_{1}^{(1)}, b_{2}^{(1)}, b_{1}^{(3)}) \\ ~~ \\  W^{(1)} = \begin{pmatrix} w^{(1)}_{11}, w^{(1)}_{21}, w^{(1)}_{31} \\ ~ \\ w^{(1)}_{12}, w^{(1)}_{22}, w^{(1)}_{32} \end{pmatrix} \\ ~ \\ A^{(1)} = XW^{(1)} + B^{(1)}$
+$A^{(1)} = (a_{1}^{(1)}, a_{2}^{(1)}, a_{3}^{(1)}), ~~~ X = (x_1, x_2), ~~~ B^{(1)} = (b_{1}^{(1)}, b_{2}^{(1)}, b_{1}^{(3)})$
+
+$W^{(1)} = \begin{pmatrix} w^{(1)}_{11}, w^{(1)}_{21}, w^{(1)}_{31} \\ ~ \\ w^{(1)}_{12}, w^{(1)}_{22}, w^{(1)}_{32} \end{pmatrix}$ 
+
+$A^{(1)} = XW^{(1)} + B^{(1)}$
 
 </center>
 
+<br>
 
 而被激活函数转换后所得的信号 $Z_1 = \mathbf{Sigmoid}(A^{(1)}).$
 
@@ -303,3 +315,59 @@ print(y)    #the output should be [0.31682708 0.69627909]
 
 ## 6. 神经网络的输出
 
+我们使用 `MNIST` 手写数字图像数据集, 以一个识别手写数字的三层神经网络为例简介神经网络的输出. 
+
+`MNIST` 的图像数据为 $28$px * $28$px 的灰度图像. 依照图片所包含的像素数量和我们需要识别的数字种类, 确定神经网络的输入层有 $784$ 个神经元, 输出层有 $10$ 个神经元. 其隐藏层又由 $50$ 个神经元构成的第一隐藏层和 $100$ 个神经元构成的第二隐藏层组成. 在原书提供的源代码中, 提供了现成的 `MNIST` 数据集抓取和转换函数, 而神经网络的权值保存在 `sample_weight.pkl` 这个 `Pickel` 文件中, 在定义神经网络时被直接读取. 
+
+```
+import sys, os
+sys.path.append(os.pardir)  # 为了导入父目录的文件而进行的设定
+import numpy as np
+import pickle
+from dataset.mnist import load_mnist
+from common.functions import sigmoid, softmax
+
+
+def get_data():
+    (x_train, t_train), (x_test, t_test) = load_mnist(normalize=True, flatten=True, one_hot_label=False)
+    return x_test, t_test
+
+
+def init_network():
+    with open("sample_weight.pkl", 'rb') as f:
+        network = pickle.load(f)
+    return network
+
+
+def predict(network, x):
+    W1, W2, W3 = network['W1'], network['W2'], network['W3']
+    b1, b2, b3 = network['b1'], network['b2'], network['b3']
+
+    a1 = np.dot(x, W1) + b1
+    z1 = sigmoid(a1)
+    a2 = np.dot(z1, W2) + b2
+    z2 = sigmoid(a2)
+    a3 = np.dot(z2, W3) + b3
+    y = softmax(a3)
+
+    return y
+
+
+x, t = get_data()
+network = init_network()
+accuracy_cnt = 0
+for i in range(len(x)):
+    y = predict(network, x[i])
+    p= np.argmax(y) # 获取概率最高的元素的索引
+    if p == t[i]:
+        accuracy_cnt += 1
+
+print("Accuracy:" + str(float(accuracy_cnt) / len(x)))
+```
+
+在执行上述代码后, 可见 `Console` 输出: 
+```
+Accuracy:0.9352
+```
+
+可见这个处理 `MNIST` 数据集的神经网络已经成功运行, 并具有 $93.52\%$ 的识别精度. 
