@@ -368,13 +368,11 @@ print("Accuracy:" + str(float(accuracy_cnt) / len(x)))
 在执行上述代码后, 可见 `Console` 输出: 
 
 {% highlight python %}
-```
+
 Accuracy:0.9352
-```
+
 {% endhighlight %}
 
-$$
-\LaTeX
-$$
+$$\LaTeX$$
 
 可见这个处理 `MNIST` 数据集的神经网络已经成功运行, 并具有 $93.52\%$ 的识别精度. 
