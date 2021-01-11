@@ -128,13 +128,14 @@ $\mathbf{XOR}(x_1, x_2) = \mathbf{AND} (\mathbf{NAND}(x_1, x_2), \mathbf{OR}(x_1
 </center>
 
 使用之前定义的与门, 或门和与非门就可以这样实现异或门:
-    {% highlight python %}
-    def XOR(x1, x2):
-        s1 = NAND(x1, x2)
-        s2 = OR(x1, x2)
-        y = AND(s1, s2)
-        return y
-    {% endhighlight %}
+
+{% highlight python %}
+def XOR(x1, x2):
+    s1 = NAND(x1, x2)
+    s2 = OR(x1, x2)
+    y = AND(s1, s2)
+    return y
+{% endhighlight %}
 
 形如异或门这样, 叠加了多层的感知机称为 **多层感知机** (`Multi-layered Perceptron`). 在我们的例子中, 异或门由两级含有权重的层和一级输出层组成. 通过叠加层, 感知机可以进行更为灵活的数据分类和表示. 
 
@@ -164,13 +165,15 @@ $\mathbf{XOR}(x_1, x_2) = \mathbf{AND} (\mathbf{NAND}(x_1, x_2), \mathbf{OR}(x_1
    </center>
 
     在 `Python` 中, `Sigmoid` 函数实现如下:
-        {% highlight python %}
-        import numpy as np
 
-        def sigmoid(X):
-            return 1/ (1 + np.exp(-x))
-        {% endhighlight %}
-    <br>
+    {% highlight python %}
+    import numpy as np
+
+    def sigmoid(X):
+        return 1/ (1 + np.exp(-x))
+    {% endhighlight %}
+
+<br>
 
 2. `ReLU` 函数<br>
     `ReLU` 函数 $r(x)$: 
@@ -182,14 +185,15 @@ $\mathbf{XOR}(x_1, x_2) = \mathbf{AND} (\mathbf{NAND}(x_1, x_2), \mathbf{OR}(x_1
     </center>
 
     在 `Python` 中, `ReLU` 函数实现如下:
-        {% highlight python %}
-        import numpy as np
 
-        def relu(X):
-            return np.maximum(0, x)
-        {% endhighlight %}
+    {% highlight python %}
+    import numpy as np
 
-    <br>
+    def relu(X):
+        return np.maximum(0, x)
+    {% endhighlight %}
+
+<br>
 
 3. `softmax` 函数<br>
    `softmax` 函数 $s(x)$:
@@ -217,22 +221,24 @@ $\mathbf{XOR}(x_1, x_2) = \mathbf{AND} (\mathbf{NAND}(x_1, x_2), \mathbf{OR}(x_1
     <br>
 
     这样, 就在不改变运算的结果 (思考一下: 为什么?) 的情况下, 实现了函数的修正. 合理的 `Python` 实现如下:
+    
+    
+    {% highlight python %}
+    import numpy as np
 
-        {% highlight python %}
-        import numpy as np
+    def softmax(a):
+        c = np.max(a)
+        exp_a = np.exp(a - c)
+        sum_exp_a = np.sum(exp_a)
+        y = exp_a / sum_exp_a
 
-        def softmax(a):
-            c = np.max(a)
-            exp_a = np.exp(a - c)
-            sum_exp_a = np.sum(exp_a)
-            y = exp_a / sum_exp_a
-
-            return y
-        {% endhighlight %}
-
+        return y
+    {% endhighlight %}
+    
+    
     `softmax` 函数的一个有趣的特性是, 对任何输入值, 其函数值均在 $0, 1$ 之间, 且输出总和为 $1$. 基于这个性质, 我们可以将函数的输出解读为概率, 并用概率的工具和方法处理问题. 
 
-    <br>
+<br>
 
 神经网络在解决不同类型问题, 如分类问题或回归问题 (预测问题)上时, 需要基于问题类型相应地选择输出层的激活函数. 一般地, 回归问题要用恒等函数, 而分类问题使用 `softmax` 函数. 
 
@@ -278,39 +284,39 @@ $A^{(1)} = XW^{(1)} + B^{(1)}$
 
 我们可以将该实现方式进一步推广至全部层, 这样就实现了三层神经网络的设计. 其 `Python` 实现如下:
 
-    {% highlight python %}
-    from functions import sigmoid, identity_function
-    import numpy as np
+{% highlight python %}
+from functions import sigmoid, identity_function
+import numpy as np
 
-    def init_network():
-        network = {}
-        network['W1'] = np.array([[0.1, 0.3, 0.5], [0.2, 0.4, 0.6]])
-        network['b1'] = np.array([0.1, 0.2, 0.3)
-        network['W2'] = np.array([[0.1, 0.4], [0.2, 0.5], [0.3, 0.6]])
-        network['b2'] = np.array([0.1, 0.2)
-        network['W3'] = np.array([[0.1, 0.3] ], [0.2, 0.4]])
-        network['b3'] = np.array([0.1, 0.2)
-        
-        return network
+def init_network():
+    network = {}
+    network['W1'] = np.array([[0.1, 0.3, 0.5], [0.2, 0.4, 0.6]])
+    network['b1'] = np.array([0.1, 0.2, 0.3)
+    network['W2'] = np.array([[0.1, 0.4], [0.2, 0.5], [0.3, 0.6]])
+    network['b2'] = np.array([0.1, 0.2)
+    network['W3'] = np.array([[0.1, 0.3] ], [0.2, 0.4]])
+    network['b3'] = np.array([0.1, 0.2)
+    
+    return network
 
-    def forward(network, x):
-        W1, W2, W3 = network['W1'], network['W2'], network['W3']
-        b1, b2, b3 = network['b1'], network['b2'], network['b3']
+def forward(network, x):
+    W1, W2, W3 = network['W1'], network['W2'], network['W3']
+    b1, b2, b3 = network['b1'], network['b2'], network['b3']
 
-        a1 = np.dot(x, W1) + b1
-        z1 = sigmoid(a1)
-        a2 = np.dot(z1, W2) + b2
-        z2 = sigmoid(a2)
-        a3 = np.dot(z2, W3) + b3
-        y = identity_function(a3)
+    a1 = np.dot(x, W1) + b1
+    z1 = sigmoid(a1)
+    a2 = np.dot(z1, W2) + b2
+    z2 = sigmoid(a2)
+    a3 = np.dot(z2, W3) + b3
+    y = identity_function(a3)
 
-        return y
+    return y
 
-    network = init_network()
-    x = np.array([1.0, 0.5])
-    y = forward(network, x)
-    print(y)    #the output should be [0.31682708 0.69627909]
-    {% endhighlight %}
+network = init_network()
+x = np.array([1.0, 0.5])
+y = forward(network, x)
+print(y)    #the output should be [0.31682708 0.69627909]
+{% endhighlight %}
 
 <br>
 
@@ -320,59 +326,59 @@ $A^{(1)} = XW^{(1)} + B^{(1)}$
 
 `MNIST` 的图像数据为 $28$px * $28$px 的灰度图像. 依照图片所包含的像素数量和我们需要识别的数字种类, 确定神经网络的输入层有 $784$ 个神经元, 输出层有 $10$ 个神经元. 其隐藏层又由 $50$ 个神经元构成的第一隐藏层和 $100$ 个神经元构成的第二隐藏层组成. 在原书提供的源代码中, 提供了现成的 `MNIST` 数据集抓取和转换函数, 而神经网络的权值保存在 `sample_weight.pkl` 这个 `Pickel` 文件中, 在定义神经网络时被直接读取. 
 
-    {% highlight python %}
-    import sys, os
-    sys.path.append(os.pardir)  # 为了导入父目录的文件而进行的设定
-    import numpy as np
-    import pickle
-    from dataset.mnist import load_mnist
-    from common.functions import sigmoid, softmax
+{% highlight python %}
+import sys, os
+sys.path.append(os.pardir)  # 为了导入父目录的文件而进行的设定
+import numpy as np
+import pickle
+from dataset.mnist import load_mnist
+from common.functions import sigmoid, softmax
 
 
-    def get_data():
-        (x_train, t_train), (x_test, t_test) = load_mnist(normalize=True, flatten=True, one_hot_label=False)
-        return x_test, t_test
+def get_data():
+    (x_train, t_train), (x_test, t_test) = load_mnist(normalize=True, flatten=True, one_hot_label=False)
+    return x_test, t_test
 
 
-    def init_network():
-        with open("sample_weight.pkl", 'rb') as f:
-            network = pickle.load(f)
-        return network
+def init_network():
+    with open("sample_weight.pkl", 'rb') as f:
+        network = pickle.load(f)
+    return network
 
 
-    def predict(network, x):
-        W1, W2, W3 = network['W1'], network['W2'], network['W3']
-        b1, b2, b3 = network['b1'], network['b2'], network['b3']
+def predict(network, x):
+    W1, W2, W3 = network['W1'], network['W2'], network['W3']
+    b1, b2, b3 = network['b1'], network['b2'], network['b3']
 
-        a1 = np.dot(x, W1) + b1
-        z1 = sigmoid(a1)
-        a2 = np.dot(z1, W2) + b2
-        z2 = sigmoid(a2)
-        a3 = np.dot(z2, W3) + b3
-        y = softmax(a3)
+    a1 = np.dot(x, W1) + b1
+    z1 = sigmoid(a1)
+    a2 = np.dot(z1, W2) + b2
+    z2 = sigmoid(a2)
+    a3 = np.dot(z2, W3) + b3
+    y = softmax(a3)
 
-        return y
+    return y
 
 
-    x, t = get_data()
-    network = init_network()
-    accuracy_cnt = 0
-    for i in range(len(x)):
-        y = predict(network, x[i])
-        p= np.argmax(y) # 获取概率最高的元素的索引
-        if p == t[i]:
-            accuracy_cnt += 1
+x, t = get_data()
+network = init_network()
+accuracy_cnt = 0
+for i in range(len(x)):
+    y = predict(network, x[i])
+    p= np.argmax(y) # 获取概率最高的元素的索引
+    if p == t[i]:
+        accuracy_cnt += 1
 
-    print("Accuracy:" + str(float(accuracy_cnt) / len(x)))
-    {% endhighlight %}
+print("Accuracy:" + str(float(accuracy_cnt) / len(x)))
+{% endhighlight %}
 
 在执行上述代码后, 可见 `Console` 输出: 
 
-    {% highlight python %}
+{% highlight python %}
 
-    Accuracy:0.9352
+Accuracy:0.9352
 
-    {% endhighlight %}
+{% endhighlight %}
 
 $$\frac{1}{\exp}$$
 
