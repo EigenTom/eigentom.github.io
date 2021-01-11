@@ -166,7 +166,6 @@ def XOR(x1, x2):
 
     $$r(X) = \begin{cases} x ~~~ (x > 0) \\ 0 ~~~ (x \leqslant 0)\end{cases}$$
 
-
     在 `Python` 中, `ReLU` 函数实现如下:
 
     {% highlight python %}
@@ -176,7 +175,7 @@ def XOR(x1, x2):
         return np.maximum(0, x)
     {% endhighlight %}
 
-    <br>
+<br>
 
 3. `softmax` 函数<br>
    `softmax` 函数 $s(x)$:
@@ -197,7 +196,7 @@ def XOR(x1, x2):
 
     这样, 就在不改变运算的结果 (思考一下: 为什么?) 的情况下, 实现了函数的修正. 合理的 `Python` 实现如下:
      
-    {% highlight python %}
+    ~~~python
     import numpy as np
 
     def softmax(a):
@@ -208,6 +207,7 @@ def XOR(x1, x2):
 
         return y
     {% endhighlight %}
+    ~~~
     
     `softmax` 函数的一个有趣的特性是, 对任何输入值, 其函数值均在 $0, 1$ 之间, 且输出总和为 $1$. 基于这个性质, 我们可以将函数的输出解读为概率, 并用概率的工具和方法处理问题. 
 
