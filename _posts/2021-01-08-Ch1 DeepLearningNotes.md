@@ -27,26 +27,14 @@ tags:
 
 我们定义:
 
-<center>
-
-
-$X = (1, x_1, \cdots, x_n),~~ W = (w_0, w_1, \cdots, w_n).$
-
-
-</center>
+$$X = (1, x_1, \cdots, x_n),~~ W = (w_0, w_1, \cdots, w_n).$$
 
 其中, $X$ 为激活函数的输入, $W$ 为权值. 则激活函数形为:
 
-<center>
-
-
-$f(X) = \begin{cases}
+$$f(X) = \begin{cases}
       0 ~~~~~~ X \cdot W^T \leqslant \theta \\ 
       1 ~~~~~~ X \cdot W^T > \theta
-\end{cases}$
-
-
-</center>
+\end{cases}$$
 
 其中, $\theta$ 称为激活函数 $f$ 的 **阈值**. 函数的分段条件可被转为 $X \cdot W^{T} + b ~~~(b = -\theta)$. 称 $b$ 为 **偏置**, 控制该感知机被激活的难易程度, $W$ 为 **权重**. 控制各个变量的重要程度. 
 
@@ -64,40 +52,42 @@ $f(X) = \begin{cases}
 |$0$|$0$|$0$|$0$|$1$|
 
 
-    {% highlight python %}
-    import numpy as np
+{% highlight python %}
+```
+import numpy as np
 
 
-    def AND(x1, x2):
-        x = np.array([x1, x2])
-        w = np.array([0.5, 0.5])
-        b = -0.7
-        tmp = np.sum(w*x) + b
-        if tmp <= 0:
-            return 0
-        else:
-            return 1
+def AND(x1, x2):
+    x = np.array([x1, x2])
+    w = np.array([0.5, 0.5])
+    b = -0.7
+    tmp = np.sum(w*x) + b
+    if tmp <= 0:
+        return 0
+    else:
+        return 1
 
-    def OR(x1, x2):
-        x = np.array([x1, x2])
-        w = np.array([0.5, 0.5])
-        b = -0.2
-        tmp = np.sum(w*x) + b
-        if tmp <= 0:
-            return 0
-        else:
-            return 1
+def OR(x1, x2):
+    x = np.array([x1, x2])
+    w = np.array([0.5, 0.5])
+    b = -0.2
+    tmp = np.sum(w*x) + b
+    if tmp <= 0:
+        return 0
+    else:
+        return 1
 
-    def NAND(x1, x2):
-        x = np.array([x1, x2])
-        w = np.array([-0.5, -0.5])
-        b = 0.7
-        tmp = np.sum(w*x) + b
-        if tmp <= 0:
-            return 0
-        else:
-            return 1
-    {% endhighlight %}
+def NAND(x1, x2):
+    x = np.array([x1, x2])
+    w = np.array([-0.5, -0.5])
+    b = 0.7
+    tmp = np.sum(w*x) + b
+    if tmp <= 0:
+        return 0
+    else:
+        return 1
+```
+{% endhighlight %}
 
 将与门, 或门, 与非门的两个输入 $x_1, x_2$ 视为平面直角坐标系的两轴, 将平面上的点视为所定义的逻辑门函数的两个输入, 可以看出: 对于上述的三种逻辑门电路而言, 其输入-输出分别将平面划分为了两个部分, 且这样的划分是线性的. 
 
@@ -158,11 +148,7 @@ def XOR(x1, x2):
 1. `Sigmoid` 函数<br>
    `Sigmoid` 函数 $S(x)$:
 
-   <center>
-
-    $S(X) = \frac{1}{1 + \exp^{(-x)}}.$
-
-   </center>
+    $$S(X) = \frac{1}{1 + \exp^{(-x)}}.$$
 
     在 `Python` 中, `Sigmoid` 函数实现如下:
 
@@ -173,16 +159,13 @@ def XOR(x1, x2):
         return 1/ (1 + np.exp(-x))
     {% endhighlight %}
 
-<br>
+    <br>
 
 2. `ReLU` 函数<br>
     `ReLU` 函数 $r(x)$: 
 
-    <center>
-    
-    $r(X) = \begin{cases} x ~~~ (x > 0) \\ 0 ~~~ (x \leqslant 0)\end{cases}$
+    $$r(X) = \begin{cases} x ~~~ (x > 0) \\ 0 ~~~ (x \leqslant 0)\end{cases}$$
 
-    </center>
 
     在 `Python` 中, `ReLU` 函数实现如下:
 
@@ -193,36 +176,27 @@ def XOR(x1, x2):
         return np.maximum(0, x)
     {% endhighlight %}
 
-<br>
+    <br>
 
 3. `softmax` 函数<br>
    `softmax` 函数 $s(x)$:
 
-   <center>
+   $$S(x) = \frac{\exp(a_k)}{\sum_{1}^{n}exp(a_i)}$$
 
-    $S(x) = \frac{\exp(a_k)}{\sum_{1}^{n}exp(a_i)}$
-
-   </center>
-    
     需要注意的是, `softmax` 函数的实现中涉及指数函数计算, 而在指数函数值过大时可能会溢出为 `inf`. 若分子和分母均溢出的话, 就无法正常地进行除法运算. 
 
     要解决这一问题, 我们对 `softmax` 函数作如下修正:
     
     <br>
 
-    <center>
-
-    $m = \max(a_1, a_2, \cdots, a_n)$
+    $$m = \max(a_1, a_2, \cdots, a_n)$$
     
-    $S_1(x) = \frac{\exp(a_k - m)}{\sum_{1}^{n}exp(a_i - m)}$
-
-    </center>
+    $$S_1(x) = \frac{\exp(a_k - m)}{\sum_{1}^{n}exp(a_i - m)}$$
 
     <br>
 
     这样, 就在不改变运算的结果 (思考一下: 为什么?) 的情况下, 实现了函数的修正. 合理的 `Python` 实现如下:
-    
-    
+     
     {% highlight python %}
     import numpy as np
 
@@ -234,7 +208,6 @@ def XOR(x1, x2):
 
         return y
     {% endhighlight %}
-    
     
     `softmax` 函数的一个有趣的特性是, 对任何输入值, 其函数值均在 $0, 1$ 之间, 且输出总和为 $1$. 基于这个性质, 我们可以将函数的输出解读为概率, 并用概率的工具和方法处理问题. 
 
@@ -258,25 +231,17 @@ def XOR(x1, x2):
 
 基于以上的连接结构和记号,  对于中间层的第一层, 我们有: 
 
-<center>
-
-$a_{1}^{(1)} = w_{11}^{(1)}x_1 + w_{12}^{(1)}x_2 + b_1$
-
-</center>
+$$a_{1}^{(1)} = w_{11}^{(1)}x_1 + w_{12}^{(1)}x_2 + b_1$$
 
 推广到全部的三个加权和, 有:
 
 <br>
 
-<center>
+$$A^{(1)} = (a_{1}^{(1)}, a_{2}^{(1)}, a_{3}^{(1)}), ~~~ X = (x_1, x_2), ~~~ B^{(1)} = (b_{1}^{(1)}, b_{2}^{(1)}, b_{1}^{(3)})$$
 
-$A^{(1)} = (a_{1}^{(1)}, a_{2}^{(1)}, a_{3}^{(1)}), ~~~ X = (x_1, x_2), ~~~ B^{(1)} = (b_{1}^{(1)}, b_{2}^{(1)}, b_{1}^{(3)})$
+$$W^{(1)} = \begin{pmatrix} w^{(1)}_{11}, w^{(1)}_{21}, w^{(1)}_{31} \\ ~ \\ w^{(1)}_{12}, w^{(1)}_{22}, w^{(1)}_{32} \end{pmatrix}$$
 
-$W^{(1)} = \begin{pmatrix} w^{(1)}_{11}, w^{(1)}_{21}, w^{(1)}_{31} \\ ~ \\ w^{(1)}_{12}, w^{(1)}_{22}, w^{(1)}_{32} \end{pmatrix}$ 
-
-$A^{(1)} = XW^{(1)} + B^{(1)}$
-
-</center>
+$$A^{(1)} = XW^{(1)} + B^{(1)}$$
 
 <br>
 
@@ -375,9 +340,7 @@ print("Accuracy:" + str(float(accuracy_cnt) / len(x)))
 在执行上述代码后, 可见 `Console` 输出: 
 
 {% highlight python %}
-
 Accuracy:0.9352
-
 {% endhighlight %}
 
 $$\frac{1}{\exp}$$
