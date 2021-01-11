@@ -53,7 +53,6 @@ $$f(X) = \begin{cases}
 
 
 ~~~python
-
 import numpy as np
 
 
@@ -86,7 +85,6 @@ def NAND(x1, x2):
         return 0
     else:
         return 1
-
 ~~~
 
 将与门, 或门, 与非门的两个输入 $x_1, x_2$ 视为平面直角坐标系的两轴, 将平面上的点视为所定义的逻辑门函数的两个输入, 可以看出: 对于上述的三种逻辑门电路而言, 其输入-输出分别将平面划分为了两个部分, 且这样的划分是线性的. 
@@ -341,6 +339,5 @@ print("Accuracy:" + str(float(accuracy_cnt) / len(x)))
 Accuracy:0.9352
 ~~~
 
-$$\frac{1}{\exp}$$
 
 可见这个处理 `MNIST` 数据集的神经网络已经成功运行, 并具有 $93.52\%$ 的识别精度. 
