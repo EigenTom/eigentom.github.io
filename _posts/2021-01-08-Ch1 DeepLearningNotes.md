@@ -52,8 +52,8 @@ $$f(X) = \begin{cases}
 |$0$|$0$|$0$|$0$|$1$|
 
 
-{% highlight python %}
-```
+~~~python
+
 import numpy as np
 
 
@@ -86,8 +86,8 @@ def NAND(x1, x2):
         return 0
     else:
         return 1
-```
-{% endhighlight %}
+
+~~~
 
 将与门, 或门, 与非门的两个输入 $x_1, x_2$ 视为平面直角坐标系的两轴, 将平面上的点视为所定义的逻辑门函数的两个输入, 可以看出: 对于上述的三种逻辑门电路而言, 其输入-输出分别将平面划分为了两个部分, 且这样的划分是线性的. 
 
@@ -119,13 +119,13 @@ $\mathbf{XOR}(x_1, x_2) = \mathbf{AND} (\mathbf{NAND}(x_1, x_2), \mathbf{OR}(x_1
 
 使用之前定义的与门, 或门和与非门就可以这样实现异或门:
 
-{% highlight python %}
+~~~python
 def XOR(x1, x2):
     s1 = NAND(x1, x2)
     s2 = OR(x1, x2)
     y = AND(s1, s2)
     return y
-{% endhighlight %}
+~~~
 
 形如异或门这样, 叠加了多层的感知机称为 **多层感知机** (`Multi-layered Perceptron`). 在我们的例子中, 异或门由两级含有权重的层和一级输出层组成. 通过叠加层, 感知机可以进行更为灵活的数据分类和表示. 
 
@@ -152,12 +152,12 @@ def XOR(x1, x2):
 
     在 `Python` 中, `Sigmoid` 函数实现如下:
 
-    {% highlight python %}
+    ~~~python
     import numpy as np
 
     def sigmoid(X):
         return 1/ (1 + np.exp(-x))
-    {% endhighlight %}
+    ~~~
 
     <br>
 
@@ -168,12 +168,12 @@ def XOR(x1, x2):
 
     在 `Python` 中, `ReLU` 函数实现如下:
 
-    {% highlight python %}
+    ~~~python
     import numpy as np
 
     def relu(X):
         return np.maximum(0, x)
-    {% endhighlight %}
+    ~~~
 
 <br>
 
@@ -207,8 +207,7 @@ def XOR(x1, x2):
 
         return y
     ~~~
-    
-    `softmax` 函数的一个有趣的特性是, 对任何输入值, 其函数值均在 $0, 1$ 之间, 且输出总和为 $1$. 基于这个性质, 我们可以将函数的输出解读为概率, 并用概率的工具和方法处理问题. 
+   `softmax` 函数的一个有趣的特性是, 对任何输入值, 其函数值均在 $0, 1$ 之间, 且输出总和为 $1$. 基于这个性质, 我们可以将函数的输出解读为概率, 并用概率的工具和方法处理问题. 
 
 <br>
 
@@ -248,7 +247,7 @@ $$A^{(1)} = XW^{(1)} + B^{(1)}$$
 
 我们可以将该实现方式进一步推广至全部层, 这样就实现了三层神经网络的设计. 其 `Python` 实现如下:
 
-{% highlight python %}
+~~~python
 from functions import sigmoid, identity_function
 import numpy as np
 
@@ -280,7 +279,7 @@ network = init_network()
 x = np.array([1.0, 0.5])
 y = forward(network, x)
 print(y)    #the output should be [0.31682708 0.69627909]
-{% endhighlight %}
+~~~
 
 <br>
 
@@ -290,7 +289,7 @@ print(y)    #the output should be [0.31682708 0.69627909]
 
 `MNIST` 的图像数据为 $28$px * $28$px 的灰度图像. 依照图片所包含的像素数量和我们需要识别的数字种类, 确定神经网络的输入层有 $784$ 个神经元, 输出层有 $10$ 个神经元. 其隐藏层又由 $50$ 个神经元构成的第一隐藏层和 $100$ 个神经元构成的第二隐藏层组成. 在原书提供的源代码中, 提供了现成的 `MNIST` 数据集抓取和转换函数, 而神经网络的权值保存在 `sample_weight.pkl` 这个 `Pickel` 文件中, 在定义神经网络时被直接读取. 
 
-{% highlight python %}
+~~~python
 import sys, os
 sys.path.append(os.pardir)  # 为了导入父目录的文件而进行的设定
 import numpy as np
@@ -334,13 +333,13 @@ for i in range(len(x)):
         accuracy_cnt += 1
 
 print("Accuracy:" + str(float(accuracy_cnt) / len(x)))
-{% endhighlight %}
+~~~
 
 在执行上述代码后, 可见 `Console` 输出: 
 
-{% highlight python %}
+~~~python
 Accuracy:0.9352
-{% endhighlight %}
+~~~
 
 $$\frac{1}{\exp}$$
 
