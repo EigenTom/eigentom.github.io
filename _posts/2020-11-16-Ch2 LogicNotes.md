@@ -72,110 +72,107 @@ tags:
 - `Axiom`: 公理规则<br>
 命题 $A$ 总可以从 $A$ 以及其他一组命题 $\Gamma$ 中被引出:
 
-<center>
 
-$\frac{}{\Gamma, A \vdash A}$
-</center>
+$$\frac{}{\Gamma, A \vdash A}$$
 
 <br>
 
 - `Weakening`: 假设引入规则<br>
 可随时按照推演需要引入一个假设前提:
 
-<center>
 
-$\frac{\Gamma \vdash B}{\Gamma, A \vdash B}$
-</center>
+$$\frac{\Gamma \vdash B}{\Gamma, A \vdash B}$$
+
 
 <br>
 
  - `Conjunction Elimination`: 合取消除规则<br>
   若 $A\wedge B$ 可从一组命题中被引出, 则 $A, B$ 均可从中被引出:
-  <center>
+  
 
-$\frac{\Gamma \vdash A \wedge B}{\Gamma \vdash A} ~~~ \frac{\Gamma \vdash A \wedge B}{\Gamma \vdash B}$
-</center>
+$$\frac{\Gamma \vdash A \wedge B}{\Gamma \vdash A} ~~~ \frac{\Gamma \vdash A \wedge B}{\Gamma \vdash B}$$
+
 
 <br>
 
 - `Conjunction Introduction`: 合取引入规则<br>
 若 $A, B$ 可从一组命题中被引出, 则 $A\wedge B$ 均可从中被引出:
-<center>
 
-$\frac{\Gamma \vdash A ~~~ \Gamma \vdash B}{\Gamma \vdash A \wedge B}$
-</center>
+
+$$\frac{\Gamma \vdash A ~~~ \Gamma \vdash B}{\Gamma \vdash A \wedge B}$$
+
 
 <br>
 
 - `Disjunction Elimination`: 析取消除规则<br>
 若 $A\wedge B$ 可从一组命题 $\Gamma$ 中被引出, 并且 $C$ 不仅可以从 $\Gamma, A$ 中, 还可从 $\Gamma, B$ 中引出, 则 $C$ 可从 $\Gamma$ 中被引出:
-<center>
 
-$\frac{\Gamma \vdash A \wedge B ~~~ \Gamma, A \vdash C ~~~ \Gamma, B \vdash C}{\Gamma \vdash C}$
-</center>
+
+$$\frac{\Gamma \vdash A \wedge B ~~~ \Gamma, A \vdash C ~~~ \Gamma, B \vdash C}{\Gamma \vdash C}$$
+
 
 <br>
 
 - `Disjunction Introduction`: 合取引入规则<br>
 若 $A$ 可从一组命题 $\Gamma$ 中被引出, 则 $A\vee B, B \vee A$ 均可从中被引出:
-<center>
 
-$\frac{\Gamma \vdash A}{\Gamma \vdash A \vee B} ~~~ \frac{\Gamma \vdash A}{\Gamma \vdash B \vee A}$
-</center>
+
+$$\frac{\Gamma \vdash A}{\Gamma \vdash A \vee B} ~~~ \frac{\Gamma \vdash A}{\Gamma \vdash B \vee A}$$
+
 
 <br>
 
 - `Implication Elimination`: 蕴含消除规则<br>
 若 $A$ 可从一组命题 $\Gamma$ 中被引出, 并且 $A \rightarrow B$ 也可以从 $\Gamma$ 中被引出, 则 $B$ 可从 $\Gamma$ 中被引出:
-<center>
 
-$\frac{\Gamma \vdash A ~~~ \Gamma\vdash A \rightarrow B}{\Gamma \vdash B}$
-</center>
+
+$$\frac{\Gamma \vdash A ~~~ \Gamma\vdash A \rightarrow B}{\Gamma \vdash B}$$
+
 
 <br>
 
 - `Implication Introduction`: 蕴含引入规则<br>
 若 $B$ 可从一组命题 $\Gamma$ 和 $A$ 中被引出, 则 $A\rightarrow B$ 可从中被引出:
-<center>
 
-$\frac{\Gamma, A \vdash B}{\Gamma \vdash A \rightarrow B}$
-</center>
+
+$$\frac{\Gamma, A \vdash B}{\Gamma \vdash A \rightarrow B}$$
+
 
 <br>
 
 - `Negation Elimination`: 否定消除规则<br>
 若 $A$ 以及一组命题 $\Gamma$ 可引出矛盾 $\perp$, 则 $\neg A$ 可从 $\Gamma$ 中被引出:
-<center>
 
-$\frac{\Gamma, A \vdash \perp}{\Gamma \vdash \neg A}$
-</center>
+
+$$\frac{\Gamma, A \vdash \perp}{\Gamma \vdash \neg A}$$
+
 
 <br>
 
 - `Negation Introduction`: 否定引入规则<br>
 若 $A, \neg A$ 可从一组命题 $\Gamma$ 中被引出, 则可以从 $\Gamma$ 中引出任何命题, 包括 $\perp$. 
-<center>
 
-$\frac{\Gamma \vdash A ~~~ \Gamma \vdash \neg A}{\Gamma \vdash anything}$
-</center>
+
+$$\frac{\Gamma \vdash A ~~~ \Gamma \vdash \neg A}{\Gamma \vdash anything}$$
+
 
 <br>
 
 - `Double Negation Elimination`: 双否定消除规则<br>
 若 $\neg \neg A$ 可从一组命题 $\Gamma$ 中引出, 则 $A$ 可从 $\Gamma$ 中被引出:
-<center>
 
-$\frac{\Gamma \vdash \neg \neg A}{\Gamma \vdash A}$
-</center>
+
+$$\frac{\Gamma \vdash \neg \neg A}{\Gamma \vdash A}$$
+
 
 <br>
 
 - `Double Negation Introduction`: 双否定引入规则<br>
 若 $A$ 可从一组命题 $\Gamma$ 中被引出, 则可以从 $\Gamma$ 中引出 $\neg \neg A$:
-<center>
 
-$\frac{\Gamma \vdash A}{\Gamma \vdash \neg \neg A}$
-</center>
+
+$$\frac{\Gamma \vdash A}{\Gamma \vdash \neg \neg A}$$
+
 
 <br>
 

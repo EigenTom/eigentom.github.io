@@ -136,11 +136,10 @@ $A \vee (B \wedge R) \equiv (A \vee B)\wedge(A \vee R)$|分配律|
 平行于语义学替换定理, 我们还定义了命题变量的等价代换. 和替换定理不同的是, 等价代换定理的作用域非常有限, 仅仅涉及某个特定的命题变量, 只代换那一个特定的命题变量, 而对即使完全相同的其他命题变量也不予考虑. 
 
 在下面的叙述中, 我们规定: 
-<center>
 
-$C(\cdots A \cdots)$
 
-</center>
+$$C(\cdots A \cdots)$$
+
 
 指一个谓词公式, 而 $A$ 为它的一个子式. 
 
@@ -184,7 +183,7 @@ $C(\cdots A \cdots)$
 
 
 
-
+<br>
 
 ### 1.5 其他语义系统中的语义学等价
 
@@ -201,11 +200,9 @@ $C(\cdots A \cdots)$
 逻辑表达式有多种等价的表达形式, 而不同的表达形式种由于含有不同数量的联结词, 括号关系和子式, 其复杂程度也有所不同. 在构造逻辑电路和研究抽象的逻辑关系时, 我们需要对逻辑表达式进行简化, 从而降低工作的规模和难度. 对逻辑表达式在逻辑层面上进行简化的过程就是寻找和计算范式 (`Normal Form`) 的过程.  
 
 一种最简单的逻辑表达式简化方法是基于结合律, 除去表达式內多余的括号:
-<center>
 
-$P_1\wedge (P_2 \wedge (\cdots \wedge P_n)\cdots) \Rightarrow P_1\wedge P_2 \wedge \cdots \wedge P_n.$
 
-</center>
+$$P_1\wedge (P_2 \wedge (\cdots \wedge P_n)\cdots) \Rightarrow P_1\wedge P_2 \wedge \cdots \wedge P_n.$$
 
 下面, 我们介绍两种更为复杂的范式生成法: 合取范式生成和析取范式生成. 
 
