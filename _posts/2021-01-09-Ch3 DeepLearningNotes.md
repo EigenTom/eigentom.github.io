@@ -215,6 +215,7 @@ class SoftmaxWithLoss:
     def backward(self, dout=1):
         batch_size = self.t.shape[0]
         if self.t.size == self.y.size: # 监督数据是one-hot-vector的情况
+
             dx = (self.y - self.t) / batch_size
         else:
             dx = self.y.copy()
@@ -260,6 +261,7 @@ class TwoLayerNet:
         return x
         
     # x:输入数据, t:监督数据
+
     def loss(self, x, t):
         y = self.predict(x)
         return self.lastLayer.forward(y, t)
@@ -273,6 +275,7 @@ class TwoLayerNet:
         return accuracy
         
     # x:输入数据, t:监督数据
+
     def numerical_gradient(self, x, t):
         loss_W = lambda W: self.loss(x, t)
         
@@ -286,9 +289,11 @@ class TwoLayerNet:
         
     def gradient(self, x, t):
         # forward
+
         self.loss(x, t)
 
         # backward
+
         dout = 1
         dout = self.lastLayer.backward(dout)
         
@@ -298,6 +303,7 @@ class TwoLayerNet:
             dout = layer.backward(dout)
 
         # 设定
+
         grads = {}
         grads['W1'], grads['b1'] = self.layers['Affine1'].dW, self.layers['Affine1'].db
         grads['W2'], grads['b2'] = self.layers['Affine2'].dW, self.layers['Affine2'].db
@@ -310,6 +316,7 @@ class TwoLayerNet:
 使用误差反向传播法的学习实现如下:
 ~~~python
 # 读入数据
+
 (x_train, t_train), (x_test, t_test) = load_mnist(normalize=True, one_hot_label=True)
 
 network = TwoLayerNet(input_size=784, hidden_size=50, output_size=10)
@@ -331,11 +338,14 @@ for i in range(iters_num):
     t_batch = t_train[batch_mask]
     
     # 梯度
+
     #grad = network.numerical_gradient(x_batch, t_batch)
     # 此处使用误差反向传播法计算梯度
+    
     grad = network.gradient(x_batch, t_batch)
     
     # 更新
+
     for key in ('W1', 'b1', 'W2', 'b2'):
         network.params[key] -= learning_rate * grad[key]
     
