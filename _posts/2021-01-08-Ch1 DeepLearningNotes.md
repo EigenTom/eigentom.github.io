@@ -290,6 +290,7 @@ print(y)    #the output should be [0.31682708 0.69627909]
 ~~~python
 import sys, os
 sys.path.append(os.pardir)  # 为了导入父目录的文件而进行的设定
+
 import numpy as np
 import pickle
 from dataset.mnist import load_mnist
@@ -327,6 +328,7 @@ accuracy_cnt = 0
 for i in range(len(x)):
     y = predict(network, x[i])
     p= np.argmax(y) # 获取概率最高的元素的索引
+    
     if p == t[i]:
         accuracy_cnt += 1
 
