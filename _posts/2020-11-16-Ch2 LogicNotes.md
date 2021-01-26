@@ -209,7 +209,7 @@ $$\frac{\Gamma \vdash A}{\Gamma \vdash \neg \neg A}$$
 **定义 3.4 谓词**
 >相当于自然语法中句子的谓语, 指代个体的性质或多个个体之间的某种关系. 用于指代 $n$ 元关系的谓词称为 **$n$ 元谓词**. 
 
-<Br>
+<br>
 
 **定义 3.5 量词**
 >用于修饰主词的两种特殊定语: 表示 "所有" 和 “存在”的词语. 
@@ -220,16 +220,16 @@ $$\frac{\Gamma \vdash A}{\Gamma \vdash \neg \neg A}$$
 
 1. 符号表<br>
 符号表包含非逻辑符号和逻辑符号:<br>
-
      逻辑符号:<br>
+
 - 个体常元 `Constant`:<br>
 用于固定地表示某个 **特定个体** 的标示符. 
 - 函数符号 `function`:<br>
 用于表示函数的符号. 
 - 谓词符号:<br>
 用于表示关系和性质, 必须至少有一个.
-
      非逻辑符号:<br>
+
 - 个体变元 `Variables`:<br>
 表示某个个体域内 **任何个体** 的符号, 无限多
 - 量词:<br>
@@ -316,7 +316,3 @@ $$\frac{\Gamma \vdash A}{\Gamma \vdash \neg \neg A}$$
 >     <center>$A \equiv B$</center>
 > 则
 >     <center>$C(\cdots A \cdots) \equiv C(\cdots B \cdots)$</center>
-
-
-
-
