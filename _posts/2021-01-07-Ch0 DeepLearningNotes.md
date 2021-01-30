@@ -50,9 +50,8 @@ tags:
 ### 2. 动量方法 `Momentum`
 ### 3. 自适应梯度法 `AdaGrad`
 ### 4. `Adam` 算法
-### 5. 批标准化 `Batch Normalization`
+### 5. 批量归一化 `Batch Normalization`
 ### 6. 抑制过拟合: 正则化
-### 7. 超参数的最优化
 
 <br>
 
