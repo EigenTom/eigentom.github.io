@@ -9,7 +9,7 @@ description: 神经网络优化算法技巧
 catalog: true
 tags:
     - 扩展自习
-    - 2020
+    - 2021
 ---
 
 # 神经网络优化算法技巧

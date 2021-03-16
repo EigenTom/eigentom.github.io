@@ -9,7 +9,7 @@ description: 卷积神经网络
 catalog: true
 tags:
     - 扩展自习
-    - 2020
+    - 2021
 ---
 
 
