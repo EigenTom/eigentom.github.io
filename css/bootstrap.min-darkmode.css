@@ -45,7 +45,7 @@ abbr[title] {
 }
 
 b, strong {
-    font-weight:700
+    font-weight:700;
     color:rgba(0, 105, 189, 1);
 }
 
@@ -83,7 +83,7 @@ sub {
 }
 
 img {
-    border:0
+    border:0;
     background: white;
 }
 
