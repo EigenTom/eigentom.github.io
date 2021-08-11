@@ -9,6 +9,7 @@ description: 神经网络的学习-误差反向传播法
 catalog: true
 tags:
     - 扩展自习
+    - 机器学习
     - 2021
 ---
 
