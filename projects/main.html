@@ -9,6 +9,7 @@
 				background-color: #333;
 				user-select: none;
             	-webkit-user-select: none;
+			
 			}
 			footer{
 				align-items: center;
@@ -25,12 +26,18 @@
 			.navigator{
 				position: fixed;
 				top:0;
+				background-color: linear-gradient(to-bottom, black, rgba(0, 0, 0, 0));
 				width:100%;
 				height: 56px;
-				background-color: rgb(0, 68, 107, 0.8);
 				z-index:999;
 				color: white;
+				transition: .2s ease;
+				
 			}
+			.navigator.active{
+				background-color: rgb(0, 68, 107, 0.9);
+			}
+
 			ul{
 				margin: 0;
 				padding: 0;
@@ -111,7 +118,7 @@
 
 			.divider{
 				width:100%; 
-				height:50vh; 
+				height:400px; 
 				display: flex;
 				align-items: center;
 				overflow: hidden;
@@ -143,7 +150,7 @@
 			</ul>
 		</div>
 
-		<div class="divider" style="height: 550px; background-image: url('/img/post-bg-ioses.jpg')" id="jailbreak">
+		<div class="divider" style="height: 550px; background-image: url('/img/post-bg-ioses.jpg');" id="project">
 			<p class="divider-inline" >
 				<span style="font-size:80px;">Projects</span><br>
 			</p>
@@ -176,7 +183,7 @@
 			 
 		</div>
 		
-		<div class="divider" style="background-image: url('/img/post-bg-comp12111.jpg')" id="jailbreak">
+		<div class="divider" style="background-image: url('/img/post-bg-comp12111.jpg'); height:400px; line-height:400px;" id="jailbreak">
 			<p class="divider-inline" onclick="self.location.href='./jailbreak/jailbreak.html'">
 				<span>Jailbreak Restore for iOS 9.2-9.3.3</span><br>
 			</p>
@@ -208,6 +215,9 @@
 		<script>
 			// declare an object (NodeList) containing every DOM element which class == 'panel'
 			const panels=document.querySelectorAll('.panel')
+			const nav = document.querySelector('.navigator')
+
+			window.addEventListener('scroll', handleScroll)
 			// add event listeners to each element
 			panels.forEach(panel => {
 				// first reset every element's className to 'panel'
@@ -224,6 +234,18 @@
 					panel.classList.remove('active')
 				})
 			}
+			
+			// handle the switching of the nav bar
+			// and the effect of the main bg
+			function handleScroll() {
+				// handle nav bar
+				if (window.scrollY > nav.offsetHeight + 150) {
+					nav.classList.add('active') 
+				} else {
+					nav.classList.remove('active')
+				}
+			}
+
 		</script>
 	</body>
 		
