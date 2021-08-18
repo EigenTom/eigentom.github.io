@@ -5,85 +5,106 @@
         <style>
             .counter
             {
-                width: 320px;
-                height: 480px;
+                width: 75vw;
+                height: 85vh;
                 background-color: #333;
                 border: 1px solid #000000;
                 margin: 50px auto;
                 border-radius: 6px;
+
             }
 
-            #box
+            #num_box
             {
-                height: 70px;
-                width: 280px;
+                height: 15vh;
+                width: 69vw;
                 background-color: #0068bd;
                 border: none;
-                margin: 15px 25px 32px 10px;
+                margin: 2vw 12vw 2vh 2vw;
                 font: 700 40px/70px "Arial";
                 color: #fff;
-                padding-right: 20px;
                 border-radius: 6px;
+                padding-right: 2vw;
+                
             }
 
-            .keys-bg
+            .keys_box
             {
+                height: 60vh;
+                width: 71vw;
                 background-color: rgb(117, 117, 117);
-                padding: 10px 10px;
                 position: relative;
-                left: 10px;
-                right: 2px;
-                top: -20px;
-                height: 310px;
-                width: 280px;
-
+                left: 2vw;
+                right: 2vw;
+                top: 0vw;
+                
                 border-radius: 6px;
             }
             
-            .fun-keys button
+            .fun-keys
             {
-                height: 25px;
-                width: 55px;
+                display: grid;
+                text-align: center;
+                grid-template-columns: 12vh 12vh 12vh 12vh;
+                position:absolute;
+                margin: auto;
+                left:1.5vh;
+                right:1.5vh
+            }
+
+            .fun-keys button{
+                height: 5vh;
+                width: 10vh;
                 color: #fff;
                 background-color: rgb(94, 94, 94);
-                margin: 5px 5px;
+                margin: 2vh 2vh 2vh 2vh;
                 font: 200 20px "Arial";
                 border-width: 0px;
                 border-radius: 6px;
                 text-align: center;
                 vertical-align: middle;
+                transition: ease-out 0.2s;
             }
-
-            .fun-keys button:hover
-            {
+            .fun-keys button:hover{
                 background-color: #0068bd;
             }
+            .fun-keys button:active{
+                transform:scale(0.95,0.95); 
+            }
+
+            .operation-keys
+            {
+                text-align: center;
+            }
+
+            
 
             .num-keys
             {
+                display: grid;
+                grid-template-columns: 12vh 12vh 12vh 12vh;
+                grid-template-rows: 12vh 12vh 12vh 12vh;
                 
-                padding: 0px 0px;
-                position: relative;
-                left: 0px;
-                right: 0px;
-                top: 0px;
-                height: 360px;
-                width: 210px;
-
+                top: 8vh;
+                text-align: center;
                 border-radius: 6px;
+                left:2.5vw;
+                position:absolute;
+                margin: auto;
             }
+
             
+
             .num-keys button
             {
-                height: 55px;
-                width: 55px;
+                height: 10vh;
+                width: 10vh;
                 color: #fff;
                 background-color: #333;
-                margin: 5px 5px;
+                margin: 5px 5px 5px 5px;
                 font: 900 30px "Arial";
                 border-width: 0px;
                 border-radius: 6px;
-                text-align: center;
             }
 
             .num-keys button:hover
@@ -91,21 +112,32 @@
                 background-color: rgb(94, 94, 94);
             }
 
-            .equal-key button
+            button.null-key{
+                display:inline-block;
+                height: 10vh;
+                width: 10vh;
+                margin: 5px 5px 5px 5px;
+                color: transparent;    
+                background-color: transparent;  
+            }
+            button.null-key:hover{
+                color: transparent;    
+                background-color: transparent;  
+            }
+
+            button.equal-key
             {
-                height: 55px;
-                width: 125px;
+                height: 10vh;
+                width: 22vh;
                 color: #fff;
                 
                 background-color: #0068bd;
-                margin: 5px 5px;
+                margin: 5px 5px 5px 5px;
                 font: 900 30px "Arial";
                 border-width: 0px;
                 border-radius: 6px;
                 text-align: center;
-                position: relative;
-                top: -165px;
-                left: 70px;
+                display:inline-block
             }
 
             .equal-key button:hover
@@ -114,30 +146,20 @@
             }
 
 
-            .more-fun-keys
+            button.more-fun-keys
             {
-                position: relative;
-                left: 208px;
-                top: -425px;
-                height: 200px;
-                width: 80px;
-
-                border-radius: 6px;
-            }
-
-            .more-fun-keys button
-            {
-                height: 55px;
-                width: 55px;
+                height: 10vh;
+                width: 10vh;
                 color: #fff;
                 background-color: rgba(0, 105, 189, 0.45);
                 background-color: #0068bd;
-                margin: 5px 5px;
+                margin: 5px 5px 5px 5px;
                 font: 200 20px "Arial";
                 border-width: 0px;
                 border-radius: 6px;
-                text-align: center;
+                
                 vertical-align: middle;
+                
             }
 
             .more-fun-keys button:hover
@@ -151,44 +173,69 @@
 </head>
 <body>
     <div class="counter">
-        <input type="text" id="box" style="text-align:right" readonly="true" value="114514">
-        <div class="keys-bg">
+        <input type="text" id="num_box" style="text-align:right" readonly="true" value="">
+        <div class="keys_box">
 
             <div class="fun-keys">
-                <button class="fn-keys">π</button>
-                <button class="fn-keys">e</button>
-                <button class="fn-keys">DEL</button>
-                <button class="fn-keys">AC</button>
+                <button class="fn-keys.pi" id="pi" onclick=handleCalculation(this.id) value="3.14">π</button>
+                <button class="fn-keys.exp" id="exp" onclick=handleCalculation(this.id) value="2.71">e</button>
+                <button class="fn-keys.del" id="-2" onclick=handleCalculation(this.id)>DEL</button>
+                <button class="fn-keys.ac" id="-3" onclick=handleCalculation(this.id)>AC</button>
             </div>
+            
+            <div class="operation-keys">
 
-            <div class="num-keys">
-                <button class="num-keys">1</button>
-                <button class="num-keys">2</button>
-                <button class="num-keys">3</button>
-                <button class="num-keys">4</button>
-                <button class="num-keys">5</button>
-                <button class="num-keys">6</button>
-                <button class="num-keys">7</button>
-                <button class="num-keys">8</button>
-                <button class="num-keys">9</button>
-                <button class="num-keys">0</button>
+                <div class="num-keys">
+                    <button class="num-keys-1" id="1" onclick=handleCalculation(this.id) value="1">1</button>
+                    <button class="num-keys-2" id="2" onclick=handleCalculation(this.id) value="2">2</button>
+                    <button class="num-keys-3" id="3" onclick=handleCalculation(this.id) value="3">3</button>
+                    <button class="more-fun-keys" id="add" onclick=handleCalculation(this.id) value="+">+</button>
+                    <button class="num-keys-4" id="4" onclick=handleCalculation(this.id) value="4">4</button>
+                    <button class="num-keys-5" id="5" onclick=handleCalculation(this.id) value="5">5</button>
+                    <button class="num-keys-6" id="6" onclick=handleCalculation(this.id) value="6">6</button>
+                    <button class="more-fun-keys" id="sub" onclick=handleCalculation(this.id) value="-">-</button>
+                    <button class="num-keys-7" id="7" onclick=handleCalculation(this.id) value="7">7</button>
+                    <button class="num-keys-8" id="8" onclick=handleCalculation(this.id) value="8">8</button>
+                    <button class="num-keys-9" id="9" onclick=handleCalculation(this.id) value="9">9</button>
+                    <button class="more-fun-keys" id="mul" onclick=handleCalculation(this.id) value="*">×</button>
+                    <button class="num-keys-0" id="0" onclick=handleCalculation(this.id) value="0">0</button>
+                    <button class="equal-key" id="-1" onclick=handleCalculation(this.id) value="=">=</button>
+                    <button class="null-key"></button>
+                    <button class="more-fun-keys" id="div" onclick=handleCalculation(this.id) value="/">÷</button>
+                </div>
 
-            </div>
-
-            <div class="equal-key">
-                <button class="equal-key">=</button>
-            </div>
-
-            <div class="more-fun-keys">
-                <button class="more-fn-keys">√</button>
-                <button class="more-fn-keys">sin</button>
-                <button class="more-fn-keys">cos</button>
-                <button class="more-fn-keys">tan</button>
-                
             </div>
 
         </div>
 
     </div>
+    <script>
+        let text = "";
+        
+        function handleCalculation(num){
+            
+            if (num != "-1" || num != "-2" || num != "-3"){    
+                if (document.getElementById(num).value != "="){
+                    text += document.getElementById(num).value;
+                }
+            }
+            
+            if (num == "-1"){
+                console.log(eval(text))
+                text = eval(text);   
+            }
+            if (num == "-2"){
+                text = text.substring(0, text.length-1);
+            }
+            if (num == "-3"){
+                text = "";
+            }
+            document.getElementById("num_box").value = text;   
+            
+        }
+        
+        
+
+    </script>
 </body>
 </html>

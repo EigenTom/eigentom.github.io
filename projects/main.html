@@ -1,32 +1,198 @@
 <html>
 	<head>
 		<title>Projects</title>
+		<style>
+			body{
+				font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+				height: 100vh;
+				margin: 0;
+				background-color: rgb(65, 65, 65);
+				user-select: none;
+            	-webkit-user-select: none;
+			}
+
+			.navigator{
+				position: fixed;
+				top:0;
+				width:100%;
+				height: 80px;
+				background-color: rgb(49, 78, 143);
+				z-index:999;
+				color: white;
+			}
+			ul{
+				
+				margin: 0;
+				padding: 0;
+			}
+			li{
+				list-style-type: none;
+				display: inline;
+				float: left;
+				font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+				font-size: 24px;
+				font-weight: 800;
+				padding-left: 30px;
+				padding-right: 30px;
+				line-height: 80px;
+				
+			}
+			li:hover{
+				color: white;
+				opacity: 80%;
+			}
+			.container{
+            display: flex;
+            width: 90vw;
+			left: 5vw;
+            position: relative;
+			margin-top: 150px;
+			margin-bottom: 50px;
+        	}
+
+			.panel{
+				background-size: cover;
+				background-position: center;
+				background-repeat: no-repeat;
+				background-color: rgba(0, 0, 0, .5);
+				background-blend-mode: multiply;
+				height: 80vh;    
+				color: #fff;
+				cursor: pointer;
+				flex: 0.5;
+				margin: 5px;
+				position: relative;
+				transition: all .4s ease;
+				overflow: hidden;
+			}
+			.panel.active {
+				flex:4;
+				background-color: rgba(0, 0, 0, 0);
+				color: rgb(49, 78, 143);
+			}
+
+			.panel h3 {
+				font-size: 24px;
+				font-weight: 400;
+				position: absolute;
+				bottom: 20px;
+				left: 20px;
+				margin: 0;
+				opacity: 60%;
+				user-select: none;
+            	-webkit-user-select: none;
+			}
+			.panel.active h3 {
+				font-size:30px;
+				font-weight: 900;
+				opacity: 1;
+				transition: all 0.2s ;
+			}
+
+			.motto{
+				position: absolute;
+				top: -75px;
+				left: 5px;
+				
+				font-size: 30px;
+				cursor: pointer;
+				color: white;
+			}
+
+			.divider{
+				width:100%; 
+				height:50vh; 
+				display: flex;
+				align-items: center;
+				overflow: hidden;
+				background-color: rgb(255, 255, 255);    
+				justify-content: center;
+				background-size: cover;
+				background-position: center;
+				background-repeat: no-repeat;
+			}
+			.divider-inline{
+				font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+				color: white;
+				font: 900 60px 'Helvetica Neue';
+				width: 100%;
+				text-align: center;
+				padding:20px;
+				cursor: pointer;
+				user-select: none;
+            	-webkit-user-select: none;
+			}
+
+		</style>
 	</head>
 	<body>
+		<div id="nav" class="navigator">
+			<ul>
+				<li>RANDOM LINEAR SPACE</li>
+				<li style="float: right; list-style-type: none; text-decoration: none;" onclick="self.location.href='https://kirisamemarisaa.github.io'">HOME</li>
+			</ul>
+		</div>
+
+		<div class="container">
+			<h3 class="motto" onclick="self.location.href='https://thwiki.cc/官方游戏#.E5.BC.B9.E5.B9.95.E5.B0.84.E5.87.BB.E7.B1.BB.E6.B8.B8.E6.88.8F'">
+				Touhou PC-98 Games
+			</h3> 
+			<div class="panel active" style="background-image: url('https://upload.thwiki.cc/a/a9/东方灵异传封面.jpg');" onclick="self.location.href='th1e.html'">
+				<h3>Touhou 1 Touhou-Reiiden</h3>
+			</div>   
+	
+			<div class="panel" style="background-image: url('https://upload.thwiki.cc/f/f5/东方封魔录封面.jpg');" onclick="self.location.href='th2e.html'">
+				<h3>Touhou 2 Touhou-Fuumaroku</h3>
+			</div>   
+	
+			<div class="panel" style="background-image: url('https://upload.thwiki.cc/2/2e/东方梦时空封面.jpg');" onclick="self.location.href='th3e.html'">
+				<h3>Touhou 3 Touhou-Yumejikuu</h3>
+			</div>  
+
+			<div class="panel" style="background-image: url('https://upload.thwiki.cc/1/1a/东方幻想乡封面.jpg');" onclick="self.location.href='th4e.html'">
+				<h3>Touhou 4 Touhou-Gensokyou</h3>
+			</div>   
+	
+			<div class="panel" style="background-image: url('https://upload.thwiki.cc/b/b5/东方怪绮谈封面.jpg');" onclick="self.location.href='th5e.html'">
+				<h3> Touhou 5 Touhou-Kaikidan</h3>
+			</div>   
+
+			 
+		</div>
 		
-		<h1>0. Touhou PC-98 Games</h1>
-		<h2>DOSBox-X on Emscripten</h2>
-		<p>		
-			<br>Demos now all use fixed cycles=12000. If you feel the CPU usage is too low, push F9+Shift+"+" to speed up. <br />
-			
+		<div class="divider" style="background-image: url('/img/post-bg-comp12111.jpg')" id="jailbreak">
+			<p class="divider-inline" onclick="self.location.href='./jailbreak/jailbreak.html'">
+				<span>Jailbreak Restore for iOS 9.2-9.3.3</span><br>
+			</p>
+		</div>
 
-			<br>Emtepretified builds<br />
-			<a href="th1e.html">Demo 0: Touhou 1 Touhou-Reiiden</a><br />
-			<a href="th2e.html">Demo 1: Touhou 2 Touhou-Fuumaroku</a><br />
-			<a href="th4e.html">Demo 2: Touhou 4 Touhou-Gensokyou</a><br />
-			<a href="th5e.html">Demo 3: Touhou 5 Touhou-Kaikidan</a><br />
-			<a href="th3e.html">Demo 4: Touhou 3 Touhou-Yumejikuu</a><br />
+		<div class="divider">
+			<p class="divider-inline" style="color:rgb(65, 65, 65)">
+				<span>50 Projects 50 Days</span><br>
+			</p>
+		</div>
 
 
-			
-			</div>
+		<script>
+			// declare an object (NodeList) containing every DOM element which class == 'panel'
+			const panels=document.querySelectorAll('.panel')
+			// add event listeners to each element
+			panels.forEach(panel => {
+				// first reset every element's className to 'panel'
+				// then append 'active' type to its class if it is clicked
+				panel.addEventListener('mouseenter', () => {
+					removeActiveClasses()
+					panel.classList.add('active')
+				})
+			})
 
-			based on yksoft1's github.io page
-		</p>
-		
-		<h1>1. Jailbreak Restore for iOS 9.2-9.3.3</h1>
-		<a href="./jailbreak/jailbreak.html">Jailbreak Me!</a>
-		
+			// reset every element's className to 'panel'
+			function removeActiveClasses() {
+				panels.forEach(panel => {
+					panel.classList.remove('active')
+				})
+			}
+		</script>
 	</body>
 		
 </html>
