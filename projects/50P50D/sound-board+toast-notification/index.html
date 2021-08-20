@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sound Board</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        body{
+            margin: 0;
+            position: relative;
+            user-select: none;
+            -webkit-user-select: none;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+        }
+
+        #header{
+            position: fixed;
+            top: 0;
+            background-color: wheat;
+            width:100%;
+            height: 56px;
+            z-index:999;
+            color: brown;
+			transition: .2s ease;
+            
+        }
+
+        #header ul{
+				margin: 0;
+				padding: 0;
+		}
+
+        #header li{
+            list-style: none;
+            display: inline;
+            float: left;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-size: 18px;
+            font-weight: 800;
+            padding-left: 20px;
+            padding-right: 20px;
+            line-height: 60px;
+            transition: .2s ease;
+        }
+
+        #header li:hover{
+            color: red;    
+        }
+
+        #bg {
+            position: absolute;
+            left: 0;
+            top: 0;
+            background-image: linear-gradient(45deg, brown, wheat);
+            height: 100vh;
+            width: 100vw;
+            margin: 0;
+           z-index: -1;
+        }
+        
+        #title{
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-size: rem;
+            color: cornsilk;
+        }
+
+        #container {
+            margin-top: 100px;
+            width: 310px;
+            height: 310px;
+            background-color: wheat;
+            border-radius: 3px;
+            padding: 5px
+        }
+
+        .btn {
+            text-transform:uppercase;
+            width: 290px;
+            height: 40px;
+            background-color: brown;
+            border: none;
+            border-radius: 3px;
+            margin: 5px;
+            font-size: 24px;
+            color: white;
+            transition: .3s ease;
+        }
+
+        .btn:active{
+            transform:scale(0.98);
+        }
+
+        .toast{
+            position: fixed;
+            bottom: 5px;
+            right: -100vw;
+            background-color: #fff;
+            border-radius: 3px;
+            padding: 1rem 2rem;
+            margin: 0.5rem;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            color: brown;
+            font-size: 24px;
+            transition: .4s ease;         
+        }
+
+    </style>
+</head>
+<body>
+    <header id="header">
+        <ul>
+            <li>SoundBoard</li>
+            <li style="float: right;">About</li>
+        </ul>
+    </header>
+    <div id="bg"></div>
+    <div id="container">
+        <audio id="applause" src="sounds/applause.mp3"></audio>
+        <audio id="boo" src="sounds/boo.mp3"></audio>
+        <audio id="gasp" src="sounds/gasp.mp3"></audio>
+        <audio id="tada" src="sounds/tada.mp3"></audio>
+        <audio id="victory" src="sounds/victory.mp3"></audio>
+        <audio id="wrong" src="sounds/wrong.mp3"></audio>
+
+        <div id="btns"></div>
+
+        <div id="toasts">
+
+        </div>
+
+    </div>
+
+    <script>
+        const sounds = ['applause', 'boo', 'gasp', 'tada', 'victory', 'wrong'];
+
+        // iterate to create several btns which are assigned
+        // to each kind of sound
+        sounds.forEach(sound => {
+            const btn = document.createElement('button');
+            btn.classList.add('btn');
+            btn.innerText = sound;
+            
+            // assign click event to music playing
+            btn.addEventListener('click', () => {
+                createToast(sound);
+                stopPlaying();
+                document.getElementById(sound).play();
+            })
+            document.getElementById('btns').appendChild(btn);
+        })
+
+        function stopPlaying() {
+            sounds.forEach(sound => {
+                const song = document.getElementById(sound);
+                song.pause();
+                song.currentTime = 0;
+            })
+        }
+
+        // handle the creation of toasts
+        function createToast(message) {
+            const root=document.getElementById('toasts');
+            const notif= document.createElement('div');
+            notif.className = 'toast'
+            notif.innerText = `Now Playing: ${message}`;
+            root.appendChild(notif)
+            setTimeout(() => {
+                notif.style.right = '5px';
+            }, 1)
+
+            setTimeout(() => {
+                notif.style.right = '-50vw';
+                notif.innerText = '';    
+            }, 2200)
+            
+            setTimeout(() => {
+                notif.remove();
+            }, 4200)
+        }
+
+    </script>
+
+</body>
+</html>
