@@ -3,61 +3,66 @@
 <head>
     <meta charset="UTF-8">
         <style>
+            * {
+                box-sizing: border-box;
+            }
             .counter
             {
-                width: 75vw;
-                height: 85vh;
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 400px;
+                height: 480px;
                 background-color: #333;
                 border: 1px solid #000000;
                 margin: 50px auto;
-                border-radius: 6px;
-
+                border-radius: 16px;
             }
 
             #num_box
             {
-                height: 15vh;
-                width: 69vw;
+                position: absolute;
+                height: 100px;
+                width: 360px;
+                left: 20px;
+                top: 20px;
                 background-color: #0068bd;
                 border: none;
-                margin: 2vw 12vw 2vh 2vw;
                 font: 700 40px/70px "Arial";
                 color: #fff;
                 border-radius: 6px;
-                padding-right: 2vw;
+                padding-right: 20px;
                 
             }
 
             .keys_box
             {
-                height: 60vh;
-                width: 71vw;
+                position: absolute;
+                margin-top: 140px;
+                height: 320px;
+                width: 360px;
                 background-color: rgb(117, 117, 117);
-                position: relative;
-                left: 2vw;
-                right: 2vw;
-                top: 0vw;
-                
+                top: 0;
                 border-radius: 6px;
             }
             
             .fun-keys
             {
-                display: grid;
-                text-align: center;
-                grid-template-columns: 12vh 12vh 12vh 12vh;
-                position:absolute;
-                margin: auto;
-                left:1.5vh;
-                right:1.5vh
+                display: flex;
+                justify-content: center;
+                position: relative;
+                margin: 0;
             }
 
             .fun-keys button{
-                height: 5vh;
-                width: 10vh;
+                height: 35px;
+                width: 76px;
                 color: #fff;
                 background-color: rgb(94, 94, 94);
-                margin: 2vh 2vh 2vh 2vh;
+                margin-top: 12px;
+                margin-left: 6px;
+                margin-right: 6px;
                 font: 200 20px "Arial";
                 border-width: 0px;
                 border-radius: 6px;
@@ -78,27 +83,23 @@
             }
 
             
-
             .num-keys
             {
                 display: grid;
-                grid-template-columns: 12vh 12vh 12vh 12vh;
-                grid-template-rows: 12vh 12vh 12vh 12vh;
-                
-                top: 8vh;
+                grid-template-columns: 88px 88px 88px 88px;
+                grid-template-rows: 60px 60px 60px 60px;
+                top: 60px;
                 text-align: center;
                 border-radius: 6px;
-                left:2.5vw;
+                left:6px;
                 position:absolute;
                 margin: auto;
             }
 
-            
-
             .num-keys button
             {
-                height: 10vh;
-                width: 10vh;
+                height: 55px;
+                width: 76px;
                 color: #fff;
                 background-color: #333;
                 margin: 5px 5px 5px 5px;
@@ -114,8 +115,8 @@
 
             button.null-key{
                 display:inline-block;
-                height: 10vh;
-                width: 10vh;
+                height: 55px;
+                width: 76px;
                 margin: 5px 5px 5px 5px;
                 color: transparent;    
                 background-color: transparent;  
@@ -127,12 +128,14 @@
 
             button.equal-key
             {
-                height: 10vh;
-                width: 22vh;
+                position: absolute;
+                height: 55px;
+                width: 165px;
                 color: #fff;
-                
+                left:99px;
+                bottom: 20px;
                 background-color: #0068bd;
-                margin: 5px 5px 5px 5px;
+                
                 font: 900 30px "Arial";
                 border-width: 0px;
                 border-radius: 6px;
@@ -148,8 +151,8 @@
 
             button.more-fun-keys
             {
-                height: 10vh;
-                width: 10vh;
+                height: 55px;
+                width: 76px;
                 color: #fff;
                 background-color: rgba(0, 105, 189, 0.45);
                 background-color: #0068bd;
@@ -172,8 +175,9 @@
     <title>Yet Another Calculator</title>
 </head>
 <body>
-    <div class="counter">
+    <div class="counter" draggable="true">
         <input type="text" id="num_box" style="text-align:right" readonly="true" value="">
+        
         <div class="keys_box">
 
             <div class="fun-keys">
@@ -199,11 +203,11 @@
                     <button class="num-keys-9" id="9" onclick=handleCalculation(this.id) value="9">9</button>
                     <button class="more-fun-keys" id="mul" onclick=handleCalculation(this.id) value="*">×</button>
                     <button class="num-keys-0" id="0" onclick=handleCalculation(this.id) value="0">0</button>
-                    <button class="equal-key" id="-1" onclick=handleCalculation(this.id) value="=">=</button>
+                    <button class="null-key"></button>
                     <button class="null-key"></button>
                     <button class="more-fun-keys" id="div" onclick=handleCalculation(this.id) value="/">÷</button>
                 </div>
-
+                <button class="equal-key" id="-1" onclick=handleCalculation(this.id) value="=">=</button>
             </div>
 
         </div>
