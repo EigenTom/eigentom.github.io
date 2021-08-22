@@ -3,7 +3,7 @@
 }
 
 :root{
-    --theme-main-color: #660099;
+    --theme-main-color: #401a57;
     --theme-aux-color: #FFCC33;
     --theme-grey-color: #999999;
 }
@@ -27,8 +27,8 @@ body {
     z-index: 100;
     background-color: var(--theme-main-color);
     transition: .2s;
+    box-shadow: 0px 0px 10px #888888;
 }
-
 .navigator ul {
     margin: 0;
     padding: 0;
@@ -45,15 +45,13 @@ body {
     line-height: 60px;
 }
 .navigator.hidden{
-    background-color: var(--theme-grey-color);
+    background-color: #2b123a;
 }
-
 .navigator-search{
     float:right;
     height: 60px;
     
 }
-
 .navigator-search .search-input{
     background-color: transparent;
     border: 0;
@@ -62,8 +60,9 @@ body {
     padding-right: 40px;
     height: 40px;
     width: 50px;
-    transition: width .3s ease;
-    border-radius: 3px;
+    transition:  0.3s ease;
+    border-radius: 5px;
+    margin-top: 8px;
 }
 .navigator-search .search-btn{
     border: none;
@@ -76,24 +75,20 @@ body {
     margin-right: 12px;
     margin-top: -2px;
 }
-
-
 .navigator-search.active .search-input{
     background-color: white;
-    height: 40px;
+    
     width: 200px;
     margin-top: 8px;
     margin-right: 10px;
 }
-
-
 .navigator-search.active .search-btn li {
-    color: var(--theme-aux-color);
+    color: #2b123a;
 }
-
 .search-btn:focus, .search-input:focus {
     outline: none;
 }
+
 
 .logo {
     width: 300px;
@@ -115,6 +110,7 @@ body {
 .nav-purple {
     background-color: var(--theme-main-color);
     width: 60%;
+    margin-top: -60px;
     max-width: 480px;
     min-width: 320px;
     transition-delay: .4s;
@@ -173,4 +169,15 @@ body {
     padding-left: 20px;
 }
 
+.context-container{
+    display: flex;
+    width: 100vw;
+    margin: 0 auto;
+    overflow: auto;
+    margin-top: 60px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    overflow: hidden;
+}
  
+
