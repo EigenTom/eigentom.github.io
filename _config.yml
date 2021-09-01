@@ -6,11 +6,11 @@ header-img: img/post-bg-desk.jpg
 email: Luyi1720839132@Gmail.com
 description: "由于相关法律法规规定, 该内容无法显示."
 keyword: "RLS, R1NG Blog, Learning"
-url: "https://kirisamemarisaa.github.io"          # your host, for absolute URL
+url: "https://kirisamer.github.io"          # your host, for absolute URL
 baseurl: "/"      # for example, '/blog' if your blog hosted on 'host/blog'
 searchurl: "/calculator.html"
 projectsurl: "/projects/main.html"
-github_repo: "https://github.com/kirisamemarisaa/kirisamemarisaa.github.io.git" # you code repository
+github_repo: "https://github.com/kirisamer/kirisamer.github.io.git" # you code repository
 
 # Sidebar settings
 sidebar: False                           # whether or not using Sidebar.
@@ -67,9 +67,9 @@ gitalk:
   enable: false    #是否开启Gitalk评论
   clientID: f2c84e7629bb1446c1a4                            #生成的clientID
   clientSecret: ca6d6139d1e1b8c43f8b2e19492ddcac8b322d0d    #生成的clientSecret
-  repo: kirisamemarisaa.github.io    #仓库名称
-  owner: kirisamemarisaa    #github用户名
-  admin: kirisamemarisaa
+  repo: kirisamer.github.io    #仓库名称
+  owner: kirisamer   #github用户名
+  admin: kirisamer
   distractionFreeMode: true #是否启用类似FB的阴影遮罩
 
 
