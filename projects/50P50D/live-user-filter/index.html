@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live User Filter</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f8f9fd;
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+            margin: 0;
+        }
+
+        .container {
+            border-radius: 5px;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, .2);
+            overflow: hidden;
+            width: 300px;
+        }
+        .title {
+            margin: 0;
+        }
+
+        .subtitle {
+            display: inline-block;
+            margin: 5px 0 20px;
+            opacity: .8;
+        }
+
+        .header {
+            background-color: #3e57db;
+            color: #fff;
+            padding: 30px 20px;
+        }
+        .header input{
+            background-color: rgba(0, 0, 0, .3);
+            border: 0;
+            border-radius: 50px;
+            color: #fff;
+            font-size: 14px;
+            padding: 10px 15px;
+            width: 100%;
+        }
+        .header input:focus {
+            outline: none;
+        }
+
+        .user-list {
+            background-color: #fff;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .user-list li {
+            display: flex;
+            padding: 20px;
+        }
+        .user-list img {
+            border-radius: 50%;
+            object-fit: cover;
+            height: 50px;
+            width: 50px;
+        }
+        .user-list .user-info {
+            margin-left: 10px;
+        }
+        .user-list .user-info h4 {
+            margin: 0 0 10px;
+        }
+        .user-list .user-info p {
+            font-size: 12px;
+        }
+        .user-list li:not(:last-of-type) {
+            border-bottom: 1px solid #eee;
+        }
+        .user-list li.hide {
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h4 class="title">Live User Filter</h4>
+            <small class="subtitle">Search by name and/or location</small>
+            <input type="text" id="filter" placeholder="Search">
+        </header>
+
+        <ul id="result" class="user-list">
+            <li>
+                <h3>Loading...</h3>
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        const result = document.getElementById('result');
+        const filter = document.getElementById('filter');
+        const listItems = [];
+
+        // fetch random user data via API first
+        getData();
+
+        // fetch user input
+        filter.addEventListener('input', (e) => filterData(e.target.value));
+
+        // async function responsible for getting data from the remote server
+        async function getData() {
+            const res = await fetch('https://randomuser.me/api?results=50');
+            const { results } = await res.json();
+
+            // clear result
+            result.innerHTML = '';
+
+            // create list items base on the userdata fetched
+            results.forEach(user => {
+                const li = document.createElement('li');
+
+                listItems.push(li);
+                li.innerHTML = `
+                    <img src="${user.picture.large}" alt="${user.name.first}">
+                    <div class="user-info">
+                        <h4>${user.name.first} ${user.name.last}</h4>
+                        <p>${user.location.city}, ${user.location.country}</p>
+                    </div>`;
+                result.appendChild(li);
+            });
+        }
+
+        // responsible for filtering data from the array
+        function filterData(searchTerm) {
+            listItems.forEach(item => {
+                if (item.innerText.toLowerCase().includes(searchTerm.toLowerCase())) {
+                    item.classList.remove('hide');
+                } else {
+                    item.classList.add('hide');
+                }
+            })
+        }
+    </script>
+</body>
+</html>
