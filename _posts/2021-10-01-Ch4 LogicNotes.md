@@ -4,7 +4,7 @@ title:      逻辑学探幽 Part4
 subtitle:   没有逻辑 只有heip
 date:       2021-10-01
 author:     R1NG
-header-img: img/post-bg-prolog.jpg
+header-img: img/post-bg-logicnotes.jpg
 description: 本章介绍一些最基本的可满足性检验法.
 catalog: true
 tags:
