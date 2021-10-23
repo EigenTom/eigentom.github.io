@@ -5,7 +5,7 @@ subtitle:   没有逻辑 只有heip
 date:       2021-10-16
 author:     R1NG
 header-img: img/post-bg-logicnotes.jpg
-description: 本章介绍一种检验可满足性的算法: `DPLL`.
+description: 本章介绍一种检验可满足性的算法: DPLL.
 catalog: true
 tags:
     - 逻辑学
@@ -155,7 +155,7 @@ $$S' = \{p, n \leftrightarrow p\}$$
 为了进一步说明 **命名 (定义)** 的概念, 并便于我们将谓词公式转换为一系列子句, 我们下面引入 **子句形式** 的概念. 
 
 **定义 5.3.2** (子句形式)
-> 记 $A$ 为某个谓词公式. $A$ 的 **子句形式** 即为和 $A$ 共享可满足性的一系列子句.
+> 记 $A$ 为某个谓词公式. $A$ 的 **子句形式** 即为和 $A$ 共享可满足性的一系列子句.<br>
 > 
 >  也就是说, $A$ 为可满足的, 当且仅当 $A$ 的子句形式也是可满足的.
 
@@ -164,7 +164,7 @@ $$S' = \{p, n \leftrightarrow p\}$$
 下面我们通过一个引理详细解释 **命名 (定义)** 的作用.
 
 **引理 5.3.1**
-> 设 $S$ 为一系列谓词公式, $B$ 为 $S$ 中的一个谓词公式, 记 $n$ 为一个不在 $B$ 和 $S$ 中出现过的谓词变量. 
+> 设 $S$ 为一系列谓词公式, $B$ 为 $S$ 中的一个谓词公式, 记 $n$ 为一个不在 $B$ 和 $S$ 中出现过的谓词变量. <br>
 > 
 > 则 $S$ 为可满足的, 当且仅当 $S \cup \{n \leftrightarrow B\}$ 为可满足的. **注意我们一般记 $S \cup \{n \leftrightarrow B\}$ 为 $S'$**.
 
@@ -172,12 +172,13 @@ $$S' = \{p, n \leftrightarrow p\}$$
 >1. **必要性**: 显然可知, $S \cup \{n \leftrightarrow B\}$ 的任一模型都是 $S$ 的一个模型, 故必要性成立. $\blacksquare$
 >
 >2. **充分性**: 不妨假设 $S$ 在解释 $I$ 下为可满足的. 我们定义新的解释 $I'$ 如下:
+>
 >   $$I'(q) \overset{\text{def}}{=} \begin{cases} I(B) ~~~ \text{if} ~q=n \\ I(q) ~~~~ \text{else}\end{cases}$$
 >
->   显然, $I'$ 同时满足 $S$ 和在对 $B$ 命名的过程中新引入的公式 $n \leftrightarrow B$. 同时由于 $I'$ 对 $n$ 的解释完全不影响 $S$, 故 $I'$ 同时也是 $S$ 的一个模型, 且有 $I(B) = I'(B)$.
+>   显然, $I'$ 同时满足 $S$ 和在对 $B$ 命名的过程中新引入的公式 $n \leftrightarrow B$. 同时由于 $I'$ 对 $n$ 的解释完全不影响 $S$, 故 $I'$ 同时也是 $S$ 的一个模型, 且有 $I(B) = I'(B)$.<br>
 >
 >   由 $I'$的定义我们又知, $I'(n) = I(B) \rightarrow I'(n) = I'(B)$. 因此, $I‘$ 也满足 $n \leftrightarrow B$.
-   由此可知, $I'$ 也是 $S \cup \{n \leftrightarrow B\}$ 的一个模型.
+   由此可知, $I'$ 也是 $S \cup \{n \leftrightarrow B\}$ 的一个模型.<br>
 >
 >   因此, 无论对于 $S$ 的任意一个模型 $I$, 我们总能基于它构造出一个 $S \cup \{n \leftrightarrow B\}$ 的模型, 记为 $I’$, 故充分性成立. $\blacksquare$
 
@@ -191,7 +192,7 @@ $$S' = \{p, n \leftrightarrow p\}$$
 > 
 > $$S \overset{\text{def}}{=} \{C_1, C_2, \cdots, C_n\}.$$
 >
->2. 若不然, 对 $A$ 中的每一个不是文字的子式 $B$, 我们定义一个执行转换的函数 $n(B)$:
+> 2. 若不然, 对 $A$ 中的每一个不是文字的子式 $B$, 我们定义一个执行转换的函数 $n(B)$:
 >
 >       $$n(B) \overset{\text{def}}{=} \begin{cases} B ~~~ \text{if} ~B~ \text{is a literal} \\ p_B ~~~ \text{else}\end{cases}$$
 > 
@@ -242,18 +243,18 @@ $$S' = \{p, n \leftrightarrow p\}$$
 我们同时可以得到:
 
 **引理 5.3.2**
-> 设 $S$ 为一系列谓词公式, $B$ 为 $S$ 中的一个谓词公式, 记 $p$ 为一个不在 $B$ 和 $S$ 中出现过的谓词变量. 
+> 设 $S$ 为一系列谓词公式, $B$ 为 $S$ 中的一个谓词公式, 记 $p$ 为一个不在 $B$ 和 $S$ 中出现过的谓词变量. <br>
 > 
 > 设 $S'$ 为 $S$ 通过用 $p$ 替换掉至少一处正的 (或负的) $B$  得到的一系列谓词公式, 则 $S$ 为可满足的, 当且仅当 $S‘ \cup \{p \rightarrow B\}$ (或$S‘ \cup \{B \rightarrow p\}$) 为可满足的.
 
 **证明**
-> 此处指考虑 $p$ 为正的情况, $p$ 若为负的话同理. 
+> 此处指考虑 $p$ 为正的情况, $p$ 若为负的话同理. <br>
 >
-> **必要性**: 设 $S$ 为可接受的, 则由 `引理 5.3.1`, 显然 $S'$ 是可接受的, 进一步 $S' \cup \{p \leftrightarrow B\}$ 也是可接受的. 
+> **必要性**: 设 $S$ 为可接受的, 则由 `引理 5.3.1`, 显然 $S'$ 是可接受的, 进一步 $S' \cup \{p \leftrightarrow B\}$ 也是可接受的. <br>
 > 
-> 由于显然 $S' \cup \{p \leftrightarrow B\}$ 的任一个模型均为 $S' \cup \{p \rightarrow B\}$ 的模型, 故对于 $S‘$ 的任一个模型, 我们可以相应地一步步构造出 $S’$ 的, $S' \cup \{p \leftrightarrow B\}$ 的, 直到 $S' \cup \{p \rightarrow B\}$ 的模型, 因此 $S' \cup \{p \rightarrow B\}$ 也是可接受的. $\blacksquare$
+> 由于显然 $S' \cup \{p \leftrightarrow B\}$ 的任一个模型均为 $S' \cup \{p \rightarrow B\}$ 的模型, 故对于 $S‘$ 的任一个模型, 我们可以相应地一步步构造出 $S’$ 的, $S' \cup \{p \leftrightarrow B\}$ 的, 直到 $S' \cup \{p \rightarrow B\}$ 的模型, 因此 $S' \cup \{p \rightarrow B\}$ 也是可接受的. $\blacksquare$<bt>
 >
->**充分性**: 设 $S' \cup \{p \rightarrow B\}$ 为可满足的, 要证 $S$ 也是可满足的. 取 $S' \cup \{p \rightarrow B\}$ 的任意模型 $I$. 对 $\forall A \in S$, 由定义可知, $S'$ 中必存在某个子句 $A'$, 通过将 $A'$ 中的某 (几) 处 $p$ 用 $B$ 替代即可得到 $A$. 
+>**充分性**: 设 $S' \cup \{p \rightarrow B\}$ 为可满足的, 要证 $S$ 也是可满足的. 取 $S' \cup \{p \rightarrow B\}$ 的任意模型 $I$. 对 $\forall A \in S$, 由定义可知, $S'$ 中必存在某个子句 $A'$, 通过将 $A'$ 中的某 (几) 处 $p$ 用 $B$ 替代即可得到 $A$. <br>
 >
 >由于在我们的假设下这些 B 都以 **正** 的形式出现, 且我们有 $I \vDash A', ~~ I \vDash p \rightarrow B$, 自然地有 $I \vDash A$, 充分性得证. $\blacksquare$
 
@@ -276,21 +277,21 @@ $$S' = \{p, n \leftrightarrow p\}$$
 |极性 $+1$|极性 $-1$|
 |-|-|
 |$p_B \rightarrow n(B_1) \wedge n(B_2) \cdots \wedge n(B_m)$|$n(B_1) \wedge n(B_2) \cdots \wedge n(B_m) \rightarrow p_B$|
-|$\begin{aligned} &\neg p_B \vee n(B_1), \\ &\cdots \\ &\neg p_B \vee n(B_m)\end{aligned}$| $\widetilde{n}(B_1) \vee \cdots \vee \widetilde{n}(B_m) \vee p_B$|
+|$\neg p_B \vee n(B_1),$ <br> $\cdots$ <br> $\neg p_B \vee n(B_m)$| $\widetilde{n}(B_1) \vee \cdots \vee \widetilde{n}(B_m) \vee p_B$|
 
 `ii`. 若 $B$ 形为 $B_1 \wedge B_2 \vee \cdots \vee B_n$, 则将对变量 $p_B$ 的定义加入 $S$ 中:
 
 |极性 $+1$|极性 $-1$|
 |-|-|
 |$p_B \rightarrow n(B_1) \vee n(B_2) \cdots \vee n(B_m)$|$n(B_1) \vee n(B_2) \cdots \vee n(B_m) \rightarrow p_B$|
-|$n(B_1) \vee \cdots \vee n(B_m) \vee \neg p_B$|$\begin{aligned} &p_B \vee \widetilde{n}(B_1), \\ &\cdots \\ &p_B \vee \widetilde{n}(B_m), \\ & \end{aligned}$|
+|$n(B_1) \vee \cdots \vee n(B_m) \vee \neg p_B$|$p_B \vee \widetilde{n}(B_1),$ <br> $\cdots$ <br> $p_B \vee \widetilde{n}(B_m)$|
 
 `iii`. 若 $B$ 形为 $B_1 \rightarrow B_2$, 则将对变量 $p_B$ 的定义加入 $S$ 中:
 
 |极性 $+1$|极性 $-1$|
 |-|-|
 |$p_B \rightarrow (n(B_1) \rightarrow n(B_2))$|$(n(B_1) \rightarrow n(B_2)) \rightarrow p_B$|
-|$\neg p_B \vee \widetilde{n}(B_1) \vee n(B_2)$|$\begin{aligned} &n(B_1) \vee p_B, \\ &\widetilde{n}(B_2) \vee p_B\end{aligned}$|
+|$\neg p_B \vee \widetilde{n}(B_1) \vee n(B_2)$|$n(B_1) \vee p_B,$ <br> $\widetilde{n}(B_2) \vee p_B$|
 
 iv`. 若 $B$ 形为 $\neg B_1$, 则将对变量 $p_B$ 的定义加入 $S$ 中: 
 
@@ -304,7 +305,7 @@ iv`. 若 $B$ 形为 $\neg B_1$, 则将对变量 $p_B$ 的定义加入 $S$ 中:
 |极性 $+1$|极性 $-1$|
 |-|-|
 |$p_B \rightarrow (n(B_1) \leftrightarrow n(B_2))$|$(n(B_1) \leftrightarrow n(B_2)) \rightarrow p_B$|
-|$\begin{aligned} &\neg p_B \vee \widetilde{n}(B_1) \vee n(B_2), \\ &\neg p_B \vee \widetilde{n}(B_2) \vee n(B_1) \end{aligned}$|$\begin{aligned} &n(B_1) \vee n(B_2) \vee p_B,  \\ &\widetilde{n}(B_2) \vee \widetilde{n}(B_2) \vee p_B\end{aligned}$|
+|$\neg p_B \vee \widetilde{n}(B_1) \vee n(B_2),$ <br> $\neg p_B \vee \widetilde{n}(B_2) \vee n(B_1)$|$n(B_1) \vee n(B_2) \vee p_B,$ <br> $\widetilde{n}(B_2) \vee \widetilde{n}(B_2) \vee p_B$|
 
 最终将单位子句 $p_A$ 加到 $S$ 中.
 
@@ -334,10 +335,10 @@ iv`. 若 $B$ 形为 $\neg B_1$, 则将对变量 $p_B$ 的定义加入 $S$ 中:
 通过引入子句的概念, 我们可以引入一种新的, 用于 **证明谓词公式的不可满足性** 的方法: 单位子句传播.
 
 **定义 5.3.1** (单位子句传播法)
-> 记 $S$ 为一系列子句, 称 $S'$ 是 **通过单位子句传播法从集合 $S$ 得到的**, 若 $S'$ 是通过多次重复下列的转换而从 $S$ 得到的:
+> 记 $S$ 为一系列子句, 称 $S'$ 是 **通过单位子句传播法从集合 $S$ 得到的**, 若 $S'$ 是通过多次重复下列的转换而从 $S$ 得到的:<br>
 >
 > 若 $S$ 包含一个单位子句 (即一个只包含某个文字 $L$ 的子句), 则:<br>
-> 1. 从 $S$ 中将任何形如 $L \vee C'$ 的子句移除.
+> 1. 从 $S$ 中将任何形如 $L \vee C'$ 的子句移除.<br>
 > 2. 将 $S$ 中任何形如 $\widetilde{L}\vee C'$ 的子句替换为 $C'$.
 >
 > 在该过程中, 每一次执行转换时对我们起初所选取的单位子句进行的消除都会在整个集合中自顶而下, 自左而右的传播, 如同一道道涟漪. 随着转换的不断执行, 集合被不断简化, 直到最终一无所剩 (如果该子句集合具备可满足性的话), 一切重新归于平静.
@@ -358,8 +359,8 @@ iv`. 若 $B$ 形为 $\neg B_1$, 则将对变量 $p_B$ 的定义加入 $S$ 中:
 > 记 $S$ 为具不可满足性的, 由一系列子句组成的集合. 则 $S$ 至少包含一个 **正子句** 和至少一个 **负子句**.
 
 **证明**
-> 此处只列出对正子句存在性的证明, 负子句的存在性与其类似.
-> 不妨假设 $S$ 中不存在任何正子句, 则 $S$ 中的每个子句都是负的. 
+> 此处只列出对正子句存在性的证明, 负子句的存在性与其类似.<br>
+> 不妨假设 $S$ 中不存在任何正子句, 则 $S$ 中的每个子句都是负的. <br>
 > 
 > 只需构造解释 $I$ 令所有谓词变量在该解释下均为假, 则这个解释 $I$ 就是可满足 $S$ 的, 和原假设 ”$S$ 是不可满足的“ 矛盾. 故 ”$S$ 中正子句不存在“ 的假设矛盾, 进而得 $S$ 中至少存在一个正子句. $\blacksquare$
 
@@ -367,7 +368,7 @@ iv`. 若 $B$ 形为 $\neg B_1$, 则将对变量 $p_B$ 的定义加入 $S$ 中:
 > 设 $S$ 为由一系列 $\text{Horn}$子句组成的集合, $S'$ 为 $S$ 通过单位传播法得到的新子句集合, 则 $S$ 具可满足性, 当且仅当 空子句 $\square \notin S'$.
 
 **证明**
-> 由单位传播法保持可满足性可知, 只需证 $S'$ 具可满足性, 当且仅当 空子句 $\square \notin S'$. 显然任何具可满足性的子句集合不可能包含空子句 $\square$. 下面证明若 $S'$ 具不可满足性, 则它包含 $\square$.
+> 由单位传播法保持可满足性可知, 只需证 $S'$ 具可满足性, 当且仅当 空子句 $\square \notin S'$. 显然任何具可满足性的子句集合不可能包含空子句 $\square$. 下面证明若 $S'$ 具不可满足性, 则它包含 $\square$.<br>
 > 
 > 由于单位传播法应用于一系列 $\text{Horn}$ 子句得到的结果还是一系列 $\text{Horn}$ 子句, 故由 `引理 5.4.1` 可知 $S'$ 必包含一个正子句. 由于正的 $\text{Horn}$ 子句或为单位子句或为空子句, 而 $S'$ 为单位传播法的结果, 不可能包含单位子句, 故 $S'$ 一定包含空子句. $\blacksquare$
 
@@ -405,11 +406,11 @@ iv`. 若 $B$ 形为 $\neg B_1$, 则将对变量 $p_B$ 的定义加入 $S$ 中:
 > 并且任何满足上述性质的解释 $I$ 都满足 $S$: $I \vDash S$.
 
 **证明**
-> 设文字 $L \in \mathscr{L}$, 也就是说 $L$ 在单位传播法的应用过程中被使用过, 故显然 $\widetilde{L} \notin \mathscr{L}$, 故至少存在一个解释 $I$ 满足定理条件. 
+> 设文字 $L \in \mathscr{L}$, 也就是说 $L$ 在单位传播法的应用过程中被使用过, 故显然 $\widetilde{L} \notin \mathscr{L}$, 故至少存在一个解释 $I$ 满足定理条件. <br>
 >
-> 下面证明对任何满足条件的解释 $I$, 它都满足 $S$:
+> 下面证明对任何满足条件的解释 $I$, 它都满足 $S$:<br>
 > 
->  只需注意, 在 `DPLL` 算法的任何一步中被移除的子句 $C$ 都在 $\mathscr{L}$ 中包含一个文字. 由于子句是一系列文字的析取, 故 $I \vDash C$. 
+>  只需注意, 在 `DPLL` 算法的任何一步中被移除的子句 $C$ 都在 $\mathscr{L}$ 中包含一个文字. 由于子句是一系列文字的析取, 故 $I \vDash C$. <br>
 >
 > 由假设 $S$ 具可满足性, 故其中所有的子句最终都被 `DPLL` 移除, 也就是说该集合中的所有子句军备该解释满足, 故有 $I \vDash S$. $\blacksquare$
 
@@ -431,7 +432,7 @@ iv`. 若 $B$ 形为 $\neg B_1$, 则将对变量 $p_B$ 的定义加入 $S$ 中:
 相应的, **负事件** (`Negative Occurrences`) 指在 $S$ 中不包含任何形如 $p \vee C$ 的子句 的原子谓词 $p$.
 
 **定义 5.8.1** (纯文本)
-> 称子句集合 $S$ 中出现的 文本 $\widetilde{L}$ 为 **纯文本**, 若 $S$ 不包含任何形如 $\widetilde{L} \vee C$ 的子句. 
+> 称子句集合 $S$ 中出现的 文本 $\widetilde{L}$ 为 **纯文本**, 若 $S$ 不包含任何形如 $\widetilde{L} \vee C$ 的子句. <br>
 >
 > 本质上, 纯文本法则会将一个子句集合中所有包含纯文本的子句全部移除. 
 
@@ -440,16 +441,3 @@ iv`. 若 $B$ 形为 $\neg B_1$, 则将对变量 $p_B$ 的定义加入 $S$ 中:
 一般来说, 我们使用 **回溯算法** 实现 `DPLL`. 我们会在函数 `select_literal()` 选取下一个文本 $L$ 时记录当前的状态, 随后对集合 $S \cup \{L\}$ 进行搜索. 而在搜索结束后, 通过恢复, 我们可以回到原来的状态并转而搜索另一分支 $S \cup \{\widetilde{L}\}$. 
 
 在 `DPLL` 的搜索过程中应用回溯算法会导致它的搜索次数呈指数级别, 因此对 `select_literal()` 选择下一文本的规则进行优化是至关重要的. 在这里我们不再介绍对算法效率本身的优化方法, 本章到此结束. $\blacksquare$ 
-
-
-
-
-
-
-
-
-
-
-
-
-
