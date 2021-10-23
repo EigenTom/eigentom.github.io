@@ -5,7 +5,7 @@ subtitle:   没有逻辑 只有heip
 date:       2021-10-16
 author:     R1NG
 header-img: img/post-bg-logicnotes.jpg
-description: 本章介绍一种检验可满足性的算法 DPLL.
+description: 本章介绍一种检验可满足性的算法-DPLL.
 catalog: true
 tags:
     - 逻辑学
