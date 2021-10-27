@@ -83,3 +83,74 @@ $$(\frac{1}{2n})^{k} \cdot (\frac{1}{2n})^{k} \cdot 2k = \frac{1}{(2n)^{2k-1}}.$
 <br>
 
 ## 6.3 面向 `SAT` 问题的随机化算法
+
+我们可以通过引入 **随机性** 构造一个可用于检验 `SAT` 问题是否具备不可满足性的算法. 这样的随机算法可以用于解决更复杂的, 那些常规算法无法解决的问题, 但随机算法 **是不完备的**, 它只能部分地解决我们的问题: 如果给定的 `SAT` 问题是可满足的, 它有 **一定的几率** 给出这个问题的一个解释, 从而得证该问题具可满足性; 而若该问题实际上是不可满足的, 它由于无法在多项式时间内遍历地检测该问题的所有解释并说明这些解释都不能满足它, 因此算法 **并不能说明该问题的不可满足性**. 
+
+本质上, 这样的 **不完备** 算法依赖 **随机生成** 的解释, 若能找到满足问题的特例才能得出确定的结果, 反之则并不能给出肯定的答复. 
+
+所有的 $\text{NP-Complete}$ 问题都具备类似的特征. 进一步地, **任何 $\text{NP}$ 都有多项式长度的见证**. 
+
+**定义 6.3.1** (见证)
+> 我们称某个决策问题的实例 $i$ 的某个 **见证** (`Witness`) 为一个字符串 $s$, 使得给定实例 - 见证对 $(s, i)$, 我们可以在多项式时间内检测在 $s$ 的基础上实例 $i$ 是否为真. 
+
+显然, 如果一个问题有足够短的见证, 我们就可以通过随机地猜测它的见证, 通过检测这些见证是否真的使实例为真. 若能找到一个这样的见证, 我们就可以终止流程并对问题的真伪给出肯定的答复, 但如果我们找不到见证的话, 我们并不能得出任何新的事实. 通过这样的逻辑, 我们就得到了 **不完全** 的算法. 
+
+下面我们将介绍数个用于检测谓词可满足性的不完备算法. 我们首先来看一个最直观的随机算法: 
+
+## 1. Toy Model
+
+**算法 6.3.1** (`CHAOS`)
+~~~
+procedure CHAOS(S)
+input: set of clauses S
+output: interpretation I such that I ⊧ S or don't know
+parameters: positive integer MAX-TRIES
+
+begin 
+    repeat MAX-TRIES times
+        I := random interpretation
+        if I ⊧ S then return I
+    return don't know
+end
+~~~
+
+`CHAOS` 算法通过检测给定的子句集合是否能被随机生成的有限个解释中任意一个满足来判断能否确定该子句集合具备可满足性. 解释的生成方式是纯粹随机的, 不受任何其他因素的影响, 因而性能有限.
+
+我们下面介绍一系列更复杂的随机化算法:
+
+<br>
+
+## 2. 局部搜索 (`GSAT`)
+
+局部搜索过程基本上基于一个假设: 通过不断修改解释使得该解释无法满足的子句数量最小化, 我们就更有可能最终得到一个能够满足整个子句集合的解释. 这样的流程一般被称为 `GSAT`. 
+
+对于给定的, 无法完全满足子句集合 $S$ 的解释 $I$, 我们尝试 **翻转** $I$ 中的一个变量, 旨在让新的解释 $I$ 能满足集合中子句的数量最大化. 若对不同变量的翻转得到的可满足子句数相同, 我们就从这些同等最优的结果中随机挑选一个. 
+
+这一步骤的伪代码化描述如下:
+
+~~~
+procedure GSAT (S)
+input: set of clauses S
+output: interpretation I such that I ⊧ S or don’t know 
+parameters: positive integers MAX-TRIES, MAX-FLIPS 
+
+begin
+    repeat MAX-TRIES times
+        I := random interpretation 
+        if I ⊧ S then return I 
+        repeat MAX-FLIPS times
+            p := a variable such that flip(I, p) satisfies
+                    the maximal number of clauses in S
+            I = flip(I,p)
+            if I ⊧ S then return I 
+    return don’t know
+end
+~~~
+
+需要注意的是, 对于局部搜索过程而言, “局部搜索选择了错误的方向, 并最终只能得到局部最优而非全局最优” 的概率是 **不能被排除的**. `GSAT` 避免局部最优的方法很激进: 若在某一次尝试中, 基于当前解释多次翻转变量得到的新结果性能一致, 且翻转次数超过了预设的最大限制 `$\text{MAX-FLIPS}$ 时, 算法会认定该解陷入了局部最优而直接舍弃该解重新随机生成新解.
+
+<br>
+
+## 3. 随机游走 (`GSAT with random walks`)
+
+和机器学习中引入随机性优化梯度下降法从而得到随机梯度下降法的基本逻辑相同, 我们也可以通过进一步地在 `GSAT` 中引入随机性
