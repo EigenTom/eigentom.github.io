@@ -153,4 +153,31 @@ end
 
 ## 3. 随机游走 (`GSAT with random walks`)
 
-和机器学习中引入随机性优化梯度下降法从而得到随机梯度下降法的基本逻辑相同, 我们也可以通过进一步地在 `GSAT` 中引入随机性
+和机器学习中引入随机性优化梯度下降法从而得到随机梯度下降法的基本逻辑相同, 我们也可以通过进一步地在 `GSAT` 中引入随机性降低它在寻找最优解的过程中陷入局部最优的概率. 
+
+和局部搜索不同, 随机游走在每一步中找到最优解释后还会以概率 $\pi$ 翻转解释中的变量 $p$. 需要注意的是, 变量 $p$ 并不是随机选择的, 而要满足一定的条件才会对避免陷入局部最优起到正面效果. 一般地, 这样的 $p$ 应该在至少一条不可被当前解释满足的子句中出现. 
+
+随机游走的伪代码描述如下:
+
+~~~
+procedure GSAT (S)
+input: set of clauses S
+output: interpretation I such that I ⊧ S or don’t know 
+parameters: positive integers MAX-TRIES, MAX-FLIPS
+            real number 0 ≤ μ ≤ 1 (probability of a sideways move),
+begin
+    repeat MAX-TRIES times
+        I := random interpretation 
+        if I ⊧ S then return I 
+        repeat MAX-FLIPS times
+            with probability μ
+                p := a variable such that flip(I,p) satisfies...
+                     ...the maximal number of clauses in S with...
+                     ...probability 1 − μ
+                randomly choose p among variables occurring...
+                ...in clauses false in I 
+            I = flip(I,p)
+            if I ⊧ S then return I
+    return don’t know 
+end               
+~~~
