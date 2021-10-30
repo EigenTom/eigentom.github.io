@@ -217,8 +217,19 @@ $$I \vDash A \rightarrow B.$$
 > 记原子 $p$ 在 $A$ 中有且只有正出现实例 (或负出现实例). 则 $A$ 为可满足的, 当且仅当 $A^{\top}_{p}$ ($A^{\perp}_{p}$) 为可满足的. 
 
 **证明**<br>
-**必要性:** 由 $p \rightarrow \top$ 为重言式, 由单调替换定理 $A \rightarrow A^{\top}_{p}$ 也是重言式, 因此 $A$ 的任何模型都是 $A^{\top}_{p}$ 的. $\blacksquare$
+**必要性:** 由 $p \rightarrow \top$ 为重言式, 由单调替换定理 
 
-**充分性:** 记 $A^{\top}_{p}$ 的一个模型 $I$. 将它对变量 $p$ 的解释重定义, 使得 $I'(p)=1$. 则此时 $I‘$ 还是 $A^{\top}_{p}$ 的一个模型, 但此时同时有 $I' \vDash p \leftrightarrow \top$. 故由等价替换定理: $I' \vDash A \leftrightarrow A^{\top}_{p}$, 因而 $I' \vDash A$ 进而 $A$ 是可满足的. $\blacksquare$
+$$A \rightarrow A^{\top}_{p}$$
+
+也是重言式, 因此 $A$ 的任何模型都是 $A^{\top}_{p}$ 的 $. ~ \blacksquare$
+
+**充分性:** 记 $A^{\top}_{p}$ 的一个模型 $I$. 
+
+将它对变量 $p$ 的解释重定义, 使得 $I'(p)=1$. 则此时 $I'$ 还是 $A^{\top}_{p}$ 的一个模型, 但此时同时有 
+
+
+$$I' \vDash p \leftrightarrow \top.$$ 
+
+故由等价替换定理: $I' \vDash A \leftrightarrow A^{\top}_{p}$, 因而 $I' \vDash A$, 进而 $A$ 是可满足的. $\blacksquare$
 
 显然, 纯粹原子定理可有效地应用于对分割算法的优化: 给定谓词公式 $G$, 若 $p$ 在 $G$ 中是 **纯粹的**, 则依照其极性我们将 $G$ 中的所有 $p$ 替换为 $G_{p}^{\top}$ 或 $G_{p}^{\perp}$, 因而可以避免任何对 $p$ 的分割, 从而简化了算法的执行步骤. 
