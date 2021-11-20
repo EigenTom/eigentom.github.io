@@ -230,6 +230,80 @@ $$\text{if} ~p~ \text{then} ~F_{p}^{\top}~ \text{else} ~G_{p}^{\perp}.$$
 为了确保决策图的唯一性, 我们对谓词公式中出现的所有谓词变量引入 **顺序** 的概念. 通过人为限制构造决策图时测试变量的先后顺序, 我们可以确保这样构造出的二元决策图一定是唯一的. 
 
 **定义 8.4.1** (有序二元决策图)
-> 
+> 令 $>$ 为对谓词变量的线性偏序, 记 $d$ 为一个二元决策图. 若对每个由变量 $p_1$ 所标记的节点 $n_1$, 设其子节点 $n_2$ 由变量 $p_2$ 标记, 则 $p_1 > p_2$, 则称这样的二元决策图为 **有序的**. 
+
+我们下面说明, 对给定谓词公式 $F$, 在限定组成它的谓词变量的顺序后, 它的 `OBDD` 必是唯一的:
+
+**引理 8.4.1** 
+> 考虑谓词变量 $p$ 和不包含 $p$ 的谓词公式 $F_1, F_2, G_1, G_2$. 则:
+>
+> $$(\text{if} ~p~ \text{then} ~F_1~ \text{else} ~F_2) \equiv (\text{if} ~p~ \text{then} ~G_1~ \text{else} ~G_2)$$
+>
+> 当且仅当
+>
+> $F_1 \equiv F_2$ 且 $F_2 \equiv G_2.$
+
+**证明**:
+
+必要性: 设
+
+$$(\text{if} ~p~ \text{then} ~F_1~ \text{else} ~F_2) \equiv (\text{if} ~p~ \text{then} ~G_1~ \text{else} ~G_2),$$
+
+要证 $F_1 \equiv G_1$, $F_2 \equiv G_2$ 亦然. 我们下面通过说明 $F_1$, $G_1$ 的模型相同达成这一点. 
+
+取 $F_1$ 的某个模型 $I$. 定义 $I'$:
+
+$$I'(q) \overset{def}{=} \begin{cases} I(q) ~~ \text{if}~p \neq q \\ 1 ~~~~~~~ \text{if}~p=q\end{cases}.$$
+
+显然知 $I' \vDash F_1$. 由 $I' \vDash p$ 且 $I' \vDash F_1$, 我们同时有
+
+$$I' \vDash \text{if} ~p~ \text{then} ~F_1~ \text{else} ~F_2.$$
+
+同时由
+
+$$(\text{if} ~p~ \text{then} ~F_1~ \text{else} ~F_2) \equiv (\text{if} ~p~ \text{then} ~G_1~ \text{else} ~G_2)$$
+
+可得: 
+
+$$I' \vDash \text{if} ~p~ \text{then} ~G_1~ \text{else} ~G_2.$$
+
+由上式以及 $I'\vDash p$ 可知: $I' \vDash G_1$. 由于 $G_1$ 中不包含变量 $p$, 由 $I'$ 定义知: $I \vDash G_1$. 
+
+由此可知, $F_1$ 的任一模型都是 $G_1$ 的模型. 对称地, 我们同样可证 $G_1$ 的任一模型都是 $F_1$ 的模型.
+
+充分性: 设 $F_1 \equiv G_1$, $F_2 \equiv G_2$. 由等价替代定理可得:
+
+$$(\text{if} ~p~ \text{then} ~F_1~ \text{else} ~F_2) \equiv (\text{if} ~p~ \text{then} ~G_1~ \text{else} ~G_2). \blacksquare$$
+
+**定理 8.4.1** (`OBDD` 的权威性)
+> 记 $d_1, ~d_2$为谓词公式 $F$ 的两个 `OBDD`, 则它们是同构的. 
+
+我们下面给出将节点 **融合** 入 `OBDD` 和构造 `OBDD` 的算法:
+
+**算法 8.4.1** (`OBDD` 节点融合算法)
+> 该算法步骤如下图所示:
+
+![20211120192808](https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20211120192808.png)
+
+
+**算法 8.4.2** (`OBDD` 构造算法)
+> 该算法步骤如下图所示:
+
+![20211120192848](https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20211120192848.png)
+
+
+注: 具体的解题过程详见教材 $145-148$ 页. 
+
+<br>
 
 ## 8.5 有序二元决策图的运算
+
+与二元决策图不同, 我们可以对有序二元决策图进行 **逻辑运算**. 一般地, 对谓词公式的有序二元决策图的逻辑运算可以总结为下列算法:
+
+![20211120193145](https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20211120193145.png)
+
+我们下面给出两个例子: 对二元决策图的 **合取** 与 **析取**:
+
+![20211120193524](https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20211120193524.png)
+
+![20211120193602](https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20211120193602.png)
