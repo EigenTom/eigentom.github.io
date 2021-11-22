@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      逻辑学探幽 Part7
+title:      逻辑学探幽 Part8
 subtitle:   没有逻辑 只有heip
 date:       2021-11-12
 author:     R1NG
