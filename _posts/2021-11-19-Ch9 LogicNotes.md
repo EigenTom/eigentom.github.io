@@ -179,7 +179,7 @@ $$p \rightarrow \forall q \exists p (q \leftrightarrow p) \vee r$$
 
 **定义 9.1.13** (受限变量重命名)
 > 称公式 $F'$ 是通过将公式 $F$ 中的受限变量重命名而得到的, 若 $F'$ 可通过一系列步骤从 $F$ 转换而来:<br>
-> 设 $\exists \foall p G$ 为 $F$ 的某个子公式, $q$ 为某个 **未在 $F$ 中出现过的变量**, 将 $\forall \exists p G$ 替换为 $\forall \exists q (G_{p}^{q})$. 
+> 设 $\exists \forall p G$ 为 $F$ 的某个子公式, $q$ 为某个 **未在 $F$ 中出现过的变量**, 将 $\forall \exists p G$ 替换为 $\forall \exists q (G_{p}^{q})$. 
 
 **引理 9.1.4**
 > 若 $F'$ 为通过重命名受限变量从 $F$ 转换而来的公式, 则 $F' \equiv F$. 
@@ -212,7 +212,7 @@ $$p \rightarrow \forall q \exists p (q \leftrightarrow p) \vee r$$
 **算法 9.2.1** (量化布尔公式前束范式转换算法)
 > 通过不断使用下列的重写规则将 **经过修正的公式 $F$** 进行转换, 当我们再也无法对其应用重写规则时所得到的公式则为 $F$ 的前束范式.
 
-![讲义162页, 下飞机再上传]()
+![20211218141429](https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20211218141429.png)
 
 **引理 9.2.1**
 > 上述的全部重写规则在应用到经修正的公式上时都保持其语义.
@@ -257,7 +257,7 @@ $$p \rightarrow \forall q \exists p (q \leftrightarrow p) \vee r$$
 
 在展开讨论之前, 我们首先约定对量化布尔公式的简化规则与其 “真假” 的定义:
 
-![简化规则: 讲义165页, 下飞机再传]()
+![20211218141451](https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20211218141451.png)
 
 **引理 9.3.1**
 > 1. 称闭的量化布尔公式 $\forall p F$ 为真, 当且仅当 $F_{p}^{\perp}$ 和 $F_{p}^{\top}$ 均为真.<br>
@@ -276,7 +276,7 @@ $$\exists \forall_1 p_1 \cdots \exists \forall_n p_n G,$$
 **算法 9.3.1** (量化布尔公式的分割算法)
 > 量化布尔公式的分割算法如下图所示. 
 
-![分割算法, 讲义166页, 下飞机后传]()
+![20211218141507](https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20211218141507.png)
 
 **引理 9.3.2** (纯原子)
 > 记 $p$ 为布尔变量, $F$ 为量化布尔公式:<br>
@@ -289,4 +289,41 @@ $$\exists \forall_1 p_1 \cdots \exists \forall_n p_n G,$$
 
 **定义 9.2.3** (单位传播)
 > 记 $S$ 为由一系列子句组成的集合, $Q$ 为一系列量词 $\exists \forall_1 p_1 \cdots \exists \forall_n p_n$. 称这一系列子句组成的集合 $S‘$ 是结合量词序列 $Q$, 通过 **单位传播** 从 $S$ 得来的, 若 $S’$ 为从 $S$ 使用一系列转换所得来:<br>
-> 若 $S$ 包含
+> 若 $S$ 包含一个由单个文字 $L$ 组成, 形如 $p$ 或 $\neg p$ 的单位字句 (`Unit Clause`), 则<br>
+> 1. 若 $Q$ 包含 $\forall p$, 则将 $S$ 替换为集合 $\{\square\}$.
+> 2. 否则进行下列操作:<br>
+> 2.1 将 $S$ 中所有形如 $L \vee C'$ 的子句移除. <br>
+> 2.2 将 $S$ 中所有形如 $\widetilde{L} \vee C'$ 的子句取代为 $C'$. <br>
+
+**算法 9.3.2** (量化布尔公式的 `DLL` 算法)
+> 量化布尔公式的 `DLL` 算法如下图所示:
+
+![20211218145211](https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20211218145211.png)
+
+其中, `select_literal()` 每次从公式中选出一个被量词修饰的谓词变量. 
+
+我们同样可以引入纯文字法则 (`Pure Literal Rule`). 考虑量词前缀 $Q$, 引入关于量词前缀的偏序 $>_{Q}$: 若在 $Q$ 中, $p$ 先于 $q$ 出现, 则记 $p > q$, 如在 $Q = \forall p \exists q \forall R$ 中, 就有 $p > q > r$. 
+
+进一步地, 我们可以将这样的顺序推广到文字上. 对于分别包含变量 $p_1, p_2$ 的文字 $L_1, L_2$, 若 $p_1 > p_2$, 则 $L_1 > L_2$. 
+
+下面约定一个记法: 称文字 $L$ 在 $Q$ 中为 **全称** (存在) 的, 若 $Q$ 包含 $\forall p$ ($\exists p$) 且 $p$ 在 $L$ 中出现. 
+
+下面看一个例子: 考虑 (显然为合取范式) 公式 
+
+$$\exists p \forall q \exists r ((p \vee q \vee \neg r) \wedge (p \vee \neg q \vee r) \wedge (\neg p \vee q \vee r) \wedge (\neg p \vee q \neg r))$$
+
+该公式的量词前缀 $Q := \exists p \forall q \exists r$, 且$p > q > r$. 
+
+同时由 $p > q$ 可知 $p > \neg q, ~ \neg p > \neg q, ~ \neg p > q$. 
+
+在该公式中, 全称文字分别为 $p, \neg p, r, \neg r$, 而存在文字为 $q, \neg q$.
+
+**引理 9.3.3** (全称文字删除规则)
+> 令 $G = Q(C_1 \wedge \cdots \wedge C_n)$ 为一个闭合的, 修正的合取范式, 其中 $Q$ 为量词前缀. 假设某个 $C_i$ 不为重言式, 且它包含一个在 $Q$ 内全称 (`Universal`) 的文字 $L$. 若该文字在关于谓词变量的偏序 $>$ 下比 $C_i$ 中任何存在文字都小, 则从 $C_i$ 中删除 $L$ 不影响 $G$ 的真值. 
+
+举例而言, 考虑 $Q = \forall q \exists q \forall r \exists s$, 则从 $Q$ 中任何不为重言式的字句中删除任何包含 $r$ 但不包含 $s$ 的文字都不会改变 $Q$ 的真值.
+
+进一步地我们可以立即得到下列的结论:
+
+若某个子句 $C_i$ 只包含在 $Q$ 中全称的文字, 则 $G$ 是不可接受的, 因为更具上述引理, 我们可以将 $C_i$ 简化为空子句.
+
