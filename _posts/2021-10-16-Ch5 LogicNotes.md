@@ -10,6 +10,7 @@ catalog: true
 tags:
     - 逻辑学
     - 2021
+    - COMP21111
 ---
 
 # `DPLL`
