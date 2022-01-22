@@ -75,7 +75,7 @@ $$(\frac{1}{2n})^{k} \cdot (\frac{1}{2n})^{k} \cdot 2k = \frac{1}{(2n)^{2k-1}}.$
 我们同时记窗口的宽度为 $\text{window}(\epsilon, n)$. 关于 **窗口的宽度**, 我们有下述结论:
 
 **推论 6.2.1**
->对随机生成的 $3-\text{SAT}$ 问题, $任何 $\epsilon$ 均满足:
+>对随机生成的 $3-\text{SAT}$ 问题, 任何 $\epsilon$ 均满足:
 >
 >$$\lim_{n \rightarrow \infty} (\frac{\text{window}(\epsilon, n)}{\text{crossover}(n)}) = 0.$$
 
