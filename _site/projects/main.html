@@ -1,0 +1,252 @@
+<html>
+	<head>
+		<title>Projects</title>
+		<style>
+			body{
+				font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+				height: 100vh;
+				margin: 0;
+				background-color: #333;
+				user-select: none;
+            	-webkit-user-select: none;
+			
+			}
+			footer{
+				align-items: center;
+				justify-content: center;
+				text-align: center;
+				display: flex;
+				margin-top: 20px;
+				color: rgb(117, 117, 117);
+				line-height: 25px;
+				height: 200px;
+				font-size: 14px;
+			}
+
+			.navigator{
+				position: fixed;
+				top: 0;
+				background-color: linear-gradient(to-bottom, black, rgba(0, 0, 0, 0));
+				width: 100%;
+				height: 56px;
+				z-index:999;
+				color: white;
+				transition: .2s ease;
+				
+			}
+			.navigator.active{
+				background-color: rgb(0, 68, 107, 0.9);
+			}
+
+			ul{
+				margin: 0;
+				padding: 0;
+			}
+			li{
+				list-style-type: none;
+				display: inline;
+				float: left;
+				font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+				font-size: 18px;
+				font-weight: 800;
+				padding-left: 20px;
+				padding-right: 20px;
+				line-height: 60px;
+				
+			}
+			li:hover{
+				color: white;
+				opacity: 80%;
+			}
+			.container{
+				display: flex;
+				width: 90vw;
+				left: 5vw;
+				position: relative;
+				margin-top: 50px;
+				margin-bottom: 50px;
+        	}
+
+			.panel{
+				background-size: cover;
+				background-position: center;
+				background-repeat: no-repeat;
+				background-color: rgba(0, 0, 0, .5);
+				background-blend-mode: multiply;
+				height: 80vh;    
+				color: #fff;
+				cursor: pointer;
+				flex: 0.5;
+				margin: 5px;
+				position: relative;
+				transition: all .4s ease;
+				overflow: hidden;
+			}
+			.panel.active {
+				flex:4;
+				background-color: rgba(0, 0, 0, 0);
+				color: rgb(252, 54, 64);
+			}
+
+			.panel h3 {
+				font-size: 24px;
+				font-weight: 400;
+				position: absolute;
+				bottom: 20px;
+				left: 20px;
+				margin: 0;
+				opacity: 60%;
+				user-select: none;
+            	-webkit-user-select: none;
+			}
+			.panel.active h3 {
+				font-size:30px;
+				font-weight: 900;
+				opacity: 1;
+				transition: all 0.2s ;
+			}
+
+			.motto{
+				position: absolute;
+				top: -55px;
+				left: 5px;
+				
+				font-size: 20px;
+				cursor: pointer;
+				color: white;
+			}
+
+			.divider{
+				width:100%; 
+				height:400px; 
+				display: flex;
+				align-items: center;
+				overflow: hidden;
+				background-color: rgb(255, 255, 255);    
+				justify-content: center;
+				background-size: cover;
+				background-position: center;
+				background-repeat: no-repeat;
+			}
+			.divider-inline{
+				font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+				color: white;
+				font: 900 60px 'Helvetica Neue';
+				width: 100%;
+				text-align: center;
+				padding:20px;
+				cursor: pointer;
+				user-select: none;
+            	-webkit-user-select: none;
+			}
+
+		</style>
+	</head>
+	<body>
+		<div id="nav" class="navigator">
+			<ul>
+				<li>RANDOM LINEAR SPACE</li>
+				<li style="float: right; list-style-type: none; text-decoration: none; font-size:12px;" onclick="self.location.href='https://kirisamemarisaa.github.io'">HOME</li>
+			</ul>
+		</div>
+
+		<div class="divider" style="height: 550px; background-image: url('/img/post-bg-ioses.jpg');" id="project">
+			<p class="divider-inline" >
+				<span style="font-size:80px;">Projects</span><br>
+			</p>
+		</div>
+
+		<div class="container">
+			<h3 class="motto" onclick="self.location.href='https://thwiki.cc/官方游戏#.E5.BC.B9.E5.B9.95.E5.B0.84.E5.87.BB.E7.B1.BB.E6.B8.B8.E6.88.8F'">
+				Touhou PC-98 Games
+			</h3> 
+			<div class="panel active" style="background-image: url('https://upload.thwiki.cc/a/a9/东方灵异传封面.jpg');" onclick="self.location.href='./thWASM/th1e.html'">
+				<h3>Touhou 1 Touhou-Reiiden</h3>
+			</div>   
+	
+			<div class="panel" style="background-image: url('https://upload.thwiki.cc/f/f5/东方封魔录封面.jpg');" onclick="self.location.href='./thWASM/th2e.html'">
+				<h3>Touhou 2 Touhou-Fuumaroku</h3>
+			</div>   
+	
+			<div class="panel" style="background-image: url('https://upload.thwiki.cc/2/2e/东方梦时空封面.jpg');" onclick="self.location.href='./thWASM/th3e.html'">
+				<h3>Touhou 3 Touhou-Yumejikuu</h3>
+			</div>  
+
+			<div class="panel" style="background-image: url('https://upload.thwiki.cc/1/1a/东方幻想乡封面.jpg');" onclick="self.location.href='./thWASM/th4e.html'">
+				<h3>Touhou 4 Touhou-Gensokyou</h3>
+			</div>   
+	
+			<div class="panel" style="background-image: url('https://upload.thwiki.cc/b/b5/东方怪绮谈封面.jpg');" onclick="self.location.href='./thWASM/th5e.html'">
+				<h3> Touhou 5 Touhou-Kaikidan</h3>
+			</div>   
+
+			 
+		</div>
+		
+		<div class="divider" style="background-image: url('/img/post-bg-comp12111.jpg'); height:400px; line-height:400px;" id="jailbreak">
+			<p class="divider-inline" onclick="self.location.href='./jailbreak/jailbreak.html'">
+				<span>Jailbreak Restore for iOS 9.2-9.3.3</span><br>
+			</p>
+		</div>
+
+		<div class="divider">
+			<p class="divider-inline" style="color:rgb(65, 65, 65)" onclick="self.location.href='https://kirisamer.github.io/tags/#前端学习'">
+				<span>50 Projects 50 Days</span><br>
+			</p>
+		</div>
+
+		<div class="divider" style="background-image: linear-gradient(to bottom, #323232, #333 );">
+			<p class="divider-inline" style="color:white;">
+				<span>And More...</span><br>
+			</p>
+		</div>
+
+
+		<footer>
+			<p class="copyright text-muted">
+				Copyright © 某一般线性空间 2021
+				<br>
+				Theme on <a style="text-decoration: none; color:#337ba7; margin-left: 1px;" href="https://github.com/kirisamemarisaa/kirisamemarisaa.github.io.git">GitHub</a> |
+				<iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="100px" height="20px" src="https://ghbtns.com/github-btn.html?user=&amp;repo=.github.io&amp;type=star&amp;count=true">
+				</iframe>
+			</p>
+		</footer>
+
+		<script>
+			// declare an object (NodeList) containing every DOM element which class == 'panel'
+			const panels=document.querySelectorAll('.panel')
+			const nav = document.querySelector('.navigator')
+
+			window.addEventListener('scroll', handleScroll)
+			// add event listeners to each element
+			panels.forEach(panel => {
+				// first reset every element's className to 'panel'
+				// then append 'active' type to its class if it is clicked
+				panel.addEventListener('mouseenter', () => {
+					removeActiveClasses()
+					panel.classList.add('active')
+				})
+			})
+
+			// reset every element's className to 'panel'
+			function removeActiveClasses() {
+				panels.forEach(panel => {
+					panel.classList.remove('active')
+				})
+			}
+			
+			// handle the switching of the nav bar
+			// and the effect of the main bg
+			function handleScroll() {
+				// handle nav bar
+				if (window.scrollY > nav.offsetHeight + 150) {
+					nav.classList.add('active') 
+				} else {
+					nav.classList.remove('active')
+				}
+			}
+
+		</script>
+	</body>
+		
+</html>

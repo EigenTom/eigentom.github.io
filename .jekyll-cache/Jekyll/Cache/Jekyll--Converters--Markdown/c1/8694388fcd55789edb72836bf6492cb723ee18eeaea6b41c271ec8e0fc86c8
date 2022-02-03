@@ -1,0 +1,234 @@
+I"�9<h1 id="七彩悬浮板-hoverboard">七彩悬浮板 Hoverboard</h1>
+
+<h2 id="1-概述">1. 概述</h2>
+
+<p>项目本体展示了一个悬浮板, 光标触及的正方形子板会随机点亮为不同的颜色.</p>
+
+<p>效果:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20210902134916.png" alt="20210902134916" /></p>
+
+<p><br /></p>
+
+<h2 id="2-结构和切图">2. 结构和切图</h2>
+
+<p>网页的基本结构极其简单:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="o">&lt;</span><span class="nt">body</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nt">div</span> <span class="nt">class</span><span class="o">=</span><span class="s1">"container"</span> <span class="nt">id</span><span class="o">=</span><span class="s1">"container"</span><span class="o">&gt;&lt;/</span><span class="nt">div</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="nt">body</span><span class="o">&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>每一个具体的正方形子板都是有 <code class="language-plaintext highlighter-rouge">JavaScript</code> 函数添加的.</p>
+
+<p><br /></p>
+
+<h2 id="3-编写-css-样式">3. 编写 <code class="language-plaintext highlighter-rouge">CSS</code> 样式</h2>
+
+<p>将 <code class="language-plaintext highlighter-rouge">body</code> 的排版方式设为水平垂直居中:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="nt">body</span> <span class="p">{</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="m">#111</span><span class="p">;</span>
+  <span class="nl">display</span><span class="p">:</span> <span class="n">flex</span><span class="p">;</span>
+  <span class="nl">align-items</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+  <span class="nl">justify-content</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+  <span class="nl">height</span><span class="p">:</span> <span class="m">100vh</span><span class="p">;</span>
+  <span class="nl">overflow</span><span class="p">:</span> <span class="nb">hidden</span><span class="p">;</span>
+  <span class="nl">margin</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>然后控制容纳正方形子板的容器的最大宽度:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="nc">.container</span> <span class="p">{</span>
+  <span class="nl">display</span><span class="p">:</span> <span class="n">flex</span><span class="p">;</span>
+  <span class="nl">align-items</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+  <span class="nl">justify-content</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+  <span class="nl">flex-wrap</span><span class="p">:</span> <span class="n">wrap</span><span class="p">;</span>
+  <span class="nl">max-width</span><span class="p">:</span> <span class="m">400px</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>最后设定子板本身的样式, 令其在鼠标悬浮于其上时立刻点亮:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre><span class="nc">.square</span> <span class="p">{</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="m">#1d1d1d</span><span class="p">;</span>
+  <span class="nl">box-shadow</span><span class="p">:</span> <span class="m">0</span> <span class="m">0</span> <span class="m">2px</span> <span class="m">#000</span><span class="p">;</span>
+  <span class="nl">height</span><span class="p">:</span> <span class="m">16px</span><span class="p">;</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="m">16px</span><span class="p">;</span>
+  <span class="nl">margin</span><span class="p">:</span> <span class="m">2px</span><span class="p">;</span>
+  <span class="nl">transition</span><span class="p">:</span> <span class="m">2s</span> <span class="n">ease</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.square</span><span class="nd">:hover</span> <span class="p">{</span>
+  <span class="nl">transition-duration</span><span class="p">:</span> <span class="m">0s</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>完整的 <code class="language-plaintext highlighter-rouge">CSS</code> 样式表如下:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+</pre></td><td class="rouge-code"><pre><span class="o">*</span> <span class="p">{</span>
+  <span class="nl">box-sizing</span><span class="p">:</span> <span class="n">border-box</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">body</span> <span class="p">{</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="m">#111</span><span class="p">;</span>
+  <span class="nl">display</span><span class="p">:</span> <span class="n">flex</span><span class="p">;</span>
+  <span class="nl">align-items</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+  <span class="nl">justify-content</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+  <span class="nl">height</span><span class="p">:</span> <span class="m">100vh</span><span class="p">;</span>
+  <span class="nl">overflow</span><span class="p">:</span> <span class="nb">hidden</span><span class="p">;</span>
+  <span class="nl">margin</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.container</span> <span class="p">{</span>
+  <span class="nl">display</span><span class="p">:</span> <span class="n">flex</span><span class="p">;</span>
+  <span class="nl">align-items</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+  <span class="nl">justify-content</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+  <span class="nl">flex-wrap</span><span class="p">:</span> <span class="n">wrap</span><span class="p">;</span>
+  <span class="nl">max-width</span><span class="p">:</span> <span class="m">400px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.square</span> <span class="p">{</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="m">#1d1d1d</span><span class="p">;</span>
+  <span class="nl">box-shadow</span><span class="p">:</span> <span class="m">0</span> <span class="m">0</span> <span class="m">2px</span> <span class="m">#000</span><span class="p">;</span>
+  <span class="nl">height</span><span class="p">:</span> <span class="m">16px</span><span class="p">;</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="m">16px</span><span class="p">;</span>
+  <span class="nl">margin</span><span class="p">:</span> <span class="m">2px</span><span class="p">;</span>
+  <span class="nl">transition</span><span class="p">:</span> <span class="m">2s</span> <span class="n">ease</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.square</span><span class="nd">:hover</span> <span class="p">{</span>
+  <span class="nl">transition-duration</span><span class="p">:</span> <span class="m">0s</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="4-javascript">4. <code class="language-plaintext highlighter-rouge">JavaScript</code></h2>
+
+<p>最后, 我们编写 <code class="language-plaintext highlighter-rouge">JavaScript</code> 函数:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+</pre></td><td class="rouge-code"><pre><span class="kd">const</span> <span class="nx">container</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">container</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">colors</span> <span class="o">=</span> <span class="p">[</span><span class="dl">'</span><span class="s1">#e74c3c</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">#8e44ad</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">#3498db</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">#e67e22</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">#2ecc71</span><span class="dl">'</span><span class="p">];</span>
+<span class="kd">const</span> <span class="nx">SQUARES</span> <span class="o">=</span> <span class="mi">500</span><span class="p">;</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">SQUARES</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">square</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="dl">'</span><span class="s1">div</span><span class="dl">'</span><span class="p">);</span>
+    <span class="nx">square</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="dl">'</span><span class="s1">square</span><span class="dl">'</span><span class="p">);</span>
+    <span class="nx">square</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">mouseover</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">setColor</span><span class="p">(</span><span class="nx">square</span><span class="p">));</span>
+    <span class="nx">square</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">mouseout</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">removeColor</span><span class="p">(</span><span class="nx">square</span><span class="p">));</span>
+    <span class="nx">container</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">square</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">setColor</span><span class="p">(</span><span class="nx">element</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">color</span> <span class="o">=</span> <span class="nx">getRandomColor</span><span class="p">();</span>
+    <span class="nx">element</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">background</span> <span class="o">=</span> <span class="nx">color</span>
+    <span class="nx">element</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">boxShadow</span> <span class="o">=</span> <span class="s2">`0 0 2px </span><span class="p">${</span><span class="nx">color</span><span class="p">}</span><span class="s2">, 0 0 10px </span><span class="p">${</span><span class="nx">color</span><span class="p">}</span><span class="s2">`</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">removeColor</span><span class="p">(</span><span class="nx">element</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">element</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">background</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">#1f1e33</span><span class="dl">'</span><span class="p">;</span>
+    <span class="nx">element</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">boxShadow</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">0 0 2px #000</span><span class="dl">'</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">getRandomColor</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">colors</span><span class="p">[</span><span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="nx">colors</span><span class="p">.</span><span class="nx">length</span><span class="p">)];</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>注意此处对每一个正方形子板事件的监听.</p>
+
+<p>最后, 完整的网页演示可见 <a href="../../../../../projects/50P50D/hoverboard/index.html">此处</a></p>
+:ET

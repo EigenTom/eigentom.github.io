@@ -1,0 +1,140 @@
+I"+<h1 id="ch5-地址与寻址">Ch5 地址与寻址</h1>
+
+<p>Motivation:</p>
+<ol>
+  <li>了解寻址模式
+    <ul>
+      <li>直接寻址模式</li>
+      <li>寄存器间接寻址模式</li>
+      <li>基数 + 偏移量寻址模式</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">ARM</code> 的间接寻址模式</li>
+</ol>
+
+<h2 id="1-寻址">1. 寻址</h2>
+<p>为了使计算机程序可以高效地访问由大量的存储单元所组合而成的内存 (<code class="language-plaintext highlighter-rouge">Memory</code>), 处理器指令集采用内存地址使涉及内存的数据传输操作简易高效.</p>
+
+<p>处理器需要生成一个“地址” (<code class="language-plaintext highlighter-rouge">Address</code>) 以引用或参考内存. 这个生成的 “地址” 长度和内存地址一致, 在我们考虑的情形中, 它是 $32$位的, 也就是 $4$ 个字节. 生成 “地址” 的方式又有所不同, 我们将其统称为 “内存寻址” (<code class="language-plaintext highlighter-rouge">Memory Addressing</code>). 一些处理器可能只支持部分的内存寻址方式. 在本章中, 我们将介绍: 直接寻址 (<code class="language-plaintext highlighter-rouge">Direct Addressing</code>), 寄存器间接寻址 (<code class="language-plaintext highlighter-rouge">Register Indirect Addressing</code>) 和直接偏移量寻址 (<code class="language-plaintext highlighter-rouge">Immediate Offset Addressing</code>).</p>
+
+<h3 id="11-直接寻址">1.1 直接寻址</h3>
+<p>直接寻址又称 <strong>立即数寻址</strong> 或 <strong>立即寻址</strong>, 操作数 (地址) 本身包含在指令中, 只要取指令就取到了操作数. 要实现直接寻址, 一条指令必须足够长以容纳这条地址. <code class="language-plaintext highlighter-rouge">CISC</code> 处理器一般可以做到这点, 而属于 <code class="language-plaintext highlighter-rouge">RISC</code> 指令集的 <code class="language-plaintext highlighter-rouge">ARM</code> 架构则不支持这一方式: 显然, 一条 <code class="language-plaintext highlighter-rouge">32</code> 位的指令不可能容纳下同为 <code class="language-plaintext highlighter-rouge">32</code> 位长的地址. 因此, <code class="language-plaintext highlighter-rouge">ARM</code> 使用 <strong>间接寻址 (<code class="language-plaintext highlighter-rouge">Indirect Addressing</code>)</strong>.</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameMarisaa/KirisameMarisaa.github.io/img/blogpost_images/20201105193412.png" alt="20201105193412" /></p>
+
+<p><br /></p>
+
+<h3 id="12-寄存器间接寻址-register-indirect-addressing">1.2 寄存器间接寻址 <code class="language-plaintext highlighter-rouge">(Register Indirect Addressing)</code></h3>
+
+<p>当前, 我们不妨假设 <code class="language-plaintext highlighter-rouge">ARM</code> 架构的 “直接寻址” 是通过 <code class="language-plaintext highlighter-rouge">LDR, STR</code> 指令完成的. 例:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre>;Operation: a = b + c;
+LDR R0, b
+LDR R1, c
+ADD R0, R0, R1
+STR R0, a
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>这看上去很像直接寻址: 一个 “地址” 被标以某个符号或标签, 并且的确被编码入了指令内.</p>
+
+<p>实际上, 这属于寄存器间接寻址: 允许某个寄存器储存一个 “地址”, 并使用这个被存于寄存器中的 “地址” 来执行数据在内存中的加载和存储.</p>
+
+<p>寄存器间接寻址就是利用寄存器中的数值作为操作数 (地址).</p>
+
+<p>在寄存器间接寻址模式中, 我们需要使用的 “地址” 被存于某个寄存器中. 对于 <code class="language-plaintext highlighter-rouge">ARM</code> 架构而言, 由于寄存器的数量较少, 只需要几个位即可表示所有的寄存器. 使用这样的方式, 我们可以将表示寄存器的, 短得多的值编码进指令中, 实现类似于直接寻址的效果.</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameMarisaa/KirisameMarisaa.github.io/img/blogpost_images/20201105193442.png" alt="20201105193442" /></p>
+
+<p><br /></p>
+
+<h3 id="13-直接偏移量寻址-immediate-offset-addressing">1.3 直接偏移量寻址 <code class="language-plaintext highlighter-rouge">(Immediate Offset Addressing)</code></h3>
+
+<p>直接偏移量寻址属于基址 + 偏移量寻址的一种: 它将某个寄存器值作为基址, 将文字作为偏移量. 显然, 我们可以对寄存器进行操作. 也就是说, 我们可以存储/加载/移动地址, 并且对它进行运算. 一种朴素的思想就是: 我们可以将寄存器内存储的 “地址” 视为二进制整数, 并使用 <code class="language-plaintext highlighter-rouge">ADD</code> 这类运算操作指令.</p>
+
+<p>这一寻址方式亦称为 <strong>寄存器偏移寻址</strong>, 是 <code class="language-plaintext highlighter-rouge">ARM</code> 指令集独有的寻址方式, 它是在寄存器寻址得到操作数后, 再进行移位操作, 得到最终的操作数. 在直接偏移量寻址模式下, “地址” 由一个寄存器内所存储的值和一个 “文字”(<code class="language-plaintext highlighter-rouge">literal</code>) 计算而来:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameMarisaa/KirisameMarisaa.github.io/img/blogpost_images/20201105193510.png" alt="20201105193510" /></p>
+
+<p>在 <code class="language-plaintext highlighter-rouge">LDR/STR</code> 指令的寄存器模式下, <code class="language-plaintext highlighter-rouge">ARM</code> 指令集规定我们最多可以使用长为 $12$位的偏移量, 且这些偏移量是可以被执行加法或减法的:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre>LDR R0, [PC, #OFFSET]   ;The offset is the dist from PC to the variable
+LDR R0, [R1, #8]
+STR R3, [R6, #-0x240]
+LDR R7, [R2, #small_constant]
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>通过使用偏移量, 我们以给定的一个 “基数” 寄存器为起点, 最多可以向前或向后访问大约 <code class="language-plaintext highlighter-rouge">2Kb</code> 的内存范围.</p>
+
+<p>下面来看一个基数 + 偏移量寻址的例子:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameMarisaa/KirisameMarisaa.github.io/img/blogpost_images/20201105193539.png" alt="20201105193539" /></p>
+
+<p>我们在此对 <code class="language-plaintext highlighter-rouge">LDR R0, b</code> 指令所对应的偏移量的计算进行简要解释:
+<code class="language-plaintext highlighter-rouge">ARM</code> 指令集有一特性, 即为程序计数器恒指向下下一条指令的内存地址 (取指-译码-执行三级流水线). 在 <code class="language-plaintext highlighter-rouge">LDR R0, b</code> 指令被读取后, 程序计数器会指向第三条指令 <code class="language-plaintext highlighter-rouge">ADD R0, R0, R1</code>, 而观察该汇编程序的内存存储结构可以看出, 程序计数器所指向的内存地址和 <code class="language-plaintext highlighter-rouge">b</code> 的内存地址之间相差 $4 * 4 = 16$ 个位, 因此偏移量应该是 $16$, 也就得到了图中的结果.</p>
+
+<p>此外, 我们还可以把从另外一个寄存器中读入的值当作偏移量:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameMarisaa/KirisameMarisaa.github.io/img/blogpost_images/20201105193605.png" alt="20201105193605" /></p>
+
+<p><br /></p>
+
+<h2 id="2-arm-间接寻址">2. <code class="language-plaintext highlighter-rouge">ARM</code> 间接寻址</h2>
+
+<h3 id="21-间接寻址模式">2.1 间接寻址模式</h3>
+<p>我们可以使用使用合适的存储操作指令将一个内存地址存入寄存器中, 从而实现 <code class="language-plaintext highlighter-rouge">ARM</code> 架构的间接寻址.</p>
+
+<p>我们可以使用如下指令将内存地址存入寄存器中:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>
+ADR R2, b;      ;move the address of b into R2
+LDR R0, [R2]    ;use address in R2 to fetch the value of B
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>注:</p>
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">ADR</code> 是一个伪指令. 实际可能需要不止一条指令实现.</li>
+  <li><code class="language-plaintext highlighter-rouge">ADR</code> 的问题和 <code class="language-plaintext highlighter-rouge">LDR</code> 一样: 无法将一条 <code class="language-plaintext highlighter-rouge">32</code> 位长的地址编入<code class="language-plaintext highlighter-rouge">32</code> 位长的指令中.</li>
+</ol>
+
+<p><br /></p>
+
+<h3 id="22-基数--偏移量寻址">2.2 基数 + 偏移量寻址</h3>
+
+<p>除了直接偏移量寻址外, <code class="language-plaintext highlighter-rouge">ARM</code> 同样允许从另一个寄存器中读入偏移量, 并且读入的偏移量也可以作加减法运算:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameMarisaa/KirisameMarisaa.github.io/img/blogpost_images/20201105193636.png" alt="20201105193636" /></p>
+
+<p>总结: <code class="language-plaintext highlighter-rouge">ARM</code> 架构的间接寻址模式分类如下:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameMarisaa/KirisameMarisaa.github.io/img/blogpost_images/20201105193709.png" alt="20201105193709" /></p>
+
+<p><br /></p>
+
+<h3 id="23-前变址寻址方式">2.3 前变址寻址方式</h3>
+
+<p>前变址寻址, <code class="language-plaintext highlighter-rouge">Pre-Indexed Addressing</code>, 指先变址, 再传值的寻址方式:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>; pass value: [SP]+4 to R0
+STR R0, [SP, #4]!
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="24-后变址寻址方式">2.4 后变址寻址方式</h3>
+
+<p>后变址寻址, <code class="language-plaintext highlighter-rouge">Post-Indexed Addressing</code>, 指先传值, 再变址的寻址方式:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>; pass value: [SP] to R0, then +4
+STR R0, [SP], #4
+</pre></td></tr></tbody></table></code></pre></div></div>
+:ET

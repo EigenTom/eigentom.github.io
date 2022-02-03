@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="description" content="由于相关法律法规规定, 该内容无法显示.">
+    <meta name="keywords" content="菜">
+    <meta name="theme-color" content="#333">
+
+    <!-- Open Graph -->
+    <meta property="og:title"
+        content="某一般线性空间 | Ramdom Linear Space">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:description"
+        content="高阶线性微分方程组会梦见基础解系吗?">
+    
+    <meta property="og:image" content="http://localhost:4000https://github.com/KirisameR.png">
+    <meta property="og:url" content="http://localhost:4000/">
+    <meta property="og:site_name" content="某一般线性空间 | Ramdom Linear Space">
+
+    <title>某一般线性空间 | Ramdom Linear Space</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4000/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href=" /css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href=" /css/hux-blog.min.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"type="text/css">
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+
+    <!-- 数学公式 -->
+    <script type="text/javascript" async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+            showProcessingMessages: true, //关闭js加载过程信息
+            messageStyle: "none", //不显示信息
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code','a'], //避开某些标签
+                ignoreClass:"comment-content" //避开含该Class的标签
+            },
+            "HTML-CSS": {
+                availableFonts: ["STIX","TeX"], //可选字体
+                showMathMenu: false //关闭右击菜单显示
+            }
+        });
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+    </script>
+
+    
+
+    <!-- Google AdSense -->
+    <script data-ad-client="ca-pub-6487568398225121" async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">RANDOM LINEAR SPACE</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div id="huxblog_navbar">
+                <div class="navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                        
+                        
+                        <li>
+                            <a href="/archive/">Archive</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li class="search-icon">
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <script>
+        // Drop Bootstarp low-performance Navbar
+        // Use customize navbar with high-quality material design animation
+        // in high-perf jank-free CSS3 implementation
+        var $body = document.body;
+        var $toggle = document.querySelector('.navbar-toggle');
+        var $navbar = document.querySelector('#huxblog_navbar');
+        var $collapse = document.querySelector('.navbar-collapse');
+
+        var __HuxNav__ = {
+            close: function () {
+                $navbar.className = " ";
+                // wait until animation end.
+                setTimeout(function () {
+                    // prevent frequently toggle
+                    if ($navbar.className.indexOf('in') < 0) {
+                        $collapse.style.height = "0px"
+                    }
+                }, 400)
+            },
+            open: function () {
+                $collapse.style.height = "auto"
+                $navbar.className += " in";
+            }
+        }
+
+        // Bind Event
+        $toggle.addEventListener('click', function (e) {
+            if ($navbar.className.indexOf('in') > 0) {
+                __HuxNav__.close()
+            } else {
+                __HuxNav__.open()
+            }
+        })
+
+        /**
+         * Since Fastclick is used to delegate 'touchstart' globally
+         * to hack 300ms delay in iOS by performing a fake 'click',
+         * Using 'e.stopPropagation' to stop 'touchstart' event from 
+         * $toggle/$collapse will break global delegation.
+         * 
+         * Instead, we use a 'e.target' filter to prevent handler
+         * added to document close HuxNav.  
+         *
+         * Also, we use 'click' instead of 'touchstart' as compromise
+         */
+        document.addEventListener('click', function (e) {
+            if (e.target == $toggle) return;
+            if (e.target.className == 'icon-bar') return;
+            __HuxNav__.close();
+        })
+    </script>
+    <!-- Search -->
+<div class="search-page">
+  <div class="search-icon-close-container">
+    <span class="search-icon-close">
+      <i class="fa fa-chevron-down"></i>
+    </span>
+  </div>
+  <div class="search-main container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <form></form>
+        <input type="text" id="search-input" placeholder="$ grep...">
+        </form>
+        <div id="search-results" class="mini-post-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Page Header -->
+
+
+
+
+
+
+
+<header class="intro-header" style="background-image: url('/img/post-bg-desk.jpg')">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        
+        <div class="site-heading">
+        
+          <h1>某一般线性空间</h1>
+          <span class="subheading">高阶线性微分方程组会梦见基础解系吗?</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+<!-- Main Content -->
+<div class="container">
+  <div class="row">
+    
+
+    <!-- USE SIDEBAR -->
+    <!-- PostList Container -->
+    <div class="col-lg-8 col-lg-offset-1 col-md-8 col-md-offset-1 col-sm-12
+      col-xs-12 postlist-container">
+      
+<div class="post-preview">
+    <a href="/2022/01/23/COMP23311-REV/">
+        <h2 class="post-title">
+            Software Engineering 一日速成
+        </h2>
+        
+        <h3 class="post-subtitle">
+            REVISION
+        </h3>
+        
+        <!--
+        <div class="post-content-preview">
+            
+                COMP23311 24小时速成
+
+Week 1: Building &amp; Testing Open Source Systems
+
+What is software Engineering?
+
+
+  Building software to Budget + Deadline
+  Needs to Deliver sufficient ROI (Return on Investmen...
+            
+        </div>
+        -->
+        
+        <div class="post-content-preview">
+                
+                    Exam-First Teaching
+                
+        </div>
+            
+    </a>
+    <p class="post-meta">
+        Posted by R1NG on January 23, 2022
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2022/01/14/COMP23111-REV-Ch4/">
+        <h2 class="post-title">
+            数据库导论 其他数据库
+        </h2>
+        
+        <h3 class="post-subtitle">
+            DROP 'n1ql' FROM 'dbKnowledgeBase';
+        </h3>
+        
+        <!--
+        <div class="post-content-preview">
+            
+                COMP23111 REVISION Ch4
+
+4. 其他数据库
+
+我们将在本章中对本课程涉及的其他三种非关系数据库进行介绍. 这种介绍基于功利性质, 主要信息来源为部分 Slides 内容 + Lab 内容, 并且逻辑结构可能极其混乱.
+
+4.1 非关系类型数据库: Couchbase
+
+Couchbase 是一种主要用于数据存储和缓存的, 分布式 非关系型 (NOSQL) 数据库.
+
+C...
+            
+        </div>
+        -->
+        
+        <div class="post-content-preview">
+                
+                    其他数据库
+                
+        </div>
+            
+    </a>
+    <p class="post-meta">
+        Posted by R1NG on January 14, 2022
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2022/01/13/COMP23111-REV-Ch3/">
+        <h2 class="post-title">
+            数据库导论 关系数据库实现
+        </h2>
+        
+        <h3 class="post-subtitle">
+            DROP 'sql' FROM 'dbKnowledgeBase';
+        </h3>
+        
+        <!--
+        <div class="post-content-preview">
+            
+                COMP23111 REVISION Ch3
+
+3. 数据库实现
+
+本节讨论 SQL 语句和部分高级功能, 并介绍 数据库事务 的概念和其处理方式.
+
+3.1 SQL 基础
+
+3.1.1 选择运算: SELECTION
+
+SELECT 语句用于从一个关系中选出 满足选择条件 的元组的一个子集, 我们可以将其视为一个 过滤器. 如果将一个关系视为一张表, 则 SELECT 操作相当于从这张表中...
+            
+        </div>
+        -->
+        
+        <div class="post-content-preview">
+                
+                    关系数据库实现
+                
+        </div>
+            
+    </a>
+    <p class="post-meta">
+        Posted by R1NG on January 13, 2022
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2022/01/12/COMP23111-REV-Ch2/">
+        <h2 class="post-title">
+            数据库导论 关系数据库建模
+        </h2>
+        
+        <h3 class="post-subtitle">
+            DROP 'modeling' FROM 'dbKnowledgeBase';
+        </h3>
+        
+        <!--
+        <div class="post-content-preview">
+            
+                COMP23111 REVISION Ch2
+
+2. 数据库建模
+
+一般地, 我们在对某个现实需求建模时, 需要执行的流程是: 首先从现实问题中总结出现实需求 (需求的汇集和分析), 将需求提炼成某种更抽象和精确的模型, 使用高级数据模型创建数据库的 概念模式 (Conceptual Schema), (概念设计, Conceptual Design) 并最终从这个模型得到可直接在 DBMS...
+            
+        </div>
+        -->
+        
+        <div class="post-content-preview">
+                
+                    关系数据库建模
+                
+        </div>
+            
+    </a>
+    <p class="post-meta">
+        Posted by R1NG on January 12, 2022
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2022/01/11/COMP23111-REV-Ch1/">
+        <h2 class="post-title">
+            数据库导论 关系数据库理论
+        </h2>
+        
+        <h3 class="post-subtitle">
+            DROP 'theory' FROM 'dbKnowledgeBase';
+        </h3>
+        
+        <!--
+        <div class="post-content-preview">
+            
+                COMP23111 REVISION Ch1
+
+本复习笔记对本学期所教授的课程内容进行了基于笔者自己理解下的重排.
+
+笔者将前八周内对关系数据库从建模到通过网络编程实现, 穿插部分数据库理论的松散体系拆分为三个部分: 数据库理论, 数据库建模和数据库实现, 而最后三周内对各种非关系数据库的介绍仅作为补充内容 , 放在 “其他数据库” 中.
+
+1. 数据库理论
+
+数据库是 一系列有价值的信息组...
+            
+        </div>
+        -->
+        
+        <div class="post-content-preview">
+                
+                    关系数据库理论
+                
+        </div>
+            
+    </a>
+    <p class="post-meta">
+        Posted by R1NG on January 11, 2022
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2022/01/05/COMP26120-REV/">
+        <h2 class="post-title">
+            数据结构与算法 复习
+        </h2>
+        
+        <h3 class="post-subtitle">
+            REVISION
+        </h3>
+        
+        <!--
+        <div class="post-content-preview">
+            
+                COMP26120 REVISION
+
+1. 算法设计与复杂度分析
+
+定义 1.1 (算法)
+
+  称一系列精确定义地, 用于解决特定计算问题的步骤和流程为 算法.
+
+
+定义 1.2 (抽象数据类型, Abstract Data Type, ADT)
+
+  称一个对 抽象化的数据对象本身 , 数据对象之间的关系 和 可对数据对象进行的基本操作 的需求 (定义) 为 抽象数据类型, 本质上描述...
+            
+        </div>
+        -->
+        
+        <div class="post-content-preview">
+                
+                    数据结构与算法期末复习
+                
+        </div>
+            
+    </a>
+    <p class="post-meta">
+        Posted by R1NG on January 5, 2022
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2021/12/31/COMP24011-Ch8/">
+        <h2 class="post-title">
+            人工智能导论 用于通讯的自然语言
+        </h2>
+        
+        <h3 class="post-subtitle">
+            Communication
+        </h3>
+        
+        <!--
+        <div class="post-content-preview">
+            
+                用于通讯的自然语言
+
+通讯 是一种通过 产生和感知信号 而形成的, 有目的的信息交换. 在一个 部分可观察 的世界中, 通讯有助于 Agent 达成它的目的, 因为 Agent 能够通过通讯获得 由其他 Agent 观察到或推断出的信息.
+
+如果我们希望我们构造的 Agent 能够对人类有所帮助的话, 它们就需要具备学习和使用语言的能力. 本章我们考虑用于通讯的语言模型.
+
+1. 短语结构语...
+            
+        </div>
+        -->
+        
+        <div class="post-content-preview">
+                
+                    本章将介绍人们通过自然语言交流的方式, 并探讨计算机 Agent 如何加入这样的会话中.
+                
+        </div>
+            
+    </a>
+    <p class="post-meta">
+        Posted by R1NG on December 31, 2021
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2021/12/30/COMP24011-Ch7/">
+        <h2 class="post-title">
+            人工智能导论 自然语言处理
+        </h2>
+        
+        <h3 class="post-subtitle">
+            NLP
+        </h3>
+        
+        <!--
+        <div class="post-content-preview">
+            
+                自然语言处理
+
+本章将研究如何利用以自然语言描述的知识, 并介绍对自然语言进行信息检索和信息提取的一般方法.
+
+1. 语言模型
+
+形如 Java, Haskell 的程序设计语言都有 精确定义的语言模型, 这种语言可以被定义为 字符串的集合, 并且可以 通过一组称为 “语法” 的规则描述. 形式语言也可通过规则来定义 程序的意义或语义.
+
+而自然语言, 如 English 或 中文, 则无法...
+            
+        </div>
+        -->
+        
+        <div class="post-content-preview">
+                
+                    本章将介绍自然语言处理的一般概念与信息检索和信息提取的一般方法.
+                
+        </div>
+            
+    </a>
+    <p class="post-meta">
+        Posted by R1NG on December 30, 2021
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2021/12/28/COMP24011-Ch6/">
+        <h2 class="post-title">
+            人工智能导论 模糊逻辑
+        </h2>
+        
+        <h3 class="post-subtitle">
+            Fuzzy Logic
+        </h3>
+        
+        <!--
+        <div class="post-content-preview">
+            
+                模糊逻辑
+
+我们使用 模糊逻辑 (Fuzzy Logic) 描述具有模糊性的语言形式和思维. 在应用中, 我们通过 模糊控制系统 (Fuzzy Control System) 使 Agent 得以基于 模糊规则 利用具有模糊性的现实事实并以此为基准作出可靠的决策.
+
+标准的 模糊控制系统 架构如下图所示. 在接下来的数节中我们将详细介绍它:
+
+
+
+1. 隶属度 (Degree of Memb...
+            
+        </div>
+        -->
+        
+        <div class="post-content-preview">
+                
+                    本章将介绍用于研究模糊性思维, 语言形式及其规律的工具-模糊逻辑.
+                
+        </div>
+            
+    </a>
+    <p class="post-meta">
+        Posted by R1NG on December 28, 2021
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2021/12/25/COMP24011-Ch5/">
+        <h2 class="post-title">
+            人工智能导论 知识表示
+        </h2>
+        
+        <h3 class="post-subtitle">
+            Knowledge Representation
+        </h3>
+        
+        <!--
+        <div class="post-content-preview">
+            
+                知识表示
+
+本章中我们将说明如何使用一阶逻辑表示现实世界中的知识. 在介绍 通用本体论 后, 我们将介绍如何表示 对象, 物质, 量度, 事件 和 信念, 然后讨论对应用在 高效类别推理 中的推理系统的设计.
+
+5.1 本体论
+
+我们使用 本体论 表示现实世界中的客观事物, 知识和通用概念. 在各种不同的情况下, 我们可能需要在 上位本体论 的框架下进行扩展, 使用一些特化的本体论表示具体的...
+            
+        </div>
+        -->
+        
+        <div class="post-content-preview">
+                
+                    本章说明如何使用一阶逻辑对现实世界中的知识进行建模.
+                
+        </div>
+            
+    </a>
+    <p class="post-meta">
+        Posted by R1NG on December 25, 2021
+    </p>
+</div>
+<hr>
+
+
+<!-- Pager -->
+
+<ul class="pager">
+    
+    
+    <li class="next">
+        <a href="/page2">Older Posts &rarr;</a>
+    </li>
+    
+</ul>
+
+
+    </div>
+    <!-- Sidebar Container -->
+    <div class="col-lg-3 col-lg-offset-0 col-md-3 col-md-offset-0 col-sm-12
+      col-xs-12 sidebar-container">
+      <!-- Featured Tags -->
+      
+
+
+<section>
+    
+    <h5><a href="/archive/">FEATURED TAGS</a></h5>
+    <div class="tags">
+        
+        
+        
+        
+        
+        
+                <a data-sort="0109" 
+                    href="/archive/?tag=COMP12111"
+                    title="COMP12111"
+                    rel="10">COMP12111</a>
+        
+                <a data-sort="0027" 
+                    href="/archive/?tag=2021"
+                    title="2021"
+                    rel="92">2021</a>
+        
+                <a data-sort="0073" 
+                    href="/archive/?tag=%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0"
+                    title="课程笔记"
+                    rel="46">课程笔记</a>
+        
+                <a data-sort="0079" 
+                    href="/archive/?tag=%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0"
+                    title="前端学习"
+                    rel="40">前端学习</a>
+        
+                <a data-sort="0079" 
+                    href="/archive/?tag=50P50D"
+                    title="50P50D"
+                    rel="40">50P50D</a>
+        
+                <a data-sort="0094" 
+                    href="/archive/?tag=2020"
+                    title="2020"
+                    rel="25">2020</a>
+        
+                <a data-sort="0104" 
+                    href="/archive/?tag=COMP24011"
+                    title="COMP24011"
+                    rel="15">COMP24011</a>
+        
+                <a data-sort="0107" 
+                    href="/archive/?tag=%E9%80%BB%E8%BE%91%E5%AD%A6"
+                    title="逻辑学"
+                    rel="12">逻辑学</a>
+        
+                <a data-sort="0109" 
+                    href="/archive/?tag=COMP15111"
+                    title="COMP15111"
+                    rel="10">COMP15111</a>
+        
+                <a data-sort="0110" 
+                    href="/archive/?tag=%E6%89%A9%E5%B1%95%E8%87%AA%E4%B9%A0"
+                    title="扩展自习"
+                    rel="9">扩展自习</a>
+        
+                <a data-sort="0110" 
+                    href="/archive/?tag=COMP21111"
+                    title="COMP21111"
+                    rel="9">COMP21111</a>
+        
+                <a data-sort="0112" 
+                    href="/archive/?tag=%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0"
+                    title="机器学习"
+                    rel="7">机器学习</a>
+        
+                <a data-sort="0112" 
+                    href="/archive/?tag=COMP11212"
+                    title="COMP11212"
+                    rel="7">COMP11212</a>
+        
+                <a data-sort="0115" 
+                    href="/archive/?tag=%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95"
+                    title="数据结构和算法"
+                    rel="4">数据结构和算法</a>
+        
+                <a data-sort="0115" 
+                    href="/archive/?tag=COMP15212"
+                    title="COMP15212"
+                    rel="4">COMP15212</a>
+        
+                <a data-sort="0115" 
+                    href="/archive/?tag=COMP23111"
+                    title="COMP23111"
+                    rel="4">COMP23111</a>
+        
+                <a data-sort="0116" 
+                    href="/archive/?tag=%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7"
+                    title="奇技淫巧"
+                    rel="3">奇技淫巧</a>
+        
+                <a data-sort="0117" 
+                    href="/archive/?tag=%E7%99%BD%E6%9E%9C%E5%9B%AD"
+                    title="白果园"
+                    rel="2">白果园</a>
+        
+                <a data-sort="0117" 
+                    href="/archive/?tag=%E7%AE%97%E6%B3%95"
+                    title="算法"
+                    rel="2">算法</a>
+        
+                <a data-sort="0117" 
+                    href="/archive/?tag=Lab"
+                    title="Lab"
+                    rel="2">Lab</a>
+    </div>
+</section>
+
+
+      <!-- Short About -->
+      <section class="visible-md visible-lg">
+  <hr>
+  <h5><a href="/about/">ABOUT ME</a></h5>
+  <div class="short-about">
+    
+    <img src="https://github.com/KirisameR.png" />
+    
+    
+    <p></p>
+    
+    <!-- SNS Link -->
+    
+
+
+<ul class="list-inline">
+
+
+  
+  
+  
+  
+  
+  
+  <li>
+    <a target="_blank" href="https://github.com/KirisameR">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  
+  
+</ul>
+  </div>
+</section>
+
+      <!-- Friends Blog -->
+      
+<hr>
+<h5>FRIENDS</h5>
+<ul class="list-inline">
+  
+  <li><a href="http://ryanxin.cn">Ryan Xin</a></li>
+  
+  <li><a href="https://flyhigher.top">Axton.Gay</a></li>
+  
+  <li><a href="https://graynekocafe.net">GrayNekoBean</a></li>
+  
+  <li><a href="Gnefil.github.io">Gnefil</a></li>
+  
+</ul>
+
+
+      <!-- Ads -->
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- first shot -->
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6487568398225121" data-ad-slot="4814308751"
+     data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+    </div>
+    
+  </div>
+</div>
+
+
+<!-- Add support for Mathjax by Voleking-->
+<!-- If you want to see formulars well in post preview, Maybe you should add this.-->
+<!-- However, most of the time formulars may not appear in the post preview, you can delete it.-->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    tex2jax: {
+      inlineMath: [ ['$','$'] ],
+      displayMath: [ ['$$','$$'] ],
+      processEscapes: true,
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <!-- SNS Link -->
+                
+
+
+<ul class="list-inline text-center">
+
+
+  
+  
+  
+  
+  
+  
+  <li>
+    <a target="_blank" href="https://github.com/KirisameR">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  
+  
+</ul>
+
+                <p class="copyright text-muted">
+                    Copyright &copy; 某一般线性空间 2022
+                    <br>
+                    Powered by <a href="http://huangxuan.me">Hux Blog</a> |
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="100px"
+                        height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=huxpro&repo=huxpro.github.io&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<!-- Currently, only navbar scroll-down effect at desktop still depends on this -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Simple Jekyll Search -->
+<script src="/js/simple-jekyll-search.min.js"></script>
+
+<!-- Service Worker -->
+
+<script src="/js/snackbar.js "></script>
+<script src="/js/sw-registration.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+        var d = document, t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+
+
+
+
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog(selector) {
+
+        // interop with multilangual 
+        if ('' == 'true') {
+            _containerSelector = 'div.post-container.active'
+        } else {
+            _containerSelector = 'div.post-container'
+        }
+
+        // init
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        // clean
+        $(selector).html('')
+
+        // appending
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+<!-- Multi-Lingual -->
+
+
+<!-- Simple Jekyll Search -->
+<script>
+    // https://stackoverflow.com/questions/1912501/unescape-html-entities-in-javascript
+    function htmlDecode(input) {
+        var e = document.createElement('textarea');
+        e.innerHTML = input;
+        // handle case of empty input
+        return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+    }
+
+    SimpleJekyllSearch({
+        searchInput: document.getElementById('search-input'),
+        resultsContainer: document.getElementById('search-results'),
+        json: '/search.json',
+        searchResultTemplate: '<div class="post-preview item"><a href="{url}"><h2 class="post-title">{title}</h2><h3 class="post-subtitle">{subtitle}</h3><hr></a></div>',
+        noResultsText: 'No results',
+        limit: 50,
+        fuzzy: false,
+        // a hack to get escaped subtitle unescaped. for some reason, 
+        // post.subtitle w/o escape filter nuke entire search.
+        templateMiddleware: function (prop, value, template) {
+            if (prop === 'subtitle' || prop === 'title') {
+                if (value.indexOf("code")) {
+                    return htmlDecode(value);
+                } else {
+                    return value;
+                }
+            }
+        }
+    });
+
+    $(document).ready(function () {
+        var $searchPage = $('.search-page');
+        var $searchOpen = $('.search-icon');
+        var $searchClose = $('.search-icon-close');
+        var $searchInput = $('#search-input');
+        var $body = $('body');
+
+        $searchOpen.on('click', function (e) {
+            e.preventDefault();
+            $searchPage.toggleClass('search-active');
+            var prevClasses = $body.attr('class') || '';
+            setTimeout(function () {
+                $body.addClass('no-scroll');
+            }, 400)
+
+            if ($searchPage.hasClass('search-active')) {
+                $searchClose.on('click', function (e) {
+                    e.preventDefault();
+                    $searchPage.removeClass('search-active');
+                    $body.attr('class', prevClasses);  // from closure 
+                });
+                $searchInput.focus();
+            }
+        });
+    });
+</script>
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

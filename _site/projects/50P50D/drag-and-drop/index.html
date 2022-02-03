@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag and Drop</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #999999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+            margin: 0;
+        }
+
+        .empty {
+            height: 150px;
+            width: 150px;
+            margin: 10px;
+            border: solid 3px black;
+            background: white;
+        }
+
+        .fill {
+            background: url('../expanding-cards/avatar1.JPG') no-repeat center center/cover;
+            height: 145px;
+            width: 145px;
+            cursor: pointer;
+        }
+        .hold {
+            border: solid 5px #ccc;
+        }
+        .hovered {
+            background-color: #333;
+            border-color: #fff;
+            border-style: dashed;
+        }
+
+        @media (max-width: 800px){
+            body {
+                flex-direction: column;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="empty">
+        <div class="fill" draggable="true"></div>
+    </div>
+    <div class="empty"></div>
+    <div class="empty"></div>
+    <div class="empty"></div>
+    <div class="empty"></div>
+
+    <script>
+        // get that filled container
+        const fill = document.querySelector('.fill');
+        // and get all other containers which are not being filled
+        const empties = document.querySelectorAll('.empty');
+
+        // add event listeners to check when the container is 
+        // being dragged or dragging is finished
+        fill.addEventListener('dragstart', dragStart);
+        fill.addEventListener('dragend', dragEnd);
+
+        // and add event listeners for these empty containers
+        // to detect several possible kinds of incidents:
+        for (const empty of empties) {
+            // when the filled obj is hovering over
+            empty.addEventListener('dragover', dragOver);
+            // when the filled obj is entering
+            empty.addEventListener('dragenter', dragEnter);
+            // when the filled obj is leaving
+            empty.addEventListener('dragleave', dragLeave);
+            // when the filled obj is dropped
+            empty.addEventListener('drop', dragDrop);
+        }
+
+        // start dragging: remove the context of the original container
+        function dragStart() {
+            this.className += ' hold';
+            setTimeout(() => this.className = 'invisible', 0);
+        }
+
+        // fill in the context to the container being dragged to 
+        function dragEnd() {
+            this.className = 'fill';
+        }
+
+        // stop the event's default actions
+        function dragOver(e) {
+            e.preventDefault();
+        }
+
+        // change the container's style: add dashed lines
+        function dragEnter(e) {
+            e.preventDefault();
+            this.className += ' hovered';
+        }
+
+        // change the container's style: remove dashed lines
+        function dragLeave(e) {
+            this.className = 'empty';
+        }
+
+        // dropped
+        function dragDrop(e) {
+            this.className = 'empty';
+            this.append(fill);
+        }
+    </script>
+
+</body>
+</html>

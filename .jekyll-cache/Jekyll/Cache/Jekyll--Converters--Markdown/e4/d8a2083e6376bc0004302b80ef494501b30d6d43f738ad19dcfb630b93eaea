@@ -1,0 +1,194 @@
+I"�><h1 id="神经网络优化算法技巧">神经网络优化算法技巧</h1>
+<p>在前一章的介绍中, 我们已经明白, 神经网络学习的本质是一个优化问题: 通过多轮迭代对参数进行最优化, 从而使得损失函数的值尽可能的小. 和普通的最优化问题不同, 神经网络的最优化问题涉及的参数空间复杂, 无法使用解析的方式求得最优解, 而在深度神经网络中, 参数的规模则更加庞大.</p>
+
+<p>上一章中, 我们简述了随机梯度下降法作为神经网络训练过程中的参数优化方法. 在本节中, 我们将继续介绍其余几种更复杂, 性能更好的参数优化方法.</p>
+
+<p><br /></p>
+
+<h2 id="1-随机梯度下降法-sgd">1. 随机梯度下降法 <code class="language-plaintext highlighter-rouge">SGD</code></h2>
+
+<p>随机梯度下降法在上一章中已经简要介绍. 在介绍新方法之前, 我们先简要回顾一下:</p>
+
+<p><code class="language-plaintext highlighter-rouge">SGD</code> 的核心原理如下式所示:</p>
+
+\[W \leftarrow W - \eta \frac{\partial{L}}{\partial{W}}\]
+
+<p>此处, $W$ 为待更新的权重参数, $\eta$ 为每一次更新所执行的优化步长 (学习率), $\frac{\partial{L}}{\partial{W}}$ 为损失函数 $L$ 关于 $W$ 的偏导数.</p>
+
+<p>其 <code class="language-plaintext highlighter-rouge">Python</code> 实现如下:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="k">class</span> <span class="nc">SGD</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">):</span>
+    
+    <span class="c1"># lr: learning rate, set to 0.01 here as an example
+</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">lr</span> <span class="o">=</span> <span class="n">lr</span>
+    
+    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">grads</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">params</span><span class="p">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">-=</span> <span class="bp">self</span><span class="p">.</span><span class="n">lr</span> <span class="o">*</span> <span class="n">grads</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">SGD</code> 的优化思想很简单: 始终认为梯度指向极值, 按照它的方向不断行进, 最后就会到达极值处. 而当函数的梯度并不和假设一样指向极值时, 其效率就会明显下降. 考虑一个曲面或超曲面, 使用 <code class="language-plaintext highlighter-rouge">SGD</code> 方法求其最低点时, 极有可能陷入曲面的鞍点处而难以逃脱:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameMarisaa/KirisameMarisaa.github.io/img/blogpost_images/20210128224300.png" alt="20210128224300" /></p>
+
+<p>下面, 我们介绍几个更优化的方法.</p>
+
+<p><br /></p>
+
+<h2 id="2-动量方法-momentum">2. 动量方法 <code class="language-plaintext highlighter-rouge">Momentum</code></h2>
+
+<p>动量方法是物理模型和数学意义的结合, 它将参数进行最优化的过程假定为参数取值点在高低不一的平面或超平面上运动的过程, 引入了 “动量“ 的概念, 这与其名称对应. 其核心原理如下式所示:</p>
+
+\[v \leftarrow \alpha v - \eta \frac{\partial{L}}{\partial{W}}\]
+
+\[W \leftarrow W + v\]
+
+<p>此处出现的新变量 $v$ 对应物体运动的速度, $\alpha$ 对应和运动方向相反的摩擦阻力, 而 $\alpha v$ 即为动量的改变量. 在动量方法的优化过程中, 参数取值点除了会逐渐向梯度所指向的方向移动外, 其来回往复的运动行为会被抑制, 而单向的运动行为会被强化, 由此可以更快地从鞍点处逃逸.</p>
+
+<p>其 <code class="language-plaintext highlighter-rouge">Python</code> 实现如下:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+</pre></td><td class="rouge-code"><pre><span class="k">class</span> <span class="nc">Momentum</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">momentum</span><span class="o">=</span><span class="mf">0.9</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">lr</span> <span class="o">=</span> <span class="n">lr</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">momentum</span> <span class="o">=</span> <span class="n">momentum</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">v</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">grads</span><span class="p">):</span>
+
+        <span class="c1"># initialize at the begining
+</span>        <span class="c1"># store the velocity of each params, encode as a dict
+</span>    
+        <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">v</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">v</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">params</span><span class="p">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="bp">self</span><span class="p">.</span><span class="n">v</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">params</span><span class="p">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">v</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">momentum</span> <span class="o">*</span> <span class="bp">self</span><span class="p">.</span><span class="n">v</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="p">.</span><span class="n">lr</span> <span class="o">*</span> <span class="n">grads</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">+=</span> <span class="bp">self</span><span class="p">.</span><span class="n">v</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="3-自适应梯度法-adagrad">3. 自适应梯度法 <code class="language-plaintext highlighter-rouge">AdaGrad</code></h2>
+
+<p>自适应梯度法会在学习过程中为每一个参数适当调节其学习率. 其核心原理如下:</p>
+
+\[h \leftarrow h + \frac{\partial{L}}{\partial{W}} \otimes \frac{\partial{L}}{\partial{W}}\]
+
+\[W \leftarrow W - \eta \frac{1}{\sqrt{h}}\frac{\partial{L}}{\partial{W}}\]
+
+<p>此处的 $\otimes$ 是 <strong>矩阵乘法</strong>, 变量 $h$ 保存了对参数 $W$ 而言的, 此前学习中所有梯度的平方和. 通过在每一次更新时对学习率乘以不断减小的权值 $\frac{1}{\sqrt{h}}$, 可使学习的尺度随着学习周期的增加而减小, 从而实现学习率的衰减.</p>
+
+<p>其 <code class="language-plaintext highlighter-rouge">Python</code> 实现如下:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre></td><td class="rouge-code"><pre><span class="k">class</span> <span class="nc">AdaGrad</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">lr</span> <span class="o">=</span> <span class="n">lr</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">h</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">grads</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">h</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">h</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">params</span><span class="p">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="bp">self</span><span class="p">.</span><span class="n">h</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">params</span><span class="p">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">h</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">+=</span> <span class="n">grads</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">*</span> <span class="n">grads</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">-=</span> <span class="bp">self</span><span class="p">.</span><span class="n">lr</span> <span class="o">*</span> <span class="n">grads</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">h</span><span class="p">[</span><span class="n">key</span><span class="p">])</span> <span class="o">+</span> <span class="mf">1e-7</span><span class="p">)</span>
+
+            <span class="c1"># plus a small num incase overflow
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="4-adam-算法">4. <code class="language-plaintext highlighter-rouge">Adam</code> 算法</h2>
+
+<p><code class="language-plaintext highlighter-rouge">Adam</code> 方法基本可以视为前两种方法的结合, 在此不作详细介绍.</p>
+
+<p><br /></p>
+
+<h2 id="5-批量归一化-batch-normalization">5. 批量归一化 <code class="language-plaintext highlighter-rouge">Batch Normalization</code></h2>
+
+<p>批标准化方法的目的是强制调整神经网络激活值的分布, 从而使各层拥有适当的广度. 它拥有增大学习率, 对初始值依赖程度低, 和可抑制过拟合的特性.</p>
+
+<p>在使用批标准化方法时, 需要向神经网络中插入对数据分布进行正规化的层 (<code class="language-plaintext highlighter-rouge">Batch Normalization</code>), 从而实现对激活值的调整.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Batch Normalization</code> 就是以进行学习时的 <code class="language-plaintext highlighter-rouge">mini-batch</code> 为基本单位, 进行使数据分布的均值为 $0$, 方差为 $1$ 的正规化. 设被正规化的输入数据的集合为 ${x_1, x_2, \cdots, x_m}$, 则有:</p>
+
+\[\mu_{B} \leftarrow \frac{1}{m} \sum_{i=1}^{m}x_{i}\]
+
+\[\sigma^{2}_{B} \leftarrow \frac{1}{m} \sum_{i=1}^{m}(x_{i} - \mu_{B})^{2}\]
+
+\[\hat{x_{i}} \leftarrow \frac{x_{i} - \mu_{B}}{\sqrt{\sigma_{B}^{2} + \epsilon}}\]
+
+<p>注: $\epsilon$ 为一个极小值, 其意义在于防止分母为 $0$ 的情况发生.</p>
+
+<p>上述三式将输入数据集 ${x_1, x_2, \cdots, x_m}$ 转换为均值为 $0$, 方差为 $1$ 的数据集 ${\hat{x}_1, \hat{x}_2, \cdots, \hat{x}_m}$. 通过将该处理插入到激活函数层前或后面, 可以减小数据分布的偏向.</p>
+
+<p>随后, <code class="language-plaintext highlighter-rouge">Batch Normalization</code> 层还会对经过正规化后的数据集 ${\hat{x}_1, \hat{x}_2, \cdots, \hat{x}_m}$ 作仿射变换:</p>
+
+\[y_{i} \leftarrow \gamma\hat{x}_i + \beta\]
+
+<p>此处 $\gamma, \beta$ 为参数, 初始值分别为 $1, 0$, 在学习过程中参数值会被调整.</p>
+
+<p><br /></p>
+
+<h2 id="6-抑制过拟合-正则化">6. 抑制过拟合: 正则化</h2>
+
+<p>发生过拟合的原因主要有两个: 模型拥有大量参数 (神经网络规模大), 和训练数据不足.</p>
+
+<p>一种普遍被用于抑制过拟合的方法是 <strong>权值衰减</strong>. 它通过在学习的过程中对取值较大的权重进行 “惩罚” 来抑制过拟合. 一种常见的过拟合抑制方法是: 为损失函数加上权重的 $L2$ 范数 (平方范数), 即可抑制权重变大.</p>
+
+<p>[注] $L2$ 范数是各个元素的平方和.</p>
+
+<p>除了为损失函数加上 $L2$ 范数的权值衰减方法外, 还有一种方法可以应对复杂网络模型的过拟合抑制, 这就是 <code class="language-plaintext highlighter-rouge">Dropout</code> 方法.</p>
+
+<p>复杂网络模型中神经元数量众多, <code class="language-plaintext highlighter-rouge">Dropout</code> 方法会在学习的过程中随机删除神经元. 在训练时, 随机选出隐藏层的神经元并将其删除, 被删除的神经元不再进行信号的传递.</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameMarisaa/KirisameMarisaa.github.io/img/blogpost_images/20210130214913.png" alt="20210130214913" /></p>
+
+<p><br /></p>
+:ET

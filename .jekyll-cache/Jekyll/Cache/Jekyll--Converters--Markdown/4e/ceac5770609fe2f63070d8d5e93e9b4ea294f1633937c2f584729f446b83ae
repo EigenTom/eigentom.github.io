@@ -1,0 +1,256 @@
+I"�'<h1 id="命题逻辑-布尔语义和幂集语义">命题逻辑, 布尔语义和幂集语义</h1>
+<p>在本章中, 我们将引入最基本的逻辑系统: 命题逻辑, 简要介绍其基本概念, 并进一步地引入两种广泛应用于计算机科学领域的命题语义: 布尔语义和幂集语义.</p>
+
+<h2 id="1-命题逻辑-propositional-logic">1. 命题逻辑 <code class="language-plaintext highlighter-rouge">Propositional Logic</code></h2>
+
+<p>命题逻辑是最简单的逻辑系统, 以命题 (或命题公式) 为研究对象.</p>
+
+<p><strong>定义1.1 命题</strong></p>
+<blockquote>
+  <p>用语言, 符号或式子表达的, 或真或伪的陈述语句 (<code class="language-plaintext highlighter-rouge">Statement</code>) 称为 <strong>命题</strong>. <br /></p>
+
+  <p>使用联结词将多个命题联结起来, 即组成了更为复杂的 <strong>复合命题</strong> (<code class="language-plaintext highlighter-rouge">Compound Proposition</code>).</p>
+
+  <p>不可再分的命题称为 <strong>原子命题</strong> (<code class="language-plaintext highlighter-rouge">Atomic Proposition</code>), 一般用于构成复合命题.</p>
+</blockquote>
+
+<p>在命题逻辑中常用的联结词如下:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>符号</th>
+      <th>名称</th>
+      <th>逻辑关系</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>$\neg$</td>
+      <td>否定联结词</td>
+      <td>否定关系</td>
+    </tr>
+    <tr>
+      <td>$\vee$</td>
+      <td>析取联结词</td>
+      <td>析取关系</td>
+    </tr>
+    <tr>
+      <td>$\wedge$</td>
+      <td>合取联结词</td>
+      <td>合取关系</td>
+    </tr>
+    <tr>
+      <td>$\rightarrow$</td>
+      <td>蕴含联结词</td>
+      <td>蕴含关系</td>
+    </tr>
+    <tr>
+      <td>$\leftrightarrow$</td>
+      <td>等值联结词</td>
+      <td>等值关系</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>注:</p>
+<ol>
+  <li>作为命题的陈述语句所表达的逻辑判断结果即为命题的 <strong>真值</strong> (<code class="language-plaintext highlighter-rouge">Truth Value</code>), 任何命题的真值唯一.</li>
+  <li>要判断一个语句是否为命题, 只需要同时确定它是否为陈述句, 以及其真值是否唯一.</li>
+  <li>联结词可以嵌套, 但在运算时必须遵循优先顺序.</li>
+</ol>
+
+<p><br /></p>
+
+<p><strong>定义1.2 命题常元 (<code class="language-plaintext highlighter-rouge">Propositional Constant</code>)</strong></p>
+<blockquote>
+  <p>我们称简单命题为 <strong>命题常元</strong>, 它是真值唯一的命题逻辑中最基本的研究单位.</p>
+
+  <p>相应地, 称真值可变的陈述语句为 <strong>命题变元</strong> (<code class="language-plaintext highlighter-rouge">Propositional Variables</code>). 一般用命题符号表示命题变元.</p>
+</blockquote>
+
+<p><br /></p>
+
+<p><strong>定义1.3 命题公式/谓词公式 (<code class="language-plaintext highlighter-rouge">Propositional Formula</code>)</strong></p>
+<blockquote>
+  <ul>
+    <li>任何一个命题变项都是谓词公式.</li>
+    <li>若 $A$, 为谓词公式, 则 $\neg A$ 亦为谓词公式, 反之亦然.</li>
+    <li>若 $A, B$ 为谓词公式, 则 $A \vee B, A\wedge B, A \rightarrow B, A\leftrightarrow B$ 均为谓词公式.</li>
+    <li>只有符合上述规定的公式为谓词公式.</li>
+    <li>组成谓词公式的谓词公式称为子谓词公式 (<code class="language-plaintext highlighter-rouge">Propositional Subformula</code>).</li>
+    <li>谓词公式又称为命题公式, 合式公式.</li>
+  </ul>
+</blockquote>
+
+<p><br /></p>
+
+<p>在谓词公式中, 命题符号的真值不确定性导致了谓词公式的真值同样具有不确定性. 要让谓词公式变为真值唯一的命题, 我们需要将谓词公式中出现的所有命题符号逐一解释清楚, 这需要引入赋值的概念:</p>
+
+<p><br /></p>
+
+<p><strong>定义1.4 谓词公式的赋值 (<code class="language-plaintext highlighter-rouge">Valuation</code>)</strong></p>
+<blockquote>
+  <p>考虑谓词公式 $P(p_1, p_2, \cdots, p_n)$:<br />
+为其全部的命题符号 $p_1, p_2, \cdots, p_n$ 分别指定真值即完成了对 $P$ 的一个 <strong>赋值或解释</strong>.</p>
+
+  <p>若对命题符号指定了一组使谓词公式真值为 $1$ 的真值, 则称这组值为 <strong>$P$ 的成真赋值</strong>, 反之称为 <strong>$P$ 的成假赋值</strong>.</p>
+</blockquote>
+
+<p><br /></p>
+
+<p>在计算机科学中, 一种常用的逻辑学语义解释就是 <strong>布尔语义</strong>. 下面, 我们对其简要介绍:</p>
+
+<p><br /></p>
+
+<p><br /></p>
+
+<h2 id="2-布尔语义-boolean-semantic">2. 布尔语义 (<code class="language-plaintext highlighter-rouge">Boolean Semantic</code>)</h2>
+
+<p>在布尔语义中, 我们规定对谓词公式的解释能且只能为 $1$ 或 $0$, 并有如下定义:</p>
+
+<p><strong>定义2.1 布尔真值集</strong></p>
+<blockquote>
+  <p>称集合 $S = {1, 0}$ 为 <strong>布尔真值集 (<code class="language-plaintext highlighter-rouge">Boolean Truth Value Set</code>)</strong> 或 <strong>二元布尔代数</strong>, 赋记号 $\mathbb{B}$.</p>
+</blockquote>
+
+<p>基于上述定义, 在布尔语义中我们可以立即得出以下结论:</p>
+
+<p><br /></p>
+
+<p><strong>定义2.2 布尔赋值 (<code class="language-plaintext highlighter-rouge">Boolean Interpretation</code>)</strong></p>
+<blockquote>
+  <p>称函数:</p>
+  <center>
+
+$v: \{P_1, P_2, \cdots, P_n\} \rightarrow \{1, 0\}$
+</center>
+
+  <p>为 <strong>布尔赋值</strong>.</p>
+</blockquote>
+
+<p>布尔赋值将列表中每一个命题变量的真值映射到 ${1, 0}$ 上. 对一个谓词公式的布尔赋值又称为该谓词公式的 <strong>真值</strong>.</p>
+
+<p><br /></p>
+
+<p><strong>定义2.3 真值表</strong></p>
+<blockquote>
+  <p>某个谓词公式的真值表包含了组成该谓词公式的各级原子公式的可能解释, 以及在这些不同的解释下该谓词公式的真值. 真值表展示了一个谓词公式所有可能的解释 (<code class="language-plaintext highlighter-rouge">Interpretation</code>).</p>
+</blockquote>
+
+<p>我们可以用真值表判断谓词公式的类型:</p>
+
+<p><br /></p>
+
+<p><strong>定义2.4 重言式 (<code class="language-plaintext highlighter-rouge">Tautology</code>)</strong></p>
+<blockquote>
+  <p>若A在它的各种赋值下取值均为真 (布尔语义下其真值表最后一列全 $1$), 则称A是 <strong>重言式</strong>.</p>
+</blockquote>
+
+<p><br /></p>
+
+<p><strong>定义2.5 可满足式 (<code class="language-plaintext highlighter-rouge">Satisfiable</code>)</strong></p>
+<blockquote>
+  <p>若A在它的各种赋值下取值可真可假 (布尔语义下其真值表最后一列至少有一个 $1$), 则谓词公式为 <strong>可满足式</strong>.</p>
+</blockquote>
+
+<p><br /></p>
+
+<p><strong>定义2.6 矛盾式(<code class="language-plaintext highlighter-rouge">Contradiction</code>)</strong></p>
+<blockquote>
+  <p>若A在它的各种赋值下取值均为假 (布尔语义下其真值表最后一列全 $0$), 则谓词公式为 <strong>矛盾式</strong>.</p>
+</blockquote>
+
+<p>注:<br /></p>
+<ol>
+  <li>$P$ 为一个可满足式 $\leftrightarrow$ $P$ 至少存在一个成真赋值.</li>
+  <li>重言式必为可满足式, 但反之不真.</li>
+</ol>
+
+<p><br /></p>
+
+<p><br /></p>
+
+<h2 id="3-幂集语义-powerset-semantic">3. 幂集语义 (<code class="language-plaintext highlighter-rouge">Powerset Semantic</code>)</h2>
+
+<p>下面, 我们对幂集语义进行介绍.</p>
+
+<p><strong>定义3.1 幂集赋值</strong></p>
+<blockquote>
+  <p>称函数:</p>
+  <center>
+
+$v: \{P_1, P_2, \cdots, P_n\} \rightarrow \mathcal{P}X$
+</center>
+
+  <p>为 <strong>幂集赋值</strong>.</p>
+</blockquote>
+
+<p>布尔赋值将列表中每一个命题变量的真值映射到 <strong>$X$ 的某个子集</strong> 上.</p>
+
+<p>需要注意的是, 幂集语义下, 常用的逻辑联结词需要作以下替换:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>命题逻辑下的符号</th>
+      <th>命题逻辑下的名称</th>
+      <th>幂集语义下的符号</th>
+      <th>幂集语义下的名称</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>$\neg$</td>
+      <td>否定联结词</td>
+      <td>$X\backslash$</td>
+      <td>集合补运算</td>
+    </tr>
+    <tr>
+      <td>$\vee$</td>
+      <td>析取联结词</td>
+      <td>$\cup$</td>
+      <td>集合并运算</td>
+    </tr>
+    <tr>
+      <td>$\wedge$</td>
+      <td>合取联结词</td>
+      <td>$\cap$</td>
+      <td>集合交运算</td>
+    </tr>
+    <tr>
+      <td>$B \rightarrow B’$</td>
+      <td>蕴含联结词</td>
+      <td>$(X\backslash S_{B} \cup S_{B’})$</td>
+      <td>—</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>同时, 在幂集语义下, 重言式, 矛盾式和可满足式的定义也有所不同:</p>
+
+<p><br /></p>
+
+<p><strong>定义3.2 重言式 (<code class="language-plaintext highlighter-rouge">Tautology</code>)</strong></p>
+<blockquote>
+  <p>若A在它的各种赋值下取值均为真 (幂集语义下其解释为 $X$), 则称A是 <strong>重言式</strong>.</p>
+</blockquote>
+
+<p><br /></p>
+
+<p><strong>定义3.3 可满足式 (<code class="language-plaintext highlighter-rouge">Satisfiable</code>)</strong></p>
+<blockquote>
+  <p>若A在它的各种赋值下取值可真可假 (幂集语义下其解释为 $X$ 的非空子集), 则谓词公式为 <strong>可满足式</strong>.</p>
+</blockquote>
+
+<p><br /></p>
+
+<p><strong>定义3.4 矛盾式(<code class="language-plaintext highlighter-rouge">Contradiction</code>)</strong></p>
+<blockquote>
+  <p>若A在它的各种赋值下取值均为假 (命题语义下其解释为 $\emptyset$), 则谓词公式为 <strong>矛盾式</strong>.</p>
+</blockquote>
+
+<p><br /></p>
+
+<p>需要注意的是, 由于幂集语义下所有谓词公式的赋值全部变为子集, 而逻辑运算被译为集合间的运算, 因此可能的赋值方法大幅增加, 使用真值表的方法对谓词公式进行逻辑判断的方法不再可行. 相应地, 我们需要对命题变量进行幂集语义下的赋值, 并执行集合运算, 最后根据定义判断谓词公式的类型.</p>
+:ET

@@ -1,0 +1,146 @@
+I"h(<h1 id="ch0-intro">Ch0 Intro</h1>
+
+<h2 id="0-brief-explaination-of-os-and-what-this-unit-will-cover">0. Brief explaination of OS and what this unit will cover</h2>
+<p>In a single sentence, an operating system is the <strong>abstraction layer</strong> between user software and the physical computer hardware.</p>
+
+<p>The objectives of the operating system are to provide a <strong>simplified, regular interface</strong> to resources such as data files (regardless of where or how they are stored) and to isolate the application from anything else which the computer might be doing.</p>
+
+<p>Underneath all of this, the operating system manages the available resources in an attempt to give the best user service. Resources include such things as:</p>
+<ul>
+  <li>Processing time</li>
+  <li>Memory</li>
+  <li>Files</li>
+  <li>Input and Output (IO) devices</li>
+</ul>
+
+<p>This course unit will cover four broad areas which are core operating systems topics:</p>
+
+<ul>
+  <li><strong>Memory Management</strong>:<br /> allocating, maintaining and protecting the computer’s RAM</li>
+  <li><strong>Process management</strong>:<br /> with a focus on multi-tasking and process scheduling.</li>
+  <li><strong>File management</strong>:<br /> more on ‘permanent’ storage and access.</li>
+  <li><strong>Device management</strong>: <br />dealing with input/output and communications.</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="1-formal-definition-of-os-and-its-main-functionalities">1. Formal definition of OS and its main functionalities</h2>
+
+<p><strong>Definition: Operating System</strong></p>
+<blockquote>
+  <p>An operating system is a layer of software which lies between the application(s) program(s) and the hardware.</p>
+</blockquote>
+
+<p>In a “primitive”, single-tasking system this may provide just an abstraction layer, allowing the same applications to run on different hardware.</p>
+
+<p>In more complex systems, it provides more services, allowing multiple applications to run ‘simultaneously’. This requires a degree of resource management.</p>
+
+<p><br /></p>
+
+<h3 id="11-os-properties">1.1 OS properties</h3>
+<p>Modern operating system usually share the following properties:</p>
+
+<ul>
+  <li>
+    <p><strong>Protection</strong><br />
+An operating system typically offers some added security to a system. <br />
+At its simplest, this might be that difficult-to-write code – such as that needed to communicate with various hardware peripherals – is already provided. <br />
+More sophisticated systems are able to prevent unauthorised access.</p>
+  </li>
+  <li>
+    <p><strong>Multi-tasking</strong><br />
+Multi-tasking systems are those which can run multiple, non-interacting applications simultaneously. <br />
+In particular it is able to schedule the software in conjunction with the hardware to gain better efficiency.</p>
+  </li>
+  <li>
+    <p><strong>Multi-user</strong><br />
+A simple multi-tasking system may still ‘belong’ to a single user. Historically, once multi-tasking was common it was frequently desirable to share the expensive computer time amongst many users simultaneously. <br />
+This introduced the need for further security measures, protecting users from each other whilst allowing sharing when appropriate.</p>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="12-os-kinds">1.2 OS kinds</h3>
+<p>There are three main kinds of OS:</p>
+
+<ul>
+  <li><strong>Monolithic</strong>:<br /> By far the most common organization, in the monolithic approach the entire operating system runs as a single program in kernel mode.</li>
+  <li><strong>Layered Systems</strong>:<br /> Layers selected so each only uses functions, operations &amp; services of lower layers. Lower layers (“kernel”) contain most fundamental functions to manage resources.</li>
+  <li><strong>Microkernels</strong>:<br /> Keep only minimal functionality in the OS.</li>
+</ul>
+
+<p>The kernel is the core of an operating system: the part which resides in protected space, including the process manager, scheduler, interprocess communication, exception handlers, resource managers etc.</p>
+
+<p>It is isolated from the user space (assuming the processor/system architecture allows this – most ‘large’ systems do, these days) and connected by system calls.</p>
+
+<p>The kernel is responsible for implementing mechanisms; the debate is whether it should also be responsible for policy. Time for an example:</p>
+
+<ul>
+  <li>A scheduling mechanism includes the code which saves the context of one process and restores the context of another. It may be highly specific to a particular processor ISA.</li>
+  <li>A scheduling policy is responsible for when to switch: decisions on time-slicing, priority etc. This is generally fairly processor-agnostic.</li>
+</ul>
+
+<p>Similar examples can be constructed for memory management, filing systems etc.</p>
+
+<ul>
+  <li><strong>Monilithic Kernel</strong>: <br />
+Everything is included in the kernel and runs in the privileged mode. All the routines have direct access to the operating system’s memory.<br />
+<strong>Disadvantages</strong>:
+    <ul>
+      <li>Size: code continues to ‘bloat’ as it develops which makes management difficult.</li>
+      <li>Reliability: an introduced bug in one place can crash the whole system.</li>
+      <li>Portability: it is harder to adapt a large slab of code for a new system/architecture.</li>
+    </ul>
+  </li>
+  <li><strong>MicroKernel</strong>:<br />
+The kernel contains the handlers which need to be privileged but functions which do not. Examples might include the filing system, graphical user interface (GUI) and device drivers – are separated as user-mode processes. <br /><br />
+This keeps the size of the ‘sensitive’ code down, which is likely to improve reliability as it’s easier to modify and maintain. Only the required device drivers need to be loaded and a fault in one of these (a likely source of problems) cannot crash the kernel itself.<br />
+<strong>Disadvantages</strong>:
+    <ul>
+      <li>Speed: the additional needs for communications (and extra system calls) leads to a greater overhead from the O.S.</li>
+      <li>Complexity: greater complexity gives more potential for problems.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="13-os-resource-management">1.3 OS Resource Management</h3>
+
+<p>An important function of an operating system is <strong>resource management</strong>. <br />
+The resources of the system are the things it has or may do, and these need to be managed – and sometimes rationed – amongst the competing demands of users.</p>
+
+<p>Examples of what may be considered as resources:</p>
+
+<p><strong>Processing time</strong><br />
+A computer will have one or more processors . Every computation takes some time. <br />At a particular moment it is not unusual to want to do more computation than is possible; at other times there may be nothing to do.<br /> A typical operating system will share processing time as fairly as it knows how to try to provide a good service for competing demands. <br /><br />
+Modern systems may have several processor ‘cores’. In addition, there may be other processing resources – such as a GPU.<br /><br />
+What ‘best’ is may depend on circumstances. In a real-time system, <strong>response time</strong> may be fairly obvious; with an interactive user ‘<strong>not obviously slow’</strong> may be good enough; when calculating big computing loads, <strong>concentrating on a single job at any time</strong> may maximise efficiency.</p>
+
+<p><strong>Memory</strong><br />
+Any computer has a certain amount of storage for keeping its programs and data, which must be shared amongst competing demands.<br /> 
+There are various techniques which allow the machine to appear to have more memory than it actually does, so the memory resource can be better exploited. This memory management is done by the operating system.</p>
+
+<ul>
+  <li><strong>Address space</strong><br />
+The space where your code and variables might be is a <strong>related resource</strong> but it is slightly different from the memory which is in use. This, too, can be a precious resource. An operating system may allocate address space (the potential to use memory) but not give any <strong>real physical memory</strong> until and unless it gets used.</li>
+</ul>
+
+<p><strong>Files</strong><br />
+Files are available to different software and sometimes, but not always, different people. Something has to manage this. <br />
+What happens if two people or programs try to write to the same file at the same time? What if someone tries to delete a file which is currently being used?<br />
+This is all managed by the <strong>filing system</strong>, which is part of the operating system resource management.</p>
+
+<p><strong>Interfaces</strong><br />
+A computer’s I/O usually involves many different I/O devices. Programming every device in every application would be difficult. Usually an operating system tries to make devices look as similar to each other as is sensible which, in turn allows facilities such as redirecting your output from the screen to a file, or a printer with minimal difficulty.<br />
+It is also necessary to <strong>manage devices</strong>.</p>
+
+<p><strong>Keeping track</strong><br />
+Users are often badly behaved. Fortunately in most cases the operating system is <strong>allocating the resources and can track who-owns-what</strong>. It is then possible to check this information when a process dies and recycle the resources appropriately. This can be a particular issue if the process is terminated abnormally, e.g. via a <code class="language-plaintext highlighter-rouge">SIGINT</code> type of exception. <br />
+Nevertheless, shutting down processes tidily is encouraged and ought to be given some consideration.</p>
+
+<p>Some resources are “pre-emptable”: even if they have been granted they <strong>can be put aside without harm</strong>. Two obvious examples are processing time (suspend a process and context switch) and, in some systems, memory (page swap onto secondary store).</p>
+
+<p>“Non-pre-emptable” resources – such as a printer in the middle of a print-job – must <strong>not be interrupted and the resource must be requested, locked and subsequently released</strong>. Careless use of non-pre-emptable resources is a source of deadlock.</p>
+:ET

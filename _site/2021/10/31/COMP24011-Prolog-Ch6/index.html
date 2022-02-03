@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="description" content="由于相关法律法规规定, 该内容无法显示.">
+    <meta name="keywords" content="菜">
+    <meta name="theme-color" content="#333">
+
+    <!-- Open Graph -->
+    <meta property="og:title"
+        content="Prolog 学习 Ch6 - 某一般线性空间 | Ramdom Linear Space">
+    
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Prolog 入门: 剪枝与回溯
+">
+    
+    <meta property="article:published_time" content=" 2021-10-31T00:00:00Z">
+    
+    
+    <meta property="article:author" content="R1NG">
+    
+    
+    <meta property="article:tag" content="2021">
+    
+    <meta property="article:tag" content="课程笔记">
+    
+    <meta property="article:tag" content="COMP24011">
+    
+    
+    <meta property="og:image" content="http://localhost:4000https://github.com/KirisameR.png">
+    <meta property="og:url" content="http://localhost:4000/2021/10/31/COMP24011-Prolog-Ch6/">
+    <meta property="og:site_name" content="某一般线性空间 | Ramdom Linear Space">
+
+    <title>Prolog 学习 Ch6 - 某一般线性空间 | Ramdom Linear Space</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4000/2021/10/31/COMP24011-Prolog-Ch6/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href=" /css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href=" /css/hux-blog.min.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"type="text/css">
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+
+    <!-- 数学公式 -->
+    <script type="text/javascript" async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+            showProcessingMessages: true, //关闭js加载过程信息
+            messageStyle: "none", //不显示信息
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code','a'], //避开某些标签
+                ignoreClass:"comment-content" //避开含该Class的标签
+            },
+            "HTML-CSS": {
+                availableFonts: ["STIX","TeX"], //可选字体
+                showMathMenu: false //关闭右击菜单显示
+            }
+        });
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+    </script>
+
+    
+
+    <!-- Google AdSense -->
+    <script data-ad-client="ca-pub-6487568398225121" async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">RANDOM LINEAR SPACE</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div id="huxblog_navbar">
+                <div class="navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                        
+                        
+                        <li>
+                            <a href="/archive/">Archive</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li class="search-icon">
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <script>
+        // Drop Bootstarp low-performance Navbar
+        // Use customize navbar with high-quality material design animation
+        // in high-perf jank-free CSS3 implementation
+        var $body = document.body;
+        var $toggle = document.querySelector('.navbar-toggle');
+        var $navbar = document.querySelector('#huxblog_navbar');
+        var $collapse = document.querySelector('.navbar-collapse');
+
+        var __HuxNav__ = {
+            close: function () {
+                $navbar.className = " ";
+                // wait until animation end.
+                setTimeout(function () {
+                    // prevent frequently toggle
+                    if ($navbar.className.indexOf('in') < 0) {
+                        $collapse.style.height = "0px"
+                    }
+                }, 400)
+            },
+            open: function () {
+                $collapse.style.height = "auto"
+                $navbar.className += " in";
+            }
+        }
+
+        // Bind Event
+        $toggle.addEventListener('click', function (e) {
+            if ($navbar.className.indexOf('in') > 0) {
+                __HuxNav__.close()
+            } else {
+                __HuxNav__.open()
+            }
+        })
+
+        /**
+         * Since Fastclick is used to delegate 'touchstart' globally
+         * to hack 300ms delay in iOS by performing a fake 'click',
+         * Using 'e.stopPropagation' to stop 'touchstart' event from 
+         * $toggle/$collapse will break global delegation.
+         * 
+         * Instead, we use a 'e.target' filter to prevent handler
+         * added to document close HuxNav.  
+         *
+         * Also, we use 'click' instead of 'touchstart' as compromise
+         */
+        document.addEventListener('click', function (e) {
+            if (e.target == $toggle) return;
+            if (e.target.className == 'icon-bar') return;
+            __HuxNav__.close();
+        })
+    </script>
+    <!-- Search -->
+<div class="search-page">
+  <div class="search-icon-close-container">
+    <span class="search-icon-close">
+      <i class="fa fa-chevron-down"></i>
+    </span>
+  </div>
+  <div class="search-main container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <form></form>
+        <input type="text" id="search-input" placeholder="$ grep...">
+        </form>
+        <div id="search-results" class="mini-post-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/post-bg-prolog.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+
+
+
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/post-bg-prolog.jpg');
+        background: ;
+    }
+
+    
+</style>
+
+<header class="intro-header" >
+
+    <div class="header-mask"></div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/archive/?tag=2021" title="2021">2021</a>
+                        
+                        <a class="tag" href="/archive/?tag=%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0" title="课程笔记">课程笔记</a>
+                        
+                        <a class="tag" href="/archive/?tag=COMP24011" title="COMP24011">COMP24011</a>
+                        
+                    </div>
+                    <h1>Prolog 学习 Ch6</h1>
+                    
+                    <h2 class="subheading">Cut and Negation</h2>
+                    <span class="meta">Posted by R1NG on October 31, 2021</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <!-- Multi-Lingual -->
+                
+
+				<h1 id="prolog-入门-剪枝与回溯"><code class="language-plaintext highlighter-rouge">Prolog</code> 入门: 剪枝与回溯</h1>
+
+<p>在本章中, 我们将介绍一个新的用于剪枝 (<code class="language-plaintext highlighter-rouge">Cut</code>) 的内置谓词 <code class="language-plaintext highlighter-rouge">!</code>, 并解释如何使用它控制 <code class="language-plaintext highlighter-rouge">Prolog</code> 的回溯行为.</p>
+
+<p>随后我们将介绍回溯谓词 <code class="language-plaintext highlighter-rouge">fail</code>, 并介绍剪枝谓词和它的联合应用: <code class="language-plaintext highlighter-rouge">negation as faiulure</code>.</p>
+
+<h2 id="1-剪枝谓词-cut">1. 剪枝谓词 <code class="language-plaintext highlighter-rouge">Cut</code></h2>
+
+<p><code class="language-plaintext highlighter-rouge">Prolog</code> 的证明搜索机制高度依赖自动化的回溯算法, 但基于预置规则的回溯行为有时可能会导致遍历了完全没有必要遍历的内容, 降低程序的运行效率.</p>
+
+<p>在第三章中我们已经了解到, 通过调节规则和目标的顺序, 我们可以一定程度地影响 <code class="language-plaintext highlighter-rouge">Prolog</code> 证明搜索的行为. 本节将介绍一个 <code class="language-plaintext highlighter-rouge">Prolog</code> 内置谓词: <strong>剪枝谓词</strong> (<code class="language-plaintext highlighter-rouge">Cut</code>), 它可用于人为终止 <code class="language-plaintext highlighter-rouge">Prolog</code> 的回溯和证明搜索行为, 从而为我们提供对程序行为更精细的控制.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Cut</code> 的占位符为 <code class="language-plaintext highlighter-rouge">!</code>, 它是一个可被直接写入子句中的原子谓词:</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="ss">axton</span><span class="p">(</span><span class="nv">X</span><span class="p">)</span> <span class="p">:-</span> <span class="ss">rhythm_gamer</span><span class="p">(</span><span class="nv">X</span><span class="p">),</span> <span class="ss">proficient_developer</span><span class="p">(</span><span class="nv">X</span><span class="p">),</span> <span class="p">!,</span> <span class="ss">android_user</span><span class="p">(</span><span class="nv">X</span><span class="p">),</span> <span class="ss">windows_user</span><span class="p">(</span><span class="nv">X</span><span class="p">).</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>剪枝谓词 <code class="language-plaintext highlighter-rouge">Cut</code> 具如下性质:</p>
+
+<ol>
+  <li>在证明搜索过程中若它被视为目标, 则它为一个 <strong>永远被满足的目标</strong>.</li>
+  <li>考虑某个子句 $\alpha$ 包含了剪枝谓词 <code class="language-plaintext highlighter-rouge">!</code>. 则在某次为了尝试满足目标 $G$ 的证明搜索尝试联合该子句时, 剪枝谓词会 <strong>直接将自目标 $G$ 和包含子句的规则左侧联合之前所执行的所有选择, 包括对这个特定子句 $\alpha$ 的选择作为查询的结果提交</strong>, 即使联合失败程序也不会再尝试新的规则或变量.</li>
+</ol>
+
+<p>我们来看下面的一个例子.</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="ss">p</span><span class="p">(</span><span class="nv">X</span><span class="p">)</span> <span class="p">:-</span> <span class="ss">a</span><span class="p">(</span><span class="nv">X</span><span class="p">).</span> 
+<span class="ss">p</span><span class="p">(</span><span class="nv">X</span><span class="p">)</span> <span class="p">:-</span> <span class="ss">b</span><span class="p">(</span><span class="nv">X</span><span class="p">),</span> <span class="ss">c</span><span class="p">(</span><span class="nv">X</span><span class="p">),</span> <span class="ss">d</span><span class="p">(</span><span class="nv">X</span><span class="p">),</span> <span class="ss">e</span><span class="p">(</span><span class="nv">X</span><span class="p">).</span> 
+<span class="ss">p</span><span class="p">(</span><span class="nv">X</span><span class="p">)</span> <span class="p">:-</span> <span class="ss">f</span><span class="p">(</span><span class="nv">X</span><span class="p">).</span> 
+    
+<span class="ss">a</span><span class="p">(</span><span class="m">1</span><span class="p">).</span> <span class="ss">b</span><span class="p">(</span><span class="m">1</span><span class="p">).</span> <span class="ss">c</span><span class="p">(</span><span class="m">1</span><span class="p">).</span> 
+<span class="ss">d</span><span class="p">(</span><span class="m">2</span><span class="p">).</span> <span class="ss">e</span><span class="p">(</span><span class="m">2</span><span class="p">).</span> <span class="ss">f</span><span class="p">(</span><span class="m">3</span><span class="p">).</span> 
+<span class="ss">b</span><span class="p">(</span><span class="m">2</span><span class="p">).</span> <span class="ss">c</span><span class="p">(</span><span class="m">2</span><span class="p">).</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>我们若查询 <code class="language-plaintext highlighter-rouge">p(X)</code> 可得:</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="o">?-</span> <span class="ss">p</span><span class="p">(</span><span class="nv">X</span><span class="p">).</span>
+<span class="nv">X</span> <span class="o">=</span> <span class="m">1</span> <span class="p">;</span>
+<span class="nv">X</span> <span class="o">=</span> <span class="m">2</span> <span class="p">;</span>
+<span class="nv">X</span> <span class="o">=</span> <span class="m">3</span><span class="p">.</span>
+
+<span class="ss">false</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>我们在执行证明搜索时,搜索树如下图所示. 可见 <code class="language-plaintext highlighter-rouge">Prolog</code> 在处理第二条规则时执行了一次回溯:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20211031232853.png" alt="20211031232853" /></p>
+
+<p>我们下面对第二条规则进行简单改动:</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="ss">p</span><span class="p">(</span><span class="nv">X</span><span class="p">)</span> <span class="p">:-</span> <span class="ss">b</span><span class="p">(</span><span class="nv">X</span><span class="p">),</span> <span class="ss">c</span><span class="p">(</span><span class="nv">X</span><span class="p">),</span> <span class="p">!,</span> <span class="ss">d</span><span class="p">(</span><span class="nv">X</span><span class="p">),</span> <span class="ss">e</span><span class="p">(</span><span class="nv">X</span><span class="p">).</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>则此时我们若执行同样的查询, 返回的结果如下:</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="o">?-</span> <span class="ss">p</span><span class="p">(</span><span class="nv">X</span><span class="p">).</span>
+<span class="nv">X</span> <span class="o">=</span> <span class="m">1</span> <span class="p">;</span>
+<span class="ss">false</span><span class="p">.</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>可见 <code class="language-plaintext highlighter-rouge">Prolog</code> 不再为我们提供另两个可行解. 下面我们分析程序的执行流程来解释这一现象的成因.</p>
+
+<ol>
+  <li>在程序执行伊始 <code class="language-plaintext highlighter-rouge">Prolog</code> 尝试首先联合第一条规则, 因此我们得到目标 <code class="language-plaintext highlighter-rouge">a(X)</code>. 通过检索知识库将 <code class="language-plaintext highlighter-rouge">a</code> 实例化为 $1$, 程序即可将 <code class="language-plaintext highlighter-rouge">a(X)</code> 和事实 <code class="language-plaintext highlighter-rouge">a(1)</code> 联合, 从而找到第一个可行解 <code class="language-plaintext highlighter-rouge">X=1</code>. 到此为止新程序的执行流程和原先没有任何差别.</li>
+  <li>下面 <code class="language-plaintext highlighter-rouge">Prolog</code> 会尝试联合第二条规则, 而得到目标序列 <code class="language-plaintext highlighter-rouge">b(X),c(X),!,d(X),e(X)</code>. 由于 <code class="language-plaintext highlighter-rouge">Prolog</code> 顺着知识库中事实排序尝试联合变量 <code class="language-plaintext highlighter-rouge">X</code>, 此次尝试还是会从 <code class="language-plaintext highlighter-rouge">X=1</code> 开始. 联合的结果使得我们满足了目标序列中的前两个子目标, 此时的目标序列变为 <code class="language-plaintext highlighter-rouge">!,d(X),e(X)</code>.</li>
+  <li>我们对第二条规则的修改在此处真正生效. 由于 <code class="language-plaintext highlighter-rouge">!</code> 被视为一个自动被满足的目标, 因此程序会提交我们此前做出的选择 <code class="language-plaintext highlighter-rouge">X=1</code> 和我们当前对第二条规则的选择, 跳过 <code class="language-plaintext highlighter-rouge">!</code> 并尝试联合下一个子目标 <code class="language-plaintext highlighter-rouge">d(X)</code>.</li>
+  <li>由于无法从知识库中找到满足目标的事实 <code class="language-plaintext highlighter-rouge">d(1)</code>, 此次联合失败, 并且我们找不出任何能够满足该子目标的其他方法. 由于 <code class="language-plaintext highlighter-rouge">Prolog</code> 在处理内置谓词 <code class="language-plaintext highlighter-rouge">!</code> 时已经将我们在这一轮证明搜索中对事实和规则的选择提交, 程序不再被允许回溯并重新选择事实 <code class="language-plaintext highlighter-rouge">b(2)</code> 进行联合, 也更不会被允许回溯到原点选择第三条规则进行联合, 因此我们只能得到在第一轮联合中得到的唯一解 <code class="language-plaintext highlighter-rouge">X=1</code>.</li>
+</ol>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20211031234355.png" alt="20211031234355" /></p>
+
+<p>在这里需要注意一点. 剪枝谓词 <code class="language-plaintext highlighter-rouge">Cut</code> 实质上移除的仅仅是程序回溯到该谓词左侧以及更低一层地, 作出尝试联合母子句那一层的可能, 而不会限制比它更深层级的回溯. 举例而言, 考虑规则</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="ss">q</span><span class="p">:-</span>  <span class="ss">p1</span><span class="p">,...,</span><span class="ss">pn</span><span class="p">,</span>  <span class="p">!,</span>  <span class="ss">r1</span><span class="p">,...,</span><span class="ss">rm</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>则谓词 <code class="language-plaintext highlighter-rouge">!</code> 并不会限制程序在 <code class="language-plaintext highlighter-rouge">r1, ..., rm</code> 中的任何回溯.</p>
+
+<p><br /></p>
+
+<h2 id="2-对剪枝谓词的利用">2. 对剪枝谓词的利用</h2>
+
+<p>我们下面讨论对剪枝谓词的利用. 考虑下列的例子:</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="ss">max</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span><span class="nv">Y</span><span class="p">,</span><span class="nv">Y</span><span class="p">)</span> <span class="p">:-</span> <span class="nv">X</span> <span class="o">=&lt;</span> <span class="nv">Y</span><span class="p">.</span> 
+<span class="ss">max</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span><span class="nv">Y</span><span class="p">,</span><span class="nv">X</span><span class="p">)</span> <span class="p">:-</span> <span class="nv">X</span> <span class="o">&gt;</span> <span class="nv">Y</span><span class="p">.</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>我们定义了一个三元谓词 <code class="language-plaintext highlighter-rouge">max/3</code>, 用于检查第三个元素是否 <strong>恰好</strong> 为第一个和第二个元素中更大的哪一个.</p>
+
+<p>该程序显然可以正常执行被设计的功能, 但不包含剪枝谓词的设计可能导致较低的执行效率. 考虑第三个元素恰好为最大元的情况, 此时程序会尝试执行完全没有执行必要的, 和已经被满足的第一条规则实际上互斥的第二条规则, 显然这纯粹是浪费时间.</p>
+
+<p>我们所希望的是, 若满足第一条规则, 则不应该再去执行第二条. 通过如此修改程序我们就可以实现这一点:</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="ss">max</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span><span class="nv">Y</span><span class="p">,</span><span class="nv">Y</span><span class="p">)</span> <span class="p">:-</span> <span class="nv">X</span> <span class="o">=&lt;</span> <span class="nv">Y</span><span class="p">,</span> <span class="p">!.</span> 
+<span class="ss">max</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span><span class="nv">Y</span><span class="p">,</span><span class="nv">X</span><span class="p">)</span> <span class="p">:-</span> <span class="nv">X</span> <span class="o">&gt;</span> <span class="nv">Y</span><span class="p">.</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>对该程序的过程式描述如下:</p>
+
+<p>程序首先尝试从知识库中联合第一条规则, 若第一条规则蕴含的目标不可被满足 (也就是Y不是最大元), 程序尝试联合第二条规则并得到可行解.</p>
+
+<p>若程序在联合第一条规则时即可满足子目标 <code class="language-plaintext highlighter-rouge">X =&lt; Y</code>, 由于剪枝谓词的存在当前的一切选择会被提交为查询结果, 程序在联合完成后就会终止而不会尝试徒劳地联合第二条规则.</p>
+
+<p>显然, 我们在这一例子中加入的剪枝谓词在不改变程序原本功能的前提下实现了对程序执行效率的优化. 这样的剪枝谓词被称为 <strong>安全剪枝</strong> (<code class="language-plaintext highlighter-rouge">Green Cuts</code>).</p>
+
+<p>我们下面考虑第二个优化的例子. 看上去我们可以去除第二个规则查询符号右侧的数值大小判断:</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="ss">max</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span><span class="nv">Y</span><span class="p">,</span><span class="nv">Y</span><span class="p">)</span> <span class="p">:-</span> <span class="nv">X</span> <span class="o">=&lt;</span> <span class="nv">Y</span><span class="p">,</span> <span class="p">!.</span> 
+<span class="ss">max</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span><span class="nv">Y</span><span class="p">,</span><span class="nv">X</span><span class="p">).</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>虽然看上去程序更加简洁, 但此时程序会在 <code class="language-plaintext highlighter-rouge">max/3</code> 的三个作用域全部被分别实例化为某些值 (也就是被赋值) 的情况下出错:</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="o">?-</span> <span class="ss">max</span><span class="p">(</span><span class="m">114</span><span class="p">,</span> <span class="m">514</span><span class="p">,</span> <span class="m">114</span><span class="p">).</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>此时执行查询, 由于程序无法成功联合第一条规则, 而第二条规则不会对 <code class="language-plaintext highlighter-rouge">X</code>, <code class="language-plaintext highlighter-rouge">Y</code> 的大小关系作任何检查, 因此我们提出的明显有误的查询语句会得到 <code class="language-plaintext highlighter-rouge">true</code>.</p>
+
+<p>但是这不意味着简化第二条规则的尝试完全是徒劳的. 实际上, 这一问题出现的原因只是我们没有让程序在执行变量联合后再执行剪枝. 只需要进行下述的修改, 就可以得到一个既简化了第二条规则又不影响设计功能的程序:</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="ss">max</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span><span class="nv">Y</span><span class="p">,</span><span class="nv">Z</span><span class="p">)</span> <span class="p">:-</span> <span class="nv">X</span> <span class="o">=&lt;</span> <span class="nv">Y</span><span class="p">,</span> <span class="p">!,</span> <span class="nv">Y</span> <span class="o">=</span> <span class="nv">Z</span><span class="p">.</span> 
+<span class="ss">max</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span><span class="nv">Y</span><span class="p">,</span><span class="nv">X</span><span class="p">).</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>需要注意的是, 此处的剪枝谓词不再是安全的, 因为 <strong>我们将它从程序中移除后得到的新程序功能不再和原先的保持一致</strong>, 它兼具了 <strong>影响程序功能</strong> 和 <strong>优化运行效率</strong> 的作用.</p>
+
+<p>在设计程序时, 应尽量避免使用 <strong>不安全剪枝</strong> (<code class="language-plaintext highlighter-rouge">Red Cuts</code>), 而只将剪枝谓词用于优化程序的运行效率.</p>
+
+<p><br /></p>
+
+<h2 id="3-回溯谓词">3. 回溯谓词</h2>
+
+<p>我们下面考虑这个问题: 要表示 “Vincent enjoys burgers”, 我们只需要将这一概括声明为下列的规则语句:</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="ss">enjoys</span><span class="p">(</span><span class="ss">vincent</span><span class="p">,</span> <span class="nv">X</span><span class="p">)</span> <span class="p">:-</span> <span class="ss">burger</span><span class="p">(</span><span class="nv">X</span><span class="p">).</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>而我们若要引入一条新的规则: “Vincent doesn’t like Big Kahuna burgers”, 也就是 “Vincent enjoys burgers, except Big Kahuna burgers”, 要如何实现这一规则?</p>
+
+<p>在这里, 我们的基本逻辑是: 声明两条规则, 其中第一条规则用于检测给定的变量 <code class="language-plaintext highlighter-rouge">X</code> 是否为 <code class="language-plaintext highlighter-rouge">Big Kahuna burgers</code>, 而第二条规则单纯检测 <code class="language-plaintext highlighter-rouge">X</code> 是否为其他类型的汉堡. 需要注意的是, 若 <code class="language-plaintext highlighter-rouge">X</code> 确实为 <code class="language-plaintext highlighter-rouge">Big Kahuna burger</code>, 则查询搜索在完成对第一条规则的联合后就应该立刻停止.</p>
+
+<p>在上述两节的学习中我们已经了解了 <code class="language-plaintext highlighter-rouge">Prolog</code> 内置的, 用于阻止回溯的 <code class="language-plaintext highlighter-rouge">!</code> (<code class="language-plaintext highlighter-rouge">Cut</code>) 谓词, 在这个例子中我们可以利用剪枝谓词提交证明搜索的结果. 而要让程序在尝试满足某个子目标时终止, 就必须确保这个子目标始终无法被满足, 从而强制程序执行回溯.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Prolog</code> 内置的另一个谓词 <code class="language-plaintext highlighter-rouge">fail/0</code> (回溯谓词) 就可以实现这一点. 和 <code class="language-plaintext highlighter-rouge">!</code> 类似, <code class="language-plaintext highlighter-rouge">fail</code> 可被视为一个始终 <strong>无法得到满足的目标</strong>, 因此在任何一轮证明搜索时如果 <code class="language-plaintext highlighter-rouge">fail</code> 作为子目标之一, 那么证明搜索就无法继续下去而被迫执行回溯, 也就是说 <code class="language-plaintext highlighter-rouge">fail</code> 有 <strong>强制程序在当前节点回溯</strong> 的作用. 当回溯谓词和剪枝谓词结合时, 我们就可以一并利用它们各自的性质完成对 “特例” 的实现.</p>
+
+<p>继续考虑原来的例子. 在下面一段代码中, 知识库中的第一条规则经过修改后引入了回溯谓词和剪枝谓词. 可见当程序尝试联合第一条规则, 并满足了第一个子目标 <code class="language-plaintext highlighter-rouge">big_kahuna_burger(X)</code> 后, 当前对知识库中事实和对知识库中规则的选择会被 <code class="language-plaintext highlighter-rouge">!</code> 作为查询结果提交 （<code class="language-plaintext highlighter-rouge">Commit</code>), 此时程序会因为需要满足一个永不能被满足的子目标 <code class="language-plaintext highlighter-rouge">fail</code> 而被迫停机, 返回的查询结果就是此前剪枝谓词提交的结果.</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre><span class="ss">enjoys</span><span class="p">(</span><span class="ss">vincent</span><span class="p">,</span><span class="nv">X</span><span class="p">)</span> <span class="p">:-</span> <span class="ss">big_kahuna_burger</span><span class="p">(</span><span class="nv">X</span><span class="p">),!,</span><span class="ss">fail</span><span class="p">.</span> 
+<span class="ss">enjoys</span><span class="p">(</span><span class="ss">vincent</span><span class="p">,</span><span class="nv">X</span><span class="p">)</span> <span class="p">:-</span> <span class="ss">burger</span><span class="p">(</span><span class="nv">X</span><span class="p">).</span> 
+
+<span class="ss">burger</span><span class="p">(</span><span class="nv">X</span><span class="p">)</span> <span class="p">:-</span> <span class="ss">big_mac</span><span class="p">(</span><span class="nv">X</span><span class="p">).</span> 
+<span class="ss">burger</span><span class="p">(</span><span class="nv">X</span><span class="p">)</span> <span class="p">:-</span> <span class="ss">big_kahuna_burger</span><span class="p">(</span><span class="nv">X</span><span class="p">).</span> 
+<span class="ss">burger</span><span class="p">(</span><span class="nv">X</span><span class="p">)</span> <span class="p">:-</span> <span class="ss">whopper</span><span class="p">(</span><span class="nv">X</span><span class="p">).</span> 
+
+<span class="ss">big_mac</span><span class="p">(</span><span class="ss">a</span><span class="p">).</span> 
+<span class="ss">big_kahuna_burger</span><span class="p">(</span><span class="ss">b</span><span class="p">).</span> 
+<span class="ss">big_mac</span><span class="p">(</span><span class="ss">c</span><span class="p">).</span> 
+<span class="ss">whopper</span><span class="p">(</span><span class="ss">d</span><span class="p">).</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>需要注意的是, 上述修改仍然依赖规则的顺序. 若我们将两条规则顺序对换, 程序的功能和行为会相应地发生改变, 第一条规则中的剪枝谓词显然也是 <strong>不安全的</strong>. 简而言之, 经过上述的修改, 我们得到的 <code class="language-plaintext highlighter-rouge">Prolog</code> 程序中两条规则互相依赖, 而且它们的正常执行也是高度依赖于 <code class="language-plaintext highlighter-rouge">Prolog</code> 程序执行中的过程式解释性质的.</p>
+
+<p>我们可以进一步将程序定义 “特例” 的核心部分 <strong>封装</strong>. 在这个例子中, 显然我们所定义的 “特例” 本质上是一种 <strong>否定</strong>: “Vincent <strong>DOES NOT</strong> enjoy X if X is a Big Kahuna burger”.</p>
+
+<p>也就是说, 第一条规则中剪枝谓词和回溯谓词的结合实际上表示了某种否定. 我们称这样的结合为 <strong>否定为失败</strong>, 它是对逻辑否定进行的释义: 公式的否定为真, 当且仅当该公式无法被证明为真:</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="ss">neg</span><span class="p">(</span><span class="nv">Goal</span><span class="p">)</span> <span class="p">:-</span> <span class="nv">Goal</span><span class="p">,</span> <span class="p">!,</span> <span class="ss">fail</span><span class="p">.</span>
+<span class="ss">neg</span><span class="p">(</span><span class="nv">Goal</span><span class="p">).</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>显然, <code class="language-plaintext highlighter-rouge">neg(Goal)</code> 为真, 当且仅当目标 <code class="language-plaintext highlighter-rouge">Goal</code> 不为真.</p>
+
+<p>在将剪枝谓词和回溯谓词的结合封装为否定即失败谓词 <code class="language-plaintext highlighter-rouge">neg/1</code> 后, 我们可以将程序简化为:</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="ss">enjoys</span><span class="p">(</span><span class="ss">vincent</span><span class="p">,</span> <span class="nv">X</span><span class="p">)</span> <span class="p">:-</span> <span class="ss">burger</span><span class="p">(</span><span class="nv">X</span><span class="p">),</span> <span class="ss">neg</span><span class="p">(</span><span class="ss">big_kahuna_burger</span><span class="p">(</span><span class="nv">X</span><span class="p">)).</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>也就是说: “Vincent enjoys X if X is a burger and X is not a Big Kahuna burger.”</p>
+
+<p><strong>否定即失败</strong> 谓词除了可以简化逻辑表述外, 它被封装为单个谓词的形式令我们无法直接接触 <strong>不安全剪枝谓词</strong>,  因此减少了在程序设计时出现奇怪错误的几率. <code class="language-plaintext highlighter-rouge">Prolog</code> 中直接内置了 <strong>否定即失败谓词</strong> : <code class="language-plaintext highlighter-rouge">\+</code>. 我们无需自行定义和实现否定即失败谓词, 而可以直接调用它:</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="ss">enjoys</span><span class="p">(</span><span class="ss">vincent</span><span class="p">,</span> <span class="nv">X</span><span class="p">)</span> <span class="p">:-</span> <span class="ss">burger</span><span class="p">(</span><span class="nv">X</span><span class="p">),</span> <span class="err">\</span><span class="o">+</span> <span class="ss">big_kahuna_burger</span><span class="p">(</span><span class="nv">X</span><span class="p">).</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>需要注意的是, <strong>否定即失败谓词</strong> 对程序行为的影响是 <strong>和它在规则中的位置有关的</strong>. 考虑下面的例子:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre>enjoys(vincent, X) :- burger(X), \+ big_kahuna_burger(X).
+
+burger(X) :- big_mac(X). 
+burger(X) :- big_kahuna_burger(X). 
+burger(X) :- whopper(X). 
+
+big_mac(a). 
+big_kahuna_burger(b). 
+big_mac(c). 
+whopper(d).
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>若我们将 <code class="language-plaintext highlighter-rouge">\+ big_kahuna_burger(X)</code> 和 <code class="language-plaintext highlighter-rouge">burger(X)</code> 调换位置, 程序将始终输出查询结果 <code class="language-plaintext highlighter-rouge">no</code>, 因为在替换后执行证明搜索时首先需要被满足的子目标就是 <code class="language-plaintext highlighter-rouge">\+ big_kahuna_burger(X)</code>, 也就是说要满足 “<code class="language-plaintext highlighter-rouge">big_kahuna_burger(X)</code> 不能被满足”, 而对于首次证明搜索, 程序显然是可以从知识库中找到满足 <code class="language-plaintext highlighter-rouge">big_kahuna_burger(X)</code> 的事实 <code class="language-plaintext highlighter-rouge">big_kahuna_burger(b)</code> 的, 因此 <code class="language-plaintext highlighter-rouge">\+ big_kahuna_burger(X)</code> 无法被满足, 从而联合失败, 证明搜索返回结果 <code class="language-plaintext highlighter-rouge">no</code>.</p>
+
+<p>总的来说, <strong>否定即失败谓词</strong> 并不是单纯的逻辑否定, 我们更需要关注它的过程式描述. 此外, 除非为了提高程序的运行效率, 在大多数情况下使用该谓词都比在程序中应用不安全剪枝更合适.</p>
+
+
+                <hr style="visibility: hidden;">
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2021/10/30/Ch7-LogicNotes/" data-toggle="tooltip" data-placement="top" title="逻辑学探幽 Part7">
+                        Previous<br>
+                        <span>逻辑学探幽 Part7</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2021/11/04/COMP24011-Ch0/" data-toggle="tooltip" data-placement="top" title="人工智能导论 基础搜索算法">
+                        Next<br>
+                        <span>人工智能导论 基础搜索算法</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <hr style="visibility: hidden;">
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+                
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+
+
+<section>
+    
+        <hr class="hidden-sm hidden-xs">
+    
+    <h5><a href="/archive/">FEATURED TAGS</a></h5>
+    <div class="tags">
+        
+        
+        
+        
+        
+        
+                <a data-sort="0109" 
+                    href="/archive/?tag=COMP12111"
+                    title="COMP12111"
+                    rel="10">COMP12111</a>
+        
+                <a data-sort="0027" 
+                    href="/archive/?tag=2021"
+                    title="2021"
+                    rel="92">2021</a>
+        
+                <a data-sort="0073" 
+                    href="/archive/?tag=%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0"
+                    title="课程笔记"
+                    rel="46">课程笔记</a>
+        
+                <a data-sort="0079" 
+                    href="/archive/?tag=%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0"
+                    title="前端学习"
+                    rel="40">前端学习</a>
+        
+                <a data-sort="0079" 
+                    href="/archive/?tag=50P50D"
+                    title="50P50D"
+                    rel="40">50P50D</a>
+        
+                <a data-sort="0094" 
+                    href="/archive/?tag=2020"
+                    title="2020"
+                    rel="25">2020</a>
+        
+                <a data-sort="0104" 
+                    href="/archive/?tag=COMP24011"
+                    title="COMP24011"
+                    rel="15">COMP24011</a>
+        
+                <a data-sort="0107" 
+                    href="/archive/?tag=%E9%80%BB%E8%BE%91%E5%AD%A6"
+                    title="逻辑学"
+                    rel="12">逻辑学</a>
+        
+                <a data-sort="0109" 
+                    href="/archive/?tag=COMP15111"
+                    title="COMP15111"
+                    rel="10">COMP15111</a>
+        
+                <a data-sort="0110" 
+                    href="/archive/?tag=%E6%89%A9%E5%B1%95%E8%87%AA%E4%B9%A0"
+                    title="扩展自习"
+                    rel="9">扩展自习</a>
+        
+                <a data-sort="0110" 
+                    href="/archive/?tag=COMP21111"
+                    title="COMP21111"
+                    rel="9">COMP21111</a>
+        
+                <a data-sort="0112" 
+                    href="/archive/?tag=%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0"
+                    title="机器学习"
+                    rel="7">机器学习</a>
+        
+                <a data-sort="0112" 
+                    href="/archive/?tag=COMP11212"
+                    title="COMP11212"
+                    rel="7">COMP11212</a>
+        
+                <a data-sort="0115" 
+                    href="/archive/?tag=%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95"
+                    title="数据结构和算法"
+                    rel="4">数据结构和算法</a>
+        
+                <a data-sort="0115" 
+                    href="/archive/?tag=COMP15212"
+                    title="COMP15212"
+                    rel="4">COMP15212</a>
+        
+                <a data-sort="0115" 
+                    href="/archive/?tag=COMP23111"
+                    title="COMP23111"
+                    rel="4">COMP23111</a>
+        
+                <a data-sort="0116" 
+                    href="/archive/?tag=%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7"
+                    title="奇技淫巧"
+                    rel="3">奇技淫巧</a>
+        
+                <a data-sort="0117" 
+                    href="/archive/?tag=%E7%99%BD%E6%9E%9C%E5%9B%AD"
+                    title="白果园"
+                    rel="2">白果园</a>
+        
+                <a data-sort="0117" 
+                    href="/archive/?tag=%E7%AE%97%E6%B3%95"
+                    title="算法"
+                    rel="2">算法</a>
+        
+                <a data-sort="0117" 
+                    href="/archive/?tag=Lab"
+                    title="Lab"
+                    rel="2">Lab</a>
+    </div>
+</section>
+
+
+                <!-- Friends Blog -->
+                
+<hr>
+<h5>FRIENDS</h5>
+<ul class="list-inline">
+  
+  <li><a href="http://ryanxin.cn">Ryan Xin</a></li>
+  
+  <li><a href="https://flyhigher.top">Axton.Gay</a></li>
+  
+  <li><a href="https://graynekocafe.net">GrayNekoBean</a></li>
+  
+  <li><a href="Gnefil.github.io">Gnefil</a></li>
+  
+</ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<!-- add support for mathjax by voleking-->
+
+
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "KirisameR";
+    var disqus_identifier = "/2021/10/31/COMP24011-Prolog-Ch6";
+    var disqus_url = "http://localhost:4000/2021/10/31/COMP24011-Prolog-Ch6/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'right',
+          // icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <!-- SNS Link -->
+                
+
+
+<ul class="list-inline text-center">
+
+
+  
+  
+  
+  
+  
+  
+  <li>
+    <a target="_blank" href="https://github.com/KirisameR">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  
+  
+</ul>
+
+                <p class="copyright text-muted">
+                    Copyright &copy; 某一般线性空间 2022
+                    <br>
+                    Powered by <a href="http://huangxuan.me">Hux Blog</a> |
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="100px"
+                        height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=huxpro&repo=huxpro.github.io&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<!-- Currently, only navbar scroll-down effect at desktop still depends on this -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Simple Jekyll Search -->
+<script src="/js/simple-jekyll-search.min.js"></script>
+
+<!-- Service Worker -->
+
+<script src="/js/snackbar.js "></script>
+<script src="/js/sw-registration.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+        var d = document, t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+
+
+
+
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog(selector) {
+
+        // interop with multilangual 
+        if ('' == 'true') {
+            _containerSelector = 'div.post-container.active'
+        } else {
+            _containerSelector = 'div.post-container'
+        }
+
+        // init
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        // clean
+        $(selector).html('')
+
+        // appending
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+<!-- Multi-Lingual -->
+
+
+<!-- Simple Jekyll Search -->
+<script>
+    // https://stackoverflow.com/questions/1912501/unescape-html-entities-in-javascript
+    function htmlDecode(input) {
+        var e = document.createElement('textarea');
+        e.innerHTML = input;
+        // handle case of empty input
+        return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+    }
+
+    SimpleJekyllSearch({
+        searchInput: document.getElementById('search-input'),
+        resultsContainer: document.getElementById('search-results'),
+        json: '/search.json',
+        searchResultTemplate: '<div class="post-preview item"><a href="{url}"><h2 class="post-title">{title}</h2><h3 class="post-subtitle">{subtitle}</h3><hr></a></div>',
+        noResultsText: 'No results',
+        limit: 50,
+        fuzzy: false,
+        // a hack to get escaped subtitle unescaped. for some reason, 
+        // post.subtitle w/o escape filter nuke entire search.
+        templateMiddleware: function (prop, value, template) {
+            if (prop === 'subtitle' || prop === 'title') {
+                if (value.indexOf("code")) {
+                    return htmlDecode(value);
+                } else {
+                    return value;
+                }
+            }
+        }
+    });
+
+    $(document).ready(function () {
+        var $searchPage = $('.search-page');
+        var $searchOpen = $('.search-icon');
+        var $searchClose = $('.search-icon-close');
+        var $searchInput = $('#search-input');
+        var $body = $('body');
+
+        $searchOpen.on('click', function (e) {
+            e.preventDefault();
+            $searchPage.toggleClass('search-active');
+            var prevClasses = $body.attr('class') || '';
+            setTimeout(function () {
+                $body.addClass('no-scroll');
+            }, 400)
+
+            if ($searchPage.hasClass('search-active')) {
+                $searchClose.on('click', function (e) {
+                    e.preventDefault();
+                    $searchPage.removeClass('search-active');
+                    $body.attr('class', prevClasses);  // from closure 
+                });
+                $searchInput.focus();
+            }
+        });
+    });
+</script>
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

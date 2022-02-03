@@ -1,0 +1,142 @@
+I"�7<h1 id="prolog-入门-事实-规则和查询"><code class="language-plaintext highlighter-rouge">Prolog</code> 入门: 事实, 规则和查询</h1>
+
+<p>和常规的程序设计语言不同, <code class="language-plaintext highlighter-rouge">Prolog</code> 是一种被设计为处理 <strong>一阶谓词演算</strong> 的面向演绎推理的逻辑型语言. 虽然也可被用于设计通用图灵机, 但由于该语言具有文法简答, 表达力丰富等特点, 它常被用于解决数理逻辑, 抽象问题求解, 自然语言理解等问题.</p>
+
+<h2 id="特征和基本构成">特征和基本构成</h2>
+
+<p><code class="language-plaintext highlighter-rouge">Prolog</code> 一名的本意就是 “逻辑编程” (<code class="language-plaintext highlighter-rouge">Progamming of Logic</code>). 在给出 <strong>事实</strong> (<code class="language-plaintext highlighter-rouge">Fact</code>) 和 <strong>规则</strong> (<code class="language-plaintext highlighter-rouge">Rule</code>) 后, 它就会自行分析其中的逻辑关系, 从而使我们可以通过 <strong>查询</strong> (<code class="language-plaintext highlighter-rouge">Queries</code>) 完成复杂的逻辑运算.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Prolog</code> 提供了统一的数据结构:  <strong>项</strong> (<code class="language-plaintext highlighter-rouge">Term</code>). 我们下面简述其定义和具体的从属关系:</p>
+
+<p><strong>定义</strong> (项)</p>
+<blockquote>
+  <p><strong>项</strong> 由 <strong>原子</strong> (<code class="language-plaintext highlighter-rouge">Atom</code>), <strong>数</strong> (<code class="language-plaintext highlighter-rouge">Number</code>), <strong>变量</strong> (<code class="language-plaintext highlighter-rouge">Variable</code>) 和 <strong>复合项</strong> (<code class="language-plaintext highlighter-rouge">Complex Term</code>, i.e. <code class="language-plaintext highlighter-rouge">Symbol</code>) 组成.</p>
+</blockquote>
+
+<p><strong>定义</strong> (原子)</p>
+<blockquote>
+  <p><strong>原子</strong> 由以下三种字符串组成:</p>
+  <ol>
+    <li>由大/小写字母, 数字和下划线组成, 并以<strong>小写字母</strong>为开头的字符串.</li>
+    <li>包含在一对<strong>单引号</strong>中的, <strong>内容任意</strong>的字符串, 而单引号包含的内容被称为 <strong>原子名</strong>.</li>
+    <li>由 <strong>特殊字符</strong> 组成的字符串.</li>
+  </ol>
+</blockquote>
+
+<p>注意: 在 <code class="language-plaintext highlighter-rouge">Prolog</code> 中, 我们定义 “大小写字母” 分别为 <code class="language-plaintext highlighter-rouge">A-Z</code>, <code class="language-plaintext highlighter-rouge">a-z</code>, “数字“ 定义为 <code class="language-plaintext highlighter-rouge">0-9</code>, 下划线 <code class="language-plaintext highlighter-rouge">_</code> 单独分开定义, 其余的符号则称为 <strong>特殊符号</strong> (<code class="language-plaintext highlighter-rouge">Special Characters</code>). 空格被算作一种特殊的符号, 字符串被定义为一连串不间断的字符.</p>
+
+<p><strong>定义</strong> (变量)</p>
+<blockquote>
+  <p>称由大小写字母, 数字和下划线组成, 且以 <strong>大写字母</strong> 为开头的字符串为 <strong>变量</strong>.</p>
+</blockquote>
+
+<p>注意:  单独的下划线 <code class="language-plaintext highlighter-rouge">_</code> 自然也是一种变量. 我们称其为 <strong>匿名变量</strong> (<code class="language-plaintext highlighter-rouge">Anonymous Variable</code>).</p>
+
+<p><strong>定义</strong> (复合项)</p>
+<blockquote>
+  <p><strong>复合项</strong> 又称 <strong>结构体</strong> (<code class="language-plaintext highlighter-rouge">Structures</code>), 由一个 <strong>函子</strong> (<code class="language-plaintext highlighter-rouge">Functor</code>) 后跟一系列参数构成. 参数放在普通括号中, 用逗号分隔放在函子之后.</p>
+</blockquote>
+
+<p>注意: 函子后面必须直接跟括号, 在函子和括起参数的括号之间不能有空格. 函子必须是一个原子而不能为变量.</p>
+
+<p>从属关系如下:</p>
+
+<p>(测试一下mermaid, 晚点画图)</p>
+
+<pre><code class="language-mermaid">graph LR
+    
+</code></pre>
+
+<h2 id="语法和属性">语法和属性</h2>
+
+<p>下面简述 <code class="language-plaintext highlighter-rouge">Prolog</code> 的命令行操作方式, 基本属性和语法.</p>
+
+<h3 id="命令行交互">命令行交互</h3>
+
+<p>我们可以在成功安装并正确配置 <code class="language-plaintext highlighter-rouge">Prolog</code> 后从终端通过 <code class="language-plaintext highlighter-rouge">swipl</code> 进入 <code class="language-plaintext highlighter-rouge">Prolog</code> 运行环境. 在 <code class="language-plaintext highlighter-rouge">Prolog</code> 运行环境中, <code class="language-plaintext highlighter-rouge">?-</code> 为命令提示符, 每条命令的结尾都需要加上一个句号 <code class="language-plaintext highlighter-rouge">.</code> 表示语句结束. 要退出 <code class="language-plaintext highlighter-rouge">Prolog</code>, 需要使用 <code class="language-plaintext highlighter-rouge">halt</code> 命令:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20211010231425.png" alt="20211010231425" /></p>
+
+<h3 id="基本语法">基本语法</h3>
+
+<ol>
+  <li>
+    <p>变量和常量<br />
+由上一节的介绍可知, 在 <code class="language-plaintext highlighter-rouge">Prolog</code> 中以小写字母开头的字符串即为 <strong>常量</strong>, 而以大写字母开头的就是 <strong>变量</strong>.</p>
+  </li>
+  <li>
+    <p>事实和规则<br /></p>
+
+    <p>我们可以使用 <strong>符号</strong> 组成一些 <strong>事实</strong>:</p>
+    <div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre> <span class="ss">likes</span><span class="p">(</span><span class="ss">axton</span><span class="p">,</span> <span class="ss">chrome</span><span class="p">).</span>
+ <span class="ss">likes</span><span class="p">(</span><span class="ss">axton</span><span class="p">,</span> <span class="ss">cytusII</span><span class="p">).</span>
+ <span class="ss">dislikes</span><span class="p">(</span><span class="ss">axton</span><span class="p">,</span> <span class="ss">safari</span><span class="p">).</span>
+ <span class="ss">dislikes</span><span class="p">(</span><span class="ss">axton</span><span class="p">,</span> <span class="ss">arcaea</span><span class="p">).</span>
+ <span class="ss">experiencedFrontendDeveloper</span><span class="p">(</span><span class="ss">axton</span><span class="p">).</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+
+    <p>此处注意, 关系不具备对称性. 此外, 如果括号中只包含一个参数, 即表示对象拥有该属性.</p>
+
+    <p>规则是用于推理如何从一个推断得到另一个推断的方法.</p>
+
+    <p>下面举一个例子:</p>
+
+    <div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre> <span class="ss">senpai</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Y</span><span class="p">)</span> <span class="p">:-</span> <span class="ss">younger</span><span class="p">(</span><span class="nv">Y</span><span class="p">,</span> <span class="nv">X</span><span class="p">),</span> <span class="ss">isMajorSame</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Y</span><span class="p">),</span> <span class="err">\</span><span class="o">+</span> <span class="ss">notInTheSameUniversity</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Y</span><span class="p">),</span> <span class="ss">isMale</span><span class="p">(</span><span class="nv">X</span><span class="p">);</span> <span class="ss">isFemale</span><span class="p">(</span><span class="nv">X</span><span class="p">).</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+
+    <p>在上述代码中, <code class="language-plaintext highlighter-rouge">X</code>, <code class="language-plaintext highlighter-rouge">Y</code> 均为大写, 表示这是两个变量. 符号 <code class="language-plaintext highlighter-rouge">:-</code> 表示 <strong>推理关系</strong>, 意为只要推理符号右侧的表达式为 <code class="language-plaintext highlighter-rouge">true</code>, 则左侧的表达式为 <code class="language-plaintext highlighter-rouge">true</code>.</p>
+
+    <p>由于该条规则取决于多个条件同时为 <code class="language-plaintext highlighter-rouge">true</code>,我们需要用逗号隔开条件.</p>
+
+    <p>若需要表示 “某条规则取决于某个条件为 <code class="language-plaintext highlighter-rouge">false</code>”, 则需要在条件前加上 <code class="language-plaintext highlighter-rouge">\+</code> 表示否定.</p>
+
+    <p>若需要表示 “某条规则取决于某两个条件中其中一个为<code class="language-plaintext highlighter-rouge">true</code>”, 则需要用分号 <code class="language-plaintext highlighter-rouge">;</code> 连接这两个条件.</p>
+  </li>
+  <li>
+    <p>查询<br />
+ <code class="language-plaintext highlighter-rouge">Prolog</code> 允许我们查询已知的事实. 要查询某个关系是否为真, 只需在命令行窗口中键入即可. 此外, 我们还可以使用 <code class="language-plaintext highlighter-rouge">listing</code> 列出所有已知的特定关系.</p>
+
+    <p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20211010234809.png" alt="20211010234809" /></p>
+  </li>
+</ol>
+
+<p>最后以一个较为复杂的例子结束本章.</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20211010235021.png" alt="20211010235021" /></p>
+
+<p>考虑对上述地图的着色问题: 假设现在有三种可选颜色, 且地图中相邻区域颜色必须不同, 求可行的上色方案的种数.</p>
+
+<p>首先定义颜色:</p>
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="ss">color</span><span class="p">(</span><span class="ss">manchesterPurple</span><span class="p">)</span>
+<span class="ss">color</span><span class="p">(</span><span class="ss">manchesterYellow</span><span class="p">)</span>
+<span class="ss">color</span><span class="p">(</span><span class="ss">manchesterGray</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>然后定义着色的限制规则:</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="ss">colorify</span><span class="p">(</span><span class="nv">A</span><span class="p">,</span> <span class="nv">B</span><span class="p">,</span> <span class="nv">C</span><span class="p">,</span> <span class="nv">D</span><span class="p">,</span> <span class="nv">E</span><span class="p">)</span> <span class="p">:-</span> 
+    <span class="ss">color</span><span class="p">(</span><span class="nv">A</span><span class="p">),</span> <span class="ss">color</span><span class="p">(</span><span class="nv">B</span><span class="p">),</span> <span class="ss">color</span><span class="p">(</span><span class="nv">C</span><span class="p">),</span> <span class="ss">color</span><span class="p">(</span><span class="nv">D</span><span class="p">),</span> <span class="ss">color</span><span class="p">(</span><span class="nv">E</span><span class="p">),</span> 
+    <span class="err">\</span><span class="o">+</span> <span class="nv">A</span><span class="o">=</span><span class="nv">B</span><span class="p">,</span> <span class="err">\</span><span class="o">+</span> <span class="nv">A</span><span class="o">=</span><span class="nv">C</span><span class="p">,</span> <span class="err">\</span><span class="o">+</span> <span class="nv">A</span><span class="o">=</span><span class="nv">D</span><span class="p">,</span> <span class="err">\</span><span class="o">+</span> <span class="nv">A</span><span class="o">=</span><span class="nv">E</span><span class="p">,</span>
+    <span class="err">\</span><span class="o">+</span> <span class="nv">B</span><span class="o">=</span><span class="nv">C</span><span class="p">,</span> <span class="err">\</span><span class="o">+</span> <span class="nv">C</span><span class="o">=</span><span class="nv">D</span><span class="p">,</span> <span class="err">\</span><span class="o">+</span> <span class="nv">D</span><span class="o">=</span><span class="nv">E</span><span class="p">.</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>注意上述代码段定义了一个对 <code class="language-plaintext highlighter-rouge">A</code>, <code class="language-plaintext highlighter-rouge">B</code>, <code class="language-plaintext highlighter-rouge">C</code>, <code class="language-plaintext highlighter-rouge">D</code>, <code class="language-plaintext highlighter-rouge">E</code> 五个变量求值的表达式. 该表达式为 <code class="language-plaintext highlighter-rouge">true</code> 当且仅当这些在地图上相邻的颜色互异.</p>
+
+<p>将上述两段代码组合为一个脚本, 加载执行, 可见计算机给出了六组解. 注意默认只有第一组解会被直接显示, 如果需要继续展示不同解的话需要手动输入分号 <code class="language-plaintext highlighter-rouge">;</code>.</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20211011000206.png" alt="20211011000206" /></p>
+
+:ET

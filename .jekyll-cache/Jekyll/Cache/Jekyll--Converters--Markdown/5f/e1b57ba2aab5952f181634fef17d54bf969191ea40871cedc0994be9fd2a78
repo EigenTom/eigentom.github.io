@@ -1,0 +1,186 @@
+I"8<h1 id="不确定性的量化和概率推理">不确定性的量化和概率推理</h1>
+
+<p>在本章中, 我们将借助概率论考虑 <code class="language-plaintext highlighter-rouge">Agent</code> 在不确定环境下的行动问题, 并引入贝叶斯网络构造 <code class="language-plaintext highlighter-rouge">Agent</code> 在不确定性下进行推理的网络模型.</p>
+
+<h2 id="41-不确定性">4.1 不确定性</h2>
+
+<p>我们首先对 <strong>不确定性问题</strong> 给出定义.</p>
+
+<p><strong>定义 4.1.1</strong> (不确定性)</p>
+<blockquote>
+  <p>我们称满足下列特性的问题为 <strong>不确定性问题</strong>:</p>
+  <ol>
+    <li>要得到该问题的确定没有任何意外情况的规则需要列出前提和结论的完整集合, 而为了列出这个集合需要极为庞大的工作量, 给出的规则也难以使用.</li>
+    <li>对于问题涉及的领域, 并不存在完整的结论能够支撑我们给出完备的规则.</li>
+    <li>即便在给出了完备规则的前提下在一些情形下我们也无法进行完整的测试, 因此不能通过逻辑联系得出结论.</li>
+  </ol>
+</blockquote>
+
+<p>在具有确定性的问题中, 世界是由一系列 <strong>在某种特定情形下, 或成立或不成立的事实</strong> 构成的, 而在这样的不确定性问题下, <code class="language-plaintext highlighter-rouge">Agent</code> 的知识只能提供对相关语句的 <strong>信念度 (<code class="language-plaintext highlighter-rouge">Degree of belief</code>)</strong>: 也就是一个介于 $0-1$ 之间的数值, 作为对这一语句实际发生的可能性的信念, 本质上是概率值, 因而我们需要使用概率论处理信念度.</p>
+
+<p>在真实世界中, 实际上并不具备 “不确定性”. 对 <code class="language-plaintext highlighter-rouge">Agent</code> 而言, 概率声明之所以具备不确定性是因为它对现实世界的了解是有限的, 只能够通过已知的一系列有限的知识状态作出推断.</p>
+
+<h2 id="42-概率语法规则">4.2 概率语法规则</h2>
+
+<p>为了让 <code class="language-plaintext highlighter-rouge">Agent</code> 表示并使用概率信息, 我们下面给出一种 <strong>形式语言</strong> 的定义.</p>
+
+<p>逻辑断言所考虑的是要严格地排除那些断言不成立的情形, 而概率断言考虑的是各种情形发生的可能性.</p>
+
+<p>所有可能情形所组成的集合称为 <strong>样本空间</strong>, 样本空间中的不同情形是 <strong>互斥的</strong> 和 <strong>完备的</strong>, 每个情形 $\omega$ 都被赋予一个对应的数值概率 $P(\omega)$. 并且满足:</p>
+
+\[\text{for each }\omega, ~~0 \leqslant P(\omega) \leqslant 1, ~~ \sum_{\omega \in \Omega} P(\omega) = 1.\]
+
+<p>我们称 <strong>先验概率 (<code class="language-plaintext highlighter-rouge">Prior probabilities</code>)</strong> (或无条件概率) 为 <strong>在不知道其他信息的情况下对命题的信念度</strong>, 而认定 <strong>后验概率 (<code class="language-plaintext highlighter-rouge">Posterior probabilities</code>)</strong> (或条件概率) 为 <strong>给定一些已知的信息 (证据) 的情况下对命题的信念度</strong>.</p>
+
+<p>我们将结合 <strong>命题逻辑中的元素</strong> 和 <strong>约束满足问题语法中的记号</strong> 描述命题. 在概率论中, 变量被称为 <strong>随机变量 (<code class="language-plaintext highlighter-rouge">Random Variables</code>)</strong>, 而每个随机变量都具有一个 <strong>定义域</strong> (<code class="language-plaintext highlighter-rouge">Domain</code>), 由该随机变量能取的所有值组成. 随机变量本身可以表示基本命题, 而将基本命题用命题逻辑中的逻辑链接符相连就组成了更为复杂的命题. 如, 我们可以将 “如果一个人叫 Axton, 他又很强, 那么他是姚老师的概率是 $0.9$” 表示为:</p>
+
+\[P(\text{isAxtonYao} ~ \vert ~\neg \text{isWeak} ~\wedge~ \text{isAxton}) = 0.9.\]
+
+<p>我们还可以使用逗号分隔多个变量, 表示多个变量的分布. 变量 <code class="language-plaintext highlighter-rouge">Weather</code> 和 <code class="language-plaintext highlighter-rouge">Cavity</code> 的所有可能取值的乘法规则可以被精炼为下述的单一等式</p>
+
+\[P( \text{Weather}, \text{Cavity}) = P( \text{Weather} ~\vert~ \text{Cavity}) \cdot P(\text{Cavity}).\]
+
+<h2 id="43-使用完全联合分布进行推理">4.3 使用完全联合分布进行推理</h2>
+
+<p>我们可以通过 <strong>已观察到的证据计算命题的后验概率</strong>: 使用完全联合概率分布作为 “知识库”, 就可以从中导出关于问题域的所有相关问题的答案:</p>
+
+<p>考虑一个由三个布尔变量 $\text{Toothache}, \text{Cavity}$ 和 $\text{Catch}$ 组成的分问题域, 其完全联合分布为一个 $2 \times 2 \times 2$ 的表格:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20211231222326.png" alt="20211231222326" /></p>
+
+<ol>
+  <li>
+    <p>首先, 最常见的任务是 提取关于随机变量的 <strong>某个子集</strong> 或 <strong>某个变量</strong> 的概率分布, 这样的过程一般称为 <strong>边缘化</strong> (<code class="language-plaintext highlighter-rouge">Marginalization</code>) 或 <strong>求和消元</strong> (<code class="language-plaintext highlighter-rouge">Summing Out</code>).</p>
+
+    <p>对任何两个变量集合 $Y, Z$, 有下列的 <strong>通用边缘化规则</strong>:</p>
+
+\[P(Y) = \sum_{z \in Z} P(Y, z)\]
+
+    <p>其中 $\sum_{z \in Z}$ 指针对变量集合 $Z$ 的所有可能取值组合进行求和. 我们还可以使用条件概率将上述规则变形如下:</p>
+
+\[P(Y) = \sum_{z \in Z} P(Y \vert z) P(z).\]
+  </li>
+  <li>
+    <p>在一些情况下, 我们还需要基于一些已知的变量证据而计算另一些变量的条件概率. 设 $E$ 为证据变量集合, $e$ 为其观察值, 并设 $Y$ 为其余的未观测变量, 查询为 $P(X \vert e)$, 则其值为:</p>
+
+\[P(X \vert e) = \alpha P(X, e) = \alpha \cdot \sum_{y \in Y} P(X, e, y).\]
+
+    <p>其中 $\alpha = \frac{1}{P(e)}$, 对于 $\forall y \in Y$ 是不变的, 因此可以视为一个归一化常数.</p>
+  </li>
+</ol>
+
+<h2 id="44-应用贝叶斯规则">4.4 应用贝叶斯规则</h2>
+
+<p>从概率的乘法规则和条件概率公式可得:</p>
+
+\[P(b \vert a) = \frac{P(a \vert b) P(b)}{P(a)}.\]
+
+<p>对于多值变量的更一般情况, 可以表为</p>
+
+\[P(Y \vert X) = \frac{P(X \vert Y) P(Y)}{P(X)}.\]
+
+<h2 id="45-不确定性问题域中的知识表示">4.5 不确定性问题域中的知识表示</h2>
+
+<p>我们已经知道, 使用完全联合概率分布就可以 使用不同的公式或定理, 结合给定概率表中的数据, 回答关于问题域的任何问题. 但随着变量数目不断增加, 概率表和公式都会相应地变得更加复杂, 最终复杂度增加到对我们而言完全无法操作的程度. 除此之外, 对每种可能的情形都分别指定概率也是不自然的.</p>
+
+<p>我们同时了解, 变量之间的独立性与条件独立关系可以减少为 <strong>定义完全联合概率分布所需指定的概率数目</strong>. 我们将使用 <strong>贝叶斯网络</strong> (<code class="language-plaintext highlighter-rouge">Bayesian Network</code>) 表示变量间的依赖关系:</p>
+
+<p><strong>定义 4.5.1</strong> (贝叶斯网络)</p>
+<blockquote>
+  <p>贝叶斯网络是一个每个节点上都标注了 <strong>定量的概率信息</strong> 的有向图. 它满足:</p>
+  <ol>
+    <li>每个节点对应概率问题中的一个随机变量, 该变量既可以是离散的, 也可以是连续的.</li>
+    <li>使用 <strong>一组有向边或箭头</strong> 连接节点对. 若有从 $X$ 指向 $Y$ 的箭头, 则称 <strong>$X$ 为 $Y$ 的一个父节点</strong>, 图中无圈 (也就是说这个图是一个有向无圈图, <code class="language-plaintext highlighter-rouge">DAG</code>).</li>
+    <li>每个节点 $X_i$ 都有一个条件概率分布 $P(X_i ~\vert~ \text{Parents}(X_i))$ 用以 <strong>量化其父节点对该节点的影响</strong>.</li>
+  </ol>
+</blockquote>
+
+<p>可以看出, 在表示贝叶斯网络的图中, 图的拓扑结构: 节点和边的集合, 精确简洁地描述了 <strong>在问题域中成立的条件独立关系</strong>. 箭头的直观含义表示 <strong>$X$ 对 $Y$ 有直接的影响</strong>, 也就是说 <strong>原因应该是结果的父节点</strong>. 在基于现有知识确定贝叶斯网络的拓扑结构 (也就是构造出变量之间的关联) 后, 只需要 <strong>为每个变量指定它相对其父节点的条件概率</strong> 即可.</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220101083552.png" alt="20220101083552" /></p>
+
+<p>我们下面说明贝叶斯网络的含义. 我们可以通过下列两种方式理解贝叶斯网络的语义:</p>
+
+<ol>
+  <li>将贝叶斯网络视为 <strong>对联合概率分布的表示</strong>.</li>
+  <li>将贝叶斯网络视为 <strong>对一组条件依赖性语句的编码</strong>.</li>
+</ol>
+
+<p>上述两种理解方式在事实上等价. 第一种理解方式有助于更好地构造贝叶斯网络, 而后者有助于我们设计推理过程.</p>
+
+<p>我们首先看第一种理解方式. 从语法上看, 贝叶斯网络就是一个 <strong>每个节点都附有数值参数的有向无环图</strong>. 每个节点上的数值参数在我们对网络赋予语义之后, 就和条件概率一一对应.</p>
+
+<p>在联合分布中, 任一个一般条目是对 <strong>每个变量赋予一个特定值的合取概率</strong>, 如</p>
+
+\[P(X_1 = x_1 \wedge X_2 = x_2 \wedge \cdots \wedge X_n = x_n).\]
+
+<p>它一般被简化为 $P(x_1, x_2, \cdots, x_n)$. 这个条目的值可由公式</p>
+
+\[P(x_1, x_2, \cdots, x_n) = \prod_{i=1}^{n} \theta(x_i ~ \vert ~ \text{parents}(X_i))\]
+
+<p>给出, 其中 $\text{parents}(X_i)$ 表示为 $\text{Parents}(X_i)$ 的变量的出现在 $x_1, x_2, \cdots, x_n$ 中的取值. 因此, 联合概率分布中的每个条目 <strong>都可表为贝叶斯网络的条件概率表中适当元素的乘积</strong>.</p>
+
+<p>不难看出, 参数 $\theta(x_i ~ \vert ~ \text{parents}(X_i)$ 就是 <strong>联合分布蕴含的条件概率</strong> $P(x_i ~ \vert ~ \text{parents}(X_i)$. 因此上面的公式可以写为</p>
+
+\[P(x_1, x_2, \cdots, x_n) = \prod_{i=1}^{n} P(x_i ~ \vert ~ \text{parents}(X_i)).\]
+
+<p>我们下面解释 <strong>如何构造贝叶斯网络</strong>. 首先基于条件概率, 利用概率的乘法规则重写联合概率分布:</p>
+
+\[\begin{aligned}P(x_1, x_2, \cdots, x_n) &amp;= P(x_n ~\vert~ x_{n-1}, \cdots, x_1) \cdot P(x_{n-1} ~\vert~ x_{n-2}, \cdots, x_1) \cdots P(x_2 ~\vert~ x_1)\cdot P(x_1) \\ &amp;=\prod_{i=1}^{n} P(x_i ~\vert~ x_{i-1}, \cdots, x_1). \end{aligned}\]
+
+<p>上述等式称为 <strong>链式规则</strong>, 它对于任一个随机变量集合都成立. 实际上, 联合分布的描述就等价于下列的断言:</p>
+
+<p>对网络中的每个变量 $X_i$, 若 $\text{Parents}(X_i) \subseteq {X_{i-1}, \cdots, X_1}$, 则</p>
+
+\[P(X_i ~\vert~ X_{i-1}, \cdots, X_1) = P(X_i ~\vert~ \text{Parents}(X_i)).\]
+
+<p>而只要按照 <strong>与蕴含在图结构中的偏序一致的顺序对节点编号</strong>, 条件 $\text{Parents}(X_i) \subseteq {X_{i-1}, \cdots, X_1}$ 就能得到满足.</p>
+
+<p>上述公式说明: 只有在 <strong>给定父节点后, 每个节点条件独立于节点排列顺序中的其他父=祖先节点</strong> 时, 贝叶斯网络才是问题与的正确表示. 我们可用下列的贝叶斯网络构造方法满足这个条件:</p>
+
+<ol>
+  <li>给定节点 (<code class="language-plaintext highlighter-rouge">Nodes</code>): 确定对 <strong>问题域建模所需的变量集合</strong>, 对变量排序得一个序列 ${X_1, \cdots, X_n}$. 注意, 若在排序时让原因排列在结果前, 则我们得到的网络会更致密.</li>
+  <li>
+    <p>给定边: 从 $1$ 到 $n$ 遍历变量 $i$, 对每个 $i$, 执行:</p>
+
+    <p>2.1 从 $X_1, \cdots, X_{i-1}$ 中选择 $X_i$ 的父节点的最小集合使得</p>
+
+\[P(X_i ~\vert~ X_{i-1}, \cdots, X_1) = P(X_i ~\vert~ \text{Parents}(X_i)).\]
+
+    <p>得到满足.</p>
+
+    <p>2.2 在每个父节点和 $X_i$ 之间插入一条边.</p>
+
+    <p>2.3 写出条件概率表 $P(X_i ~\vert~ \text{Parents}(X_i)).$</p>
+  </li>
+</ol>
+
+<p>注意, 直观上节点 $X_i$ 的父节点应该包含 $X_1, \cdots, X_{i-1}$ 中 <strong>所有直接影响</strong> $X_i$ 的节点.</p>
+
+<p>由于每个节点 <strong>只和排在它前面的父节点相连</strong>, 因此用这种构造方法构造出的网络一定是无圈的.</p>
+
+<h2 id="46-贝叶斯网络的精确推理">4.6 贝叶斯网络的精确推理</h2>
+
+<p>概率推理系统的基本任务是, 在给定某个已观察到的事件 (也就是 <strong>证据变量 (<code class="language-plaintext highlighter-rouge">Evidence Variables</code>)</strong>) 后, 计算一组 <strong>查询变量 (<code class="language-plaintext highlighter-rouge">Query Variables</code>)</strong> 的 <strong>后验概率分布</strong>.</p>
+
+<p>规定以下记号:</p>
+<ol>
+  <li>查询变量用 $X$ 表示.</li>
+  <li>证据变量集 $E_1, \cdots, E_m$ 用 $E$ 表示.</li>
+  <li>观察到的特定事件用 $e$ 表示.</li>
+  <li>非证据, 非查询变量 (隐藏变量) 集 $Y_1, \cdots, Y_l$ 用 $Y$ 表示.</li>
+</ol>
+
+<p>这样, 全部变量的集合表为:</p>
+
+\[X = \{X\} \cup E \cup Y.\]
+
+<p>而典型的查询是询问后验概率 $P(X ~\vert~ e)$.</p>
+
+<p>我们已经知道, 任何条件概率都可通过 <strong>将完全联合概率分布</strong> 中的某些项 <strong>相加</strong> 而计算得出. 回顾 <code class="language-plaintext highlighter-rouge">4.3</code> 节中引入的公式:</p>
+
+\[P(X \vert e) = \alpha P(X, e) = \alpha \cdot \sum_{y \in Y} P(X, e, y).\]
+
+<p>由于贝叶斯网络给出了完全联合概率分布的完整表示, 联合概率分布中的项 $P(X, e, y)$ 可被写为 <strong>网络中的条件概率的乘积</strong> 的形式. 由此, 我们可以 <strong>在贝叶斯网络中通过计算条件概率的乘积</strong> 再求和, 得到所需要的结果.</p>
+
+:ET

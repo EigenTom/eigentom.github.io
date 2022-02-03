@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="description" content="由于相关法律法规规定, 该内容无法显示.">
+    <meta name="keywords" content="菜">
+    <meta name="theme-color" content="#333">
+
+    <!-- Open Graph -->
+    <meta property="og:title"
+        content="Software Engineering 一日速成 - 某一般线性空间 | Ramdom Linear Space">
+    
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="COMP23311 24小时速成
+">
+    
+    <meta property="article:published_time" content=" 2022-01-23T00:00:00Z">
+    
+    
+    <meta property="article:author" content="R1NG">
+    
+    
+    <meta property="article:tag" content="2021">
+    
+    <meta property="article:tag" content="课程笔记">
+    
+    
+    <meta property="og:image" content="http://localhost:4000https://github.com/KirisameR.png">
+    <meta property="og:url" content="http://localhost:4000/2022/01/23/COMP23311-REV/">
+    <meta property="og:site_name" content="某一般线性空间 | Ramdom Linear Space">
+
+    <title>Software Engineering 一日速成 - 某一般线性空间 | Ramdom Linear Space</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4000/2022/01/23/COMP23311-REV/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href=" /css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href=" /css/hux-blog.min.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"type="text/css">
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+
+    <!-- 数学公式 -->
+    <script type="text/javascript" async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+            showProcessingMessages: true, //关闭js加载过程信息
+            messageStyle: "none", //不显示信息
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code','a'], //避开某些标签
+                ignoreClass:"comment-content" //避开含该Class的标签
+            },
+            "HTML-CSS": {
+                availableFonts: ["STIX","TeX"], //可选字体
+                showMathMenu: false //关闭右击菜单显示
+            }
+        });
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+    </script>
+
+    
+
+    <!-- Google AdSense -->
+    <script data-ad-client="ca-pub-6487568398225121" async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">RANDOM LINEAR SPACE</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div id="huxblog_navbar">
+                <div class="navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                        
+                        
+                        <li>
+                            <a href="/archive/">Archive</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li class="search-icon">
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <script>
+        // Drop Bootstarp low-performance Navbar
+        // Use customize navbar with high-quality material design animation
+        // in high-perf jank-free CSS3 implementation
+        var $body = document.body;
+        var $toggle = document.querySelector('.navbar-toggle');
+        var $navbar = document.querySelector('#huxblog_navbar');
+        var $collapse = document.querySelector('.navbar-collapse');
+
+        var __HuxNav__ = {
+            close: function () {
+                $navbar.className = " ";
+                // wait until animation end.
+                setTimeout(function () {
+                    // prevent frequently toggle
+                    if ($navbar.className.indexOf('in') < 0) {
+                        $collapse.style.height = "0px"
+                    }
+                }, 400)
+            },
+            open: function () {
+                $collapse.style.height = "auto"
+                $navbar.className += " in";
+            }
+        }
+
+        // Bind Event
+        $toggle.addEventListener('click', function (e) {
+            if ($navbar.className.indexOf('in') > 0) {
+                __HuxNav__.close()
+            } else {
+                __HuxNav__.open()
+            }
+        })
+
+        /**
+         * Since Fastclick is used to delegate 'touchstart' globally
+         * to hack 300ms delay in iOS by performing a fake 'click',
+         * Using 'e.stopPropagation' to stop 'touchstart' event from 
+         * $toggle/$collapse will break global delegation.
+         * 
+         * Instead, we use a 'e.target' filter to prevent handler
+         * added to document close HuxNav.  
+         *
+         * Also, we use 'click' instead of 'touchstart' as compromise
+         */
+        document.addEventListener('click', function (e) {
+            if (e.target == $toggle) return;
+            if (e.target.className == 'icon-bar') return;
+            __HuxNav__.close();
+        })
+    </script>
+    <!-- Search -->
+<div class="search-page">
+  <div class="search-icon-close-container">
+    <span class="search-icon-close">
+      <i class="fa fa-chevron-down"></i>
+    </span>
+  </div>
+  <div class="search-main container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <form></form>
+        <input type="text" id="search-input" placeholder="$ grep...">
+        </form>
+        <div id="search-results" class="mini-post-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/post-bg-prolog.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+
+
+
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/post-bg-prolog.jpg');
+        background: ;
+    }
+
+    
+</style>
+
+<header class="intro-header" >
+
+    <div class="header-mask"></div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/archive/?tag=2021" title="2021">2021</a>
+                        
+                        <a class="tag" href="/archive/?tag=%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0" title="课程笔记">课程笔记</a>
+                        
+                    </div>
+                    <h1>Software Engineering 一日速成</h1>
+                    
+                    <h2 class="subheading">REVISION</h2>
+                    <span class="meta">Posted by R1NG on January 23, 2022</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <!-- Multi-Lingual -->
+                
+
+				<h1 id="comp23311-24小时速成">COMP23311 24小时速成</h1>
+
+<h2 id="week-1-building--testing-open-source-systems">Week 1: Building &amp; Testing Open Source Systems</h2>
+
+<p>What is software Engineering?</p>
+
+<ol>
+  <li>Building software to <strong>Budget</strong> + <strong>Deadline</strong></li>
+  <li>Needs to <strong>Deliver sufficient ROI (Return on Investment)</strong> + <strong>affordable to maintain and change</strong></li>
+</ol>
+
+<p>Typical Software organisation:</p>
+
+<ul>
+  <li>Local Dev</li>
+  <li>Dev</li>
+  <li>Test</li>
+  <li>Live</li>
+  <li>End Users</li>
+</ul>
+
+<ol>
+  <li>Acquring Source code</li>
+  <li>Build the object code</li>
+  <li>Run tests (code review, follow coding standards/documentation procedures, pass automated tests)</li>
+</ol>
+
+<h2 id="week-2-understanding-large-software-systems-through-tests">Week 2: Understanding Large Software Systems Through Tests</h2>
+
+<p>code reading: system domain technical</p>
+
+<p>syntactical/conceptual error/software bugs (faults error flow in source code or system design)</p>
+
+<h2 id="week-3-debugging">Week 3: Debugging</h2>
+
+<h3 id="debug-systematic-approach">Debug systematic approach:</h3>
+
+<ol>
+  <li>
+    <p>start with a problem:<br />
+ replicate the issue</p>
+  </li>
+  <li>
+    <p>stablize a problem<br />
+ describe the problem precisely</p>
+  </li>
+  <li>isolate the problem<br />
+    <ul>
+      <li>
+        <p>tactic: rubber ducking, find common problems, IDE debug tools, test cases, git commit logs</p>
+      </li>
+      <li>
+        <p>strategy: brute force+backtrack+binary search+eliminate</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>fix the problem<br />
+ (mostly the easiest part)</p>
+  </li>
+  <li>test if the fix is successful</li>
+  <li>check similar errors (very important)</li>
+</ol>
+
+<p>JUnit测试用例基本规则:</p>
+
+<ol>
+  <li>test class 以 <code class="language-plaintext highlighter-rouge">Test</code> 结尾</li>
+  <li>test method 一般建议以 <code class="language-plaintext highlighter-rouge">should</code> 开头 (别的其实也可以)</li>
+  <li>assert一个测试方法中只能有一个</li>
+  <li>test method 不要有任何传入参数</li>
+</ol>
+
+<h2 id="week-4-cost-estimation">Week 4: Cost Estimation</h2>
+
+<p>Cost estimation: effort + resources + schedules</p>
+
+<p>WBS: work breakdown structures</p>
+
+<p>100% rule: states that the WBS includes 100% of the work defined by the project scope and captures all deliverables – internal, external, interim – in terms of the work to be completed, including project management.</p>
+
+<h2 id="week5-test-first-development">Week5: Test First Development</h2>
+
+<h3 id="scoping-features-to-manage-risk">Scoping features to manage risk</h3>
+<ol>
+  <li>incremental dev: Simple ver, in a form that can be used, Minimum marketable feature</li>
+  <li>Build on existing components: reuse, adapt, expand</li>
+  <li>Control the scope: <br />
+    ctrl affected:
+    <ol>
+      <li>existing types of obj</li>
+      <li>existing functions</li>
+      <li>user groups</li>
+    </ol>
+  </li>
+</ol>
+
+<h3 id="release-planning">Release planning</h3>
+<ol>
+  <li>release date</li>
+  <li>user type?</li>
+  <li>build on? (reused what?)</li>
+  <li>affected types?</li>
+  <li>affected functions?</li>
+</ol>
+
+<h3 id="agile-method-fail-fast-corner-stone">Agile Method: Fail fast (corner stone)</h3>
+<ol>
+  <li>short iterations</li>
+  <li>user stories</li>
+  <li>iteration planning/release planning</li>
+  <li>evolutionary design</li>
+  <li>TFD/TDD Test-first dev (test driven dev 更强)</li>
+</ol>
+
+<h3 id="test-against-3-layer-architecture-presentation-logic-business-logic-data-logic">Test against 3 layer architecture (Presentation logic, Business Logic, Data Logic):</h3>
+<ol>
+  <li>
+    <p>Outside-in Approach (gui driver 模拟用户操作)</p>
+  </li>
+  <li>
+    <p>Middle-Out Approach (调用 service layer api)</p>
+  </li>
+</ol>
+
+<h3 id="role-of-acceptance-tests">Role of acceptance tests</h3>
+<p>evaluate the system’s compliance with the business requirements and verify if it is has met the required criteria for delivery to end users.</p>
+
+<h3 id="test-first-process">Test-first process:</h3>
+<ol>
+  <li>sketch out expected behavior as acceptance tests (use existing codes, or wishful thinking)</li>
+  <li>create test stubs and compile test</li>
+  <li>run the test to get a result (red)</li>
+  <li>implement the production code stubs</li>
+  <li>run the test again (should be green)</li>
+</ol>
+
+<p>Remember in Jenkins:</p>
+
+<ol>
+  <li>grey == not running test</li>
+  <li>red == compile failed</li>
+  <li>yellow == compile successful, but some tests failed</li>
+  <li>green == all tests passed</li>
+</ol>
+
+<h3 id="failing-test">Failing test:</h3>
+<ul>
+  <li>fail unit test: you are fucked</li>
+  <li>failed pre-passed acceptance test: you are fucked</li>
+  <li>failed acceptance test on future features: it’s fine</li>
+</ul>
+
+<p>TAD -&gt; TFD -&gt; TDD: maximise test coverage, maximise fit of production code to test code</p>
+
+<h2 id="week-6-git-workflow">Week 6: Git Workflow</h2>
+
+<h3 id="code-review">Code review:</h3>
+<ol>
+  <li>buddy review (informal)</li>
+  <li>
+    <p>team-based review (informal)<br />
+   tool: gerrit (allow code to be held in staging area for code rev, block integration into main branch until pass quality standard)</p>
+
+    <p>way: walkthrough: sanity check of design (best at the beginning), or correctness of implementation (after or during implementation)</p>
+  </li>
+  <li>formal review (formal, inspection, technical review, technical+management)</li>
+</ol>
+
+<p>Code reviewer’s good practice: neutral tone, promiscuory reviewing (轮换检查)</p>
+
+<h3 id="rules-on-commit-msg">Rules on Commit msg:</h3>
+
+<p>Imperative tone, NO COMMA, first line limit to 50 chars, the rest limit to 72 chars, second line leave blank, leave blank between paragraphs, detailed description of the change, integrate bug tracking</p>
+
+<h3 id="git-commit-shits">Git commit shits:</h3>
+<p>group coordination+codebase synchronisation, quality assurance</p>
+<ol>
+  <li>Merge</li>
+  <li>Cherry Pick</li>
+  <li>Rebase</li>
+  <li>Resolve conflict</li>
+  <li>Fast forward</li>
+</ol>
+
+<p>Difference between Merge and conflict:</p>
+
+<p>Merge == preserve feature branch, Rebase == blow up feature branch, no record, look simple and elegent</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220124002645.png" alt="20220124002645" /></p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220123205209.png" alt="20220123205209" /></p>
+
+<h3 id="git-workflow">Git workflow:</h3>
+
+<ol>
+  <li>GitFlow Model<br />
+    <ul>
+      <li>2 main branches: master develop</li>
+      <li>3 supporting branches: feature hotfix release</li>
+      <li>only hotfix branch can fork from master</li>
+      <li>
+        <p>NO FAST FORWARD, NEVER.</p>
+      </li>
+      <li>
+        <p>[branch structure]:</p>
+
+        <p>develop &lt;=&gt; master &lt;=&gt; feature</p>
+
+        <p>master &lt;=&gt; hotfix, feature &lt;=&gt; develop</p>
+
+        <p>release &lt;=&gt; develop, (maybe!) hotfix =&gt; develop</p>
+      </li>
+    </ul>
+
+    <p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220123222410.png" alt="20220123222410" /></p>
+  </li>
+  <li>
+    <p>GitHub Flow<br />
+ master, feature branches. all work done on feature branch</p>
+
+    <p>every commit on master is deployable, test branch in production environment before merging, pull request for code review</p>
+  </li>
+  <li>
+    <p>Trunk-Based Development (主干开发模型) <br />
+ everyone work in one single trunk branch<br /></p>
+
+    <p>one can work on local branch, merge to remote branch after get passed in gerrit<br /></p>
+
+    <p>every single commit is release ready, high quality commits but no protection against errors</p>
+  </li>
+</ol>
+
+<h2 id="week-8-refactoring-and-migration">Week 8: Refactoring and Migration</h2>
+
+<ul>
+  <li>fixed bugs: corrective</li>
+  <li>added feature: adaptive</li>
+  <li>refactoring/migration: preventive change (prevent cost)</li>
+</ul>
+
+<h3 id="patterns-of-code-change">Patterns of code change:</h3>
+<ul>
+  <li>
+    <p>rename method/class</p>
+  </li>
+  <li>
+    <p>covert a var into const</p>
+  </li>
+  <li>
+    <p>convert a local var into a field</p>
+  </li>
+  <li>
+    <p>move a method to another class</p>
+  </li>
+</ul>
+
+<h3 id="refactoring">Refactoring:</h3>
+<ol>
+  <li>IDE integrated</li>
+  <li>change structure but not behavior</li>
+  <li>good tests are essential</li>
+  <li>workflow: run tests -&gt; refactor -&gt; run test again</li>
+  <li>relatively small changes</li>
+</ol>
+
+<h3 id="software-migration">Software Migration:</h3>
+<p>large scope, move some functionality from one context to another (like from MySQL to Couchbase)</p>
+
+<p>Typical Process:</p>
+<ol>
+  <li>Ensure behavior which to be migrated is well tested</li>
+  <li>Migrate test to fit target context (doesn’t care abstract layer tests)</li>
+  <li>Then migrate functionality</li>
+  <li>test+fix until all migrated tests passed</li>
+  <li>then remove old form migrated tests</li>
+</ol>
+
+<h2 id="9-design-for-testability">9. Design for Testability</h2>
+
+<p>Code is easy to test =&gt; code is easy and safe to change =&gt; good software design</p>
+
+<p>design driven for testability, ensure the code is easy to test</p>
+
+<p>Bad factors:</p>
+<ol>
+  <li>Non-deterministic (randomness) code</li>
+  <li>Hard-coding/hiding behavior</li>
+  <li>Not allowing inheritance/overriding</li>
+  <li>Complex/Slow configuration (running excessive shit such as database even if just need to test a simple thing, take more time)</li>
+  <li>Break the LAW OF DEMETER (I don’t know, didn’t covered, don’t ask)</li>
+</ol>
+
+<p>Test doubles: (测试替身): a ver of predictable production code object</p>
+<ol>
+  <li>Dummies: placeholder, passed but never used</li>
+  <li>Stubs: fixed value, canned answers</li>
+  <li>Fakes: include simple (usually shitty) logic, (partly) working implementations</li>
+  <li>Mocks: basically stub with assertions</li>
+</ol>
+
+<h2 id="10-patterns">10. Patterns</h2>
+
+<p>Patterns: distilled wisdom, allow to reuse solutions (experience), provide a shared vocabulary of talking about software design</p>
+
+<p>Group of Patterns:</p>
+<ol>
+  <li>Behavioural Patterns (state, strategy)</li>
+  <li>Structural Patterns (composite, adaptor)</li>
+  <li>Creational Patterns (factory method, singleton)</li>
+</ol>
+
+<ul>
+  <li>Strategy Pattern: 基于不同类对应的策略封装算法</li>
+  <li>State Pattern: 封装同一对象基于不同状态的多种行为</li>
+  <li>Composite Pattern: 部分-整体组合模式</li>
+  <li>Adapter Pattern: 接口转换, wrapper class</li>
+  <li>Factory Method: 让子类自己在运行时决定实例化哪个类</li>
+  <li>Singleton Pattern: 只让某个类创建唯一的一个对象</li>
+</ul>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220124003321.png" alt="20220124003321" /></p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220124003239.png" alt="20220124003239" /></p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220124003938.png" alt="20220124003938" /></p>
+
+<p>Caution:</p>
+
+<ol>
+  <li>No overuse</li>
+  <li>No over-engineering</li>
+  <li>refactor TOWARD a pattern rather than TO a pattern (把pattern作为参考, 而不是标准)</li>
+</ol>
+
+<p>Pattern的意义:</p>
+
+<p>Make code easy to understand, maintain and modify</p>
+
+<h2 id="11-risk-management">11. Risk Management</h2>
+
+<p>Risk: possible negative event</p>
+
+<p><strong>Risk exposure = likelihood + impact (potential cost)</strong></p>
+
+<p>Planning:</p>
+<ol>
+  <li>Mitigate planning: make it less likely happen + reduce impact</li>
+  <li>Contingency Planning: make preparation if it happen, do nothing to reduce likelihood or impact</li>
+</ol>
+
+<p>Tools used for risk management:</p>
+<ul>
+  <li>Git for Risk Management: ……</li>
+  <li>CI/CD for Risk Management: reduce risk likelihood <br />
+  CI: Integrate, build, test, report, make testing and building reliable</li>
+  <li>Automated Test Suite for Risk Management: reduce cost of regression (reduce cost)</li>
+</ul>
+
+<p>a, b : interval</p>
+
+<p>Begin(), End() shike</p>
+
+<p>Before(a, b) =&gt; End(a) &lt; Begin(b)</p>
+
+<p>After(a, b) =&gt; Begin(a) &gt; End(b)</p>
+
+<p>Meet(a, b) =&gt; End(a) = Begin(b)</p>
+
+<p>During(a, b) =&gt; Begin(b) &lt; Begin(a) &lt; End(a) &lt; End(b)</p>
+
+<p>Finishes(a, b) =&gt; Begin(b) &lt; Begin(a) &lt; End(a) = End(b)</p>
+
+<p>Starts(a, b) =&gt; Begin(b) = Begin(a) &lt; End(a) &lt; End(b)</p>
+
+<p>Equals(a, b) =&gt; Begin(b) = Begin(a) &amp;&amp; End(a) = End(b)</p>
+
+<p>Overlap(a, b) =&gt; Begin(a) &lt; Begin(b) &lt; End(a) &lt; End(b)</p>
+
+
+
+                <hr style="visibility: hidden;">
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2022/01/14/COMP23111-REV-Ch4/" data-toggle="tooltip" data-placement="top" title="数据库导论 其他数据库">
+                        Previous<br>
+                        <span>数据库导论 其他数据库</span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <hr style="visibility: hidden;">
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+                
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+
+
+<section>
+    
+        <hr class="hidden-sm hidden-xs">
+    
+    <h5><a href="/archive/">FEATURED TAGS</a></h5>
+    <div class="tags">
+        
+        
+        
+        
+        
+        
+                <a data-sort="0109" 
+                    href="/archive/?tag=COMP12111"
+                    title="COMP12111"
+                    rel="10">COMP12111</a>
+        
+                <a data-sort="0027" 
+                    href="/archive/?tag=2021"
+                    title="2021"
+                    rel="92">2021</a>
+        
+                <a data-sort="0073" 
+                    href="/archive/?tag=%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0"
+                    title="课程笔记"
+                    rel="46">课程笔记</a>
+        
+                <a data-sort="0079" 
+                    href="/archive/?tag=%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0"
+                    title="前端学习"
+                    rel="40">前端学习</a>
+        
+                <a data-sort="0079" 
+                    href="/archive/?tag=50P50D"
+                    title="50P50D"
+                    rel="40">50P50D</a>
+        
+                <a data-sort="0094" 
+                    href="/archive/?tag=2020"
+                    title="2020"
+                    rel="25">2020</a>
+        
+                <a data-sort="0104" 
+                    href="/archive/?tag=COMP24011"
+                    title="COMP24011"
+                    rel="15">COMP24011</a>
+        
+                <a data-sort="0107" 
+                    href="/archive/?tag=%E9%80%BB%E8%BE%91%E5%AD%A6"
+                    title="逻辑学"
+                    rel="12">逻辑学</a>
+        
+                <a data-sort="0109" 
+                    href="/archive/?tag=COMP15111"
+                    title="COMP15111"
+                    rel="10">COMP15111</a>
+        
+                <a data-sort="0110" 
+                    href="/archive/?tag=%E6%89%A9%E5%B1%95%E8%87%AA%E4%B9%A0"
+                    title="扩展自习"
+                    rel="9">扩展自习</a>
+        
+                <a data-sort="0110" 
+                    href="/archive/?tag=COMP21111"
+                    title="COMP21111"
+                    rel="9">COMP21111</a>
+        
+                <a data-sort="0112" 
+                    href="/archive/?tag=%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0"
+                    title="机器学习"
+                    rel="7">机器学习</a>
+        
+                <a data-sort="0112" 
+                    href="/archive/?tag=COMP11212"
+                    title="COMP11212"
+                    rel="7">COMP11212</a>
+        
+                <a data-sort="0115" 
+                    href="/archive/?tag=%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95"
+                    title="数据结构和算法"
+                    rel="4">数据结构和算法</a>
+        
+                <a data-sort="0115" 
+                    href="/archive/?tag=COMP15212"
+                    title="COMP15212"
+                    rel="4">COMP15212</a>
+        
+                <a data-sort="0115" 
+                    href="/archive/?tag=COMP23111"
+                    title="COMP23111"
+                    rel="4">COMP23111</a>
+        
+                <a data-sort="0116" 
+                    href="/archive/?tag=%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7"
+                    title="奇技淫巧"
+                    rel="3">奇技淫巧</a>
+        
+                <a data-sort="0117" 
+                    href="/archive/?tag=%E7%99%BD%E6%9E%9C%E5%9B%AD"
+                    title="白果园"
+                    rel="2">白果园</a>
+        
+                <a data-sort="0117" 
+                    href="/archive/?tag=%E7%AE%97%E6%B3%95"
+                    title="算法"
+                    rel="2">算法</a>
+        
+                <a data-sort="0117" 
+                    href="/archive/?tag=Lab"
+                    title="Lab"
+                    rel="2">Lab</a>
+    </div>
+</section>
+
+
+                <!-- Friends Blog -->
+                
+<hr>
+<h5>FRIENDS</h5>
+<ul class="list-inline">
+  
+  <li><a href="http://ryanxin.cn">Ryan Xin</a></li>
+  
+  <li><a href="https://flyhigher.top">Axton.Gay</a></li>
+  
+  <li><a href="https://graynekocafe.net">GrayNekoBean</a></li>
+  
+  <li><a href="Gnefil.github.io">Gnefil</a></li>
+  
+</ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<!-- add support for mathjax by voleking-->
+
+
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "KirisameR";
+    var disqus_identifier = "/2022/01/23/COMP23311 REV";
+    var disqus_url = "http://localhost:4000/2022/01/23/COMP23311-REV/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'right',
+          // icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <!-- SNS Link -->
+                
+
+
+<ul class="list-inline text-center">
+
+
+  
+  
+  
+  
+  
+  
+  <li>
+    <a target="_blank" href="https://github.com/KirisameR">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  
+  
+</ul>
+
+                <p class="copyright text-muted">
+                    Copyright &copy; 某一般线性空间 2022
+                    <br>
+                    Powered by <a href="http://huangxuan.me">Hux Blog</a> |
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="100px"
+                        height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=huxpro&repo=huxpro.github.io&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<!-- Currently, only navbar scroll-down effect at desktop still depends on this -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Simple Jekyll Search -->
+<script src="/js/simple-jekyll-search.min.js"></script>
+
+<!-- Service Worker -->
+
+<script src="/js/snackbar.js "></script>
+<script src="/js/sw-registration.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+        var d = document, t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+
+
+
+
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog(selector) {
+
+        // interop with multilangual 
+        if ('' == 'true') {
+            _containerSelector = 'div.post-container.active'
+        } else {
+            _containerSelector = 'div.post-container'
+        }
+
+        // init
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        // clean
+        $(selector).html('')
+
+        // appending
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+<!-- Multi-Lingual -->
+
+
+<!-- Simple Jekyll Search -->
+<script>
+    // https://stackoverflow.com/questions/1912501/unescape-html-entities-in-javascript
+    function htmlDecode(input) {
+        var e = document.createElement('textarea');
+        e.innerHTML = input;
+        // handle case of empty input
+        return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+    }
+
+    SimpleJekyllSearch({
+        searchInput: document.getElementById('search-input'),
+        resultsContainer: document.getElementById('search-results'),
+        json: '/search.json',
+        searchResultTemplate: '<div class="post-preview item"><a href="{url}"><h2 class="post-title">{title}</h2><h3 class="post-subtitle">{subtitle}</h3><hr></a></div>',
+        noResultsText: 'No results',
+        limit: 50,
+        fuzzy: false,
+        // a hack to get escaped subtitle unescaped. for some reason, 
+        // post.subtitle w/o escape filter nuke entire search.
+        templateMiddleware: function (prop, value, template) {
+            if (prop === 'subtitle' || prop === 'title') {
+                if (value.indexOf("code")) {
+                    return htmlDecode(value);
+                } else {
+                    return value;
+                }
+            }
+        }
+    });
+
+    $(document).ready(function () {
+        var $searchPage = $('.search-page');
+        var $searchOpen = $('.search-icon');
+        var $searchClose = $('.search-icon-close');
+        var $searchInput = $('#search-input');
+        var $body = $('body');
+
+        $searchOpen.on('click', function (e) {
+            e.preventDefault();
+            $searchPage.toggleClass('search-active');
+            var prevClasses = $body.attr('class') || '';
+            setTimeout(function () {
+                $body.addClass('no-scroll');
+            }, 400)
+
+            if ($searchPage.hasClass('search-active')) {
+                $searchClose.on('click', function (e) {
+                    e.preventDefault();
+                    $searchPage.removeClass('search-active');
+                    $body.attr('class', prevClasses);  // from closure 
+                });
+                $searchInput.focus();
+            }
+        });
+    });
+</script>
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

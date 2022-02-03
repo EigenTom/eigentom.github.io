@@ -1,0 +1,191 @@
+I"�<h1 id="线性时态逻辑">线性时态逻辑</h1>
+
+<h2 id="121-计算树">12.1 计算树</h2>
+
+<p>我们可以用 <strong>计算树</strong> 表示某个状态转换系统中所有可能的行为:</p>
+
+<p><strong>定义 12.1.1</strong> (计算树)</p>
+<blockquote>
+  <p>考虑状态转换系统</p>
+
+\[\mathbb{S} = (S, \text{In}, T, \mathscr{X}, \text{dom}, L),\]
+
+  <p>并记状态 $s\in S$. 状态转换系统 $\mathbb{S}$ 的, 从状态 $s$ 起始的计算树的递归定义如下:</p>
+  <ol>
+    <li>计算树的节点由 $S$ 中的状态所标记.</li>
+    <li>树的根节点由 $s$ 所标记.</li>
+    <li>对树中的每个节点 $s’$, 其任一子节点 $s’’$ 恰满足条件 $(s’, s’’) \in T$.</li>
+  </ol>
+</blockquote>
+
+<p><strong>定义 12.1.2</strong> (计算路径)</p>
+<blockquote>
+  <p>状态转换系统 $\mathbb{S}$ 的 <strong>计算路径</strong> 为 <strong>由一系列节点组成的序列 $s_1, \cdots, s_n$</strong>, 满足:</p>
+  <ol>
+    <li>对任意 $i  \in [n-1]$, 有 $(s_i, s_{i+1})\in T$.</li>
+    <li>若该序列是有限的, 则不存在任何 $s$ 满足 $(s_n, s) \in T$.</li>
+  </ol>
+</blockquote>
+
+<p>本质上, 某个状态转换逻辑的计算路径就是该逻辑中的某个最长的状态转换序列. 同时可知, 计算树和计算路径具备以下性质:</p>
+
+<ol>
+  <li>某个状态转换系统的计算路径恰为该状态转换系统计算树中的所有分支.</li>
+  <li>任何计算树的子树也是一棵计算树.</li>
+  <li>对任何状态转换系统 $\mathbb{S}$ 和状态 $s$, 一定唯一存在某个 $\mathbb{S}$ 中以 $s$ 为根节点的计算树.</li>
+</ol>
+
+<h2 id="122-线性时态逻辑">12.2 线性时态逻辑</h2>
+
+<p>在本节中, 我们引入一种可以表示时态的逻辑系统, 用以表示计算树中某些分支的属性. 称这样的逻辑系统为 <strong>线性时态逻辑</strong>:</p>
+
+<p><strong>定义 12.2.1</strong> (线性时态逻辑中的公式)</p>
+<blockquote>
+  <p>我们使用下列的规则递归地定义线性时态逻辑中的公式:</p>
+  <ol>
+    <li>$\top$ 和 $\perp$ 均被视为公式.</li>
+    <li><code class="language-plaintext highlighter-rouge">PLFD</code> 中的任何原子公式 (形如 $x=v$) 被视为 <code class="language-plaintext highlighter-rouge">LTL</code> 中的原子公式.</li>
+    <li>若 $A_1, \cdots, A_n$ 为公式, 其中 $n \geqslant 2$, 则 $(A_1 \wedge \cdots \wedge A_n)$ 和 $(A_1 \vee \cdots \vee A_n)$ 也都是公式.</li>
+    <li>若 $A$ 为公式, 则 $\neg A$ 也是公式.</li>
+    <li>若 $A$ 和 $B$ 均为公式, 则 $(A \rightarrow B)$ 和 $(A \leftrightarrow B)$ 也都是公式.</li>
+    <li>若 $A$ 为公式, 则 $\bigcirc$, $\lozenge$, $\square$ 均为公式.</li>
+  </ol>
+</blockquote>
+
+<p>连接词和时态运算符的优先级和定义如下:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20211223151638.png" alt="20211223151638" /></p>
+
+<p>我们称 $\bigcirc, \lozenge, \square, \mathcal{U}, \mathcal{R}$ 为 <strong>时态运算符</strong> (<code class="language-plaintext highlighter-rouge">temporal operator</code>).</p>
+
+<p><code class="language-plaintext highlighter-rouge">LTL</code> (线性时态逻辑) 中的公式的真伪性都是在定义在某个计算路径上的. 举例而言:</p>
+
+<ol>
+  <li>公式 $\square ~ A$ 表明, $A$ 在计算路径上 <strong>恒为真</strong>.</li>
+  <li>公式 $\lozenge ~A$ 表明, $A$ 在计算路径的 <strong>某一个状态上</strong> 为真.</li>
+  <li>公式 $\bigcirc ~A$ 表明, $A$ 在计算路径的初始状态 $s_0$ 的下一个状态 $s_1$ 上为真.</li>
+</ol>
+
+<p>我们下面给出对 <code class="language-plaintext highlighter-rouge">LTL</code> 语义的形式化定义:</p>
+
+<p><strong>定义 12.2.2</strong> (<code class="language-plaintext highlighter-rouge">LTL</code> 的语义)</p>
+<blockquote>
+  <p>记 $\pi = s_0, s_1, s_2, \cdots$ 为一个状态序列, $A$ 为一个 <code class="language-plaintext highlighter-rouge">LTL</code> 公式. 我们递归地定义 <strong>公式 $A$ 在序列 $\pi$ 上为真</strong> (记为 $\pi \vDash A$) 如下:</p>
+
+  <p>首先约定, 对任意 $i \in [n]$, 定义 $\pi_i$ 为序列 $s_i, s_{i+1}, \cdots$. (在这个定义下, $\pi_0 = \pi$.)</p>
+
+  <ol>
+    <li>$\pi \vDash \top$ 且 $\pi \nvDash \perp$.</li>
+    <li>$\pi \vDash x=v$ 若 $s_0 \vDash x=v$.</li>
+    <li>$\pi \vDash A_1 \wedge \cdots \wedge A_n$ 若对任意 $j \in [n]$, 有 $\pi \vDash A_j$.</li>
+    <li>$\pi \vDash A_1 \vee \cdots \vee A_n$ 若对任意 $j \in [n]$, 至少有一个 $j$ 满足 $\pi \vDash A_j$.</li>
+    <li>$\pi \vDash \neg A$ 若 $\pi \nvDash A$.</li>
+    <li>$\pi \vDash \bigcirc ~A$ 若 $\pi \vDash A$.</li>
+    <li>$\pi \vDash \lozenge ~A$ 若对某个 $i \in [n]$, 满足 $\pi_i \vDash A$.</li>
+    <li>$\pi \vDash \square ~A$ 若对任意 $i \in [n]$, 满足 $\pi_i \vDash A$.</li>
+    <li>$\pi \vDash A~\mathcal{U}~B$ 若对某个 $k \in [n]$, 我们有 $p_k \vDash B$ 且 $p_0 \vDash A, \cdots, p_{k-1} \vDash A$.</li>
+    <li>$\pi \vDash A~\mathcal{R}~B$ 若对任意 $k \in [n]$, 要么 $\pi_k \vDash B$, 要么存在 $j &lt; k$ 使得 $\pi_j \vDash A$.</li>
+  </ol>
+</blockquote>
+
+<p>注意:</p>
+
+<ol>
+  <li>
+    <p>线性时态逻辑中的公式 $A, B$ 是等价 (记为 $A \equiv B$) 的, 当且仅当对计算树中的 <strong>任何</strong> 计算路径 $\pi$, $\pi \vDash A$ 当且仅当 $\pi \vDash B$.</p>
+  </li>
+  <li>
+    <p>我们一般将 <strong>“线性时态逻辑公式 $A$ 在路径 $\pi_i$ 上为真”</strong> 简称为 <strong>“线性时态逻辑公式 $A$ 在状态 $s_i$ 上为真”</strong>.</p>
+  </li>
+</ol>
+
+<p>线性时态逻辑中时态运算符的语义表示如下:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20211223154442.png" alt="20211223154442" /></p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20211223154727.png" alt="20211223154727" /></p>
+
+<h2 id="123-时态公式的等价性">12.3 时态公式的等价性</h2>
+
+<p>时态公式中时态运算符的等价性如下图所示:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20211223154835.png" alt="20211223154835" /></p>
+
+<p>注意最后一条规则: 它说明, 实质上 $\mathcal{U}$ 可等价表示任何时态运算符.</p>
+
+<ul>
+  <li>Every Computation Tree is a binary tree – <code class="language-plaintext highlighter-rouge">FALSE</code></li>
+  <li>If an LTL formula is true on a path then its negation is false on this path. – <code class="language-plaintext highlighter-rouge">TRUE</code></li>
+  <li>If an LTL formula is true on all paths then its negation is false on all paths. – <code class="language-plaintext highlighter-rouge">TRUE</code></li>
+  <li>If a formula F does not contain temporal operators then F is true on a path s_0,s_1,..,if and only if F is true in s_0. – <code class="language-plaintext highlighter-rouge">TRUE</code></li>
+  <li>For every LTL formula there is an equivalent formula that does not contain operators [] and &lt;&gt;.  – <code class="language-plaintext highlighter-rouge">TRUE</code></li>
+</ul>
+
+<p>∃p ∀q ∃r
+~p \/ q
+~p \/ ~q \/ ~r
+~p \/ q \/ ~r
+p \/ q \/ r
+p \/ q \/ ~r</p>
+
+<p>==&gt; ~p \/</p>
+
+<p>∀q ∃r
+~p
+~p \/ q
+~p \/ ~q \/ ~r
+~p \/ q \/ ~r
+p \/ q \/ r
+p \/ q \/ ~r</p>
+
+<p>–&gt; ~p</p>
+
+<p>∀q ∃r
+q \/ r
+q \/ ~r</p>
+
+<p>==&gt; q /\</p>
+
+<p>∀q ∃r
+q
+q \/ r
+q \/ ~r</p>
+
+<p>–&gt; q</p>
+
+<p>[1]</p>
+
+<p>==&gt; ~q /\</p>
+
+<p>∀q ∃r
+~q
+q \/ r
+q \/ ~r</p>
+
+<p>–&gt; ~q, r</p>
+
+<p>[0]</p>
+
+<p>==&gt; p \/</p>
+
+<p>∀q ∃r
+p
+~p \/ q
+~p \/ ~q \/ ~r
+~p \/ q \/ ~r
+p \/ q \/ r
+p \/ q \/ ~r</p>
+
+<p>–&gt; p
+∀q ∃r</p>
+
+<p>q
+~q \/ ~r
+q \/ ~r</p>
+
+<p>–&gt; q</p>
+
+<p>[0]</p>
+
+<p>====» [0], UNSAT.</p>
+:ET

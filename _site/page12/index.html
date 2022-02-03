@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="description" content="由于相关法律法规规定, 该内容无法显示.">
+    <meta name="keywords" content="菜">
+    <meta name="theme-color" content="#333">
+
+    <!-- Open Graph -->
+    <meta property="og:title"
+        content="某一般线性空间 | Ramdom Linear Space">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:description"
+        content="高阶线性微分方程组会梦见基础解系吗?">
+    
+    <meta property="og:image" content="http://localhost:4000https://github.com/KirisameR.png">
+    <meta property="og:url" content="http://localhost:4000/page12/">
+    <meta property="og:site_name" content="某一般线性空间 | Ramdom Linear Space">
+
+    <title>某一般线性空间 | Ramdom Linear Space</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4000/page12/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href=" /css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href=" /css/hux-blog.min.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"type="text/css">
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+
+    <!-- 数学公式 -->
+    <script type="text/javascript" async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+            showProcessingMessages: true, //关闭js加载过程信息
+            messageStyle: "none", //不显示信息
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code','a'], //避开某些标签
+                ignoreClass:"comment-content" //避开含该Class的标签
+            },
+            "HTML-CSS": {
+                availableFonts: ["STIX","TeX"], //可选字体
+                showMathMenu: false //关闭右击菜单显示
+            }
+        });
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+    </script>
+
+    
+
+    <!-- Google AdSense -->
+    <script data-ad-client="ca-pub-6487568398225121" async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">RANDOM LINEAR SPACE</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div id="huxblog_navbar">
+                <div class="navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                        
+                        
+                        <li>
+                            <a href="/archive/">Archive</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li class="search-icon">
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <script>
+        // Drop Bootstarp low-performance Navbar
+        // Use customize navbar with high-quality material design animation
+        // in high-perf jank-free CSS3 implementation
+        var $body = document.body;
+        var $toggle = document.querySelector('.navbar-toggle');
+        var $navbar = document.querySelector('#huxblog_navbar');
+        var $collapse = document.querySelector('.navbar-collapse');
+
+        var __HuxNav__ = {
+            close: function () {
+                $navbar.className = " ";
+                // wait until animation end.
+                setTimeout(function () {
+                    // prevent frequently toggle
+                    if ($navbar.className.indexOf('in') < 0) {
+                        $collapse.style.height = "0px"
+                    }
+                }, 400)
+            },
+            open: function () {
+                $collapse.style.height = "auto"
+                $navbar.className += " in";
+            }
+        }
+
+        // Bind Event
+        $toggle.addEventListener('click', function (e) {
+            if ($navbar.className.indexOf('in') > 0) {
+                __HuxNav__.close()
+            } else {
+                __HuxNav__.open()
+            }
+        })
+
+        /**
+         * Since Fastclick is used to delegate 'touchstart' globally
+         * to hack 300ms delay in iOS by performing a fake 'click',
+         * Using 'e.stopPropagation' to stop 'touchstart' event from 
+         * $toggle/$collapse will break global delegation.
+         * 
+         * Instead, we use a 'e.target' filter to prevent handler
+         * added to document close HuxNav.  
+         *
+         * Also, we use 'click' instead of 'touchstart' as compromise
+         */
+        document.addEventListener('click', function (e) {
+            if (e.target == $toggle) return;
+            if (e.target.className == 'icon-bar') return;
+            __HuxNav__.close();
+        })
+    </script>
+    <!-- Search -->
+<div class="search-page">
+  <div class="search-icon-close-container">
+    <span class="search-icon-close">
+      <i class="fa fa-chevron-down"></i>
+    </span>
+  </div>
+  <div class="search-main container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <form></form>
+        <input type="text" id="search-input" placeholder="$ grep...">
+        </form>
+        <div id="search-results" class="mini-post-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Page Header -->
+
+
+
+
+
+
+
+<header class="intro-header" style="background-image: url('/img/post-bg-desk.jpg')">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        
+        <div class="site-heading">
+        
+          <h1>某一般线性空间</h1>
+          <span class="subheading">高阶线性微分方程组会梦见基础解系吗?</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+<!-- Main Content -->
+<div class="container">
+  <div class="row">
+    
+
+    <!-- USE SIDEBAR -->
+    <!-- PostList Container -->
+    <div class="col-lg-8 col-lg-offset-1 col-md-8 col-md-offset-1 col-sm-12
+      col-xs-12 postlist-container">
+      
+<div class="post-preview">
+    <a href="/2020/10/27/Ch5-COMP15111/">
+        <h2 class="post-title">
+            Ch5 编译原理 地址与寻址
+        </h2>
+        
+        <h3 class="post-subtitle">
+            Addressing the addresses
+        </h3>
+        
+        <!--
+        <div class="post-content-preview">
+            
+                Ch5 地址与寻址
+
+Motivation:
+
+  了解寻址模式
+    
+      直接寻址模式
+      寄存器间接寻址模式
+      基数 + 偏移量寻址模式
+    
+  
+  ARM 的间接寻址模式
+
+
+1. 寻址
+为了使计算机程序可以高效地访问由大量的存储单元所组合而成的内存 (Memory), 处理器指令集采用内存地址使涉及内存的数据传输操作简易高效.
+
+处理器需要生成一...
+            
+        </div>
+        -->
+        
+        <div class="post-content-preview">
+                
+                    本章讨论常用的计算机寻址方式, 以及 ARM 架构的寻址方式.
+                
+        </div>
+            
+    </a>
+    <p class="post-meta">
+        Posted by R1NG on October 27, 2020
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2020/10/27/Ch4-COMP15111/">
+        <h2 class="post-title">
+            Ch4 编译原理 循环体和条件体的构造与优化
+        </h2>
+        
+        <h3 class="post-subtitle">
+            Iterate your iterations, Optimize your optimizations
+        </h3>
+        
+        <!--
+        <div class="post-content-preview">
+            
+                Ch4 循环体和条件体的构造与优化
+
+Motivation:
+
+  构建 ARM 汇编语言循环和条件体
+  优化循环体
+  嵌套条件体和寻址表
+
+
+1. 构建循环体和条件体
+
+
+  
+    if...else 条件体
+
+    我们还是从一个简单的例子开始. 我们考虑构建以下的一个条件体: 如果变量 total 大于 2000, 则将其值减小 100.
+使用高级程序设计语言 Python ...
+            
+        </div>
+        -->
+        
+        <div class="post-content-preview">
+                
+                    本章讨论汇编语言下循环体和条件体的构造与优化.
+                
+        </div>
+            
+    </a>
+    <p class="post-meta">
+        Posted by R1NG on October 27, 2020
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2020/10/27/Ch3-COMP15111/">
+        <h2 class="post-title">
+            Ch3 编译原理 ARM指令集和数据存储表示法
+        </h2>
+        
+        <h3 class="post-subtitle">
+            Instructions & Memories
+        </h3>
+        
+        <!--
+        <div class="post-content-preview">
+            
+                Ch3 ARM指令集和数据存储表示法
+
+Motivation:
+
+  
+    ARM 设计思路: 灵活性和简便性
+
+    
+      数据如何被存储于内存中?
+      为何程序计数器每次变化都为 4?
+      ARM 指令是如何存储于内存中的?
+    
+  
+  
+    何为汇编语言
+
+    
+      指令
+      实际上并不存在的指令
+      非指令
+   ...
+            
+        </div>
+        -->
+        
+        <div class="post-content-preview">
+                
+                    本章简介 ARM 指令集和数据表示法.
+                
+        </div>
+            
+    </a>
+    <p class="post-meta">
+        Posted by R1NG on October 27, 2020
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2020/10/27/Ch2-COMP15111/">
+        <h2 class="post-title">
+            Ch2 编译原理 整数运算
+        </h2>
+        
+        <h3 class="post-subtitle">
+            Arithmetics & Information
+        </h3>
+        
+        <!--
+        <div class="post-content-preview">
+            
+                Ch2 整数运算
+
+Motivation:
+
+  使用 ARM 指令集编写简单的汇编程序
+  了解信息的保存方式
+
+
+1. 编写简单的 ARM 汇编程序
+我们以一个简单的程序为例:
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+A shop wishes to give a 100 pound discount to anyone who buys goods for ?2000 or...
+            
+        </div>
+        -->
+        
+        <div class="post-content-preview">
+                
+                    在本章中, 我们将阐述汇编程序的内存分配, 信息表示和整数运算.
+                
+        </div>
+            
+    </a>
+    <p class="post-meta">
+        Posted by R1NG on October 27, 2020
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2020/10/27/Ch2-COMP12111/">
+        <h2 class="post-title">
+            Ch2 计算机组成与结构 计算机辅助设计与Verilog
+        </h2>
+        
+        <h3 class="post-subtitle">
+            CAD： It works!
+        </h3>
+        
+        <!--
+        <div class="post-content-preview">
+            
+                Ch2 计算机辅助设计与 Verilog
+
+在本章中, 我们将阐述计算机辅助设计的基本概念, 并介绍一门描述性计算机辅助设计语言: Verilog.
+
+1. 计算机辅助设计
+随着科技的不断发展和对性能的持续要求, 面向数字系统的设计不可避免地变得愈发复杂, 以至于我们无法再使用传统的纸笔绘图设计极其复杂的电路, 例如包含上亿晶体管的处理器. 为了避免这一局限性, 我们必须使用计算机辅助我们进...
+            
+        </div>
+        -->
+        
+        <div class="post-content-preview">
+                
+                    在本章中, 我们将阐述计算机辅助设计的基本概念, 并介绍一门描述性计算机辅助设计语言：Verilog.
+                
+        </div>
+            
+    </a>
+    <p class="post-meta">
+        Posted by R1NG on October 27, 2020
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2020/10/27/Ch1-COMP15111/">
+        <h2 class="post-title">
+            Ch1 编译原理 ARM架构
+        </h2>
+        
+        <h3 class="post-subtitle">
+            Architecture Taster
+        </h3>
+        
+        <!--
+        <div class="post-content-preview">
+            
+                Ch1 ARM架构
+
+Motivation:
+
+  了解不同的指令形式
+  了解 ARM 处理器
+  介绍一些简单的指令, 并使用简单的指令编写程序
+  了解程序在计算机中的存储方式
+  了解计算机是如何知晓下一步应执行什么指令的
+  了解计算机 “作出分支选择” 的原理
+
+
+1. 计算模型: Von Neumann 模型
+Von Neumann 计算机模型清晰地将计算机定义为一台 数据处理...
+            
+        </div>
+        -->
+        
+        <div class="post-content-preview">
+                
+                    本章简介计算模型和 ARM 架构.
+                
+        </div>
+            
+    </a>
+    <p class="post-meta">
+        Posted by R1NG on October 27, 2020
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2020/10/27/Ch0-COMP15111/">
+        <h2 class="post-title">
+            Ch0 编译原理 绪论
+        </h2>
+        
+        <h3 class="post-subtitle">
+            The very beginning of COMP15111
+        </h3>
+        
+        <!--
+        <div class="post-content-preview">
+            
+                COMP15111 编译原理
+
+COMP15111 Fundamentals of Computer Architecture (1st Semester) 为 University of Manchester计算机科学学院于第一学期面向全体计算机大类本科生开设的专业核心课程之一. 该课程以 ARM 32位指令集为基础, 介绍更为基础的汇编语言, 旨在系统性地介绍计算机处理数据和程序的基本原...
+            
+        </div>
+        -->
+        
+        <div class="post-content-preview">
+                
+                    本章对 COMP15111 编译原理 的课程内容进行简要介绍.
+                
+        </div>
+            
+    </a>
+    <p class="post-meta">
+        Posted by R1NG on October 27, 2020
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2020/10/26/Ch1-COMP12111/">
+        <h2 class="post-title">
+            Ch1 计算机组成与结构 逻辑门电路
+        </h2>
+        
+        <h3 class="post-subtitle">
+            Building blocks：Logic Gates
+        </h3>
+        
+        <!--
+        <div class="post-content-preview">
+            
+                Ch1 逻辑门电路
+
+在本章中, 我们将学习数字信号和基于二进制的数据表示法, 布尔代数逻辑和表达式 (具体的理论部分将在课程: COMP11120 计算机科学数学工具包中进一步阐释), 逻辑门电路, 二进制运算, 抽象和分级的设计思想, 时钟和顺序系统.
+
+1. 数据表示法
+由于在二进制中, 任何一个数码有且只有两种状态, 这与电路的开闭, 电位的高低天然契合, 因此现代计算机使用二进制对...
+            
+        </div>
+        -->
+        
+        <div class="post-content-preview">
+                
+                    本章简介逻辑门电路的基本概念和数据表示法.
+                
+        </div>
+            
+    </a>
+    <p class="post-meta">
+        Posted by R1NG on October 26, 2020
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2020/10/26/Ch0-COMP12111/">
+        <h2 class="post-title">
+            Ch0 计算机组成与结构 绪论
+        </h2>
+        
+        <h3 class="post-subtitle">
+            The very beginning of COMP12111
+        </h3>
+        
+        <!--
+        <div class="post-content-preview">
+            
+                COMP12111 计算机组成与结构
+
+COMP12111 Fundamentals of Computer Engineering (1st Semester) 为 University of Manchester计算机科学学院于第一学期面向全体计算机大类本科生开设的专业核心课程之一. 该课程以贴向实际的计算机硬件 (数字逻辑门电路) 设计为主线, 辅以适量实验课程, 旨在使学生对计算机硬...
+            
+        </div>
+        -->
+        
+        <div class="post-content-preview">
+                
+                    本章对 COMP12111 计算机组成与结构 的课程内容进行简要介绍.
+                
+        </div>
+            
+    </a>
+    <p class="post-meta">
+        Posted by R1NG on October 26, 2020
+    </p>
+</div>
+<hr>
+
+
+<!-- Pager -->
+
+<ul class="pager">
+    
+    <li class="previous">
+        <a href="/page11">&larr; Newer Posts</a>
+    </li>
+    
+    
+</ul>
+
+
+    </div>
+    <!-- Sidebar Container -->
+    <div class="col-lg-3 col-lg-offset-0 col-md-3 col-md-offset-0 col-sm-12
+      col-xs-12 sidebar-container">
+      <!-- Featured Tags -->
+      
+
+
+<section>
+    
+    <h5><a href="/archive/">FEATURED TAGS</a></h5>
+    <div class="tags">
+        
+        
+        
+        
+        
+        
+                <a data-sort="0109" 
+                    href="/archive/?tag=COMP12111"
+                    title="COMP12111"
+                    rel="10">COMP12111</a>
+        
+                <a data-sort="0027" 
+                    href="/archive/?tag=2021"
+                    title="2021"
+                    rel="92">2021</a>
+        
+                <a data-sort="0073" 
+                    href="/archive/?tag=%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0"
+                    title="课程笔记"
+                    rel="46">课程笔记</a>
+        
+                <a data-sort="0079" 
+                    href="/archive/?tag=%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0"
+                    title="前端学习"
+                    rel="40">前端学习</a>
+        
+                <a data-sort="0079" 
+                    href="/archive/?tag=50P50D"
+                    title="50P50D"
+                    rel="40">50P50D</a>
+        
+                <a data-sort="0094" 
+                    href="/archive/?tag=2020"
+                    title="2020"
+                    rel="25">2020</a>
+        
+                <a data-sort="0104" 
+                    href="/archive/?tag=COMP24011"
+                    title="COMP24011"
+                    rel="15">COMP24011</a>
+        
+                <a data-sort="0107" 
+                    href="/archive/?tag=%E9%80%BB%E8%BE%91%E5%AD%A6"
+                    title="逻辑学"
+                    rel="12">逻辑学</a>
+        
+                <a data-sort="0109" 
+                    href="/archive/?tag=COMP15111"
+                    title="COMP15111"
+                    rel="10">COMP15111</a>
+        
+                <a data-sort="0110" 
+                    href="/archive/?tag=%E6%89%A9%E5%B1%95%E8%87%AA%E4%B9%A0"
+                    title="扩展自习"
+                    rel="9">扩展自习</a>
+        
+                <a data-sort="0110" 
+                    href="/archive/?tag=COMP21111"
+                    title="COMP21111"
+                    rel="9">COMP21111</a>
+        
+                <a data-sort="0112" 
+                    href="/archive/?tag=%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0"
+                    title="机器学习"
+                    rel="7">机器学习</a>
+        
+                <a data-sort="0112" 
+                    href="/archive/?tag=COMP11212"
+                    title="COMP11212"
+                    rel="7">COMP11212</a>
+        
+                <a data-sort="0115" 
+                    href="/archive/?tag=%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95"
+                    title="数据结构和算法"
+                    rel="4">数据结构和算法</a>
+        
+                <a data-sort="0115" 
+                    href="/archive/?tag=COMP15212"
+                    title="COMP15212"
+                    rel="4">COMP15212</a>
+        
+                <a data-sort="0115" 
+                    href="/archive/?tag=COMP23111"
+                    title="COMP23111"
+                    rel="4">COMP23111</a>
+        
+                <a data-sort="0116" 
+                    href="/archive/?tag=%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7"
+                    title="奇技淫巧"
+                    rel="3">奇技淫巧</a>
+        
+                <a data-sort="0117" 
+                    href="/archive/?tag=%E7%99%BD%E6%9E%9C%E5%9B%AD"
+                    title="白果园"
+                    rel="2">白果园</a>
+        
+                <a data-sort="0117" 
+                    href="/archive/?tag=%E7%AE%97%E6%B3%95"
+                    title="算法"
+                    rel="2">算法</a>
+        
+                <a data-sort="0117" 
+                    href="/archive/?tag=Lab"
+                    title="Lab"
+                    rel="2">Lab</a>
+    </div>
+</section>
+
+
+      <!-- Short About -->
+      <section class="visible-md visible-lg">
+  <hr>
+  <h5><a href="/about/">ABOUT ME</a></h5>
+  <div class="short-about">
+    
+    <img src="https://github.com/KirisameR.png" />
+    
+    
+    <p></p>
+    
+    <!-- SNS Link -->
+    
+
+
+<ul class="list-inline">
+
+
+  
+  
+  
+  
+  
+  
+  <li>
+    <a target="_blank" href="https://github.com/KirisameR">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  
+  
+</ul>
+  </div>
+</section>
+
+      <!-- Friends Blog -->
+      
+<hr>
+<h5>FRIENDS</h5>
+<ul class="list-inline">
+  
+  <li><a href="http://ryanxin.cn">Ryan Xin</a></li>
+  
+  <li><a href="https://flyhigher.top">Axton.Gay</a></li>
+  
+  <li><a href="https://graynekocafe.net">GrayNekoBean</a></li>
+  
+  <li><a href="Gnefil.github.io">Gnefil</a></li>
+  
+</ul>
+
+
+      <!-- Ads -->
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- first shot -->
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6487568398225121" data-ad-slot="4814308751"
+     data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+    </div>
+    
+  </div>
+</div>
+
+
+<!-- Add support for Mathjax by Voleking-->
+<!-- If you want to see formulars well in post preview, Maybe you should add this.-->
+<!-- However, most of the time formulars may not appear in the post preview, you can delete it.-->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    tex2jax: {
+      inlineMath: [ ['$','$'] ],
+      displayMath: [ ['$$','$$'] ],
+      processEscapes: true,
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <!-- SNS Link -->
+                
+
+
+<ul class="list-inline text-center">
+
+
+  
+  
+  
+  
+  
+  
+  <li>
+    <a target="_blank" href="https://github.com/KirisameR">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  
+  
+</ul>
+
+                <p class="copyright text-muted">
+                    Copyright &copy; 某一般线性空间 2022
+                    <br>
+                    Powered by <a href="http://huangxuan.me">Hux Blog</a> |
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="100px"
+                        height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=huxpro&repo=huxpro.github.io&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<!-- Currently, only navbar scroll-down effect at desktop still depends on this -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Simple Jekyll Search -->
+<script src="/js/simple-jekyll-search.min.js"></script>
+
+<!-- Service Worker -->
+
+<script src="/js/snackbar.js "></script>
+<script src="/js/sw-registration.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+        var d = document, t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+
+
+
+
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog(selector) {
+
+        // interop with multilangual 
+        if ('' == 'true') {
+            _containerSelector = 'div.post-container.active'
+        } else {
+            _containerSelector = 'div.post-container'
+        }
+
+        // init
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        // clean
+        $(selector).html('')
+
+        // appending
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+<!-- Multi-Lingual -->
+
+
+<!-- Simple Jekyll Search -->
+<script>
+    // https://stackoverflow.com/questions/1912501/unescape-html-entities-in-javascript
+    function htmlDecode(input) {
+        var e = document.createElement('textarea');
+        e.innerHTML = input;
+        // handle case of empty input
+        return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+    }
+
+    SimpleJekyllSearch({
+        searchInput: document.getElementById('search-input'),
+        resultsContainer: document.getElementById('search-results'),
+        json: '/search.json',
+        searchResultTemplate: '<div class="post-preview item"><a href="{url}"><h2 class="post-title">{title}</h2><h3 class="post-subtitle">{subtitle}</h3><hr></a></div>',
+        noResultsText: 'No results',
+        limit: 50,
+        fuzzy: false,
+        // a hack to get escaped subtitle unescaped. for some reason, 
+        // post.subtitle w/o escape filter nuke entire search.
+        templateMiddleware: function (prop, value, template) {
+            if (prop === 'subtitle' || prop === 'title') {
+                if (value.indexOf("code")) {
+                    return htmlDecode(value);
+                } else {
+                    return value;
+                }
+            }
+        }
+    });
+
+    $(document).ready(function () {
+        var $searchPage = $('.search-page');
+        var $searchOpen = $('.search-icon');
+        var $searchClose = $('.search-icon-close');
+        var $searchInput = $('#search-input');
+        var $body = $('body');
+
+        $searchOpen.on('click', function (e) {
+            e.preventDefault();
+            $searchPage.toggleClass('search-active');
+            var prevClasses = $body.attr('class') || '';
+            setTimeout(function () {
+                $body.addClass('no-scroll');
+            }, 400)
+
+            if ($searchPage.hasClass('search-active')) {
+                $searchClose.on('click', function (e) {
+                    e.preventDefault();
+                    $searchPage.removeClass('search-active');
+                    $body.attr('class', prevClasses);  // from closure 
+                });
+                $searchInput.focus();
+            }
+        });
+    });
+</script>
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

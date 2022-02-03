@@ -1,0 +1,342 @@
+I"�H<h1 id="二元决策图">二元决策图</h1>
+
+<p>在本章中, 我们将介绍一种可以高效表示含有逻辑连接词的, 复杂谓词公式的数据结构: 二元决策图 (<code class="language-plaintext highlighter-rouge">BDD</code>). 该数据结构具有以下的三个基本特征:</p>
+
+<ol>
+  <li>能够简洁地表示谓词公式, 或由谓词公式所表示的布尔函数.</li>
+  <li>可以执行对谓词公式的逻辑运算 (布尔运算).</li>
+  <li>能够被用于检查谓词公式的基本性质, 如可满足性和等价性.</li>
+</ol>
+
+<p>下面我们首先通过引入二元决策树并, 进而对和它相似的数据结构:  <code class="language-plaintext highlighter-rouge">BDD</code> (<code class="language-plaintext highlighter-rouge">Binary Decision Diagram</code>) 进行介绍, 并阐明它的基本特点和性质. 随后, 我们进一步对 <code class="language-plaintext highlighter-rouge">BDD</code> 进行推广, 阐明另一种数据结构: <code class="language-plaintext highlighter-rouge">OBDD</code> (<code class="language-plaintext highlighter-rouge">Ordered Binary Decision Diagram</code>, 有序二元决策图) 的定义和性质.</p>
+
+<p><br /></p>
+
+<h2 id="81-二元决策树">8.1 二元决策树</h2>
+
+<p>回顾在 <code class="language-plaintext highlighter-rouge">第四章</code> 中所介绍的分割算法 <code class="language-plaintext highlighter-rouge">Splitting Algorithm</code>, 通过对谓词公式应用分割算法, 我们可以得到一棵 <strong>分割树</strong>. 如下例所示, 对谓词公式</p>
+
+\[(q \rightarrow p) \wedge r \rightarrow (p \leftrightarrow r) \wedge q\]
+
+<p>应用分割算法, 所得到的分割树如下图所示:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20211119174709.png" alt="20211119174709" /></p>
+
+<p>通过将分割树中的叶子节点 $\top$ 和 $\perp$ 替换为 $1$ 和 $0$, 将树的内部节点从原本的谓词公式替换为在该节点处将要被赋值的谓词变量, 再将分割树的边替换为从上一级节点指向下一级节点的箭头, 将标记直接替换为对应的赋值, 分割树就被转换为了二元决策树的形式. 在本章中, 我们使用另一种二元决策树的表示法, 其形式如下图右侧所示.</p>
+
+<p>注意, 在我们的表示方式中, <strong>代表赋值 $0$ 的虚线边始终连接左侧节点, 代表赋值 $1$ 的实线始终连接右侧节点.</strong></p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20211119175129.png" alt="20211119175129" /></p>
+
+<p>显然地, 二元决策树可被视为分割树的简化表达形式, 且同样具有极其便于检查根节点代表的谓词公式的可满足性的特点.</p>
+
+<p>同时不难看到, 二元决策树完整保留了谓词公式的语义信息 (<code class="language-plaintext highlighter-rouge">Semantical Information</code>), 但不保持原谓词公式中可被简化的结构 (也就是原谓词公式中的句法结构). 比如, 公式</p>
+
+\[(q \rightarrow p) \wedge r \rightarrow (p \leftrightarrow r) \wedge q\]
+
+<p>和公式</p>
+
+\[\neg \neg((q \rightarrow p) \wedge r \rightarrow (p \leftrightarrow r) \wedge q)\]
+
+<p>的二元决策树是相同的. 同一个二元决策树可以对应多个句法结构不同但语义相同的谓词公式.</p>
+
+<p><strong>定义 8.1.1</strong> (二元决策树)</p>
+<blockquote>
+  <p>称满足下列条件的树 $d$ 为 <strong>二元决策树</strong>:</p>
+  <ol>
+    <li>$d$ 的内部节点由谓词变量标记.</li>
+    <li>$d$ 的叶子结点被 $0$ 或 $1$ 标记.</li>
+    <li>每一个内部节点 $n$ 都<strong>恰有两个子节点</strong>, 且从节点 $n$ 到它的两个子节点的边分别标记为 $0$ 和 $1$. (形式分别为虚线和实线).</li>
+    <li>$d$ 中每一条路径上的节点都被 <strong>唯一地标记</strong>.</li>
+  </ol>
+</blockquote>
+
+<p>需要进一步阐明的是, 二元决策树需满足的性质 $4$ 实际上限定了, 在决策树的每一条路径 (也就是对根节点代表的谓词公式的每一次赋值检验) 上, 公式包含的任何一个谓词变量只能被检测一次, 也就是不允许谓词变量的重复赋值.</p>
+
+<p><br /></p>
+
+<h2 id="82-inf-范式">8.2 <code class="language-plaintext highlighter-rouge">INF</code> 范式</h2>
+
+<p>我们在本节中定义谓词公式 (布尔函数) 和二元决策树之间的对应关系.</p>
+
+<p><strong>定义 8.2.1</strong> (<code class="language-plaintext highlighter-rouge">INF</code> 范式)</p>
+<blockquote>
+  <p>我们如下定义 <code class="language-plaintext highlighter-rouge">INF</code> (<code class="language-plaintext highlighter-rouge">if-then-else</code>) 范式:</p>
+  <ol>
+    <li>$\top, ~ \perp$ 均为 <code class="language-plaintext highlighter-rouge">INF</code> 范式中的公式.</li>
+    <li>若 $F_1, ~ F_2$ 均为不包含谓词变量 $p$ 的, 位于 <code class="language-plaintext highlighter-rouge">INF</code> 范式中的公式, 则下列公式也位于 <code class="language-plaintext highlighter-rouge">INF</code> 范式中:</li>
+  </ol>
+
+\[\text{if} ~p~ \text{then} ~F_1~ \text{else} ~F_2.\]
+
+</blockquote>
+
+<p>我们可以将 <code class="language-plaintext highlighter-rouge">if-then-else</code> 视为一个新的三元联结词, 它等价于:</p>
+
+\[(F_1 \rightarrow F_2) \wedge (\neg F_1 \rightarrow F_3).\]
+
+<p><strong>定义 8.2.2</strong> (给定公式的 <code class="language-plaintext highlighter-rouge">INF</code> 范式)</p>
+<blockquote>
+  <p>考虑谓词公式 $F, ~ G$, 称 $G$ 为 $F$ 的 <code class="language-plaintext highlighter-rouge">INF</code> 范式, 若 $G$ 位于 <code class="language-plaintext highlighter-rouge">INF</code> 范式中, 且 $G$ 与 $F$ 等价.</p>
+</blockquote>
+
+<p>在给出上述的定义后, 我们可将任何一棵二元决策树使用下列的语言表述:</p>
+
+<p>对任一二元决策树中的, 被变量 $p$ 标记的内部节点 $n$, 记其左右子树分别为 $\text{neg(n)}$ 和 $\text{pos(n)}$: 它们分别对应于决策 $p=0$ 和 $p=1$.</p>
+
+<p><strong>定义 8.2.3</strong> (二元决策树的 <code class="language-plaintext highlighter-rouge">INF</code> 范式表述)</p>
+<blockquote>
+  <p>考虑二元决策树 $d$. 对 $d$ 中的任一节点 $n$, 我们使用下列规则归纳它所表示的谓词公式 $F_n$:</p>
+  <ol>
+    <li>若 $n$ 为 $\boxed{0}$ , 则 $F_n \overset{def}{=} \perp$. 若 $n$ 为 $\boxed{1}$ , 则 $F_n \overset{def}{=} \top$.</li>
+    <li>若 $n$ 为一个由变量 $p$ 标记的内部节点, 则有</li>
+  </ol>
+
+\[F_n \overset{def}{=} \text{if} ~p~ \text{then} ~F_{\text{pos}(n)}~ \text{else} ~F_{\text{neg}(n)}.\]
+
+</blockquote>
+
+<p>我们记通过上述的范式表述所转换得到的谓词公式 $\text{form(d)}$ 为 $F_r$, 其中 $r$ 为二元决策树 $d$ 的根节点. 称 $d$ 为 <strong>公式 $F$ 的二元决策树</strong>, 若 $F$ 和 $\text{form(d)}$ 等价.</p>
+
+<p><strong>引理 8.2.1</strong></p>
+<blockquote>
+  <p>对任意谓词公式 $F$ 和谓词原子 $p$, 公式</p>
+
+\[p\rightarrow F, ~~ p \rightarrow F_{p}^{\top}\]
+
+  <p>等价, 且公式</p>
+
+\[\neg p\rightarrow F, ~~ p \rightarrow F_{p}^{\perp}\]
+
+  <p>也等价.</p>
+</blockquote>
+
+<p><strong>证明</strong></p>
+
+<p>此处我们只考虑第一种情况的证明.</p>
+
+<p>设 $I$ 为某个解释, 首先考虑 $I \nvDash p$ 的情形, 则</p>
+
+\[I \vDash p\rightarrow F, ~~ I \vDash p \rightarrow F_{p}^{\top}.\]
+
+<p>故有</p>
+
+\[I \vDash (p\rightarrow F) \leftrightarrow (p \rightarrow F_{p}^{\top}).\]
+
+<p>现在考虑 $I \vDash p$ 的情形. 此时有 $I \vDash p \leftrightarrow \top$. 由 <strong>等价替换定理</strong> 得:</p>
+
+\[I \vDash (p\rightarrow F) \leftrightarrow (p \rightarrow F_{p}^{\top}).\]
+
+<p>因此可知, $p\rightarrow F$ 和 $p \rightarrow F_{p}^{\top}$ 等价. $\blacksquare$</p>
+
+<p><strong>推论 8.2.1</strong></p>
+<blockquote>
+  <p>对任何谓词公式 $F, G$ 和变量 $p$, 公式:</p>
+
+\[\text{if} ~p~ \text{then} ~F~ \text{else} ~G\]
+
+  <p>等价于</p>
+
+\[\text{if} ~p~ \text{then} ~F_{p}^{\top}~ \text{else} ~G_{p}^{\perp}.\]
+</blockquote>
+
+<p><strong>证明</strong></p>
+
+<p>由 <code class="language-plaintext highlighter-rouge">INF</code> 范式的定义可知, 公式</p>
+
+\[\text{if} ~p~ \text{then} ~F~ \text{else} ~G\]
+
+<p>等价于</p>
+
+\[(p \rightarrow F) \wedge (\neg p \rightarrow G).\]
+
+<p>由 <strong>引理 8.2.1</strong>: 该式和</p>
+
+\[(p \rightarrow F_{p}^{\top}) \wedge (\neg p \rightarrow G_{p}^{\perp})\]
+
+<p>等价. 因此可得原推论结论成立. $\blacksquare$</p>
+
+<p>值得注意的是, 推论中公式</p>
+
+\[\text{if} ~p~ \text{then} ~F_{p}^{\top}~ \text{else} ~G_{p}^{\perp}.\]
+
+<p>里的 $F_{p}^{\top}$, $G_{p}^{\perp}$ 均不含谓词变量 $p$, 因此该公式实际上是通过该推论生成的 <code class="language-plaintext highlighter-rouge">INF</code> 范式, 我们也可以用该推论直接构造 <code class="language-plaintext highlighter-rouge">INF</code> 范式.</p>
+
+<p><strong>定理 8.2.1</strong></p>
+<blockquote>
+  <p>任何谓词公式 $F$ 都有一个对应的 <code class="language-plaintext highlighter-rouge">INF</code> 范式.</p>
+</blockquote>
+
+<p><strong>证明</strong></p>
+
+<p>我们对 $F$ 中谓词变量的个数应用数学归纳法:</p>
+
+<ol>
+  <li>若 $F$ 中不含任何变量, 则或 $F \equiv \top$, 或 $F \equiv \perp$. 这两种情况下, $F$ 均有对应的 <code class="language-plaintext highlighter-rouge">INF</code> 范式: $\top$ 和 $\perp$.</li>
+  <li>
+    <p>下面考虑 $F$ 中变量个数不为 $0$ 的情况. 可知, $F$ 等价于</p>
+
+\[\text{if} ~p~ \text{then} ~F~ \text{else} ~F.\]
+
+    <p>由 <strong>推论8.2.1</strong>: $F$ 等价于</p>
+
+\[\text{if} ~p~ \text{then} ~F_{p}^{\top}~ \text{else} ~F_{p}^{\perp}.\]
+
+    <p>并可知公式 $F_{p}^{\top}, ~F_{p}^{\perp}$ 所含的谓词变量数均比 $F$ 小.</p>
+
+    <p>由归纳假设可知, 它们分别也有对应的 <code class="language-plaintext highlighter-rouge">INF</code> 范式, 不妨记为 $F_1$, $F_2$. 故 $F$ 等价于</p>
+
+\[\text{if} ~p~ \text{then} ~F_1~ \text{else} ~F_2.\]
+  </li>
+</ol>
+
+<p>故原命题成立. $\blacksquare$</p>
+
+<p>通过上述定理可知, 要构造一个给定的, 至少包含一个谓词变量的谓词公式 $F$ 的二元决策树, 我们首先需要选定它的一个变量 $p$, 分别为 $F_{p}^{\top}, ~ F_{p}^{\perp}$  构造决策树 $F_1,~ F_2$ 并继续递归下去, 直到构造出一个以 $p$ 为根节点, $F_1, ~F_2$ 为左, 右子树的决策树. 这样的过程可被总结为下列的算法:</p>
+
+<p><strong>算法 8.2.1</strong> (二元决策树构造算法)</p>
+<blockquote>
+  <p>二元决策树构造算法如下图所示. 其中, 参数 <code class="language-plaintext highlighter-rouge">select_variable</code> 为一个从 $F$ 中挑选谓词变量的函数, <code class="language-plaintext highlighter-rouge">simplify</code> 为谓词公式的简化函数.</p>
+</blockquote>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20211120120511.png" alt="20211120120511" /></p>
+
+<p>二元决策树的性质可被总结如下:</p>
+
+<ol>
+  <li>谓词公式 $F$ 的二元决策树大小的增长速度是关于谓词公式本身大小的 <strong>指数级别</strong>.</li>
+  <li>对用二元决策树表示的谓词公式的可满足性检测花费的时间相比公式本身大小的增长速度为 <strong>常数级别</strong>.</li>
+  <li>二元决策树不能被用来有效地检测公式的等价性.</li>
+  <li>我们不能对二元决策树进行有效的逻辑运算.</li>
+</ol>
+
+<p><br /></p>
+
+<h2 id="83-二元决策图">8.3 二元决策图</h2>
+
+<p>二元决策图是二元决策树通过消除两种冗余而得到的:</p>
+
+<p><strong>定义 8.3.1</strong> (二元决策图)</p>
+<blockquote>
+  <p>二元决策图为一个满足下列两条性质的二元决策树 (有根节点的有向无圈图):</p>
+
+  <ol>
+    <li>树中每个节点的左右子图均不同.</li>
+    <li>对全体子树而言, 任一对子树都是 <strong>不同构</strong> 的, 也就是说它们的形式不得相同.</li>
+  </ol>
+</blockquote>
+
+<p>上述两条规则决定, 有向无圈图 (<code class="language-plaintext highlighter-rouge">DAG</code>, Directed Acyclic Graph) $d$ 不包含对任何变量的重复赋值 (也就是重复测试), 也不包含任何同构的子图.</p>
+
+<p>我们可以通过如下的两种变换将任意的二元决策树转换为二元决策图:</p>
+
+<ol>
+  <li>冗余测试消除规则:<br />
+若存在节点 $n$, 使 $\text{neg}(n)$ 和 $\text{pos}(n)$ 为相同的有向无圈图, 则删除该节点: 将节点 $n$ 所在的位置替换为 $\text{neg}(n)$.</li>
+  <li>同构子图融合规则: <br />
+若位于两个 <strong>不同节点</strong> $n_1$, $n_2$ 的子图是同构的, 则将这两个子图融合: 删除其中一个, 并将原先所有指向被删除子图的根节点的边重定向到另一子图的根节点处.</li>
+</ol>
+
+<p>二元决策图的基本性质总结如下:</p>
+<ol>
+  <li>谓词公式 $A$ 的二元决策图大小的增长速度是关于谓词公式本身大小的 <strong>指数级别</strong>.</li>
+  <li>与二元决策树相同, 对用二元决策图表示的谓词公式的可满足性检测花费的时间相比公式本身大小的增长速度也为 <strong>常数级别</strong>.</li>
+  <li>二元决策图同样不能被用来有效地检测公式的等价性.</li>
+  <li>我们同样不能对二元决策图进行有效的逻辑运算.</li>
+</ol>
+
+<p><br /></p>
+
+<h2 id="84-有序二元决策图">8.4 有序二元决策图</h2>
+
+<p>和在上一章中介绍的 <strong>语义树</strong> 相似, 任何公式的二元决策图都受到对其变量测试的先后顺序的影响: 如果我们尝试对公式中的第一个变量先进行赋值测试并构造二元决策图, 这样的图很可能和我们先选择最后一个变量时构造的图在大小和结构上都有显著差别.</p>
+
+<p>为了确保决策图的唯一性, 我们对谓词公式中出现的所有谓词变量引入 <strong>顺序</strong> 的概念. 通过人为限制构造决策图时测试变量的先后顺序, 我们可以确保这样构造出的二元决策图一定是唯一的.</p>
+
+<p><strong>定义 8.4.1</strong> (有序二元决策图)</p>
+<blockquote>
+  <p>令 $&gt;$ 为对谓词变量的线性偏序, 记 $d$ 为一个二元决策图. 若对每个由变量 $p_1$ 所标记的节点 $n_1$, 设其子节点 $n_2$ 由变量 $p_2$ 标记, 则 $p_1 &gt; p_2$, 则称这样的二元决策图为 <strong>有序的</strong>.</p>
+</blockquote>
+
+<p>我们下面说明, 对给定谓词公式 $F$, 在限定组成它的谓词变量的顺序后, 它的 <code class="language-plaintext highlighter-rouge">OBDD</code> 必是唯一的:</p>
+
+<p><strong>引理 8.4.1</strong></p>
+<blockquote>
+  <p>考虑谓词变量 $p$ 和不包含 $p$ 的谓词公式 $F_1, F_2, G_1, G_2$. 则:</p>
+
+\[(\text{if} ~p~ \text{then} ~F_1~ \text{else} ~F_2) \equiv (\text{if} ~p~ \text{then} ~G_1~ \text{else} ~G_2)\]
+
+  <p>当且仅当</p>
+
+  <p>$F_1 \equiv F_2$ 且 $F_2 \equiv G_2.$</p>
+</blockquote>
+
+<p><strong>证明</strong>:</p>
+
+<p>必要性: 设</p>
+
+\[(\text{if} ~p~ \text{then} ~F_1~ \text{else} ~F_2) \equiv (\text{if} ~p~ \text{then} ~G_1~ \text{else} ~G_2),\]
+
+<p>要证 $F_1 \equiv G_1$, $F_2 \equiv G_2$ 亦然. 我们下面通过说明 $F_1$, $G_1$ 的模型相同达成这一点.</p>
+
+<p>取 $F_1$ 的某个模型 $I$. 定义 $I’$:</p>
+
+\[I'(q) \overset{def}{=} \begin{cases} I(q) ~~ \text{if}~p \neq q \\ 1 ~~~~~~~ \text{if}~p=q\end{cases}.\]
+
+<p>显然知 $I’ \vDash F_1$. 由 $I’ \vDash p$ 且 $I’ \vDash F_1$, 我们同时有</p>
+
+\[I' \vDash \text{if} ~p~ \text{then} ~F_1~ \text{else} ~F_2.\]
+
+<p>同时由</p>
+
+\[(\text{if} ~p~ \text{then} ~F_1~ \text{else} ~F_2) \equiv (\text{if} ~p~ \text{then} ~G_1~ \text{else} ~G_2)\]
+
+<p>可得:</p>
+
+\[I' \vDash \text{if} ~p~ \text{then} ~G_1~ \text{else} ~G_2.\]
+
+<p>由上式以及 $I’\vDash p$ 可知: $I’ \vDash G_1$. 由于 $G_1$ 中不包含变量 $p$, 由 $I’$ 定义知: $I \vDash G_1$.</p>
+
+<p>由此可知, $F_1$ 的任一模型都是 $G_1$ 的模型. 对称地, 我们同样可证 $G_1$ 的任一模型都是 $F_1$ 的模型.</p>
+
+<p>充分性: 设 $F_1 \equiv G_1$, $F_2 \equiv G_2$. 由等价替代定理可得:</p>
+
+\[(\text{if} ~p~ \text{then} ~F_1~ \text{else} ~F_2) \equiv (\text{if} ~p~ \text{then} ~G_1~ \text{else} ~G_2). \blacksquare\]
+
+<p><strong>定理 8.4.1</strong> (<code class="language-plaintext highlighter-rouge">OBDD</code> 的权威性)</p>
+<blockquote>
+  <p>记 $d_1, ~d_2$为谓词公式 $F$ 的两个 <code class="language-plaintext highlighter-rouge">OBDD</code>, 则它们是同构的.</p>
+</blockquote>
+
+<p>我们下面给出将节点 <strong>融合</strong> 入 <code class="language-plaintext highlighter-rouge">OBDD</code> 和构造 <code class="language-plaintext highlighter-rouge">OBDD</code> 的算法:</p>
+
+<p><strong>算法 8.4.1</strong> (<code class="language-plaintext highlighter-rouge">OBDD</code> 节点融合算法)</p>
+<blockquote>
+  <p>该算法步骤如下图所示:</p>
+</blockquote>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20211120192808.png" alt="20211120192808" /></p>
+
+<p><strong>算法 8.4.2</strong> (<code class="language-plaintext highlighter-rouge">OBDD</code> 构造算法)</p>
+<blockquote>
+  <p>该算法步骤如下图所示:</p>
+</blockquote>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20211120192848.png" alt="20211120192848" /></p>
+
+<p>注: 具体的解题过程详见教材 $145-148$ 页.</p>
+
+<p><br /></p>
+
+<h2 id="85-有序二元决策图的运算">8.5 有序二元决策图的运算</h2>
+
+<p>与二元决策图不同, 我们可以对有序二元决策图进行 <strong>逻辑运算</strong>. 一般地, 对谓词公式的有序二元决策图的逻辑运算可以总结为下列算法:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20211120193145.png" alt="20211120193145" /></p>
+
+<p>我们下面给出两个例子: 对二元决策图的 <strong>合取</strong> 与 <strong>析取</strong>:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20211120193524.png" alt="20211120193524" /></p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20211120193602.png" alt="20211120193602" /></p>
+:ET

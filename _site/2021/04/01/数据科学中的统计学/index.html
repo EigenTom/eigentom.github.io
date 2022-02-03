@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="description" content="由于相关法律法规规定, 该内容无法显示.">
+    <meta name="keywords" content="菜">
+    <meta name="theme-color" content="#333">
+
+    <!-- Open Graph -->
+    <meta property="og:title"
+        content="数据科学中的统计学 - 某一般线性空间 | Ramdom Linear Space">
+    
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="数据科学中的统计学常识
+">
+    
+    <meta property="article:published_time" content=" 2021-04-01T00:00:00Z">
+    
+    
+    <meta property="article:author" content="R1NG">
+    
+    
+    <meta property="article:tag" content="统计学">
+    
+    <meta property="article:tag" content="数据科学">
+    
+    <meta property="article:tag" content="2021">
+    
+    
+    <meta property="og:image" content="http://localhost:4000https://github.com/KirisameR.png">
+    <meta property="og:url" content="http://localhost:4000/2021/04/01/%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6%E4%B8%AD%E7%9A%84%E7%BB%9F%E8%AE%A1%E5%AD%A6/">
+    <meta property="og:site_name" content="某一般线性空间 | Ramdom Linear Space">
+
+    <title>数据科学中的统计学 - 某一般线性空间 | Ramdom Linear Space</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4000/2021/04/01/%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6%E4%B8%AD%E7%9A%84%E7%BB%9F%E8%AE%A1%E5%AD%A6/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href=" /css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href=" /css/hux-blog.min.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"type="text/css">
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+
+    <!-- 数学公式 -->
+    <script type="text/javascript" async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+            showProcessingMessages: true, //关闭js加载过程信息
+            messageStyle: "none", //不显示信息
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code','a'], //避开某些标签
+                ignoreClass:"comment-content" //避开含该Class的标签
+            },
+            "HTML-CSS": {
+                availableFonts: ["STIX","TeX"], //可选字体
+                showMathMenu: false //关闭右击菜单显示
+            }
+        });
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+    </script>
+
+    
+
+    <!-- Google AdSense -->
+    <script data-ad-client="ca-pub-6487568398225121" async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">RANDOM LINEAR SPACE</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div id="huxblog_navbar">
+                <div class="navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                        
+                        
+                        <li>
+                            <a href="/archive/">Archive</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li class="search-icon">
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <script>
+        // Drop Bootstarp low-performance Navbar
+        // Use customize navbar with high-quality material design animation
+        // in high-perf jank-free CSS3 implementation
+        var $body = document.body;
+        var $toggle = document.querySelector('.navbar-toggle');
+        var $navbar = document.querySelector('#huxblog_navbar');
+        var $collapse = document.querySelector('.navbar-collapse');
+
+        var __HuxNav__ = {
+            close: function () {
+                $navbar.className = " ";
+                // wait until animation end.
+                setTimeout(function () {
+                    // prevent frequently toggle
+                    if ($navbar.className.indexOf('in') < 0) {
+                        $collapse.style.height = "0px"
+                    }
+                }, 400)
+            },
+            open: function () {
+                $collapse.style.height = "auto"
+                $navbar.className += " in";
+            }
+        }
+
+        // Bind Event
+        $toggle.addEventListener('click', function (e) {
+            if ($navbar.className.indexOf('in') > 0) {
+                __HuxNav__.close()
+            } else {
+                __HuxNav__.open()
+            }
+        })
+
+        /**
+         * Since Fastclick is used to delegate 'touchstart' globally
+         * to hack 300ms delay in iOS by performing a fake 'click',
+         * Using 'e.stopPropagation' to stop 'touchstart' event from 
+         * $toggle/$collapse will break global delegation.
+         * 
+         * Instead, we use a 'e.target' filter to prevent handler
+         * added to document close HuxNav.  
+         *
+         * Also, we use 'click' instead of 'touchstart' as compromise
+         */
+        document.addEventListener('click', function (e) {
+            if (e.target == $toggle) return;
+            if (e.target.className == 'icon-bar') return;
+            __HuxNav__.close();
+        })
+    </script>
+    <!-- Search -->
+<div class="search-page">
+  <div class="search-icon-close-container">
+    <span class="search-icon-close">
+      <i class="fa fa-chevron-down"></i>
+    </span>
+  </div>
+  <div class="search-main container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <form></form>
+        <input type="text" id="search-input" placeholder="$ grep...">
+        </form>
+        <div id="search-results" class="mini-post-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/post-bg-statistics.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+
+
+
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/post-bg-statistics.jpg');
+        background: ;
+    }
+
+    
+</style>
+
+<header class="intro-header" >
+
+    <div class="header-mask"></div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/archive/?tag=%E7%BB%9F%E8%AE%A1%E5%AD%A6" title="统计学">统计学</a>
+                        
+                        <a class="tag" href="/archive/?tag=%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6" title="数据科学">数据科学</a>
+                        
+                        <a class="tag" href="/archive/?tag=2021" title="2021">2021</a>
+                        
+                    </div>
+                    <h1>数据科学中的统计学</h1>
+                    
+                    <h2 class="subheading">Introduction to some basic statistical definitions</h2>
+                    <span class="meta">Posted by R1NG on April 1, 2021</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <!-- Multi-Lingual -->
+                
+
+				<h1 id="数据科学中的统计学常识">数据科学中的统计学常识</h1>
+
+<p>在本章中, 我们将简述一些在数据科学课程中所涉及的基本统计学术语, 概念和定理.</p>
+
+<h2 id="1-数据的集中分布趋势">1. 数据的集中分布趋势</h2>
+
+<p>统计研究涉及大量数据的分析, 加工和处理. 在大多数情况下, 我们所收集的数据都会呈现基于某个 “中心” 而分布的趋势. 我们使用均值, 众数, 中位数描述和刻画数据的集中分布趋势.</p>
+
+<h3 id="11-均值-mean">1.1 均值 (<code class="language-plaintext highlighter-rouge">mean</code>)</h3>
+
+<p>最常用的均值是 <strong>算术平均值</strong> (<code class="language-plaintext highlighter-rouge">mean, arithmetic mean</code>). 均值是平均数的一般度量, 也就是 <strong>调和平均值</strong> 的倒数. 其定义为:</p>
+
+\[\bar{x} = \frac{\sum_{i = 1}^{n}x_i}{n}.\]
+
+<p>同时, 我们称明显和其他数据偏离的, 极高或极低的数值为 <strong>异常值</strong>, 它们的存在会影响数据的分布态势. 当异常值将数据向中心数据的左边或右边 “拉” 时, 即会产生 <strong>偏斜数据</strong>.</p>
+
+<p>我们继续介绍 <strong>几何平均值</strong> (<code class="language-plaintext highlighter-rouge">geometric mean</code>). 它常用于计算增长率和收益率, 受异常值的影响更小, 但由于其定义, 被求平均的数值不可以包含零或负数.</p>
+
+\[\bar{X}_{G} = \sqrt[n]{X_1 \cdot X_2\cdots X_n}\]
+
+<h3 id="12-众数-mode">1.2 众数 (<code class="language-plaintext highlighter-rouge">mode</code>)</h3>
+<p>众数是一组数据中出现次数最多的变量值, 体现数据的普遍性, 在数据刻画中往往反映一般水平和普遍水平.</p>
+
+<h3 id="13-中位数-median">1.3 中位数 (<code class="language-plaintext highlighter-rouge">median</code>)</h3>
+<p>中位数是一组数据按照大小顺序排列后, 恰好处于中间位置的数值, 也就是将全部数据均等地分为两半的变量值. 由于中位数是位置代表值, 它不受异常数据的影响.</p>
+
+<h3 id="14-准确度和精确度">1.4 准确度和精确度</h3>
+<p>我们再补充对于准确度 (<code class="language-plaintext highlighter-rouge">accuracy</code>) 和精确度 (<code class="language-plaintext highlighter-rouge">precision</code>) 的定义.</p>
+
+<p>准确度一般用误差刻画, 所反映出的是测量值和误差之间的差距, 差距越小则测量准确度越高.</p>
+
+<p>精确度一般用方差刻画, 所反映出的是全体测量值的离散程度, 精确度越高则离散程度越低, 越接近于某一个特定的点.</p>
+
+<p><br /></p>
+
+<h2 id="2-假设检验-u-检验和-t-检验">2. 假设检验: $u$ 检验和 $t$ 检验</h2>
+<p>我们从一个例子开始介绍假设检验的相关概念.</p>
+
+<p>某厂生产一种保健食品, 在正常情况下每瓶食品的重量服从均值为 (单位: 克) $25.0$, 标准差 $0.1$ 的正态分布, 某日开工后随机抽取 $9$ 瓶, 测得其平均重量为 $24.94$, 试问该日生产是否正常.</p>
+
+<p>在这个例子中, 我们用 $X$ 表示该日生产的一瓶保健食品的重量. 由于基于实际经验标准差较为稳定, 因此可将随机变量 $X$ 视为服从正态分布 $N(\mu, 0.1^2)$, 并只需判断抽样总体的均值 $\mu$ 是否为 $25$, 如果不是的话则说明该日生产不正常. 在这里, “$\mu = 25$” 就是我们所作出的一个 <strong>假设</strong> (<code class="language-plaintext highlighter-rouge">Hypothesis</code>), 记为 $H_{0}:\mu = 25$.</p>
+
+<h3 id="21-假设">2.1 假设</h3>
+
+<p>可以从上述例子中看出, 假设就是根据问题要求所实现提出的, 关于取样总体的一个命题, 我们需要经过样本来判断这个命题对于总体而言是否成立. 我们称对提出假设进行验证的过程为 <strong>检验</strong>. 如果经过检验得到的结果是我们所作的假设 $H_{0}$ 不成立, 则称 <strong>拒绝或否定假设 $H_{0}$</strong>, 反之称为 <strong>不能否定 $H_{0}$</strong>.</p>
+
+<p>如果检验的假设仅仅涉及总体分布中的参数 (如上一个例子中提到的假设 $H_0$ 就是一个关于总体分布均值的假设), 则称对这样的假设所进行的检验为 <strong>参数假设检验</strong>, 而其他所有类型的检验都称为 <strong>非参数假设检验</strong>.</p>
+
+<p>对于每一个假设 $H_0$, 其对立 $H_1$ 同样可以视为假设. 我们将这一对假设分别称为 <strong>原假设 (<code class="language-plaintext highlighter-rouge">Null Hypothesis</code>)</strong> 和 <strong>备择假设 (<code class="language-plaintext highlighter-rouge">Alternative Hypothesis</code>)</strong>.</p>
+
+<h3 id="22-基本原理和思想">2.2 基本原理和思想</h3>
+<p>假设检验的基本原理是 <strong>实际推断原理</strong>. 根据大数定律, 任意事件 $A$ 在大量重复实验中所出现的 <strong>频率</strong> 稳定于该事件出现的 <strong>概率</strong>. 因而, 如果某事件出现的概率极小, 则它在大量重复实验中所出现的频率也同样应该是极小的, 由此在单次实验中, 概率极小的事件是几乎不可能发生的, 这就是 <strong>实际推断原理</strong>.</p>
+
+<p><strong>显著性水平</strong> 是针对不同的实际问题时所人为规定的参数, 在问题中, 我们认为出现概率 <strong>不超过</strong> 显著性水平的事件为 <strong>小概率事件</strong>, 也就是认为, 这样的事件不会在仅仅一次实验中发生. 显著性水平常取 $0.1, 0.01, 0.05$ 等, 一般记为 $\alpha$.</p>
+
+<p>假设检验的基本思想是基于实际推断原理作为拒绝假设 $H_0$ 的依据: 在检验假设 $H_0$ 时, 我们首先假定 $H_0$ 正确, 并构造一个在该条件下概率不超过我们所规定的显著性水平的小概率事件 $A$, 然后检验所构造的这个小概率事件在一次实验中是否发生. 如果该事件发生, 则说明与实际推断原理产生矛盾, 假设不成立, 而如果它不发生, 则我们没有得出矛盾, 无法证伪 $H_0$. 由此, 我们可以接受这个假设. 这样的检验就被称为 <strong>显著性检验</strong>.</p>
+
+<p>我们还是基于开头的例子简单描述解决实际问题的具体过程:</p>
+
+<p>首先, 依照题意提出假设:</p>
+
+\[H_0 : \mu = \mu_0 = 25, ~~ H_1 : \mu \neq \mu_0 = 25.\]
+
+<p>随后, 构造一个在 $H_0$ 为真时的小概率事件 $A$:</p>
+
+\[A = \{ \vert U \vert &gt; u_{\alpha/2} \}\]
+
+\[U = \frac{\bar{X} - \mu_0}{\sigma / \sqrt{n}}\]
+
+<p>这个小概率事件的构造方法如下:</p>
+
+<p>我们在该例中使用样本数据检验 $H_0$, 因此所需要构造的事件 $A$ 要与样本有关. 由于需要检验的假设涉及总体均值 $\mu$, 而我们又知道样本均值 $\bar{X}$ 是 $\mu$ 的 <strong>无偏估计</strong>, 因此样本均值的大小一定程度上反映了 $\mu$ 的大小. 因此, 如果假设为真, $\vert \bar{X} - \mu_0  \vert$ 不会太大 (因为 $\bar{X}$ 和 $\mu$ 非常接近, 而 $\mu = \mu_0$). 由题目条件可知, $X$ 服从一个正态分布, 因此我们构造统计量</p>
+
+\[U = \frac{\bar{X} - \mu_0}{\sigma / \sqrt{n}}.\]
+
+<p>可以看出, 若假设为真, 该统计量的绝对值同样不会太大. 因此, 对于给定的显著性水平 $\alpha$, 我们只需要选择一个适当大的常数 $\lambda$, 以 ${ \vert U \vert &gt; \lambda}$ 作为用于作为检验依据的小概率事件 $A$.</p>
+
+<p>由于在假设为真时, $U \sim N(0, 1)$ (正态分布的标准化), 我们可以将 $\lambda$ 选定为正态分布的双侧 $\alpha$ 分位数. 这样, 我们就得到了这个小概率事件. 在假设检验中, 我们将 $U$ 这样的, 用于构造小概率事件的统计量称为 <strong>检验统计量</strong>.</p>
+
+<p>随后我们只需要根据小概率事件 $A$ 在一次试验中发生与否对假设进行判断. 我们抽取一次样本 (即进行一次随机试验), 若 $U$ 的观察值满足 $\vert U\vert &gt; u_{\alpha / 2}$, 则认为小概率事件 $A$ 发生了, 拒绝假设 $H_0$, 反之接受它.</p>
+
+<p>我们称 $u_{\alpha / 2}$ 为 <strong>临界值</strong>, 称集合 ${\vert U\vert &gt; u_{\alpha / 2}}$ 为 <strong>检验的拒绝域</strong>.</p>
+
+<p>更笼统地, 假设检验的基本步骤可以归纳如下:</p>
+
+<ul>
+  <li>根据实际问题需要构造 <strong>原假设 $H_0$</strong> 和 <strong>备择假设 $H_1$</strong></li>
+  <li>根据原假设构造一个合适的检验统计量 $U$, 并且该统计量满足, 在原假设为真时, 其分布已知且与未知参数无关.</li>
+  <li>根据给定或选定的显著性水平 $\alpha$, 确定检验的临界值和拒绝域.</li>
+  <li>进行一次随机试验, 并且根据样本观察值计算所构造的统计量 $U$ 的值.</li>
+  <li>最后基于所确定的拒绝域判断是否接受原假设.</li>
+</ul>
+
+<h3 id="23-单个正态总体均值的检验">2.3 单个正态总体均值的检验</h3>
+<p>我们首先介绍 $u$ 检验法. 其形式如下: <br /></p>
+
+<ul>
+  <li>方差已知</li>
+  <li>原假设形如 $H_0: \mu = \mu_0$</li>
+  <li>备择假设形如 $H_1: \mu \neq \mu_0$</li>
+</ul>
+
+<p>使用 $u$ 检验法进行检验时可使用</p>
+
+\[U = \frac{\bar{X} - \mu_0}{\sigma / \sqrt{n}}\]
+
+<p>作为检验统计量, 注意当原假设成立时 $U \sim N(0, 1)$.</p>
+
+<p>对给定的显著性水平 $\alpha$, 检验的拒绝域为:</p>
+
+\[W = \{ \vert U \vert = \frac{\vert \bar{X} - \mu_0 \vert}{\sigma_0 / \sqrt{n}} &gt; u_{\alpha / 2}\}.\]
+
+<p>该检验法由于所使用的检验统计量服从正态分布, 因此被称为 <strong>$u$ 检验法</strong>.</p>
+
+<p>我们继续介绍 $t$ 检验法. 其形式如下: <br /></p>
+
+<ul>
+  <li>方差 <strong>未知</strong></li>
+  <li>原假设形如 $H_0: \mu = \mu_0$</li>
+  <li>备择假设形如 $H_1: \mu \neq \mu_0$</li>
+</ul>
+
+<p>由于方差未知, 我们不能再沿用在 $u$ 检验法中使用的检验统计量. 相应地, 由于样本方差</p>
+
+\[S^2 = \frac{1}{n-1}\sum(X_i - \bar{X})^2\]
+
+<p>是方差 $\sigma^2$ 的无偏估计, 因此 $S^2$ 和 $\sigma^2$ 相差不大, 可以用 $S$ 代替 $\sigma$ 得到检验统计量</p>
+
+\[T = \frac{\bar{X} - \mu_0}{S / \sqrt{n}}\]
+
+<p>并且在一次随机试验中观测到 $\vert T \vert$  的值较大时拒绝原假设.</p>
+
+<p>由于原假设 $H_0$ 为真时 $T \sim t(n-1)$, 因此对于给定的显著性水平 $\sigma$, 有:</p>
+
+\[P \{ \vert T \vert &gt; t_{\alpha /2}(n-1)\} = \alpha,\]
+
+<p>其拒绝域为</p>
+
+\[\{ \vert T \vert &gt; t_{\alpha /2}(n-1)\}.\]
+
+<p>该检验法由于所使用的检验统计量服从 $t$ 分布, 因此被称为 <strong>$t$ 检验法</strong>.</p>
+
+<p><br /></p>
+
+<h2 id="3-统计学中的模拟方法-simulation-和自展取样法">3. 统计学中的模拟方法 (<code class="language-plaintext highlighter-rouge">Simulation</code>) 和自展取样法</h2>
+
+<p>对于一些特殊问题, 如判定某个规则复杂的游戏是否公平, 我们难以构造出合适的检验统计量. 我们可以使用蒙特卡罗方法求得一次随机试验的观测值, 并检验其是否符合原假设 (对于考虑游戏公平与否的情况, 我们只需要判定玩家输赢的概率是否相同; 在判定玩家是否作弊时, 我们只需计算达成玩家所得成绩的概率大小即可立即确定是否接纳原假设, 而无需认为规定明确的拒绝域和临界值).</p>
+
+<p>上述方法具有明显的局限性, 仅使用于特殊情况.</p>
+
+<p>下面, 我们对自展取样法进行介绍.</p>
+
+<h3 id="32-自展取样法-bootstrap">3.2 自展取样法 (<code class="language-plaintext highlighter-rouge">Bootstrap</code>)</h3>
+<p>自展取样法是一种使用小样本估计总体值的非参数方法, 也是统计学中的一种 <strong>重采样</strong> 方法, 其核心思想是对原始数据进行多次有放回抽样从而生成一系列伪样本, 称为 “<code class="language-plaintext highlighter-rouge">Bootstrap</code> 伪样本”, 并通过对伪样本进行计算得到统计量的分布. 在初始样本足够大的前提下, 通过使用 <code class="language-plaintext highlighter-rouge">Bootstrap</code> 抽样, 我们可以无偏得到接近总体的分布.</p>
+
+<p><br /></p>
+
+<h2 id="4-极大似然估计和最大后验估计">4. 极大似然估计和最大后验估计</h2>
+
+<p>极大似然估计和最大后验估计分属 <strong>频率学派</strong> 和 <strong>贝叶斯学派</strong> 的思想成果, 两个学派对世界的认知本质上存在不同.</p>
+
+<p>频率学派认为世界是确定的, 因而对任何问题而言存在不变的本体, 在解决问题时要求出它的某个真值, 而这个真值是不变的, 因而问题的本质是通过多次重复实验找到这个唯一确定的真值, 或者确定它所在的范围.</p>
+
+<p>而贝叶斯学派从观测者的角度对问题建模, 认为世界是不确定的, 观测者对世界的观察如何因其获取的信息不同而异. 观测者对世界先生成某个预判, 随后根据观测数据再对这个预判进行逐步调整, 最终得到一个在当前条件下最优化的结果. 因此问题的本质是找到最优的, 描述问题的概率分布.</p>
+
+<h3 id="41-极大似然估计-mle">4.1 极大似然估计 (<code class="language-plaintext highlighter-rouge">MLE</code>)</h3>
+
+<p>极大似然估计是频率学派常用的估计方法. 在求模型参数时, <code class="language-plaintext highlighter-rouge">MLE</code> 认为该参数是一个定值, 而要通过解方程组的方式从数据中求得该未知数. <code class="language-plaintext highlighter-rouge">MLE</code> 适合在大数据量的情形下使用, 而在数据量不足时可能出现偏差.</p>
+
+<p>在正式介绍极大似然估计前, 我们首先明确 <strong>似然函数</strong> 的概念.</p>
+
+<p>对于给定的一个函数 
+\(P(x \vert \theta),\)
+其输入分别为某个具体的数据, 和模型的参数.</p>
+
+<p>若 $\theta$ 为一个已知量而 $x$ 为变量, 则该函数即为 <strong>概率函数</strong>, 描述在参数 $\theta$ 为真时, 不同样本点 $x$ 所对应的概率.</p>
+
+<p>若 $\theta$ 为变量而 $x$ 为已知量, 则该函数即为 <strong>似然函数</strong>, 描述对于不同的模型参数 $\theta$ 而言, 样本点 $x$ 出现的概率.</p>
+
+<p>下面我们解释 <code class="language-plaintext highlighter-rouge">MLE</code>:</p>
+
+<p>设数据 $x_1, x_2, \cdots, x_n$ 为 <strong>独立同分布</strong> 的一组抽样, 记 $X = (x_1, x_2, \cdots, x_n).$ 则 <code class="language-plaintext highlighter-rouge">MLE</code> 对待求的模型参数 $\theta$ 的估计方法为:</p>
+
+\[\begin{aligned} \hat{\theta} &amp;=  \text{argmax}_{\theta} L(X \vert \theta) \\ &amp;= \text{argmax}_{\theta} \sum_{x \in X}\log{p(x \vert \theta)}. \end{aligned}\]
+
+<p>可见, 上述的函数仅与变量 $\theta$ 相关. 在该函数最优化时, 也就是函数值最大时, 所对应的 $\theta$ 值即为我们所要求的, 使得该似然函数取得极大值, 将已观测到的观测序列的似然最大化的模型参数, 由此我们完成了对 $\theta$ 的 <strong>极大似然估计</strong>.</p>
+
+<h3 id="42-极大后验估计-map">4.2 极大后验估计 (<code class="language-plaintext highlighter-rouge">MAP</code>)</h3>
+
+<p>极大后验估计是贝叶斯学派的常用估计方法. <code class="language-plaintext highlighter-rouge">MAP</code> 的假设是 “待求的模型参数源于某种潜在分布, 而需要从数据中推得该分布”. 在先验假设可信的前提下效果显著, 而先验假设在计算模型参数过程中的主导作用会随着数据量的增加而被逐步削弱. 极端情形下, 如完全不考虑先验假设或先验假设满足均匀分布, 极大后验估计和极大似然估计没有差别.</p>
+
+<p>设数据 $x_1, x_2, \cdots, x_n$ 为 <strong>独立同分布</strong> 的一组抽样, 记 $X = (x_1, x_2, \cdots, x_n).$ 则 <code class="language-plaintext highlighter-rouge">MAP</code> 对待求的模型参数 $\theta$ 的估计方法为:</p>
+
+\[\begin{aligned} \hat{\theta} &amp;=  \text{argmax}_{\theta} P(X \vert \theta) \\ &amp;= \text{argmax}_{\theta} \log{P(\theta \vert X)}\\ &amp;= \text{argmax}_{\theta}(\log{\frac{P(X \vert \theta) \cdot P(\theta)}{P(X)}})  \\ &amp;= \text{argmax}_{\theta} \log{P(X \vert \theta)} + \log{P(\theta)}.\end{aligned}\]
+
+
+
+                <hr style="visibility: hidden;">
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2021/03/02/Ch3-COMP11212/" data-toggle="tooltip" data-placement="top" title="Ch3 计算理论 表述复杂语言">
+                        Previous<br>
+                        <span>Ch3 计算理论 表述复杂语言</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2021/05/04/Ch4-COMP11212/" data-toggle="tooltip" data-placement="top" title="Ch4 计算理论 While 语法及其状态描述">
+                        Next<br>
+                        <span>Ch4 计算理论 While 语法及其状态描述</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <hr style="visibility: hidden;">
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+                
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+
+
+<section>
+    
+        <hr class="hidden-sm hidden-xs">
+    
+    <h5><a href="/archive/">FEATURED TAGS</a></h5>
+    <div class="tags">
+        
+        
+        
+        
+        
+        
+                <a data-sort="0109" 
+                    href="/archive/?tag=COMP12111"
+                    title="COMP12111"
+                    rel="10">COMP12111</a>
+        
+                <a data-sort="0027" 
+                    href="/archive/?tag=2021"
+                    title="2021"
+                    rel="92">2021</a>
+        
+                <a data-sort="0073" 
+                    href="/archive/?tag=%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0"
+                    title="课程笔记"
+                    rel="46">课程笔记</a>
+        
+                <a data-sort="0079" 
+                    href="/archive/?tag=%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0"
+                    title="前端学习"
+                    rel="40">前端学习</a>
+        
+                <a data-sort="0079" 
+                    href="/archive/?tag=50P50D"
+                    title="50P50D"
+                    rel="40">50P50D</a>
+        
+                <a data-sort="0094" 
+                    href="/archive/?tag=2020"
+                    title="2020"
+                    rel="25">2020</a>
+        
+                <a data-sort="0104" 
+                    href="/archive/?tag=COMP24011"
+                    title="COMP24011"
+                    rel="15">COMP24011</a>
+        
+                <a data-sort="0107" 
+                    href="/archive/?tag=%E9%80%BB%E8%BE%91%E5%AD%A6"
+                    title="逻辑学"
+                    rel="12">逻辑学</a>
+        
+                <a data-sort="0109" 
+                    href="/archive/?tag=COMP15111"
+                    title="COMP15111"
+                    rel="10">COMP15111</a>
+        
+                <a data-sort="0110" 
+                    href="/archive/?tag=%E6%89%A9%E5%B1%95%E8%87%AA%E4%B9%A0"
+                    title="扩展自习"
+                    rel="9">扩展自习</a>
+        
+                <a data-sort="0110" 
+                    href="/archive/?tag=COMP21111"
+                    title="COMP21111"
+                    rel="9">COMP21111</a>
+        
+                <a data-sort="0112" 
+                    href="/archive/?tag=%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0"
+                    title="机器学习"
+                    rel="7">机器学习</a>
+        
+                <a data-sort="0112" 
+                    href="/archive/?tag=COMP11212"
+                    title="COMP11212"
+                    rel="7">COMP11212</a>
+        
+                <a data-sort="0115" 
+                    href="/archive/?tag=%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95"
+                    title="数据结构和算法"
+                    rel="4">数据结构和算法</a>
+        
+                <a data-sort="0115" 
+                    href="/archive/?tag=COMP15212"
+                    title="COMP15212"
+                    rel="4">COMP15212</a>
+        
+                <a data-sort="0115" 
+                    href="/archive/?tag=COMP23111"
+                    title="COMP23111"
+                    rel="4">COMP23111</a>
+        
+                <a data-sort="0116" 
+                    href="/archive/?tag=%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7"
+                    title="奇技淫巧"
+                    rel="3">奇技淫巧</a>
+        
+                <a data-sort="0117" 
+                    href="/archive/?tag=%E7%99%BD%E6%9E%9C%E5%9B%AD"
+                    title="白果园"
+                    rel="2">白果园</a>
+        
+                <a data-sort="0117" 
+                    href="/archive/?tag=%E7%AE%97%E6%B3%95"
+                    title="算法"
+                    rel="2">算法</a>
+        
+                <a data-sort="0117" 
+                    href="/archive/?tag=Lab"
+                    title="Lab"
+                    rel="2">Lab</a>
+    </div>
+</section>
+
+
+                <!-- Friends Blog -->
+                
+<hr>
+<h5>FRIENDS</h5>
+<ul class="list-inline">
+  
+  <li><a href="http://ryanxin.cn">Ryan Xin</a></li>
+  
+  <li><a href="https://flyhigher.top">Axton.Gay</a></li>
+  
+  <li><a href="https://graynekocafe.net">GrayNekoBean</a></li>
+  
+  <li><a href="Gnefil.github.io">Gnefil</a></li>
+  
+</ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<!-- add support for mathjax by voleking-->
+
+
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "KirisameR";
+    var disqus_identifier = "/2021/04/01/数据科学中的统计学";
+    var disqus_url = "http://localhost:4000/2021/04/01/%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6%E4%B8%AD%E7%9A%84%E7%BB%9F%E8%AE%A1%E5%AD%A6/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'right',
+          // icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <!-- SNS Link -->
+                
+
+
+<ul class="list-inline text-center">
+
+
+  
+  
+  
+  
+  
+  
+  <li>
+    <a target="_blank" href="https://github.com/KirisameR">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  
+  
+</ul>
+
+                <p class="copyright text-muted">
+                    Copyright &copy; 某一般线性空间 2022
+                    <br>
+                    Powered by <a href="http://huangxuan.me">Hux Blog</a> |
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="100px"
+                        height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=huxpro&repo=huxpro.github.io&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<!-- Currently, only navbar scroll-down effect at desktop still depends on this -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Simple Jekyll Search -->
+<script src="/js/simple-jekyll-search.min.js"></script>
+
+<!-- Service Worker -->
+
+<script src="/js/snackbar.js "></script>
+<script src="/js/sw-registration.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+        var d = document, t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+
+
+
+
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog(selector) {
+
+        // interop with multilangual 
+        if ('' == 'true') {
+            _containerSelector = 'div.post-container.active'
+        } else {
+            _containerSelector = 'div.post-container'
+        }
+
+        // init
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        // clean
+        $(selector).html('')
+
+        // appending
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+<!-- Multi-Lingual -->
+
+
+<!-- Simple Jekyll Search -->
+<script>
+    // https://stackoverflow.com/questions/1912501/unescape-html-entities-in-javascript
+    function htmlDecode(input) {
+        var e = document.createElement('textarea');
+        e.innerHTML = input;
+        // handle case of empty input
+        return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+    }
+
+    SimpleJekyllSearch({
+        searchInput: document.getElementById('search-input'),
+        resultsContainer: document.getElementById('search-results'),
+        json: '/search.json',
+        searchResultTemplate: '<div class="post-preview item"><a href="{url}"><h2 class="post-title">{title}</h2><h3 class="post-subtitle">{subtitle}</h3><hr></a></div>',
+        noResultsText: 'No results',
+        limit: 50,
+        fuzzy: false,
+        // a hack to get escaped subtitle unescaped. for some reason, 
+        // post.subtitle w/o escape filter nuke entire search.
+        templateMiddleware: function (prop, value, template) {
+            if (prop === 'subtitle' || prop === 'title') {
+                if (value.indexOf("code")) {
+                    return htmlDecode(value);
+                } else {
+                    return value;
+                }
+            }
+        }
+    });
+
+    $(document).ready(function () {
+        var $searchPage = $('.search-page');
+        var $searchOpen = $('.search-icon');
+        var $searchClose = $('.search-icon-close');
+        var $searchInput = $('#search-input');
+        var $body = $('body');
+
+        $searchOpen.on('click', function (e) {
+            e.preventDefault();
+            $searchPage.toggleClass('search-active');
+            var prevClasses = $body.attr('class') || '';
+            setTimeout(function () {
+                $body.addClass('no-scroll');
+            }, 400)
+
+            if ($searchPage.hasClass('search-active')) {
+                $searchClose.on('click', function (e) {
+                    e.preventDefault();
+                    $searchPage.removeClass('search-active');
+                    $body.attr('class', prevClasses);  // from closure 
+                });
+                $searchInput.focus();
+            }
+        });
+    });
+</script>
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

@@ -1,0 +1,407 @@
+I"Pb<h1 id="画板-drawing-app">画板 Drawing App</h1>
+
+<h2 id="1-概述">1. 概述</h2>
+
+<p>项目展示了一个简单的画板.</p>
+
+<p>效果:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20210902200121.png" alt="20210902200121" /></p>
+
+<p><br /></p>
+
+<h2 id="2-结构和切图">2. 结构和切图</h2>
+
+<p>网页的基本结构如下:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;canvas</span> <span class="na">id=</span><span class="s">"canvas"</span> <span class="na">width=</span><span class="s">"800"</span> <span class="na">height=</span><span class="s">"700"</span><span class="nt">&gt;&lt;/canvas&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"toolbox"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;button</span> <span class="na">id=</span><span class="s">"decrease"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">"fa fa-minus"</span> <span class="na">aria-hidden=</span><span class="s">"true"</span><span class="nt">&gt;&lt;/i&gt;</span>
+        <span class="nt">&lt;/button&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">id=</span><span class="s">"size"</span><span class="nt">&gt;</span>5<span class="nt">&lt;/span&gt;</span>
+        <span class="nt">&lt;button</span> <span class="na">id=</span><span class="s">"increase"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">"fa fa-plus"</span> <span class="na">aria-hidden=</span><span class="s">"true"</span><span class="nt">&gt;&lt;/i&gt;</span>
+        <span class="nt">&lt;/button&gt;</span>
+        <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"color"</span> <span class="na">id=</span><span class="s">"color"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;button</span> <span class="na">id=</span><span class="s">"clear"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">"fa fa-trash"</span> <span class="na">aria-hidden=</span><span class="s">"true"</span><span class="nt">&gt;&lt;/i&gt;</span>
+        <span class="nt">&lt;/button&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><br /></p>
+
+<p>页面分为两个部分, 一个承载绘画内容的 <code class="language-plaintext highlighter-rouge">canvas</code> 和下方承载按钮的 <code class="language-plaintext highlighter-rouge">div</code> 容器.</p>
+
+<p><br /></p>
+
+<h2 id="3-编写-css-样式">3. 编写 <code class="language-plaintext highlighter-rouge">CSS</code> 样式</h2>
+
+<p>首先定义 <code class="language-plaintext highlighter-rouge">canvas</code> 和 <code class="language-plaintext highlighter-rouge">body</code> 的样式:</p>
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td><td class="rouge-code"><pre><span class="nt">body</span> <span class="p">{</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="m">#f5f5f5</span><span class="p">;</span>
+  <span class="nl">font-family</span><span class="p">:</span> <span class="s2">'Roboto'</span><span class="p">,</span> <span class="nb">sans-serif</span><span class="p">;</span>
+  <span class="nl">display</span><span class="p">:</span> <span class="n">flex</span><span class="p">;</span>
+  <span class="nl">flex-direction</span><span class="p">:</span> <span class="n">column</span><span class="p">;</span>
+  <span class="nl">align-items</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+  <span class="nl">justify-content</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+  <span class="nl">height</span><span class="p">:</span> <span class="m">100vh</span><span class="p">;</span>
+  <span class="nl">margin</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">canvas</span> <span class="p">{</span>
+  <span class="nl">border</span><span class="p">:</span> <span class="m">2px</span> <span class="nb">solid</span> <span class="no">steelblue</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>随后定义按键容器和按键的样式:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+</pre></td><td class="rouge-code"><pre><span class="nc">.toolbox</span> <span class="p">{</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="no">steelblue</span><span class="p">;</span>
+  <span class="nl">border</span><span class="p">:</span> <span class="m">1px</span> <span class="nb">solid</span> <span class="no">slateblue</span><span class="p">;</span>
+  <span class="nl">display</span><span class="p">:</span> <span class="n">flex</span><span class="p">;</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="m">804px</span><span class="p">;</span>
+  <span class="nl">padding</span><span class="p">:</span> <span class="m">1rem</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.toolbox</span> <span class="o">&gt;</span> <span class="o">*</span> <span class="p">{</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="m">#fff</span><span class="p">;</span>
+  <span class="nl">border</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
+  <span class="nl">display</span><span class="p">:</span> <span class="n">inline-flex</span><span class="p">;</span>
+  <span class="nl">align-items</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+  <span class="nl">justify-content</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+  <span class="nl">font-size</span><span class="p">:</span> <span class="m">2rem</span><span class="p">;</span>
+  <span class="nl">height</span><span class="p">:</span> <span class="m">50px</span><span class="p">;</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="m">50px</span><span class="p">;</span>
+  <span class="nl">margin</span><span class="p">:</span> <span class="m">0.25rem</span><span class="p">;</span>
+  <span class="nl">padding</span><span class="p">:</span> <span class="m">0.25rem</span><span class="p">;</span>
+  <span class="nl">cursor</span><span class="p">:</span> <span class="nb">pointer</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.toolbox</span> <span class="o">&gt;</span> <span class="o">*</span><span class="nd">:last-child</span> <span class="p">{</span>
+  <span class="nl">margin-left</span><span class="p">:</span> <span class="nb">auto</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>完整的 <code class="language-plaintext highlighter-rouge">CSS</code> 样式如下:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+</pre></td><td class="rouge-code"><pre><span class="o">*</span> <span class="p">{</span>
+  <span class="nl">box-sizing</span><span class="p">:</span> <span class="n">border-box</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">body</span> <span class="p">{</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="m">#f5f5f5</span><span class="p">;</span>
+  <span class="nl">font-family</span><span class="p">:</span> <span class="s2">'Roboto'</span><span class="p">,</span> <span class="nb">sans-serif</span><span class="p">;</span>
+  <span class="nl">display</span><span class="p">:</span> <span class="n">flex</span><span class="p">;</span>
+  <span class="nl">flex-direction</span><span class="p">:</span> <span class="n">column</span><span class="p">;</span>
+  <span class="nl">align-items</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+  <span class="nl">justify-content</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+  <span class="nl">height</span><span class="p">:</span> <span class="m">100vh</span><span class="p">;</span>
+  <span class="nl">margin</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">canvas</span> <span class="p">{</span>
+  <span class="nl">border</span><span class="p">:</span> <span class="m">2px</span> <span class="nb">solid</span> <span class="no">steelblue</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.toolbox</span> <span class="p">{</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="no">steelblue</span><span class="p">;</span>
+  <span class="nl">border</span><span class="p">:</span> <span class="m">1px</span> <span class="nb">solid</span> <span class="no">slateblue</span><span class="p">;</span>
+  <span class="nl">display</span><span class="p">:</span> <span class="n">flex</span><span class="p">;</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="m">804px</span><span class="p">;</span>
+  <span class="nl">padding</span><span class="p">:</span> <span class="m">1rem</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.toolbox</span> <span class="o">&gt;</span> <span class="o">*</span> <span class="p">{</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="m">#fff</span><span class="p">;</span>
+  <span class="nl">border</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
+  <span class="nl">display</span><span class="p">:</span> <span class="n">inline-flex</span><span class="p">;</span>
+  <span class="nl">align-items</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+  <span class="nl">justify-content</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+  <span class="nl">font-size</span><span class="p">:</span> <span class="m">2rem</span><span class="p">;</span>
+  <span class="nl">height</span><span class="p">:</span> <span class="m">50px</span><span class="p">;</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="m">50px</span><span class="p">;</span>
+  <span class="nl">margin</span><span class="p">:</span> <span class="m">0.25rem</span><span class="p">;</span>
+  <span class="nl">padding</span><span class="p">:</span> <span class="m">0.25rem</span><span class="p">;</span>
+  <span class="nl">cursor</span><span class="p">:</span> <span class="nb">pointer</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.toolbox</span> <span class="o">&gt;</span> <span class="o">*</span><span class="nd">:last-child</span> <span class="p">{</span>
+  <span class="nl">margin-left</span><span class="p">:</span> <span class="nb">auto</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="4-javascript">4. <code class="language-plaintext highlighter-rouge">JavaScript</code></h2>
+
+<p>最后, 我们编写 <code class="language-plaintext highlighter-rouge">JavaScript</code> 函数:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+</pre></td><td class="rouge-code"><pre><span class="kd">const</span> <span class="nx">canvas</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">canvas</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">increaseBtn</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">increase</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">decreaseBtn</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">decrease</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">sizeEL</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">size</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">colorEl</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">color</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">clearEl</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">clear</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="c1">// get the context of the canvas</span>
+<span class="kd">const</span> <span class="nx">ctx</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">getContext</span><span class="p">(</span><span class="dl">'</span><span class="s1">2d</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="c1">// initialize the color and the size of the pen</span>
+<span class="kd">let</span> <span class="nx">size</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">isPressed</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+<span class="nx">colorEl</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">black</span><span class="dl">'</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">color</span> <span class="o">=</span> <span class="nx">colorEl</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">;</span>
+
+<span class="c1">// case: pen pressed</span>
+<span class="nx">canvas</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">mousedown</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">isPressed</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="nx">x</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">offsetX</span><span class="p">;</span>
+    <span class="nx">y</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">offsetY</span><span class="p">;</span>
+<span class="p">})</span>
+<span class="c1">// case: pen up</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">mouseup</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">isPressed</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="nx">x</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span>
+    <span class="nx">y</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span>
+<span class="p">})</span>
+<span class="c1">// case: moving</span>
+<span class="nx">canvas</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">mousemove</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">isPressed</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">const</span> <span class="nx">x2</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">offsetX</span><span class="p">;</span>
+        <span class="kd">const</span> <span class="nx">y2</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">offsetY</span><span class="p">;</span>
+        <span class="c1">// draw the point, and connect the line</span>
+        <span class="nx">drawCircle</span><span class="p">(</span><span class="nx">x2</span><span class="p">,</span> <span class="nx">y2</span><span class="p">);</span>
+        <span class="nx">drawLine</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">x2</span><span class="p">,</span> <span class="nx">y2</span><span class="p">);</span>
+        <span class="nx">x</span> <span class="o">=</span> <span class="nx">x2</span><span class="p">;</span>
+        <span class="nx">y</span> <span class="o">=</span> <span class="nx">y2</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">})</span>
+
+<span class="kd">function</span> <span class="nx">drawCircle</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">ctx</span><span class="p">.</span><span class="nx">beginPath</span><span class="p">();</span>
+    <span class="nx">ctx</span><span class="p">.</span><span class="nx">arc</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">size</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span> <span class="o">*</span> <span class="mi">2</span><span class="p">);</span>
+    <span class="nx">ctx</span><span class="p">.</span><span class="nx">fillStyle</span> <span class="o">=</span> <span class="nx">color</span><span class="p">;</span>
+    <span class="nx">ctx</span><span class="p">.</span><span class="nx">fill</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">drawLine</span><span class="p">(</span><span class="nx">x1</span><span class="p">,</span> <span class="nx">y1</span><span class="p">,</span> <span class="nx">x2</span><span class="p">,</span> <span class="nx">y2</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">ctx</span><span class="p">.</span><span class="nx">beginPath</span><span class="p">();</span>
+    <span class="nx">ctx</span><span class="p">.</span><span class="nx">moveTo</span><span class="p">(</span><span class="nx">x1</span><span class="p">,</span> <span class="nx">y1</span><span class="p">);</span>
+    <span class="nx">ctx</span><span class="p">.</span><span class="nx">lineTo</span><span class="p">(</span><span class="nx">x2</span><span class="p">,</span> <span class="nx">y2</span><span class="p">);</span>
+    <span class="nx">ctx</span><span class="p">.</span><span class="nx">strokeStyle</span> <span class="o">=</span> <span class="nx">color</span><span class="p">;</span>
+    <span class="nx">ctx</span><span class="p">.</span><span class="nx">lineWidth</span> <span class="o">=</span> <span class="nx">size</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="nx">ctx</span><span class="p">.</span><span class="nx">stroke</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">updateSizeOnScreen</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">sizeEL</span><span class="p">.</span><span class="nx">innerText</span> <span class="o">=</span> <span class="nx">size</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">increaseBtn</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">click</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// increase the stroke size...</span>
+    <span class="nx">size</span> <span class="o">+=</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">size</span> <span class="o">&gt;</span> <span class="mi">50</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">size</span> <span class="o">=</span> <span class="mi">50</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">updateSizeOnScreen</span><span class="p">();</span>
+<span class="p">})</span>
+
+<span class="nx">decreaseBtn</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">click</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">size</span> <span class="o">-=</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">size</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">size</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">updateSizeOnScreen</span><span class="p">();</span>
+<span class="p">})</span>
+
+<span class="nx">colorEl</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">change</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">color</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+<span class="nx">clearEl</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">click</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">ctx</span><span class="p">.</span><span class="nx">clearRect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span><span class="p">));</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>最后, 完整的网页演示可见 <a href="../../../../../projects/50P50D/drawing-app/index.html">此处</a></p>
+:ET

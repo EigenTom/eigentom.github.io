@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="description" content="由于相关法律法规规定, 该内容无法显示.">
+    <meta name="keywords" content="菜">
+    <meta name="theme-color" content="#333">
+
+    <!-- Open Graph -->
+    <meta property="og:title"
+        content="逻辑学探幽 Part4 - 某一般线性空间 | Ramdom Linear Space">
+    
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="可满足性检验
+">
+    
+    <meta property="article:published_time" content=" 2021-10-01T00:00:00Z">
+    
+    
+    <meta property="article:author" content="R1NG">
+    
+    
+    <meta property="article:tag" content="逻辑学">
+    
+    <meta property="article:tag" content="2021">
+    
+    <meta property="article:tag" content="COMP21111">
+    
+    
+    <meta property="og:image" content="http://localhost:4000https://github.com/KirisameR.png">
+    <meta property="og:url" content="http://localhost:4000/2021/10/01/Ch4-LogicNotes/">
+    <meta property="og:site_name" content="某一般线性空间 | Ramdom Linear Space">
+
+    <title>逻辑学探幽 Part4 - 某一般线性空间 | Ramdom Linear Space</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4000/2021/10/01/Ch4-LogicNotes/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href=" /css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href=" /css/hux-blog.min.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"type="text/css">
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+
+    <!-- 数学公式 -->
+    <script type="text/javascript" async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+            showProcessingMessages: true, //关闭js加载过程信息
+            messageStyle: "none", //不显示信息
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code','a'], //避开某些标签
+                ignoreClass:"comment-content" //避开含该Class的标签
+            },
+            "HTML-CSS": {
+                availableFonts: ["STIX","TeX"], //可选字体
+                showMathMenu: false //关闭右击菜单显示
+            }
+        });
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+    </script>
+
+    
+
+    <!-- Google AdSense -->
+    <script data-ad-client="ca-pub-6487568398225121" async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">RANDOM LINEAR SPACE</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div id="huxblog_navbar">
+                <div class="navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                        
+                        
+                        <li>
+                            <a href="/archive/">Archive</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li class="search-icon">
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <script>
+        // Drop Bootstarp low-performance Navbar
+        // Use customize navbar with high-quality material design animation
+        // in high-perf jank-free CSS3 implementation
+        var $body = document.body;
+        var $toggle = document.querySelector('.navbar-toggle');
+        var $navbar = document.querySelector('#huxblog_navbar');
+        var $collapse = document.querySelector('.navbar-collapse');
+
+        var __HuxNav__ = {
+            close: function () {
+                $navbar.className = " ";
+                // wait until animation end.
+                setTimeout(function () {
+                    // prevent frequently toggle
+                    if ($navbar.className.indexOf('in') < 0) {
+                        $collapse.style.height = "0px"
+                    }
+                }, 400)
+            },
+            open: function () {
+                $collapse.style.height = "auto"
+                $navbar.className += " in";
+            }
+        }
+
+        // Bind Event
+        $toggle.addEventListener('click', function (e) {
+            if ($navbar.className.indexOf('in') > 0) {
+                __HuxNav__.close()
+            } else {
+                __HuxNav__.open()
+            }
+        })
+
+        /**
+         * Since Fastclick is used to delegate 'touchstart' globally
+         * to hack 300ms delay in iOS by performing a fake 'click',
+         * Using 'e.stopPropagation' to stop 'touchstart' event from 
+         * $toggle/$collapse will break global delegation.
+         * 
+         * Instead, we use a 'e.target' filter to prevent handler
+         * added to document close HuxNav.  
+         *
+         * Also, we use 'click' instead of 'touchstart' as compromise
+         */
+        document.addEventListener('click', function (e) {
+            if (e.target == $toggle) return;
+            if (e.target.className == 'icon-bar') return;
+            __HuxNav__.close();
+        })
+    </script>
+    <!-- Search -->
+<div class="search-page">
+  <div class="search-icon-close-container">
+    <span class="search-icon-close">
+      <i class="fa fa-chevron-down"></i>
+    </span>
+  </div>
+  <div class="search-main container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <form></form>
+        <input type="text" id="search-input" placeholder="$ grep...">
+        </form>
+        <div id="search-results" class="mini-post-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/post-bg-logicnotes.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+
+
+
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/post-bg-logicnotes.jpg');
+        background: ;
+    }
+
+    
+</style>
+
+<header class="intro-header" >
+
+    <div class="header-mask"></div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/archive/?tag=%E9%80%BB%E8%BE%91%E5%AD%A6" title="逻辑学">逻辑学</a>
+                        
+                        <a class="tag" href="/archive/?tag=2021" title="2021">2021</a>
+                        
+                        <a class="tag" href="/archive/?tag=COMP21111" title="COMP21111">COMP21111</a>
+                        
+                    </div>
+                    <h1>逻辑学探幽 Part4</h1>
+                    
+                    <h2 class="subheading">没有逻辑 只有heip</h2>
+                    <span class="meta">Posted by R1NG on October 1, 2021</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <!-- Multi-Lingual -->
+                
+
+				<h1 id="可满足性检验">可满足性检验</h1>
+
+<p>从本章起我们将循序渐进地对 <strong>可满足性检验</strong> 问题展开介绍和讨论. 首先我们明确 <strong>可满足性检验问题</strong> 的概念:</p>
+
+<p><strong>定义 4.0.1</strong> (可满足性问题)</p>
+<blockquote>
+  <p>考虑一个以由有限个谓词公式组成的集合作为 <strong>实例</strong> 的决策问题, 若这个由谓词公式组成的集合是 <strong>可满足的</strong>, 则该决策问题的实例的答复为肯定的.</p>
+</blockquote>
+
+<p>可满足性问题和数学中的定理证明有着非常紧密的联系. 数学上, 一个定理一般表现为下列形式:</p>
+
+<p>给定公理/定理 $A_1, A_2, \cdots, A_n$, 求证公式(也就是我们的推测) $G$.</p>
+
+<p>在数理逻辑中, 从 $A_1, A_2, \cdots, A_n$ 中证明 $G$ 实际上等价于检查 $A_1 \wedge A_2 \wedge \cdots \wedge A_n \rightarrow G$ 的正确性, 而这个正确性检查问题又可以被归结于检查公式集合 ${A_1, \cdots, A_n, \neg G}$ 是否为不可满足的.</p>
+
+<p><br /></p>
+
+<h2 id="41-真值表">4.1 真值表</h2>
+
+<p>最简单的可满足性检查方式是在一张表中列出给定谓词公式所有可能的解释, 并依次检查公式在这些解释下是否出现了不可满足的情况. 为了方便求值, 我们一般会将公式拆分为最小的子公式 (<code class="language-plaintext highlighter-rouge">subformula</code>). 一张典型的真值表如图:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20211030092239.png" alt="20211030092239" /></p>
+
+<p>值得注意的是, 我们很快就能发现, 在某些情况下我们可以利用逻辑运算符的短路特性, 只需检查部分的几个谓词变量的值即可判断整个谓词表达式的可满足性.</p>
+
+<p><br /></p>
+
+<h2 id="42-分割法">4.2 分割法</h2>
+
+<p>分割法在语义上和真值表等价. 它的基本原理是, 遍历地为给定的谓词公式中的变量分别赋值, 并在每一次赋值后基于一套规则利用逻辑运算符的短路特性和等价代换性质简化公式.</p>
+
+<p><strong>引理 4.2.1</strong></p>
+<blockquote>
+  <p>记谓词公式 $A$, 谓词原子 $p$ 和解释 $I$. 则有:</p>
+
+  <ol>
+    <li>
+      <p>若 $T \vDash \neg p$, 则 $A$ 在解释 $I$ 中和 $A_{p}^{\perp}$ 等价.</p>
+    </li>
+    <li>
+      <p>若 $T \vDash p$, 则 $A$ 在解释 $I$ 中和 $A_{p}^{\top}$ 等价.</p>
+    </li>
+  </ol>
+</blockquote>
+
+<p><strong>证明</strong></p>
+
+<p>考虑情形 $2$, 情形 $1$ 同理. 由 $T \vDash p$ 可知 $I \vDash T \leftrightarrow p$. 由等价代换定理可得: $I \vDash A \leftrightarrow A_{p}^{\top}$, 故有 $I \vDash A$ 当且仅当 $I \vDash A_{p}^{\top}. ~ \blacksquare$</p>
+
+<p><strong>定理 4.2.1</strong></p>
+<blockquote>
+  <p>记谓词公式 $A$ 和谓词原子 $p$, 则 $A$ 为可满足的, 当且仅当 $A^{\top}<em>{p}$ 和 $A^{\perp}</em>{p}$ 中至少有一个为可满足的.</p>
+</blockquote>
+
+<p><strong>证明</strong></p>
+
+<p><strong>必要性:</strong> 不妨假设 $A$ 为可满足的, 则存在解释 $I$ 使 $I \vDash A$. 考虑 $I \vDash p$ 的情形, 由上述引理可得 $I \vDash A \leftrightarrow A_{p}^{\top}$. 因此有 $I \vDash A_{p}^{\top}$, 也就是 $I \vDash A_{p}^{\top}$ 为可满足的.</p>
+
+<p><strong>充分性</strong>: 考虑 $A_{p}^{\top}$ 可满足的情形. 则存在解释 $I$, 使 $I \vDash A_{p}^{\top}$ 成立. 如下定义解释 $I’$:</p>
+
+\[I'(q) \overset{\text{def}}{=}  \begin{cases} I(q) ~~~ \text{if} ~ p \neq q \\ 1~~~~~~~~\text{if} ~ p=q \end{cases}\]
+
+<p>由此可得 $I’ \vDash A_{p}^{\top}$. 由于我们有 $I \vDash p$, 故由上述引理可得 $I’ \vDash A \leftrightarrow A_{p}^{\top}$. 因此 $I’ \vDash A$, 可知 $A$ 为可满足的. $\blacksquare$</p>
+
+<p>上述定理的结论可以被可满足性算法如此应用:</p>
+
+<p>算法首先选定一个在公式 $G$ 中出现的谓词变量 $p$, 检查是否 $G_{p}^{\top}$, $G_{p}^{\perp}$ 中至少有一个公式为可满足的. 这样, 原问题被 <strong>分割</strong> 为两个子问题. 此外, 在执行分割时我们还可将 $G_{p}^{\top}$, $G_{p}^{\perp}$ 使用 <strong>覆写规则</strong> (<code class="language-plaintext highlighter-rouge">rewrite rule</code>) 简化, 如果这可能的话.</p>
+
+<p>在正式介绍 <strong>分割算法</strong> 前, 我们需要再引入一个定义.</p>
+
+<p><strong>定义 4.2.1</strong> (有符号公式)</p>
+<blockquote>
+  <p>称形为 $A = b$, 其中 $A$, $b$ 分别为谓词公式和布尔值的表达式为 <strong>有符号公式</strong>. <br /></p>
+
+  <p>若解释 $I$ 满足 $I(A)=b$, 可知 $I \vDash A=b$, 也就是公式在该解释下为真, 则称 <strong>$I$ 为公式 $A=b$ 的一个模型</strong>. 有符号公式为 <strong>可满足的</strong>, 若它有一个对应的模型.</p>
+</blockquote>
+
+<p>我们不难从定义中得到下列性质:</p>
+
+<ol>
+  <li>
+    <p>对任意公式 $A$ 和解释 $I$, $A=1$ 和 $A=0$ 中恰有一个为真.</p>
+  </li>
+  <li>
+    <p>公式 $A$ 为可满足的, 当且仅当有符号公式 $A=1$ 为可满足的.</p>
+  </li>
+</ol>
+
+<p><strong>算法 4.2.1</strong> (分割算法)</p>
+
+<p>分割算法以公式 $G$ 为输入, 其输出值为 <code class="language-plaintext highlighter-rouge">satisfiable</code> 或 <code class="language-plaintext highlighter-rouge">unsatisfiable</code>. 我们同时将从 $G$ 中选择一个有符号原子 $p=b$ 的操作参数化为 <code class="language-plaintext highlighter-rouge">select_signed_atom</code>.</p>
+
+<p>若所选择的有符号原子为 $p=1$, 算法首先在 $p$ 为真的情况下尝试对 $G$ 建模. 若不能找到这样的解释, 它再转而考虑 $p$ 为假的情形, 反之亦然.</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20211030100155.png" alt="20211030100155" /></p>
+
+<p>算法的执行过程可以被可视化为一棵 <strong>分割树</strong>. 它的节点为算法处于不同步骤时待处理的谓词公式 $G$, 它的边被所选择的有符号谓词原子标记.</p>
+
+<p>不难看出, 分割树的大小受对有符号原子公式的选择影响, 且对原子公式的选择顺序也会影响分割树的大小.</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20211030100501.png" alt="20211030100501" /></p>
+
+<p><strong>定理 4.2.2</strong></p>
+<blockquote>
+  <p>分割算法是一种可靠, 完备且必会在有限步内终止的算法:</p>
+  <ol>
+    <li>若给定的公式 $G$ 为可满足的, 则分割算法会终止并返回结果 <code class="language-plaintext highlighter-rouge">satisfiable</code>.</li>
+    <li>若给定的公式 $G$ 为不可满足的, 则分割算法会终止并返回结果 <code class="language-plaintext highlighter-rouge">unsatisfiable</code>.</li>
+  </ol>
+</blockquote>
+
+<p><br /></p>
+
+<h2 id="43-子公式的极性">4.3 子公式的极性</h2>
+
+<p>本节我们将引入 <strong>极性</strong> 的概念, 并利用这一概念执行对谓词公式的可满足性检验算法的优化.</p>
+
+<p>我们下面引入面向真值 $1, 0$ 的偏序 $&lt;$, 其中有 $0 &lt; 1$. 该偏序同时使</p>
+
+\[0 \leqslant 0, ~ 0 \leqslant 1, ~ 1 \leqslant 0,~ 1 !\leqslant 0.\]
+
+<p><strong>定义 4.3.1</strong> (单调和非单调函数)</p>
+<blockquote>
+  <p>给定函数 $f(x_1, \cdots, x_n)$ 和整数 $k$, $1 \leqslant k \leqslant n$. 称 $f$ <strong>在它的第 $k$ 个参数上单调</strong>, 若对于 $v_1, \cdots, v_n, v’_{k}$, 我们有</p>
+
+\[f(v_1, \cdots, v_k, \cdots, v_n) \leqslant f(v_1, \cdots, v'_k, \cdots, v_n)\]
+
+  <p>若 $v_k \leqslant v’_k$, 反之称其为 <strong>非单调的</strong>.</p>
+</blockquote>
+
+<p>由于逻辑联结词同样可被视为布尔函数, 我们相应地考察它们的单调性不难发现, 对于任何位置上的变量, 连接词 $\vee, ~ \wedge$ 均为 <strong>单调的</strong>; $\neg$ 为非单调的, $\rightarrow$ 对于它的第二个变量单调, 而对于第一个变量非单调. $\leftrightarrow$ 则对它的任一元素既不单调也不非单调.</p>
+
+<p>极性可被视为对谓词公式的布尔值与其子公式布尔值之间关系的描述. 利用谓词公式 (函数) 的单调性, 我们可以在已知它的某个子式值的前提下对它本身的值进行推测.</p>
+
+<p><strong>定义 4.3.2</strong> (位置和极性)</p>
+<blockquote>
+  <p>称 <strong>位置</strong> 为一列顺序随机的整数 $a_1, a_2, \cdots. a_n$, 其中 $n \geqslant 0$, 写为 $a_1.a_2. \cdots .a_n$. <br /></p>
+
+  <p>$n=0$ 时序列为空, 我们称其为 <strong>空位置</strong>, 记为 $\epsilon$. <strong>极性</strong> 为一个可取 $-1, 0, 1$ 的值. <br /></p>
+
+  <p>下面我们分别递归地定义:</p>
+  <ol>
+    <li>给定公式中的位置</li>
+    <li>位于公式 $A$ 的位置 $\pi$ 处的子公式 $A\vert_{\pi}$</li>
+    <li>位于公式 $A$ 的位置 $\pi$ 处的子公式 $A\vert_{\pi}$ 的极性 $\text{pol}(A, \pi)$<br /></li>
+  </ol>
+
+  <p>i. 对任何公式 $A$, $\epsilon$ 为 $A$ 中的一个位置, 且有</p>
+
+\[A\vert_{\epsilon} \overset{\text{def}}{=} A, ~ \text{pol}(A, \pi) = 1.\]
+
+  <p><br /></p>
+
+  <p>ii. 令 $A\vert_{\pi} = B$:<br /></p>
+  <ul>
+    <li>
+      <p>若子公式 $B$ 形如 $B_1, \wedge \cdots \wedge B_n$ 或  $B_1, \vee \cdots \vee B_n$, 则对 $\forall ~ i \in [n]$: 位置 $\pi.i$ 位于 $A$ 中, $A \vert_{\pi.i} \overset{\text{def}}{=} B_i$, 且有 $\text{pol}(A, \pi.i)  \overset{\text{def}}{=} \text{pol}(A, \pi)$.<br /></p>
+    </li>
+    <li>
+      <p>若子公式 $B$ 形如 $\neg B_1$, 则 $\pi.1$ 为 $A$ 中的一个位置, $A\vert_{\pi.1} \overset{\text{def}}{=} B_1$, 且有 $\text{pol}(A, \pi.1) \overset{\text{def}}{=} -\text{pol}(A, \pi)$.<br /></p>
+    </li>
+    <li>
+      <p>若子公式 $B$ 形如 $B_1 \rightarrow B_2$, 则 $\pi.1, \pi.2$ 为 $A$ 中的一个位置, $A\vert_{\pi.1} \overset{\text{def}}{=} B_1$, $A\vert_{\pi.2} \overset{\text{def}}{=} B_2$, 且有 $\text{pol}(A, \pi.1) \overset{\text{def}}{=} -\text{pol}(A, \pi)$, $\text{pol}(A, \pi.2) \overset{\text{def}}{=} \text{pol}(A, \pi)$.<br /></p>
+    </li>
+    <li>
+      <p>若子公式 $B$ 形如 $B_1 \leftrightarrow B_2$, 则 $\pi.1, \pi.2$ 为 $A$ 中的一个位置, $A\vert_{\pi.1} \overset{\text{def}}{=} B_1$, $A\vert_{\pi.2} \overset{\text{def}}{=} B_2$, 且有 $\text{pol}(A, \pi.1) \overset{\text{def}}{=} \text{pol}(A, \pi.2) =0$.</p>
+    </li>
+  </ul>
+</blockquote>
+
+<p>若 $A\vert_{\pi} = B$, 同时称 <strong>$B$ 在 $A$ 的位置 $\pi$ 处出现</strong>. 若 $\text{pol}(A, \pi) = 1$ (或 $0$), 则称 <strong>该位置上的 $B$ 为正出现实例 (<code class="language-plaintext highlighter-rouge">Positive Occurrence</code>) (或负出现实例).</strong></p>
+
+<p>我们同样可以使用 <strong>生成树</strong> 可视化给定公式的位置和对应位置上子式的极性. 不难看出:</p>
+
+<ol>
+  <li>
+    <p>若子公式 $B$ 在逻辑运算符 $\leftrightarrow$ 的任一个域 (也就是左边或右边) 出现, 则位置$\pi$ 的极性为 $0$.</p>
+  </li>
+  <li>
+    <p>若子公式 $B$ 不在逻辑运算符 $\leftrightarrow$ 的任一个域 (也就是左边或右边) 出现, 则位置$\pi$ 的极性为 $1$ (相应地, $-1$). 当且仅当 $B$ 在逻辑运算符 $\neg$ 的域中出现, 或在运算符 $\rightarrow$ 的左侧域中出现了偶数次 (相应地, 奇数次).</p>
+  </li>
+</ol>
+
+<p><strong>极性</strong> 的一个主要性质即为, 它实质上为我们提供了 <strong>单调性</strong> 的一个语义上等价的表示法. 举例而言, 性质</p>
+
+\[I(A) \leqslant I(B)\]
+
+<p>即可被表示为</p>
+
+\[I \vDash A \rightarrow B.\]
+
+<p><strong>引理 4.3.1</strong> (单调替换)</p>
+<blockquote>
+  <p>记 $A, B, B‘$ 为谓词公式, $I$ 为一个解释, 且满足 $I \vDash B \rightarrow B’$. 若</p>
+
+\[\text{pol}(A, \pi) = 1,\]
+
+  <p>则有</p>
+
+\[I \vDash A[B]_{\pi} \rightarrow A[B']_{\pi}.\]
+
+  <p>相应地, 若</p>
+
+\[\text{pol}(A, \pi) = -1,\]
+
+  <p>则有</p>
+
+\[I \vDash A[B']_{\pi} \rightarrow A[B]_{\pi}.\]
+</blockquote>
+
+<p>该引理的结论同时蕴含了下述定理:</p>
+
+<p><strong>定理 4.3.1</strong>(单调替换)</p>
+<blockquote>
+  <p>记 $A, B, B‘$ 为谓词公式, 满足 $B \rightarrow B’$ (相应地, 满足 $B‘ \rightarrow B$).<br /></p>
+
+  <p>记由替换公式 $A$ 中至少一个 $B$ 的 <strong>正出现实例</strong> (相应地, <strong>负出现实例</strong>) 所得到的公式为 $A‘$, 则 $A \rightarrow A’$ 为真.</p>
+</blockquote>
+
+<p>将上述定理所描述的性质用 <strong>可满足性</strong> 的语言重新叙述, 就得到了下列推论:</p>
+
+<p><strong>推论 4.3.1</strong></p>
+<blockquote>
+  <p>记 $A, B, B‘$ 为谓词公式, $B \rightarrow B’$ 为真 (相应地, $B‘ \rightarrow B$ 为真).<br /></p>
+
+  <p>记由替换公式 $A$ 中至少一个 $B$ 的 <strong>正出现实例</strong> (相应地, <strong>负出现实例</strong>) 所得到的公式为 $A‘$, 若 $A$ 为可满足的, 则 $A’$ 也是可满足的.</p>
+</blockquote>
+
+<p>在谓词公式的可满足性检测问题中, <strong>极性</strong> 的定义起到了重要的作用. 称 <strong>谓词原子 $p$ 在谓词公式 $A$ 中是纯粹的</strong>, 若它在 $A$ 中所有的出现实例都是正的或都是负的.</p>
+
+<p><strong>引理 4.3.2</strong> (纯粹原子)</p>
+<blockquote>
+  <p>记 $p$ 为一个在 $A$ 中是纯粹的原子, 取 $A$ 的一个解释 $I$, 则解释 $I‘$ 可通过下述步骤生成:</p>
+
+\[I'(q) \overset{\text{def}}{=} \begin{cases} 1, ~~~~~~~\text{if} ~ p=q~ \text{and} ~p~ \text{occurrs in}~A~\text{only positively.}\\ 0, ~~~~~~~ \text{if} ~ p=q~ \text{and} ~p~ \text{occurrs in}~A~\text{only negatively.} \\ I(q)~~~~ \text{if}~p \neq q.\end{cases}\]
+</blockquote>
+
+<p><strong>证明</strong><br />
+下面只考虑 $A$ 中 $p$ 的所有出现实例 <strong>均为正</strong> 的情形. 首先可得 $p \rightarrow \top$ 为重言式. 由 <strong>单调替换定理</strong>: $A \rightarrow A_{p}^{\top}$ 亦为重言式.</p>
+
+<p>由 $I \vDash A$, 相应的有 $I \vDash A_{p}^{\top}$. 由于 $p$ 不在 $A_{p}^{\top}$ 中出现且 $I$ 和 $I‘$ 对于任何不为 $p$ 的变量的解释均相同, 故有 $I’ \vDash A_{p}^{\top}$.</p>
+
+<p>同时, 由 $I’$ 的构造可知它满足 $I’ \vDash p \leftrightarrow \top$, 故由 <strong>等价替换定理</strong> 可得 $I’ \vDash A.~\blacksquare$</p>
+
+<p>我们下面再给出一个描述与上述引理等价的定理:</p>
+
+<p><strong>定理 4.3.2</strong> (纯粹原子)</p>
+<blockquote>
+  <p>记原子 $p$ 在 $A$ 中有且只有正出现实例 (或负出现实例). 则 $A$ 为可满足的, 当且仅当</p>
+
+\[A^{\top}_{p} ~~ (A^{\perp}_{p})\]
+
+  <p>为可满足的.</p>
+</blockquote>
+
+<p><strong>证明</strong><br />
+<strong>必要性:</strong> 由 $p \rightarrow \top$ 为重言式, 由单调替换定理</p>
+
+\[A \rightarrow A^{\top}_{p}\]
+
+<p>也是重言式, 因此 $A$ 的任何模型都是 $A^{\top}_{p}$ 的 $. ~ \blacksquare$</p>
+
+<p><strong>充分性:</strong> 记 $A^{\top}_{p}$ 的一个模型 $I$.</p>
+
+<p>将它对变量 $p$ 的解释重定义, 使得 $I’(p)=1$. 则此时 $I’$ 还是 $A^{\top}_{p}$ 的一个模型, 但此时同时有</p>
+
+\[I' \vDash p \leftrightarrow \top.\]
+
+<p>故由等价替换定理: $I’ \vDash A \leftrightarrow A^{\top}_{p}$, 因而 $I’ \vDash A$, 进而 $A$ 是可满足的. $\blacksquare$</p>
+
+<p>显然, 纯粹原子定理可有效地应用于对分割算法的优化: 给定谓词公式 $G$, 若 $p$ 在 $G$ 中是 <strong>纯粹的</strong>, 则依照其极性我们将 $G$ 中的所有 $p$ 替换为 $G_{p}^{\top}$ 或 $G_{p}^{\perp}$, 因而可以避免任何对 $p$ 的分割, 从而简化了算法的执行步骤.</p>
+
+
+                <hr style="visibility: hidden;">
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2021/09/25/algHeip-3/" data-toggle="tooltip" data-placement="top" title="普林斯顿算法4-Ch3 查找">
+                        Previous<br>
+                        <span>普林斯顿算法4-Ch3 查找</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2021/10/10/COMP24011-Prolog-Ch1/" data-toggle="tooltip" data-placement="top" title="Prolog 学习 Ch1">
+                        Next<br>
+                        <span>Prolog 学习 Ch1</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <hr style="visibility: hidden;">
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+                
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+
+
+<section>
+    
+        <hr class="hidden-sm hidden-xs">
+    
+    <h5><a href="/archive/">FEATURED TAGS</a></h5>
+    <div class="tags">
+        
+        
+        
+        
+        
+        
+                <a data-sort="0109" 
+                    href="/archive/?tag=COMP12111"
+                    title="COMP12111"
+                    rel="10">COMP12111</a>
+        
+                <a data-sort="0027" 
+                    href="/archive/?tag=2021"
+                    title="2021"
+                    rel="92">2021</a>
+        
+                <a data-sort="0073" 
+                    href="/archive/?tag=%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0"
+                    title="课程笔记"
+                    rel="46">课程笔记</a>
+        
+                <a data-sort="0079" 
+                    href="/archive/?tag=%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0"
+                    title="前端学习"
+                    rel="40">前端学习</a>
+        
+                <a data-sort="0079" 
+                    href="/archive/?tag=50P50D"
+                    title="50P50D"
+                    rel="40">50P50D</a>
+        
+                <a data-sort="0094" 
+                    href="/archive/?tag=2020"
+                    title="2020"
+                    rel="25">2020</a>
+        
+                <a data-sort="0104" 
+                    href="/archive/?tag=COMP24011"
+                    title="COMP24011"
+                    rel="15">COMP24011</a>
+        
+                <a data-sort="0107" 
+                    href="/archive/?tag=%E9%80%BB%E8%BE%91%E5%AD%A6"
+                    title="逻辑学"
+                    rel="12">逻辑学</a>
+        
+                <a data-sort="0109" 
+                    href="/archive/?tag=COMP15111"
+                    title="COMP15111"
+                    rel="10">COMP15111</a>
+        
+                <a data-sort="0110" 
+                    href="/archive/?tag=%E6%89%A9%E5%B1%95%E8%87%AA%E4%B9%A0"
+                    title="扩展自习"
+                    rel="9">扩展自习</a>
+        
+                <a data-sort="0110" 
+                    href="/archive/?tag=COMP21111"
+                    title="COMP21111"
+                    rel="9">COMP21111</a>
+        
+                <a data-sort="0112" 
+                    href="/archive/?tag=%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0"
+                    title="机器学习"
+                    rel="7">机器学习</a>
+        
+                <a data-sort="0112" 
+                    href="/archive/?tag=COMP11212"
+                    title="COMP11212"
+                    rel="7">COMP11212</a>
+        
+                <a data-sort="0115" 
+                    href="/archive/?tag=%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95"
+                    title="数据结构和算法"
+                    rel="4">数据结构和算法</a>
+        
+                <a data-sort="0115" 
+                    href="/archive/?tag=COMP15212"
+                    title="COMP15212"
+                    rel="4">COMP15212</a>
+        
+                <a data-sort="0115" 
+                    href="/archive/?tag=COMP23111"
+                    title="COMP23111"
+                    rel="4">COMP23111</a>
+        
+                <a data-sort="0116" 
+                    href="/archive/?tag=%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7"
+                    title="奇技淫巧"
+                    rel="3">奇技淫巧</a>
+        
+                <a data-sort="0117" 
+                    href="/archive/?tag=%E7%99%BD%E6%9E%9C%E5%9B%AD"
+                    title="白果园"
+                    rel="2">白果园</a>
+        
+                <a data-sort="0117" 
+                    href="/archive/?tag=%E7%AE%97%E6%B3%95"
+                    title="算法"
+                    rel="2">算法</a>
+        
+                <a data-sort="0117" 
+                    href="/archive/?tag=Lab"
+                    title="Lab"
+                    rel="2">Lab</a>
+    </div>
+</section>
+
+
+                <!-- Friends Blog -->
+                
+<hr>
+<h5>FRIENDS</h5>
+<ul class="list-inline">
+  
+  <li><a href="http://ryanxin.cn">Ryan Xin</a></li>
+  
+  <li><a href="https://flyhigher.top">Axton.Gay</a></li>
+  
+  <li><a href="https://graynekocafe.net">GrayNekoBean</a></li>
+  
+  <li><a href="Gnefil.github.io">Gnefil</a></li>
+  
+</ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<!-- add support for mathjax by voleking-->
+
+
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "KirisameR";
+    var disqus_identifier = "/2021/10/01/Ch4 LogicNotes";
+    var disqus_url = "http://localhost:4000/2021/10/01/Ch4-LogicNotes/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'right',
+          // icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <!-- SNS Link -->
+                
+
+
+<ul class="list-inline text-center">
+
+
+  
+  
+  
+  
+  
+  
+  <li>
+    <a target="_blank" href="https://github.com/KirisameR">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  
+  
+</ul>
+
+                <p class="copyright text-muted">
+                    Copyright &copy; 某一般线性空间 2022
+                    <br>
+                    Powered by <a href="http://huangxuan.me">Hux Blog</a> |
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="100px"
+                        height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=huxpro&repo=huxpro.github.io&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<!-- Currently, only navbar scroll-down effect at desktop still depends on this -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Simple Jekyll Search -->
+<script src="/js/simple-jekyll-search.min.js"></script>
+
+<!-- Service Worker -->
+
+<script src="/js/snackbar.js "></script>
+<script src="/js/sw-registration.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+        var d = document, t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+
+
+
+
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog(selector) {
+
+        // interop with multilangual 
+        if ('' == 'true') {
+            _containerSelector = 'div.post-container.active'
+        } else {
+            _containerSelector = 'div.post-container'
+        }
+
+        // init
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        // clean
+        $(selector).html('')
+
+        // appending
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+<!-- Multi-Lingual -->
+
+
+<!-- Simple Jekyll Search -->
+<script>
+    // https://stackoverflow.com/questions/1912501/unescape-html-entities-in-javascript
+    function htmlDecode(input) {
+        var e = document.createElement('textarea');
+        e.innerHTML = input;
+        // handle case of empty input
+        return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+    }
+
+    SimpleJekyllSearch({
+        searchInput: document.getElementById('search-input'),
+        resultsContainer: document.getElementById('search-results'),
+        json: '/search.json',
+        searchResultTemplate: '<div class="post-preview item"><a href="{url}"><h2 class="post-title">{title}</h2><h3 class="post-subtitle">{subtitle}</h3><hr></a></div>',
+        noResultsText: 'No results',
+        limit: 50,
+        fuzzy: false,
+        // a hack to get escaped subtitle unescaped. for some reason, 
+        // post.subtitle w/o escape filter nuke entire search.
+        templateMiddleware: function (prop, value, template) {
+            if (prop === 'subtitle' || prop === 'title') {
+                if (value.indexOf("code")) {
+                    return htmlDecode(value);
+                } else {
+                    return value;
+                }
+            }
+        }
+    });
+
+    $(document).ready(function () {
+        var $searchPage = $('.search-page');
+        var $searchOpen = $('.search-icon');
+        var $searchClose = $('.search-icon-close');
+        var $searchInput = $('#search-input');
+        var $body = $('body');
+
+        $searchOpen.on('click', function (e) {
+            e.preventDefault();
+            $searchPage.toggleClass('search-active');
+            var prevClasses = $body.attr('class') || '';
+            setTimeout(function () {
+                $body.addClass('no-scroll');
+            }, 400)
+
+            if ($searchPage.hasClass('search-active')) {
+                $searchClose.on('click', function (e) {
+                    e.preventDefault();
+                    $searchPage.removeClass('search-active');
+                    $body.attr('class', prevClasses);  // from closure 
+                });
+                $searchInput.focus();
+            }
+        });
+    });
+</script>
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

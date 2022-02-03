@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="description" content="由于相关法律法规规定, 该内容无法显示.">
+    <meta name="keywords" content="菜">
+    <meta name="theme-color" content="#333">
+
+    <!-- Open Graph -->
+    <meta property="og:title"
+        content="数据库导论 关系数据库理论 - 某一般线性空间 | Ramdom Linear Space">
+    
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="COMP23111 REVISION Ch1
+">
+    
+    <meta property="article:published_time" content=" 2022-01-11T00:00:00Z">
+    
+    
+    <meta property="article:author" content="R1NG">
+    
+    
+    <meta property="article:tag" content="2021">
+    
+    <meta property="article:tag" content="COMP23111">
+    
+    
+    <meta property="og:image" content="http://localhost:4000https://github.com/KirisameR.png">
+    <meta property="og:url" content="http://localhost:4000/2022/01/11/COMP23111-REV-Ch1/">
+    <meta property="og:site_name" content="某一般线性空间 | Ramdom Linear Space">
+
+    <title>数据库导论 关系数据库理论 - 某一般线性空间 | Ramdom Linear Space</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4000/2022/01/11/COMP23111-REV-Ch1/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href=" /css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href=" /css/hux-blog.min.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"type="text/css">
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+
+    <!-- 数学公式 -->
+    <script type="text/javascript" async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+            showProcessingMessages: true, //关闭js加载过程信息
+            messageStyle: "none", //不显示信息
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code','a'], //避开某些标签
+                ignoreClass:"comment-content" //避开含该Class的标签
+            },
+            "HTML-CSS": {
+                availableFonts: ["STIX","TeX"], //可选字体
+                showMathMenu: false //关闭右击菜单显示
+            }
+        });
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+    </script>
+
+    
+
+    <!-- Google AdSense -->
+    <script data-ad-client="ca-pub-6487568398225121" async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">RANDOM LINEAR SPACE</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div id="huxblog_navbar">
+                <div class="navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                        
+                        
+                        <li>
+                            <a href="/archive/">Archive</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li class="search-icon">
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <script>
+        // Drop Bootstarp low-performance Navbar
+        // Use customize navbar with high-quality material design animation
+        // in high-perf jank-free CSS3 implementation
+        var $body = document.body;
+        var $toggle = document.querySelector('.navbar-toggle');
+        var $navbar = document.querySelector('#huxblog_navbar');
+        var $collapse = document.querySelector('.navbar-collapse');
+
+        var __HuxNav__ = {
+            close: function () {
+                $navbar.className = " ";
+                // wait until animation end.
+                setTimeout(function () {
+                    // prevent frequently toggle
+                    if ($navbar.className.indexOf('in') < 0) {
+                        $collapse.style.height = "0px"
+                    }
+                }, 400)
+            },
+            open: function () {
+                $collapse.style.height = "auto"
+                $navbar.className += " in";
+            }
+        }
+
+        // Bind Event
+        $toggle.addEventListener('click', function (e) {
+            if ($navbar.className.indexOf('in') > 0) {
+                __HuxNav__.close()
+            } else {
+                __HuxNav__.open()
+            }
+        })
+
+        /**
+         * Since Fastclick is used to delegate 'touchstart' globally
+         * to hack 300ms delay in iOS by performing a fake 'click',
+         * Using 'e.stopPropagation' to stop 'touchstart' event from 
+         * $toggle/$collapse will break global delegation.
+         * 
+         * Instead, we use a 'e.target' filter to prevent handler
+         * added to document close HuxNav.  
+         *
+         * Also, we use 'click' instead of 'touchstart' as compromise
+         */
+        document.addEventListener('click', function (e) {
+            if (e.target == $toggle) return;
+            if (e.target.className == 'icon-bar') return;
+            __HuxNav__.close();
+        })
+    </script>
+    <!-- Search -->
+<div class="search-page">
+  <div class="search-icon-close-container">
+    <span class="search-icon-close">
+      <i class="fa fa-chevron-down"></i>
+    </span>
+  </div>
+  <div class="search-main container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <form></form>
+        <input type="text" id="search-input" placeholder="$ grep...">
+        </form>
+        <div id="search-results" class="mini-post-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/post-bg-comp23111.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+
+
+
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/post-bg-comp23111.jpg');
+        background: ;
+    }
+
+    
+</style>
+
+<header class="intro-header" >
+
+    <div class="header-mask"></div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/archive/?tag=2021" title="2021">2021</a>
+                        
+                        <a class="tag" href="/archive/?tag=COMP23111" title="COMP23111">COMP23111</a>
+                        
+                    </div>
+                    <h1>数据库导论 关系数据库理论</h1>
+                    
+                    <h2 class="subheading">DROP 'theory' FROM 'dbKnowledgeBase';</h2>
+                    <span class="meta">Posted by R1NG on January 11, 2022</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <!-- Multi-Lingual -->
+                
+
+				<h1 id="comp23111-revision-ch1">COMP23111 REVISION Ch1</h1>
+
+<p>本复习笔记对本学期所教授的课程内容进行了基于笔者自己理解下的重排.</p>
+
+<p>笔者将前八周内对关系数据库从建模到通过网络编程实现, 穿插部分数据库理论的松散体系拆分为三个部分: 数据库理论, 数据库建模和数据库实现, 而最后三周内对各种非关系数据库的介绍仅作为补充内容 , 放在 “其他数据库” 中.</p>
+
+<h2 id="1-数据库理论">1. 数据库理论</h2>
+
+<p>数据库是 <strong>一系列有价值的信息组成的结构化的集合</strong> (A <strong>structured</strong> <strong>collection</strong> of <strong>meaningful</strong> data).</p>
+
+<p>我们称任何有价值的信息为 <strong>数据</strong>, (<code class="language-plaintext highlighter-rouge">Data</code>) 用于构建和维护数据库的软件为 <strong>数据库管理系统</strong> (<code class="language-plaintext highlighter-rouge">DBMS</code>, <code class="language-plaintext highlighter-rouge">Database Management System</code>), 而 <strong>数据库管理系统</strong> 和 <strong>数据</strong> 共同组成 <strong>数据库系统</strong> (<code class="language-plaintext highlighter-rouge">Database System</code>).</p>
+
+<p>我们还称 <strong>标准化的</strong>, 用于 <strong>管理关系数据库</strong> 和 <strong>操作关系数据库数据</strong> 的计算机语言为 <strong><code class="language-plaintext highlighter-rouge">SQL</code></strong>, 而不完全遵循关系模型的数据库 (如以 <code class="language-plaintext highlighter-rouge">MongoDB</code>, <code class="language-plaintext highlighter-rouge">Couchbase</code>, <code class="language-plaintext highlighter-rouge">Redis</code> 为例的文件型数据库, 以 <code class="language-plaintext highlighter-rouge">Neo4j</code> 为例的图数据库).</p>
+
+<p>称 <code class="language-plaintext highlighter-rouge">CREATE, ALTER, DROP, RENAME</code> 等建表相关的語句為 <strong>数据定义语言</strong> <code class="language-plaintext highlighter-rouge">DDL</code>, 也就是 <code class="language-plaintext highlighter-rouge">Data Definition Language</code>; <code class="language-plaintext highlighter-rouge">INSERT, UPDATE, DELETE</code> 等直接对 <strong>数据</strong> 进行操作的语句为 <strong>数据操作语言</strong> (<code class="language-plaintext highlighter-rouge">DML</code>, <code class="language-plaintext highlighter-rouge">Database Manipulation Language</code>), 以 <code class="language-plaintext highlighter-rouge">SELECT</code> 语句为例的, 用于执行信息查询的语句为 <strong>数据库查询语言</strong> (<code class="language-plaintext highlighter-rouge">DQL</code>, <code class="language-plaintext highlighter-rouge">Data Query Language</code>). <code class="language-plaintext highlighter-rouge">SQL</code> 是由上述三种语句组合而成的.</p>
+
+<h3 id="11-概念和逻辑模型">1.1 概念和逻辑模型</h3>
+
+<p>在本课程中, 我们着重介绍的数据库类型是 <strong>关系数据库</strong>. 因此, 我们需要先将需求提炼为一种称为 <strong>实体-关系模型</strong> 的概念模型 (<code class="language-plaintext highlighter-rouge">Conceptual Schema</code>), 并将概念模型具体实现为关系数据库.</p>
+
+<p><strong>定义 1.1.1</strong> (概念模式)</p>
+<blockquote>
+  <p>概念模式 (<code class="language-plaintext highlighter-rouge">Conceptual Schema</code> / <code class="language-plaintext highlighter-rouge">Conceptual Schema</code>) 是对用户数据需求的 <strong>精确描述</strong>, 包括 <strong>实体类型</strong> (<code class="language-plaintext highlighter-rouge">Entity Type</code>), <strong>实体之间关系的类型</strong> (<code class="language-plaintext highlighter-rouge">Relation Type</code>) 和 <strong>对关系的约束</strong> (<code class="language-plaintext highlighter-rouge">Constraints</code>). 用户数据需求使用不涉及具体实现细节的概念表示, 本质上是对现实的抽象和简化, 便于理解.</p>
+
+  <p>数据库设计人员可使用概念模式作为和甲方的交流手段, 并可通过检查所构造的概念模式确保甲方的所有数据需求是否得到满足.</p>
+</blockquote>
+
+<p><strong>定义 1.1.2</strong> (逻辑模式)</p>
+<blockquote>
+  <p>逻辑模式 (<code class="language-plaintext highlighter-rouge">Logic Schema</code> / <code class="language-plaintext highlighter-rouge">Logic Schema</code>) 是指可被商用 <code class="language-plaintext highlighter-rouge">DBMS</code> 直接运行的数据库实现.</p>
+
+  <p>将概念模式这种 <strong>抽象化的高级数据模型</strong> 转换为逻辑模式这种 <strong>具体的实现化数据模型</strong> 的步骤称为 <strong>逻辑设计 (<code class="language-plaintext highlighter-rouge">Logical Design</code>)</strong>, 该步骤得到的结果就是数据库的 <strong>逻辑模式</strong>.</p>
+</blockquote>
+
+<p>我们下面简介本课程中介绍的唯一一种概念模型: <strong>实体-关系模型</strong>.</p>
+
+<h3 id="12-实体-关系-e-r-模型">1.2 实体-关系 (<code class="language-plaintext highlighter-rouge">E-R</code>) 模型</h3>
+
+<p><strong>定义 1.2.1</strong> (<code class="language-plaintext highlighter-rouge">E-R</code> 模型)</p>
+<blockquote>
+  <p>实体-关系模型 (<code class="language-plaintext highlighter-rouge">Entitiy-Relationship Model</code>) 是通过从现实世界中抽象出 <strong>实体类型</strong>, <strong>实体的属性</strong> 和 <strong>实体间的关系</strong>, 从而对现实世界建模的概念模式.</p>
+</blockquote>
+
+<p><strong>定义 1.2.2</strong> (实体)</p>
+<blockquote>
+  <p><strong>实体</strong> 是 <code class="language-plaintext highlighter-rouge">E-R</code> 模型所表示的最基本对象, 它是现实世界中 <strong>独立存在的事物</strong>, 可以是物理存在, 也可以是概念存在.</p>
+</blockquote>
+
+<p><strong>定义 1.2.3</strong> (实体类型)</p>
+<blockquote>
+  <p><strong>实体类型</strong> 定义为一个 <strong>具有相同属性的实体组成的集合</strong>. 每个实体都具有一种 <strong>类型</strong>, 某个实体类型可以具有多个实例.</p>
+</blockquote>
+
+<p><strong>定义 1.2.4</strong> (码)</p>
+<blockquote>
+  <p><strong>码</strong> (<code class="language-plaintext highlighter-rouge">Key</code>) 定义为 在实体-关系模型中可用于唯一确定 (<code class="language-plaintext highlighter-rouge">Uniquely Identify</code>) 某个实体的属性, 也就是说每个不同实体的这个属性值都不相同.</p>
+
+  <p>对任何实体类型而言, 其中的每个实体实例都必须能通过某个码唯一确定. 对实体类型而言, 码 <strong>可以不唯一</strong>.</p>
+
+  <p>若某个实体类型 <strong>本身既没有可作为码的属性</strong>, <strong>又没有被赋予的码 (<code class="language-plaintext highlighter-rouge">Assigned Key</code>)</strong>, 则称该类型为 <strong>弱类型</strong> (<code class="language-plaintext highlighter-rouge">Weak</code>).</p>
+</blockquote>
+
+<p>需要注意: <code class="language-plaintext highlighter-rouge">E-R</code> 模型中 <strong>码</strong> 的概念和关系数据库中的 <strong>主键/外键</strong> 定义有 <strong>明显区别</strong>, 不可混淆, 但是可以适当地将 <strong>码</strong> 和 <strong>备选键</strong> (<code class="language-plaintext highlighter-rouge">Candidate Key</code>) 类比.</p>
+
+<p><strong>定义 1.2.5</strong> (属性)</p>
+<blockquote>
+  <p><strong>属性</strong> 是用来描述 <strong>实体</strong> 的某些 <strong>具体性质</strong> 的数据. 对特定的实体而言, 其每个属性都具有特定的值.</p>
+</blockquote>
+
+<p><code class="language-plaintext highlighter-rouge">E-R</code> 模型通常使用的属性类型有: <strong>简单/复合属性</strong>, <strong>单值/多值属性</strong>, <strong>存储/派生属性</strong>:</p>
+
+<p><strong>定义 1.2.6</strong> (简单/复合属性)</p>
+<blockquote>
+  <p>称 <strong>不可被继续划分的属性</strong> 为 <strong>简单属性</strong> 或 <strong>原子属性</strong>, <strong>复合属性</strong> 由组成它的简单属性的值组合而成.</p>
+</blockquote>
+
+<p><strong>定义 1.2.7</strong> (单值属性/多值属性)</p>
+<blockquote>
+  <p>称 <strong>某个特定实体</strong> 的 <strong>只具有一个值</strong> 的属性为 <strong>单值属性</strong>, 而该实体的 <strong>具有多个值的属性</strong> 为 <strong>多值属性</strong>, 如 <strong>某个人</strong> 的 <strong>学位</strong> (这个人可以没有学位, 也可以拿了双学位).</p>
+</blockquote>
+
+<p><strong>定义 1.2.8</strong> (存储属性/派生属性)</p>
+<blockquote>
+  <p>在某些情况下多个属性的值是相关的, 如我们可以从某人的生日计算出此人的年龄.</p>
+
+  <p>称如 “年龄” 这样的, 可以由某个其他属性计算得出的属性为 <strong>派生属性</strong>, 而称 “生日” 这样作为派生依据的属性为 <strong>存储属性</strong>.</p>
+
+  <p>在某些情况下, 某些属性值还可由 <strong>相关实体</strong> 派生得到.</p>
+</blockquote>
+
+<p><strong>定义 1.2.9</strong> (空值)</p>
+<blockquote>
+  <p><strong>空值 <code class="language-plaintext highlighter-rouge">NULL</code></strong> 在 <strong>对某个实体而言没有适用的值</strong> 或 <strong>该实体的这个属性值缺失</strong> 时应用, 其语义依具体情况差异而有不同.</p>
+</blockquote>
+
+<p><strong>定义 1.2.10</strong> (复杂属性)</p>
+<blockquote>
+  <p>由复合属性和多值属性嵌套得到的组合称为 <strong>复杂属性</strong>.</p>
+</blockquote>
+
+<p><strong>定义 1.2.11</strong> (关系)</p>
+<blockquote>
+  <p><strong>关系</strong> 描述 <strong>不同实体类型</strong> 之间的联系, 将两个或更多实体类型使用某种含义 (<code class="language-plaintext highlighter-rouge">Meaning</code>) 相连接, 如考虑实体: <strong>Axton</strong> 和 <strong>COMP23111</strong>, 在 “<code class="language-plaintext highlighter-rouge">Axton</code> <strong>通过了</strong> <code class="language-plaintext highlighter-rouge">COMP23111</code>” 中, <strong>通过</strong> 就是一个 <strong>二元关系</strong>.</p>
+</blockquote>
+
+<p>注: <code class="language-plaintext highlighter-rouge">E-R</code> 模型中的关系受 <strong>基数约束</strong> (<code class="language-plaintext highlighter-rouge">Cardinality Constraint</code>), 它由所被建模的关系而决定 (回顾一下一对多, 一对一, 多对一等基数约束类型). 我们将在数据库建模一节中详细描述如何在 <code class="language-plaintext highlighter-rouge">E-R</code> 表 (<code class="language-plaintext highlighter-rouge">Entity-Relationship Diagram</code>) 中表示实体类型之间的关系所受的基数约束.</p>
+
+<h3 id="13-数据库的关系模型">1.3 数据库的关系模型</h3>
+
+<p>数据库的三种基本模型是 <strong>层次模型</strong>, <strong>网状模型</strong>, <strong>关系模型</strong>, 其中以 <strong>数据库的关系模型</strong> 应用最为广泛.</p>
+
+<p><strong>定义 1.3.1</strong> (数据库的关系模型)</p>
+<blockquote>
+  <p><strong>关系模型</strong> 将数据库表示为 <strong>由关系组成的集合</strong>.</p>
+
+  <p>若我们将每个关系视为一个 <strong>表格</strong> (<code class="language-plaintext highlighter-rouge">Table</code>)时, 每个表都表示一个相关数据集的集合 (某个实体集), 每一行表示一个实体, 其内容的实质是抽象而来的 <strong>事实</strong>, 一般对应现实世界中的某个实体或者某个联系.</p>
+</blockquote>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113113232.png" alt="20220113113232" /></p>
+
+<p>如上图所示, 对某个关系而言, 其表名和列名分别用来解释每一行/列的值所代表的含义.</p>
+
+<p>需要注意, 关系模型本身只是对某种关系的建模, 并不包含实际的数据本身.</p>
+
+<p>在正式的关系模型术语中, 行称为 <strong>元组</strong> (<code class="language-plaintext highlighter-rouge">Tuple</code>), 列标题称为 <strong>属性</strong> (<code class="language-plaintext highlighter-rouge">Attribute</code>), 表称为 <strong>关系</strong>, 数据类型称为 <strong>域</strong> (<code class="language-plaintext highlighter-rouge">Domain</code>):</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113114155.png" alt="20220113114155" /></p>
+
+<p>下面我们对这些术语进行定义:</p>
+
+<p><strong>定义 1.3.2</strong> (域)</p>
+<blockquote>
+  <p>称 <strong>域</strong> 是 <strong>不可再分的原子值</strong> 组成的集合.</p>
+
+  <p>一般而言, 指定一个域的通常方法是 <strong>指定某个数据类型</strong> , 从而确保 构成这个域的数据值都来自这个数据类型.</p>
+</blockquote>
+
+<p>在本课程中, 我们可以近似地认为域就是数据类型.</p>
+
+<p><strong>定义 1.3.3</strong> (关系模式, <code class="language-plaintext highlighter-rouge">Relational Schema</code>)</p>
+<blockquote>
+  <p>关系模式 $R$ 表示为</p>
+
+\[R(A_1, A_2, \cdots, A_n),\]
+
+  <p>由关系名 $R$ 和属性列表 $A_1, A_2, \cdots, A_n$ 共同构成. 每个属性 $A_i$ 都是一个变量名, 它可取的值在某个域 $D := \text{dom}(A_i)$ 中.</p>
+
+  <p>关系的 <strong>度/元</strong> (<code class="language-plaintext highlighter-rouge">Degree</code> 或 <code class="language-plaintext highlighter-rouge">Arity</code>) 是该关系模式中 <strong>属性的个数 $n$</strong>.</p>
+</blockquote>
+
+<p>在上面的例子中, 我们描述了一个名为 <code class="language-plaintext highlighter-rouge">Student</code>, 度为 $4$ 的关系, 在 <code class="language-plaintext highlighter-rouge">E-R</code> 模型中, <code class="language-plaintext highlighter-rouge">Student</code> 被解释为 <strong>实体类型</strong>. 在关系模型中, 原先的 “实体类型” 被解释为 “关系”, 也就是说实体的本质被视为是将某种和一系列不同 <strong>属性</strong> 聚合的关系, 而原先实体类型之间的关系被用主键和外键表示.</p>
+
+<p><strong>定义 1.3.4</strong> (键/超键)</p>
+<blockquote>
+  <p>称在某个关系表中的, 能够用于唯一标识元组 (也就是实体集中的某个特定实体)的属性集 为 <strong>键</strong>.</p>
+</blockquote>
+
+<p><strong>定义 1.3.5</strong> (主键)</p>
+<blockquote>
+  <p>称在候选键组成的集合中被 <strong>选定</strong> 用来唯一标识某个元组的键为 <strong>主键</strong> (<code class="language-plaintext highlighter-rouge">Primary Key</code>).</p>
+</blockquote>
+
+<p><strong>定义 1.3.6</strong> (超键, <code class="language-plaintext highlighter-rouge">Super Key</code>)</p>
+<blockquote>
+  <p>称 <strong>能唯一标识元组</strong> 的属性集为 <strong>超键</strong>.</p>
+</blockquote>
+
+<p><strong>定义 1.3.7</strong> (候选键, <code class="language-plaintext highlighter-rouge">Candidate Key</code>)</p>
+<blockquote>
+  <p>称 <strong>能唯一标示元组</strong> 且 <strong>不含多余属性</strong> 的属性集 为 <strong>候选键</strong>.</p>
+</blockquote>
+
+<p>注: Gareth把 <strong>超键</strong> 和 <strong>候选键</strong> 的定义搞反了. 正常的候选键就是如 <code class="language-plaintext highlighter-rouge">定义 3.7</code> 这样定义的.</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113125232.png" alt="20220113125232" /></p>
+
+<p>由于Stewart在讨论函数依赖和范式时仍然沿用了正常的候选键和超键的定义, 本人姑且认为Gareth的Slide里出现的Candidate Key定义是错的, 一切以 <code class="language-plaintext highlighter-rouge">Wikipedia</code> 和其他经典数据库教材为准.</p>
+
+<p>参考 <a href="https://en.wikipedia.org/wiki/Candidate_key">这里</a> 和 <a href="https://beginnersbook.com/2015/04/super-key-in-dbms/">这里</a></p>
+
+<p><strong>定义 1.3.8</strong> (外键)</p>
+<blockquote>
+  <p>称某个元组中, 出现在其他元组里且作为其他元组的主键的属性为 <strong>外键</strong>. 外键具备连接元组与元组的职能.</p>
+</blockquote>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113125750.png" alt="20220113125750" /></p>
+
+<p><strong>定义 1.3.9</strong> (数据库模式)</p>
+<blockquote>
+  <p>数据库模式 (<code class="language-plaintext highlighter-rouge">Database Schema</code>) 定义了数据库中各表的结构和他们之间的关系, 本质上是对关系模式 (<code class="language-plaintext highlighter-rouge">Relational Schema</code>) 的提炼: 它只包含对各个关系所定义的规则, 而不包含实际的数据.</p>
+</blockquote>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113130917.png" alt="20220113130917" /></p>
+
+<p>下面讨论关系模型中的数据完整性约束:</p>
+
+<p>关系模式中涉及的操作包括 <code class="language-plaintext highlighter-rouge">CRUD</code>: 插入 (<code class="language-plaintext highlighter-rouge">Create</code>), 查找 (<code class="language-plaintext highlighter-rouge">Retrieval</code>),修改 (<code class="language-plaintext highlighter-rouge">Update</code>), 删除 (<code class="language-plaintext highlighter-rouge">Delete</code>). 而数据库在执行这些操作前都会检查操作是否满足数据库的 <strong>完整性约束</strong> (<code class="language-plaintext highlighter-rouge">Integrity Constraint</code>), 从而防止用户在修改数据库时不会破坏 <strong>数据库的一致性</strong>. 完整性约束包含下面的几种类型:</p>
+
+<ol>
+  <li>
+    <p>主键约束 (Primay Key Constraint): 确保数据字段的 <strong>唯一性</strong> 和 <strong>非空性</strong>.</p>
+  </li>
+  <li>
+    <p>唯一约束 (Unique Constraint): 确保数据字段的 <strong>唯一性</strong>. (但是可为空)</p>
+  </li>
+  <li>
+    <p>检查约束 (Check Constraint): 限制该数据字段的范围和格式.</p>
+  </li>
+  <li>
+    <p>默认约束 (Default Constraint) 赋予该数据字段规定好的默认值.</p>
+  </li>
+  <li>
+    <p>外键约束 (Foreign Key Constraint): 需要建立两表间的关系并引用主表的列.</p>
+  </li>
+</ol>
+
+<p>最后简单总结:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113130605.png" alt="20220113130605" /></p>
+
+<h3 id="14-函数依赖-functional-dependencies-和范式-normal-form">1.4 函数依赖 (<code class="language-plaintext highlighter-rouge">Functional Dependencies</code>) 和范式 (<code class="language-plaintext highlighter-rouge">Normal Form</code>)</h3>
+
+<p>我们先讨论 <strong>函数依赖</strong>, 它是关系模式设计理论中的重要概念:</p>
+
+<p><strong>定义 1.4.1</strong> (函数依赖)</p>
+<blockquote>
+  <p>若在某张表中, 在 <strong>属性集</strong> $X$ 的值确定的情况下, 必能 <strong>唯一确定</strong> 属性 $Y$ 的值, 则称 属性 $Y$ 是 <strong>函数依赖于</strong> 属性 $X$ 的, 记为</p>
+
+\[X \rightarrow Y.\]
+
+  <p>或称属性 $X$ <strong>函数决定了</strong> 属性 $Y$.</p>
+</blockquote>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113171957.png" alt="20220113171957" /></p>
+
+<p><strong>定义 1.4.2</strong> (完全函数依赖)</p>
+<blockquote>
+  <p>若某张表满足函数依赖关系 $X \rightarrow Y$, 则若对于属性组 $X$ 的任何一个 <strong>真子集</strong> $X’$, 满足</p>
+
+\[X' \nrightarrow Y\]
+
+  <p>则称 $Y$ 对于 $X$ <strong>完全函数依赖</strong>, 记作</p>
+
+\[X \overset{F}{\rightarrow} Y.\]
+
+</blockquote>
+
+<p><strong>定义 1.4.3</strong> (部分函数依赖)</p>
+<blockquote>
+  <p>和 <strong>完全函数依赖</strong> 相对地, 若属性 $Y$ 是 <strong>函数依赖于</strong> 属性 $X$, 但并不 <strong>完全函数依赖于</strong> 它, 则称 $Y$ <strong>部分函数依赖于</strong> $X$, 记为</p>
+
+\[X \overset{P}{\rightarrow} Y.\]
+
+</blockquote>
+
+<p><strong>定义 1.4.4</strong> (传递函数依赖)</p>
+<blockquote>
+  <p>若:</p>
+
+  <ol>
+    <li>$Y$ 函数依赖于 $X$;</li>
+    <li>$Z$ 函数依赖于 $Y$,</li>
+  </ol>
+
+  <p>则称 $Z$ <strong>传递函数依赖于</strong> $X$, 记为</p>
+
+\[X \overset{T}{\rightarrow} Z.\]
+
+</blockquote>
+
+<p><strong>定义 1.4.5</strong> (主属性)</p>
+<blockquote>
+  <p>称 <strong>包含在任意一个候选键 (属性集) 中的属性</strong> 为 <strong>主属性</strong>.</p>
+</blockquote>
+
+<p><strong>定义 1.4.6</strong> (非主属性)</p>
+<blockquote>
+  <p>称 <strong>不包含在任意候选键中的属性</strong> 为 <strong>非主属性</strong>.</p>
+</blockquote>
+
+<p>我们可以通过一系列推理规则, 从已知的一些函数依赖推导出另外一些函数依赖, 而这些规则就被称为 <code class="language-plaintext highlighter-rouge">Armstrong</code> 公理:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113173309.png" alt="20220113173309" /></p>
+
+<p>其推论:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113173334.png" alt="20220113173334" /></p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113173346.png" alt="20220113173346" /></p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113173357.png" alt="20220113173357" /></p>
+
+<p>在此基础上, 对任何由一系列函数依赖规则组成的集合 $U$ , 对于该集合中的任意一个真子集 $F$ 而言, 我们都可以 <strong>使用上面提到的规则</strong> 计算出 <strong>基于全体规则 $U$, 从 $F$ 出发可被逻辑推导出的全部函数依赖规则</strong>. 在解决一些题目时, 可以用这种方式快速确定超键.如:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113174051.png" alt="20220113174051" /></p>
+
+<p>我们下面给出不同级别范式的定义与它们的转换原则:</p>
+
+<p>为了确保我们设计得到的关系模式 (<code class="language-plaintext highlighter-rouge">Relational Schema</code>) 具备最小的数据冗余且存在最少的 <code class="language-plaintext highlighter-rouge">CRUD</code> 异常, 需要通过对给定的关系模式进行一系列的检验, 以 “验证” 我们的关系模式是否符合某些特定的标准, 也就是所谓的 “范式”.</p>
+
+<p>随后, 我们可以基于不同范式的相应标准对我们的关系模式进行验证和评估, 并根据实际需要对我们的关系模式中不满足标准的某些关系进行进一步分解, 从而将其规范化.</p>
+
+<p><strong>定义 1.4.7</strong> 范式</p>
+<blockquote>
+  <p><strong>范式</strong> 是 <strong>符合某种级别的关系模式的集合</strong>, 表示了某个关系内部各个属性之间的联系的合理化程度, 换做人话来说就是 <strong>关系模式的表结构所符合的设计标准的级别</strong>.</p>
+
+  <p>而 <strong>关系的范式</strong> 则是该关系所能满足的最高的范式条件, 表现了这个关系规范化的程度.</p>
+</blockquote>
+
+<p>在本课程中, 我们关心的范式分为 <strong>第一范式</strong> (<code class="language-plaintext highlighter-rouge">1NF</code>) , <strong>第二范式</strong> (<code class="language-plaintext highlighter-rouge">2NF</code>) 和 <strong>第三范式</strong> (<code class="language-plaintext highlighter-rouge">3NF</code>).</p>
+
+<p><strong>定义 1.4.8</strong> (第一范式)</p>
+<blockquote>
+  <p>第一范式基于 <strong>原子化</strong> 的概念: 它规定属性域只能包含不可再分的 (原子化的) 值, 且元组中任一属性的值必须是一个来自于该属性域的, 单个的值.</p>
+
+  <p>换言之, <code class="language-plaintext highlighter-rouge">1NF</code> 不允许 “关系中嵌套关系” 或 “元组中任何一个属性值是关系”.</p>
+</blockquote>
+
+<p>比如, 考虑下图所示的关系模式 <code class="language-plaintext highlighter-rouge">Department</code>, 假设属性 <code class="language-plaintext highlighter-rouge">Dlocations</code> 值不唯一, 则该关系模式不满足 <code class="language-plaintext highlighter-rouge">1NF</code>:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113175935.png" alt="20220113175935" /></p>
+
+<p>在本课程中, 我们介绍了下述的, 将这样的关系模式转换为 <code class="language-plaintext highlighter-rouge">1NF</code> 的方式:</p>
+
+<p>从这个关系模式中移除导致违背 <code class="language-plaintext highlighter-rouge">1NF</code> 要求的属性 (在我们的例子中是 <code class="language-plaintext highlighter-rouge">Dlocations</code>), 并将它和原模式 <code class="language-plaintext highlighter-rouge">DEPARTMENT</code> 的主码 <code class="language-plaintext highlighter-rouge">Dnumber</code> 放在单独的一个新关系中, 这个新关系的主码依据实际情况决定, 在本例中则为 <code class="language-plaintext highlighter-rouge">{Dnumber, Dlocations}</code>. 这一方法的实质是: <strong>将某个非 <code class="language-plaintext highlighter-rouge">1NF</code> 的关系分解为多个 <code class="language-plaintext highlighter-rouge">1NF</code> 关系</strong>.</p>
+
+<p><strong>定义 1.4.9</strong> (第二范式)</p>
+<blockquote>
+  <p>第二范式基于 <strong>完全函数依赖</strong> 的概念:</p>
+
+  <p>若关系模式 $R$ 中的每个非主属性 $A$ 都 <strong>完全依赖于</strong> $R$ 的主键, 则该关系模式属于 <code class="language-plaintext highlighter-rouge">2NF</code>.</p>
+</blockquote>
+
+<p>换言之, 如果给定的关系模式的主键的任何一个真子集能够唯一确定某个不在主键内的属性, 则这个关系模式就不是 <code class="language-plaintext highlighter-rouge">2NF</code>.</p>
+
+<p>如果主键只由单个属性组成, 则无需进行 <code class="language-plaintext highlighter-rouge">2NF</code> 检验, 这个关系模式一定是 <code class="language-plaintext highlighter-rouge">2NF</code>.</p>
+
+<p>本课程中所介绍的, 将 <code class="language-plaintext highlighter-rouge">1NF</code> 转化为 <code class="language-plaintext highlighter-rouge">2NF</code> 的流程是: (注意: 不要跨级转化范式!)</p>
+
+<p>考虑某个不属于 <code class="language-plaintext highlighter-rouge">2NF</code> 的关系模式, 我们需要:</p>
+
+<ol>
+  <li>
+    <p>找到那些部分依赖主键的属性.</p>
+  </li>
+  <li>
+    <p>确定它们分别 <strong>完全依赖于主键的哪个组成部分</strong>.</p>
+  </li>
+  <li>
+    <p>将原来的关系进行拆分, 每个部分依赖主键的属性都要被从原关系中拆分出来, 和它所完全依赖的那一部分主键组合在一起形成一个满足 <code class="language-plaintext highlighter-rouge">2NF</code> 的, 更小的关系.</p>
+  </li>
+</ol>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113182028.png" alt="20220113182028" /></p>
+
+<p><strong>定义 1.4.10</strong> (第三范式)</p>
+<blockquote>
+  <p>第三范式基于 <strong>传递依赖</strong> 的概念:
+若某个关系模式 $R$ 满足 <code class="language-plaintext highlighter-rouge">2NF</code> 范式, 且 $R$ 中不存在 <strong>非主属性传递依赖于主码</strong> 的情况, 则 $R$ 属于 <code class="language-plaintext highlighter-rouge">3NF</code>.</p>
+</blockquote>
+
+<p>换言之, 关系模式中所有的非主属性都应该直接依赖于主键. 若存在某两个非主属性 $Y, Z$, 对于主键 $X$, 有</p>
+
+<ol>
+  <li>$X \rightarrow Y$</li>
+  <li>$Y \rightarrow Z$</li>
+</ol>
+
+<p>则这个关系模式就不是 <code class="language-plaintext highlighter-rouge">3NF</code>.</p>
+
+<p>本课程中介绍了下述的 <code class="language-plaintext highlighter-rouge">3NF</code> 转换方法:</p>
+
+<ol>
+  <li>
+    <p>找到间接依赖主键的属性链条.</p>
+  </li>
+  <li>
+    <p>拆分关系, 打散链条.对于间接依赖链条上除了主键以外的每个节点, 都要单独分解为 <code class="language-plaintext highlighter-rouge">3NF</code> 模式进行规范化.</p>
+  </li>
+</ol>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113182914.png" alt="20220113182914" /></p>
+
+<p>综上所述, 我们可以将基于主码的范式和相应的规范化的检验条件和规范化方法总结如下:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113183006.png" alt="20220113183006" /></p>
+
+<p><br /></p>
+
+<p><br /></p>
+
+<p>REFERENCE</p>
+
+<p><a href="https://www.youtube.com/watch?v=QpdhBUYk7Kk">Entity Relationship Diagram (ERD) Tutorial - Part 1</a></p>
+
+<p><a href="https://www.youtube.com/watch?v=-CuY5ADwn24">Entity Relationship Diagram (ERD) Tutorial - Part 2</a></p>
+
+<p><a href="https://en.wikipedia.org/wiki/Conceptual_schema">Wikipedia: Conceptual schema</a></p>
+
+
+
+                <hr style="visibility: hidden;">
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2022/01/05/COMP26120-REV/" data-toggle="tooltip" data-placement="top" title="数据结构与算法 复习">
+                        Previous<br>
+                        <span>数据结构与算法 复习</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2022/01/12/COMP23111-REV-Ch2/" data-toggle="tooltip" data-placement="top" title="数据库导论 关系数据库建模">
+                        Next<br>
+                        <span>数据库导论 关系数据库建模</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <hr style="visibility: hidden;">
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+                
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+
+
+<section>
+    
+        <hr class="hidden-sm hidden-xs">
+    
+    <h5><a href="/archive/">FEATURED TAGS</a></h5>
+    <div class="tags">
+        
+        
+        
+        
+        
+        
+                <a data-sort="0109" 
+                    href="/archive/?tag=COMP12111"
+                    title="COMP12111"
+                    rel="10">COMP12111</a>
+        
+                <a data-sort="0027" 
+                    href="/archive/?tag=2021"
+                    title="2021"
+                    rel="92">2021</a>
+        
+                <a data-sort="0073" 
+                    href="/archive/?tag=%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0"
+                    title="课程笔记"
+                    rel="46">课程笔记</a>
+        
+                <a data-sort="0079" 
+                    href="/archive/?tag=%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0"
+                    title="前端学习"
+                    rel="40">前端学习</a>
+        
+                <a data-sort="0079" 
+                    href="/archive/?tag=50P50D"
+                    title="50P50D"
+                    rel="40">50P50D</a>
+        
+                <a data-sort="0094" 
+                    href="/archive/?tag=2020"
+                    title="2020"
+                    rel="25">2020</a>
+        
+                <a data-sort="0104" 
+                    href="/archive/?tag=COMP24011"
+                    title="COMP24011"
+                    rel="15">COMP24011</a>
+        
+                <a data-sort="0107" 
+                    href="/archive/?tag=%E9%80%BB%E8%BE%91%E5%AD%A6"
+                    title="逻辑学"
+                    rel="12">逻辑学</a>
+        
+                <a data-sort="0109" 
+                    href="/archive/?tag=COMP15111"
+                    title="COMP15111"
+                    rel="10">COMP15111</a>
+        
+                <a data-sort="0110" 
+                    href="/archive/?tag=%E6%89%A9%E5%B1%95%E8%87%AA%E4%B9%A0"
+                    title="扩展自习"
+                    rel="9">扩展自习</a>
+        
+                <a data-sort="0110" 
+                    href="/archive/?tag=COMP21111"
+                    title="COMP21111"
+                    rel="9">COMP21111</a>
+        
+                <a data-sort="0112" 
+                    href="/archive/?tag=%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0"
+                    title="机器学习"
+                    rel="7">机器学习</a>
+        
+                <a data-sort="0112" 
+                    href="/archive/?tag=COMP11212"
+                    title="COMP11212"
+                    rel="7">COMP11212</a>
+        
+                <a data-sort="0115" 
+                    href="/archive/?tag=%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95"
+                    title="数据结构和算法"
+                    rel="4">数据结构和算法</a>
+        
+                <a data-sort="0115" 
+                    href="/archive/?tag=COMP15212"
+                    title="COMP15212"
+                    rel="4">COMP15212</a>
+        
+                <a data-sort="0115" 
+                    href="/archive/?tag=COMP23111"
+                    title="COMP23111"
+                    rel="4">COMP23111</a>
+        
+                <a data-sort="0116" 
+                    href="/archive/?tag=%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7"
+                    title="奇技淫巧"
+                    rel="3">奇技淫巧</a>
+        
+                <a data-sort="0117" 
+                    href="/archive/?tag=%E7%99%BD%E6%9E%9C%E5%9B%AD"
+                    title="白果园"
+                    rel="2">白果园</a>
+        
+                <a data-sort="0117" 
+                    href="/archive/?tag=%E7%AE%97%E6%B3%95"
+                    title="算法"
+                    rel="2">算法</a>
+        
+                <a data-sort="0117" 
+                    href="/archive/?tag=Lab"
+                    title="Lab"
+                    rel="2">Lab</a>
+    </div>
+</section>
+
+
+                <!-- Friends Blog -->
+                
+<hr>
+<h5>FRIENDS</h5>
+<ul class="list-inline">
+  
+  <li><a href="http://ryanxin.cn">Ryan Xin</a></li>
+  
+  <li><a href="https://flyhigher.top">Axton.Gay</a></li>
+  
+  <li><a href="https://graynekocafe.net">GrayNekoBean</a></li>
+  
+  <li><a href="Gnefil.github.io">Gnefil</a></li>
+  
+</ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<!-- add support for mathjax by voleking-->
+
+
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "KirisameR";
+    var disqus_identifier = "/2022/01/11/COMP23111 REV Ch1";
+    var disqus_url = "http://localhost:4000/2022/01/11/COMP23111-REV-Ch1/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'right',
+          // icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <!-- SNS Link -->
+                
+
+
+<ul class="list-inline text-center">
+
+
+  
+  
+  
+  
+  
+  
+  <li>
+    <a target="_blank" href="https://github.com/KirisameR">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  
+  
+</ul>
+
+                <p class="copyright text-muted">
+                    Copyright &copy; 某一般线性空间 2022
+                    <br>
+                    Powered by <a href="http://huangxuan.me">Hux Blog</a> |
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="100px"
+                        height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=huxpro&repo=huxpro.github.io&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<!-- Currently, only navbar scroll-down effect at desktop still depends on this -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Simple Jekyll Search -->
+<script src="/js/simple-jekyll-search.min.js"></script>
+
+<!-- Service Worker -->
+
+<script src="/js/snackbar.js "></script>
+<script src="/js/sw-registration.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+        var d = document, t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+
+
+
+
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog(selector) {
+
+        // interop with multilangual 
+        if ('' == 'true') {
+            _containerSelector = 'div.post-container.active'
+        } else {
+            _containerSelector = 'div.post-container'
+        }
+
+        // init
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        // clean
+        $(selector).html('')
+
+        // appending
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+<!-- Multi-Lingual -->
+
+
+<!-- Simple Jekyll Search -->
+<script>
+    // https://stackoverflow.com/questions/1912501/unescape-html-entities-in-javascript
+    function htmlDecode(input) {
+        var e = document.createElement('textarea');
+        e.innerHTML = input;
+        // handle case of empty input
+        return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+    }
+
+    SimpleJekyllSearch({
+        searchInput: document.getElementById('search-input'),
+        resultsContainer: document.getElementById('search-results'),
+        json: '/search.json',
+        searchResultTemplate: '<div class="post-preview item"><a href="{url}"><h2 class="post-title">{title}</h2><h3 class="post-subtitle">{subtitle}</h3><hr></a></div>',
+        noResultsText: 'No results',
+        limit: 50,
+        fuzzy: false,
+        // a hack to get escaped subtitle unescaped. for some reason, 
+        // post.subtitle w/o escape filter nuke entire search.
+        templateMiddleware: function (prop, value, template) {
+            if (prop === 'subtitle' || prop === 'title') {
+                if (value.indexOf("code")) {
+                    return htmlDecode(value);
+                } else {
+                    return value;
+                }
+            }
+        }
+    });
+
+    $(document).ready(function () {
+        var $searchPage = $('.search-page');
+        var $searchOpen = $('.search-icon');
+        var $searchClose = $('.search-icon-close');
+        var $searchInput = $('#search-input');
+        var $body = $('body');
+
+        $searchOpen.on('click', function (e) {
+            e.preventDefault();
+            $searchPage.toggleClass('search-active');
+            var prevClasses = $body.attr('class') || '';
+            setTimeout(function () {
+                $body.addClass('no-scroll');
+            }, 400)
+
+            if ($searchPage.hasClass('search-active')) {
+                $searchClose.on('click', function (e) {
+                    e.preventDefault();
+                    $searchPage.removeClass('search-active');
+                    $body.attr('class', prevClasses);  // from closure 
+                });
+                $searchInput.focus();
+            }
+        });
+    });
+</script>
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

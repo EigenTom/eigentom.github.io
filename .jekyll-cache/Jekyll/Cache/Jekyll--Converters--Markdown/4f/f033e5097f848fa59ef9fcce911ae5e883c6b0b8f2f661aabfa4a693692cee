@@ -1,0 +1,253 @@
+I"�9<h1 id="动画递增式计数看板-incrementing-counter">动画递增式计数看板 Incrementing-Counter</h1>
+
+<h2 id="1-概述">1. 概述</h2>
+
+<p>项目本体为展示社交平台订阅数的看板. 在每次加载时订阅数会在 $1$ 秒内从 $0$ 递增到实际值.</p>
+
+<p>本项目中涉及的知识点:</p>
+
+<ol>
+  <li>在 <code class="language-plaintext highlighter-rouge">JavaScript</code> 中变量自增语法为 <code class="language-plaintext highlighter-rouge">x = +x</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">JavaScript</code> 中向上取整函数为 <code class="language-plaintext highlighter-rouge">Math.ceil()</code>.</li>
+</ol>
+
+<p>效果:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameMarisaa/KirisameMarisaa.github.io/img/blogpost_images/20210826215223.png" alt="20210826215223.png" /></p>
+
+<p><br /></p>
+
+<h2 id="2-结构和切图">2. 结构和切图</h2>
+
+<p>网页的基本结构如下:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;body&gt;</span>
+    
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"counter-container"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">"fab fa-twitter fa-3x"</span><span class="nt">&gt;&lt;/i&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"counter"</span> <span class="na">data-target=</span><span class="s">"12000"</span><span class="nt">&gt;&lt;/div&gt;</span>
+        <span class="nt">&lt;span&gt;</span>Twitter Followers<span class="nt">&lt;/span&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+
+
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"counter-container"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">"fab fa-youtube fa-3x"</span><span class="nt">&gt;&lt;/i&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"counter"</span> <span class="na">data-target=</span><span class="s">"5000"</span><span class="nt">&gt;&lt;/div&gt;</span>
+        <span class="nt">&lt;span&gt;</span>Youtube Subscribers<span class="nt">&lt;/span&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+
+
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"counter-container"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">"fab fa-facebook fa-3x"</span><span class="nt">&gt;&lt;/i&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"counter"</span> <span class="na">data-target=</span><span class="s">"7500"</span><span class="nt">&gt;&lt;/div&gt;</span>
+        <span class="nt">&lt;span&gt;</span>Facebook Fans<span class="nt">&lt;/span&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;/body&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>三个 <code class="language-plaintext highlighter-rouge">div</code> 容器承载图标, 订阅数字和描述文字, 共同组成网页的可视部分.</p>
+
+<p><br /></p>
+
+<h2 id="3-编写-css-样式">3. 编写 <code class="language-plaintext highlighter-rouge">CSS</code> 样式</h2>
+
+<p>首先定义容器样式:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre><span class="nc">.counter-container</span><span class="p">{</span>
+    <span class="nl">display</span><span class="p">:</span> <span class="n">flex</span><span class="p">;</span>
+    <span class="nl">flex-direction</span><span class="p">:</span> <span class="n">column</span><span class="p">;</span>
+    <span class="nl">justify-content</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+    <span class="nl">text-align</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+    <span class="nl">margin</span><span class="p">:</span> <span class="m">30px</span> <span class="m">50px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.counter</span> <span class="p">{</span>
+    <span class="nl">font-size</span><span class="p">:</span> <span class="m">60px</span><span class="p">;</span>
+    <span class="nl">margin-top</span><span class="p">:</span> <span class="m">10px</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>注意我们在调用 <code class="language-plaintext highlighter-rouge">fontawesome</code> 字体中的对应社交平台图标时已经指定了其大小.</p>
+
+<p>随后简单规定 <code class="language-plaintext highlighter-rouge">body</code> 的排版方式和背景颜色:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre><span class="nt">body</span> <span class="p">{</span>
+    <span class="nl">background-color</span><span class="p">:</span> <span class="m">#660099</span><span class="p">;</span>
+    <span class="nl">color</span><span class="p">:</span> <span class="m">#FFCC33</span><span class="p">;</span>
+    <span class="nl">font-family</span><span class="p">:</span> <span class="n">-apple-system</span><span class="p">,</span> <span class="n">BlinkMacSystemFont</span><span class="p">,</span> <span class="s2">'Segoe UI'</span><span class="p">,</span> <span class="n">Roboto</span><span class="p">,</span> <span class="n">Oxygen</span><span class="p">,</span> <span class="n">Ubuntu</span><span class="p">,</span> <span class="n">Cantarell</span><span class="p">,</span> <span class="s2">'Open Sans'</span><span class="p">,</span> <span class="s2">'Helvetica Neue'</span><span class="p">,</span> <span class="nb">sans-serif</span><span class="p">;</span>
+    <span class="nl">display</span><span class="p">:</span> <span class="n">flex</span><span class="p">;</span>
+    <span class="nl">align-items</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+    <span class="nl">justify-content</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+    <span class="nl">height</span><span class="p">:</span> <span class="m">100vh</span><span class="p">;</span>
+    <span class="nl">overflow</span><span class="p">:</span> <span class="nb">hidden</span><span class="p">;</span>
+    <span class="nl">margin</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>完整的 <code class="language-plaintext highlighter-rouge">CSS</code> 样式表如下:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+</pre></td><td class="rouge-code"><pre>
+<span class="o">*</span> <span class="p">{</span>
+    <span class="nl">box-sizing</span><span class="p">:</span> <span class="n">border-box</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">body</span> <span class="p">{</span>
+    <span class="nl">background-color</span><span class="p">:</span> <span class="m">#660099</span><span class="p">;</span>
+    <span class="nl">color</span><span class="p">:</span> <span class="m">#FFCC33</span><span class="p">;</span>
+    <span class="nl">font-family</span><span class="p">:</span> <span class="n">-apple-system</span><span class="p">,</span> <span class="n">BlinkMacSystemFont</span><span class="p">,</span> <span class="s2">'Segoe UI'</span><span class="p">,</span> <span class="n">Roboto</span><span class="p">,</span> <span class="n">Oxygen</span><span class="p">,</span> <span class="n">Ubuntu</span><span class="p">,</span> <span class="n">Cantarell</span><span class="p">,</span> <span class="s2">'Open Sans'</span><span class="p">,</span> <span class="s2">'Helvetica Neue'</span><span class="p">,</span> <span class="nb">sans-serif</span><span class="p">;</span>
+    <span class="nl">display</span><span class="p">:</span> <span class="n">flex</span><span class="p">;</span>
+    <span class="nl">align-items</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+    <span class="nl">justify-content</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+    <span class="nl">height</span><span class="p">:</span> <span class="m">100vh</span><span class="p">;</span>
+    <span class="nl">overflow</span><span class="p">:</span> <span class="nb">hidden</span><span class="p">;</span>
+    <span class="nl">margin</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.counter-container</span><span class="p">{</span>
+    <span class="nl">display</span><span class="p">:</span> <span class="n">flex</span><span class="p">;</span>
+    <span class="nl">flex-direction</span><span class="p">:</span> <span class="n">column</span><span class="p">;</span>
+    <span class="nl">justify-content</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+    <span class="nl">text-align</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+    <span class="nl">margin</span><span class="p">:</span> <span class="m">30px</span> <span class="m">50px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.counter</span> <span class="p">{</span>
+    <span class="nl">font-size</span><span class="p">:</span> <span class="m">60px</span><span class="p">;</span>
+    <span class="nl">margin-top</span><span class="p">:</span> <span class="m">10px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">@media</span> <span class="p">(</span><span class="n">max-width</span><span class="p">:</span> <span class="m">680px</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nt">body</span> <span class="p">{</span>
+        <span class="nl">flex-direction</span><span class="p">:</span> <span class="n">column</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>注意在样式表的最后我们还简单设计了响应式布局: 在页面宽度小于 $680\text{px}$ 时将容器排布方式从横向改为纵向.</p>
+
+<p><br /></p>
+
+<h2 id="4-javascript">4. <code class="language-plaintext highlighter-rouge">JavaScript</code></h2>
+
+<p>最后编写 <code class="language-plaintext highlighter-rouge">JavaScript</code> 函数, 注意高级循环 <code class="language-plaintext highlighter-rouge">forEach</code> 中匿名函数的定义方法.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+</pre></td><td class="rouge-code"><pre><span class="kd">const</span> <span class="nx">counters</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span><span class="dl">'</span><span class="s1">.counter</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="nx">counters</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">counter</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">counter</span><span class="p">.</span><span class="nx">innerText</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">0</span><span class="dl">'</span><span class="p">;</span>
+
+    <span class="kd">const</span> <span class="nx">updateCounter</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="kd">const</span> <span class="nx">target</span> <span class="o">=</span> <span class="o">+</span><span class="nx">counter</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="dl">'</span><span class="s1">data-target</span><span class="dl">'</span><span class="p">);</span>
+        <span class="kd">const</span> <span class="nx">c</span> <span class="o">=</span> <span class="o">+</span><span class="nx">counter</span><span class="p">.</span><span class="nx">innerText</span><span class="p">;</span>
+
+        <span class="kd">const</span> <span class="nx">increment</span> <span class="o">=</span> <span class="nx">target</span> <span class="o">/</span> <span class="mi">200</span><span class="p">;</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="nx">c</span><span class="o">&lt;</span><span class="nx">target</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">counter</span><span class="p">.</span><span class="nx">innerText</span> <span class="o">=</span> <span class="s2">`</span><span class="p">${</span><span class="nb">Math</span><span class="p">.</span><span class="nx">ceil</span><span class="p">(</span><span class="nx">c</span> <span class="o">+</span> <span class="nx">increment</span><span class="p">)}</span><span class="s2">`</span><span class="p">;</span>
+            <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">updateCounter</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nx">counter</span><span class="p">.</span><span class="nx">innerText</span> <span class="o">=</span> <span class="nx">target</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="nx">updateCounter</span><span class="p">();</span>
+<span class="p">})</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>最后, 完整的网页演示可见 <a href="../../../../../projects/50P50D/incrementing-counter/index.html">此处</a></p>
+:ET

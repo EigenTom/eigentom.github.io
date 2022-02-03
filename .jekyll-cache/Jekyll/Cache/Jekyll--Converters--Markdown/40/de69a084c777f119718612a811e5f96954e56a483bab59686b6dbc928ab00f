@@ -1,0 +1,455 @@
+I"Ű<h1 id="回溯算法-以数独求解为例">回溯算法: 以数独求解为例</h1>
+
+<p>回溯问题的解决核心是遍历决策树. 在进行决策时, 实际需要考虑的问题是:</p>
+<ol>
+  <li>路径: 目前已经做的决策是什么?</li>
+  <li>选择列表: 还可以做那些选择?</li>
+  <li>结束条件: 何时算作 “到达决策树底端”, 问题解决?</li>
+</ol>
+
+<p>回溯问题的框架为:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre><span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">def</span> <span class="nf">backtrack</span><span class="p">(</span><span class="n">路径</span><span class="p">,</span> <span class="n">选择列表</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">满足结束条件</span><span class="p">:</span>
+        <span class="n">result</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">新路径</span><span class="p">)</span>
+        <span class="k">return</span>
+    
+    <span class="k">for</span> <span class="n">选择</span> <span class="ow">in</span> <span class="n">选择列表</span><span class="p">:</span>
+        <span class="n">作出新选择</span>      <span class="c1"># 在原有决策的基础上作出下一步的选择
+</span>
+        <span class="n">backtrack</span><span class="p">(</span><span class="n">新路径</span><span class="p">,</span> <span class="n">新选择列表</span><span class="p">)</span>       <span class="c1">#检查能否进一步做选择
+</span>        
+        <span class="n">撤销新选择</span>      <span class="c1"># 如果不能进一步做选择的话则撤销无效的选择
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>下面以数独求解问题为例:</p>
+
+<p>Q: 给定一个 $9*9$ 的数独, 求出它的其中一个解.</p>
+
+<p>程序输出:</p>
+<ol>
+  <li>我们需要打印待求解的数独和数独的一个解. 鉴于我们求解过程中修改是在数独的基础上进行的, 因此两个情况的代码可以复用:
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre></td><td class="rouge-code"><pre> <span class="k">def</span> <span class="nf">print_board</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flag</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+     <span class="c1"># Print the sudoku board
+</span>
+     <span class="k">if</span> <span class="n">flag</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+         <span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">= = = = = SOLUTION = = = = = </span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+     <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="nb">len</span><span class="p">):</span>
+         <span class="k">if</span> <span class="n">r</span> <span class="o">%</span> <span class="mi">3</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">r</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+             <span class="k">print</span><span class="p">(</span><span class="s">"= = = = = = = = = = = ="</span><span class="p">)</span>
+         <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">board</span><span class="p">[</span><span class="mi">0</span><span class="p">])):</span>
+             <span class="k">if</span> <span class="n">c</span> <span class="o">%</span> <span class="mi">3</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">c</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                 <span class="k">print</span><span class="p">(</span><span class="s">" | "</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">""</span><span class="p">)</span>
+             <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="mi">8</span><span class="p">:</span>
+                 <span class="k">print</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">board</span><span class="p">[</span><span class="n">r</span><span class="p">][</span><span class="n">c</span><span class="p">])</span>
+             <span class="k">else</span><span class="p">:</span>
+                 <span class="k">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">board</span><span class="p">[</span><span class="n">r</span><span class="p">][</span><span class="n">c</span><span class="p">])</span> <span class="o">+</span> <span class="s">" "</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">""</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>除此以外, 我们还希望得知程序的运行时间以评价执行效率:
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre> <span class="k">def</span> <span class="nf">stats</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+     <span class="bp">self</span><span class="p">.</span><span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span>
+     <span class="k">print</span><span class="p">(</span><span class="s">"Time elapsed: {}s"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">end</span> <span class="o">-</span> <span class="bp">self</span><span class="p">.</span><span class="n">start</span><span class="p">))</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+</ol>
+
+<p><br /></p>
+
+<p>程序逻辑:</p>
+<ol>
+  <li>要求解数独, 我们首先需要找到待填的空位:
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre> <span class="k">def</span> <span class="nf">search_empty</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+     <span class="c1"># Search for empty slots
+</span>
+     <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="nb">len</span><span class="p">):</span>
+         <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="nb">len</span><span class="p">):</span>
+             <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">board</span><span class="p">[</span><span class="n">r</span><span class="p">][</span><span class="n">c</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                 <span class="k">return</span> <span class="n">r</span><span class="p">,</span> <span class="n">c</span>   <span class="c1"># return row, column
+</span>
+     <span class="k">return</span> <span class="bp">None</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>要定义回溯函数, 我们还需要确定选择列表:
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre></td><td class="rouge-code"><pre> <span class="k">def</span> <span class="nf">find_valid_nums</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pos</span><span class="p">):</span>
+     <span class="c1"># find all possible valid numbers for position 'pos'
+</span>
+     <span class="n">num_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">):</span>
+         <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">board</span><span class="p">[</span><span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="bp">self</span><span class="p">.</span><span class="n">board</span><span class="p">[</span><span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="n">i</span><span class="p">]</span> <span class="ow">in</span> <span class="n">num_list</span><span class="p">:</span>
+             <span class="n">num_list</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">board</span><span class="p">[</span><span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="n">i</span><span class="p">])</span>
+         <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">board</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="bp">self</span><span class="p">.</span><span class="n">board</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="ow">in</span> <span class="n">num_list</span><span class="p">:</span>
+             <span class="n">num_list</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">board</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+     <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="mi">3</span><span class="p">,</span> <span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">//</span> <span class="mi">3</span>
+     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">x</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="mi">3</span><span class="p">):</span>
+         <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">y</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">y</span> <span class="o">+</span> <span class="mi">3</span><span class="p">):</span>
+             <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">board</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="bp">self</span><span class="p">.</span><span class="n">board</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="ow">in</span> <span class="n">num_list</span><span class="p">:</span>
+                 <span class="n">num_list</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">board</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+     <span class="k">return</span> <span class="n">num_list</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>此外, 我们还需要依据数独规则判断作出的选择是否有效:
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre></td><td class="rouge-code"><pre> <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">,</span> <span class="n">pos</span><span class="p">):</span>
+     <span class="c1"># Validate the selected choice
+</span>
+     <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">board</span><span class="p">[</span><span class="mi">0</span><span class="p">])):</span>
+         <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">board</span><span class="p">[</span><span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="n">c</span><span class="p">]</span> <span class="o">==</span> <span class="n">num</span> <span class="ow">and</span> <span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="n">c</span><span class="p">:</span>
+             <span class="k">return</span> <span class="bp">False</span>
+     <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">board</span><span class="p">[</span><span class="mi">0</span><span class="p">])):</span>
+         <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">board</span><span class="p">[</span><span class="n">r</span><span class="p">][</span><span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">==</span> <span class="n">num</span> <span class="ow">and</span> <span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">r</span><span class="p">:</span>
+             <span class="k">return</span> <span class="bp">False</span>
+     <span class="n">x</span> <span class="o">=</span> <span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="mi">3</span>
+     <span class="n">y</span> <span class="o">=</span> <span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">//</span> <span class="mi">3</span>
+     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="mi">3</span><span class="p">,</span> <span class="n">x</span><span class="o">*</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">3</span><span class="p">):</span>
+         <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">y</span><span class="o">*</span><span class="mi">3</span><span class="p">,</span> <span class="n">y</span><span class="o">*</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">3</span><span class="p">):</span>
+             <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">board</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="n">num</span> <span class="ow">and</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)</span> <span class="o">!=</span> <span class="n">pos</span><span class="p">:</span>
+                 <span class="k">return</span> <span class="bp">False</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>最后, 我们可以定义回溯主函数:
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+</pre></td><td class="rouge-code"><pre> <span class="k">def</span> <span class="nf">solution</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+     <span class="c1"># Solution, using DFS Algorithm
+</span>
+     <span class="n">find</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">search_empty</span><span class="p">()</span>
+     <span class="k">if</span> <span class="ow">not</span> <span class="n">find</span><span class="p">:</span>
+         <span class="k">return</span> <span class="bp">True</span>
+     <span class="k">else</span><span class="p">:</span>
+         <span class="n">row</span><span class="p">,</span> <span class="n">col</span> <span class="o">=</span> <span class="n">find</span>
+     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">.</span><span class="n">find_valid_nums</span><span class="p">([</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">]):</span>
+         <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">validate</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">)):</span>
+             <span class="bp">self</span><span class="p">.</span><span class="n">board</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
+
+             <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">solution</span><span class="p">():</span>
+                 <span class="k">return</span> <span class="bp">True</span>
+
+             <span class="bp">self</span><span class="p">.</span><span class="n">board</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+     <span class="k">return</span> <span class="bp">False</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+</ol>
+
+<p>程序整理总结如下:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">time</span>
+
+
+<span class="k">class</span> <span class="nc">Sudoku</span><span class="p">:</span>
+    <span class="s">"""Define Sudoku Class, and work out its solution"""</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Initialize
+</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">board</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+        <span class="p">]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="nb">len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">board</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">end</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Construct Main Program, maintain outputs
+</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">print_board</span><span class="p">()</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">solution</span><span class="p">()</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">print_board</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">stats</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">search_empty</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Search for empty slots
+</span>
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="nb">len</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="nb">len</span><span class="p">):</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">board</span><span class="p">[</span><span class="n">r</span><span class="p">][</span><span class="n">c</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">r</span><span class="p">,</span> <span class="n">c</span>   <span class="c1"># return row, column
+</span>
+        <span class="k">return</span> <span class="bp">None</span>
+
+    <span class="k">def</span> <span class="nf">print_board</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flag</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="c1"># Print the sudoku board
+</span>        <span class="k">if</span> <span class="n">flag</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">= = = = = SOLUTION = = = = = </span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="nb">len</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">r</span> <span class="o">%</span> <span class="mi">3</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">r</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">print</span><span class="p">(</span><span class="s">"= = = = = = = = = = = ="</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">board</span><span class="p">[</span><span class="mi">0</span><span class="p">])):</span>
+                <span class="k">if</span> <span class="n">c</span> <span class="o">%</span> <span class="mi">3</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">c</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">print</span><span class="p">(</span><span class="s">" | "</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">""</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="mi">8</span><span class="p">:</span>
+                    <span class="k">print</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">board</span><span class="p">[</span><span class="n">r</span><span class="p">][</span><span class="n">c</span><span class="p">])</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">board</span><span class="p">[</span><span class="n">r</span><span class="p">][</span><span class="n">c</span><span class="p">])</span> <span class="o">+</span> <span class="s">" "</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">""</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">find_valid_nums</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pos</span><span class="p">):</span>
+        <span class="c1"># find all possible valid numbers for position 'pos'
+</span>
+        <span class="n">num_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">board</span><span class="p">[</span><span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="bp">self</span><span class="p">.</span><span class="n">board</span><span class="p">[</span><span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="n">i</span><span class="p">]</span> <span class="ow">in</span> <span class="n">num_list</span><span class="p">:</span>
+                <span class="n">num_list</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">board</span><span class="p">[</span><span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="n">i</span><span class="p">])</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">board</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="bp">self</span><span class="p">.</span><span class="n">board</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="ow">in</span> <span class="n">num_list</span><span class="p">:</span>
+                <span class="n">num_list</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">board</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="mi">3</span><span class="p">,</span> <span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">//</span> <span class="mi">3</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">x</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="mi">3</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">y</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">y</span> <span class="o">+</span> <span class="mi">3</span><span class="p">):</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">board</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="bp">self</span><span class="p">.</span><span class="n">board</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="ow">in</span> <span class="n">num_list</span><span class="p">:</span>
+                    <span class="n">num_list</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">board</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">num_list</span>
+
+    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">,</span> <span class="n">pos</span><span class="p">):</span>
+        <span class="c1"># Validate the selected choice
+</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">board</span><span class="p">[</span><span class="mi">0</span><span class="p">])):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">board</span><span class="p">[</span><span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="n">c</span><span class="p">]</span> <span class="o">==</span> <span class="n">num</span> <span class="ow">and</span> <span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="n">c</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">False</span>
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">board</span><span class="p">[</span><span class="mi">0</span><span class="p">])):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">board</span><span class="p">[</span><span class="n">r</span><span class="p">][</span><span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">==</span> <span class="n">num</span> <span class="ow">and</span> <span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">r</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">False</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="mi">3</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">//</span> <span class="mi">3</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="mi">3</span><span class="p">,</span> <span class="n">x</span><span class="o">*</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">3</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">y</span><span class="o">*</span><span class="mi">3</span><span class="p">,</span> <span class="n">y</span><span class="o">*</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">3</span><span class="p">):</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">board</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="n">num</span> <span class="ow">and</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)</span> <span class="o">!=</span> <span class="n">pos</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="bp">False</span>
+
+        <span class="k">return</span> <span class="bp">True</span>
+
+    <span class="k">def</span> <span class="nf">solution</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Solution, using DFS Algorithm
+</span>
+        <span class="n">find</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">search_empty</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">find</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">row</span><span class="p">,</span> <span class="n">col</span> <span class="o">=</span> <span class="n">find</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">.</span><span class="n">find_valid_nums</span><span class="p">([</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">]):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">validate</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">)):</span>
+                <span class="bp">self</span><span class="p">.</span><span class="n">board</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
+
+                <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">solution</span><span class="p">():</span>
+                    <span class="k">return</span> <span class="bp">True</span>
+
+                <span class="bp">self</span><span class="p">.</span><span class="n">board</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">return</span> <span class="bp">False</span>
+
+    <span class="k">def</span> <span class="nf">stats</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"Time elapsed: {}s"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">end</span> <span class="o">-</span> <span class="bp">self</span><span class="p">.</span><span class="n">start</span><span class="p">))</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="n">sud</span> <span class="o">=</span> <span class="n">Sudoku</span><span class="p">()</span>
+    <span class="n">sud</span><span class="p">.</span><span class="n">main</span><span class="p">()</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+:ET

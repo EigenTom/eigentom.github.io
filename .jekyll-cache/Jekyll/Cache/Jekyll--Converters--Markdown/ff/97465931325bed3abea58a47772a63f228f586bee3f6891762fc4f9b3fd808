@@ -1,0 +1,432 @@
+I"cc<h1 id="在线答题-quiz-app">在线答题 Quiz App</h1>
+
+<h2 id="1-概述">1. 概述</h2>
+
+<p>项目本体为一个在线题库, 用户可依次答题并在回答完全部问题后查看自己的分数.</p>
+
+<p>效果:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20210904225914.png" alt="20210904225914" /></p>
+
+<p><br /></p>
+
+<h2 id="2-结构和切图">2. 结构和切图</h2>
+
+<p>网页的基本结构如下:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"quiz-container"</span> <span class="na">id=</span><span class="s">"quiz"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"quiz-header"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;h2</span> <span class="na">id=</span><span class="s">"question"</span><span class="nt">&gt;</span>Question text<span class="nt">&lt;/h2&gt;</span>
+            <span class="nt">&lt;ul&gt;</span>
+                <span class="nt">&lt;li&gt;</span>
+                    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"radio"</span> <span class="na">name=</span><span class="s">"answer"</span> <span class="na">id=</span><span class="s">"a"</span> <span class="na">class=</span><span class="s">"answer"</span><span class="nt">&gt;</span>
+                    <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"a"</span> <span class="na">id=</span><span class="s">"a_text"</span><span class="nt">&gt;</span>Question<span class="nt">&lt;/label&gt;</span>
+                <span class="nt">&lt;/li&gt;</span>
+                <span class="nt">&lt;li&gt;</span>
+                    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"radio"</span> <span class="na">name=</span><span class="s">"answer"</span> <span class="na">id=</span><span class="s">"b"</span> <span class="na">class=</span><span class="s">"answer"</span><span class="nt">&gt;</span>
+                    <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"b"</span> <span class="na">id=</span><span class="s">"b_text"</span><span class="nt">&gt;</span>Question<span class="nt">&lt;/label&gt;</span>
+                <span class="nt">&lt;/li&gt;</span>
+                <span class="nt">&lt;li&gt;</span>
+                    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"radio"</span> <span class="na">name=</span><span class="s">"answer"</span> <span class="na">id=</span><span class="s">"c"</span> <span class="na">class=</span><span class="s">"answer"</span><span class="nt">&gt;</span>
+                    <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"c"</span> <span class="na">id=</span><span class="s">"c_text"</span><span class="nt">&gt;</span>Question<span class="nt">&lt;/label&gt;</span>
+                <span class="nt">&lt;/li&gt;</span>
+                <span class="nt">&lt;li&gt;</span>
+                    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"radio"</span> <span class="na">name=</span><span class="s">"answer"</span> <span class="na">id=</span><span class="s">"d"</span> <span class="na">class=</span><span class="s">"answer"</span><span class="nt">&gt;</span>
+                    <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"d"</span> <span class="na">id=</span><span class="s">"d_text"</span><span class="nt">&gt;</span>Question<span class="nt">&lt;/label&gt;</span>
+                <span class="nt">&lt;/li&gt;</span>
+            <span class="nt">&lt;/ul&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;button</span> <span class="na">id=</span><span class="s">"submit"</span><span class="nt">&gt;</span>Submit<span class="nt">&lt;/button&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="3-编写-css-样式">3. 编写 <code class="language-plaintext highlighter-rouge">CSS</code> 样式</h2>
+
+<p>完整的 <code class="language-plaintext highlighter-rouge">CSS</code> 样式如下:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+</pre></td><td class="rouge-code"><pre><span class="o">*</span> <span class="p">{</span>
+    <span class="nl">box-sizing</span><span class="p">:</span> <span class="n">border-box</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">body</span> <span class="p">{</span>
+    <span class="nl">background-color</span><span class="p">:</span> <span class="m">#b8c6db</span><span class="p">;</span>
+    <span class="nl">background-image</span><span class="p">:</span> <span class="n">linear-gradient</span><span class="p">(</span><span class="m">315deg</span><span class="p">,</span> <span class="m">#b8c6db</span> <span class="m">0%</span><span class="p">,</span> <span class="m">#f5f7fa</span> <span class="m">100%</span><span class="p">);</span>
+    <span class="nl">font-family</span><span class="p">:</span> <span class="s2">'Poppins'</span><span class="p">,</span> <span class="nb">sans-serif</span><span class="p">;</span>
+    <span class="nl">display</span><span class="p">:</span> <span class="n">flex</span><span class="p">;</span>
+    <span class="nl">align-items</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+    <span class="nl">justify-content</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+    <span class="nl">height</span><span class="p">:</span> <span class="m">100vh</span><span class="p">;</span>
+    <span class="nl">overflow</span><span class="p">:</span> <span class="nb">hidden</span><span class="p">;</span>
+    <span class="nl">margin</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.quiz-container</span> <span class="p">{</span>
+    <span class="nl">background-color</span><span class="p">:</span> <span class="m">#fff</span><span class="p">;</span>
+    <span class="nl">border-radius</span><span class="p">:</span> <span class="m">10px</span><span class="p">;</span>
+    <span class="nl">box-shadow</span><span class="p">:</span> <span class="m">0</span> <span class="m">0</span> <span class="m">10px</span> <span class="m">2px</span> <span class="n">rgba</span><span class="p">(</span><span class="m">100</span><span class="p">,</span> <span class="m">100</span><span class="p">,</span> <span class="m">100</span><span class="p">,</span> <span class="m">0.1</span><span class="p">);</span>
+    <span class="nl">width</span><span class="p">:</span> <span class="m">600px</span><span class="p">;</span>
+    <span class="nl">overflow</span><span class="p">:</span> <span class="nb">hidden</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.quiz-header</span> <span class="p">{</span>
+    <span class="nl">padding</span><span class="p">:</span> <span class="m">4rem</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">h2</span> <span class="p">{</span>
+    <span class="nl">padding</span><span class="p">:</span> <span class="m">1rem</span><span class="p">;</span>
+    <span class="nl">text-align</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+    <span class="nl">margin</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">ul</span> <span class="p">{</span>
+    <span class="nl">list-style-type</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
+    <span class="nl">padding</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">ul</span> <span class="nt">li</span> <span class="p">{</span>
+    <span class="nl">font-size</span><span class="p">:</span> <span class="m">1.2rem</span><span class="p">;</span>
+    <span class="nl">margin</span><span class="p">:</span> <span class="m">1rem</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">ul</span> <span class="nt">li</span> <span class="nt">label</span> <span class="p">{</span>
+    <span class="nl">cursor</span><span class="p">:</span> <span class="nb">pointer</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">button</span> <span class="p">{</span>
+    <span class="nl">background-color</span><span class="p">:</span> <span class="m">#8e44ad</span><span class="p">;</span>
+    <span class="nl">color</span><span class="p">:</span> <span class="m">#fff</span><span class="p">;</span>
+    <span class="nl">border</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
+    <span class="nl">display</span><span class="p">:</span> <span class="nb">block</span><span class="p">;</span>
+    <span class="nl">width</span><span class="p">:</span> <span class="m">100%</span><span class="p">;</span>
+    <span class="nl">cursor</span><span class="p">:</span> <span class="nb">pointer</span><span class="p">;</span>
+    <span class="nl">font-size</span><span class="p">:</span> <span class="m">1.1rem</span><span class="p">;</span>
+    <span class="nl">font-family</span><span class="p">:</span> <span class="nb">inherit</span><span class="p">;</span>
+    <span class="nl">padding</span><span class="p">:</span> <span class="m">1.3rem</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">button</span><span class="nd">:hover</span> <span class="p">{</span>
+    <span class="nl">background-color</span><span class="p">:</span> <span class="m">#732d91</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">button</span><span class="nd">:focus</span> <span class="p">{</span>
+    <span class="nl">outline</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
+    <span class="nl">background-color</span><span class="p">:</span> <span class="m">#5e3370</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="4-javascript">4. <code class="language-plaintext highlighter-rouge">JavaScript</code></h2>
+
+<p>下面编写 <code class="language-plaintext highlighter-rouge">JavaScript</code> 函数:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+</pre></td><td class="rouge-code"><pre><span class="c1">// quiz data</span>
+<span class="kd">const</span> <span class="nx">quizData</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="na">question</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Which language runs in a web browser?</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">a</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Java</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">b</span><span class="p">:</span> <span class="dl">"</span><span class="s2">C</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">c</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Python</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">d</span><span class="p">:</span> <span class="dl">"</span><span class="s2">JavaScript</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">correct</span><span class="p">:</span> <span class="dl">"</span><span class="s2">d</span><span class="dl">"</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="na">question</span><span class="p">:</span> <span class="dl">"</span><span class="s2">What does CSS stand for?</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">a</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Central Style Sheets</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">b</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Cascading Style Sheets</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">c</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Cascading Simple Sheets</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">d</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Cars SUVs Sailboats</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">correct</span><span class="p">:</span> <span class="dl">"</span><span class="s2">b</span><span class="dl">"</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="na">question</span><span class="p">:</span> <span class="dl">"</span><span class="s2">What does HTML stand for?</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">a</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Hypertext Markup Language</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">b</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Hypertext Markdown Language</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">c</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Hyperloop Machine Language</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">d</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Helicopters Terminals Motorboats Lamborginis</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">correct</span><span class="p">:</span> <span class="dl">"</span><span class="s2">a</span><span class="dl">"</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="na">question</span><span class="p">:</span> <span class="dl">"</span><span class="s2">What year was JavaScript launched?</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">a</span><span class="p">:</span> <span class="dl">"</span><span class="s2">1996</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">b</span><span class="p">:</span> <span class="dl">"</span><span class="s2">1995</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">c</span><span class="p">:</span> <span class="dl">"</span><span class="s2">1994</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">d</span><span class="p">:</span> <span class="dl">"</span><span class="s2">none of the above</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">correct</span><span class="p">:</span> <span class="dl">"</span><span class="s2">b</span><span class="dl">"</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">];</span>
+
+<span class="c1">// select elements</span>
+<span class="kd">const</span> <span class="nx">quiz</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">quiz</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">answerEls</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span><span class="dl">'</span><span class="s1">.answer</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">questionEl</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">question</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">a_text</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">a_text</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">b_text</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">b_text</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">c_text</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">c_text</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">d_text</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">d_text</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">submitBtn</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">submit</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="c1">// initialize flag and counter</span>
+<span class="kd">let</span> <span class="nx">currentQuiz</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">score</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="c1">// initialize quiz</span>
+<span class="nx">loadQuiz</span><span class="p">();</span>
+
+<span class="c1">// responsible for injecting quiz context to the page</span>
+<span class="kd">function</span> <span class="nx">loadQuiz</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// reset user selections</span>
+    <span class="nx">deselectAnswers</span><span class="p">();</span>
+
+    <span class="c1">// get current quiz and questions</span>
+    <span class="kd">const</span> <span class="nx">currentQuizData</span> <span class="o">=</span> <span class="nx">quizData</span><span class="p">[</span><span class="nx">currentQuiz</span><span class="p">];</span>
+    <span class="nx">questionEl</span><span class="p">.</span><span class="nx">innerText</span> <span class="o">=</span> <span class="nx">currentQuizData</span><span class="p">.</span><span class="nx">question</span><span class="p">;</span>
+    <span class="nx">a_text</span><span class="p">.</span><span class="nx">innerText</span> <span class="o">=</span> <span class="nx">currentQuizData</span><span class="p">.</span><span class="nx">a</span><span class="p">;</span>
+    <span class="nx">b_text</span><span class="p">.</span><span class="nx">innerText</span> <span class="o">=</span> <span class="nx">currentQuizData</span><span class="p">.</span><span class="nx">b</span><span class="p">;</span>
+    <span class="nx">c_text</span><span class="p">.</span><span class="nx">innerText</span> <span class="o">=</span> <span class="nx">currentQuizData</span><span class="p">.</span><span class="nx">c</span><span class="p">;</span>
+    <span class="nx">d_text</span><span class="p">.</span><span class="nx">innerText</span> <span class="o">=</span> <span class="nx">currentQuizData</span><span class="p">.</span><span class="nx">d</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// responsible for resetting user selections</span>
+<span class="kd">function</span> <span class="nx">deselectAnswers</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">answerEls</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">answerEl</span> <span class="o">=&gt;</span> <span class="nx">answerEl</span><span class="p">.</span><span class="nx">checked</span> <span class="o">=</span> <span class="kc">false</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// determine which answer is selected by the user</span>
+<span class="kd">function</span> <span class="nx">getSelected</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">answer</span><span class="p">;</span>
+    <span class="nx">answerEls</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">answerEl</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">answerEl</span><span class="p">.</span><span class="nx">checked</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">answer</span> <span class="o">=</span> <span class="nx">answerEl</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">})</span>
+    <span class="k">return</span> <span class="nx">answer</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// handle page swapping</span>
+<span class="nx">submitBtn</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">click</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">answer</span> <span class="o">=</span> <span class="nx">getSelected</span><span class="p">();</span>
+    
+    <span class="c1">// case: user selected sth</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">answer</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// answer correct</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">answer</span> <span class="o">===</span> <span class="nx">quizData</span><span class="p">[</span><span class="nx">currentQuiz</span><span class="p">].</span><span class="nx">correct</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">score</span><span class="o">++</span>
+        <span class="p">}</span>
+        
+        <span class="c1">// switch to next page no matter the answer is correct or not</span>
+        <span class="nx">currentQuiz</span><span class="o">++</span><span class="p">;</span>
+
+        <span class="c1">// load new quiz if not answered all</span>
+        <span class="c1">// display your score if the answer are all answered</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">currentQuiz</span> <span class="o">&lt;</span> <span class="nx">quizData</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">loadQuiz</span><span class="p">();</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nx">quiz</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s2">`
+                &lt;h2&gt;You answered </span><span class="p">${</span><span class="nx">score</span><span class="p">}</span><span class="s2">/</span><span class="p">${</span><span class="nx">quizData</span><span class="p">.</span><span class="nx">length</span><span class="p">}</span><span class="s2"> questions correctly&lt;/h2&gt;
+
+                &lt;button onclick="location.reload()"&gt;Reload&lt;/button&gt;
+            `</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">})</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>最后, 完整的网页演示可见 <a href="../../../../../projects/50P50D/quiz-app/index.html">此处</a></p>
+:ET

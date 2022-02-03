@@ -1,0 +1,415 @@
+I"�u<h1 id="comp23111-revision-ch4">COMP23111 REVISION Ch4</h1>
+
+<h2 id="4-其他数据库">4. 其他数据库</h2>
+
+<p>我们将在本章中对本课程涉及的其他三种非关系数据库进行介绍. 这种介绍基于功利性质, 主要信息来源为部分 <code class="language-plaintext highlighter-rouge">Slides</code> 内容 + <code class="language-plaintext highlighter-rouge">Lab</code> 内容, 并且逻辑结构可能极其混乱.</p>
+
+<h3 id="41-非关系类型数据库-couchbase">4.1 非关系类型数据库: <code class="language-plaintext highlighter-rouge">Couchbase</code></h3>
+
+<p><code class="language-plaintext highlighter-rouge">Couchbase</code> 是一种主要用于数据存储和缓存的, 分布式 <strong>非关系型</strong> (<code class="language-plaintext highlighter-rouge">NOSQL</code>) 数据库.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Couchbase</code> 使用 <code class="language-plaintext highlighter-rouge">JSON</code> 存储数据, 因其作为一种通用的数据传输格式具备高度的灵活性 (<code class="language-plaintext highlighter-rouge">Flexibility</code>)且具备良好的性能.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Couchbase</code> 的查询语言为 <strong>完整融合了 <code class="language-plaintext highlighter-rouge">SQL</code> 和 <code class="language-plaintext highlighter-rouge">JSON</code> 的, **兼容 <code class="language-plaintext highlighter-rouge">SQL92</code> 标准的 <code class="language-plaintext highlighter-rouge">N1QL</code>, 它 **使用 <code class="language-plaintext highlighter-rouge">JSON</code> 存储数据</strong>, 而使用 <code class="language-plaintext highlighter-rouge">SQL</code> 语法执行查询.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Couchbase</code> 同时支持两种满足 <code class="language-plaintext highlighter-rouge">ACID</code> 性质的数据库事务: <code class="language-plaintext highlighter-rouge">N1QL</code> 和 <code class="language-plaintext highlighter-rouge">Key-Val</code>, 其中 <code class="language-plaintext highlighter-rouge">N1QL</code> 型数据库事务和 <code class="language-plaintext highlighter-rouge">SQL</code> 中的数据库事务极其相似:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220115190505.png" alt="20220115190505" /></p>
+
+<p><code class="language-plaintext highlighter-rouge">Couchbase</code> 可用于构建 <strong>数据库</strong>, <strong>搜索引擎</strong>, <strong>键值对存储</strong> 和 <strong>缓存</strong>.</p>
+
+<h4 id="421-couchbase-中的键值对存储">4.2.1 <code class="language-plaintext highlighter-rouge">Couchbase</code> 中的键值对存储</h4>
+
+<p><code class="language-plaintext highlighter-rouge">Couchbase</code> 同样支持数据库分划 (<code class="language-plaintext highlighter-rouge">Database Sharding</code>). 其基本架构被称为 <code class="language-plaintext highlighter-rouge">Master/Master</code> 或 <code class="language-plaintext highlighter-rouge">Masterless</code>, 细节为:</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">Couchbase</code> 将最高数据库分划片数限制为 $1024$.</li>
+  <li>在数据被存入数据库中时, <code class="language-plaintext highlighter-rouge">Couchbase</code> 使用 <code class="language-plaintext highlighter-rouge">CRC32</code> 算法对数据进行哈希, 并基于计算的哈希值自动将数据分配到某个存储在某个节点 (<code class="language-plaintext highlighter-rouge">Node</code>) 的分划中 (这样的分划被称为 <strong><code class="language-plaintext highlighter-rouge">vBucket</code></strong>), 从而确保数据基本均衡地被分划, 结构自然地被优化, 从而确保无需再人为地对数据库进行重分划.</li>
+  <li>在连接节点集群 (<code class="language-plaintext highlighter-rouge">Cluster</code>) 查询数据时, 客户端会 <strong>预先下载完整的节点表</strong>, 从而在查询数据时可以快速地确定 <strong>某个 <code class="language-plaintext highlighter-rouge">vBucket</code> 被存储在集群中的哪个节点 (<code class="language-plaintext highlighter-rouge">Node</code>, 物理机) 上</strong>.</li>
+</ol>
+
+<p>因此, <code class="language-plaintext highlighter-rouge">Couchbase</code> 中的信息检索流程类似于:</p>
+
+<ol>
+  <li>给定信息, 计算出其 <code class="language-plaintext highlighter-rouge">CRC32</code> 哈希值.</li>
+  <li>基于计算的哈希值确定该信息 (如果确实存在数据库中的话) 位于哪个虚拟分划 (<code class="language-plaintext highlighter-rouge">vBucket</code>) 中.</li>
+  <li>基于预先下载和维护的节点表确定这个虚拟分划被集群 (<code class="language-plaintext highlighter-rouge">Cluster</code>) 中的哪个节点 (<code class="language-plaintext highlighter-rouge">Node</code>) 所存储.</li>
+  <li>直接向对应的节点发送数据查询请求.</li>
+</ol>
+
+<p>和常规的 <code class="language-plaintext highlighter-rouge">Master/Slave</code> 架构不同, 由于不存在中心节点, 因此在 <code class="language-plaintext highlighter-rouge">Couchbase</code> 中不存在某个特定节点下线后导致 “牵一发而动全身” 的情况, 意味着它具有更好的健壮性 (<code class="language-plaintext highlighter-rouge">Robustness</code>).</p>
+
+<p><code class="language-plaintext highlighter-rouge">Couchbase</code> 将以文档 (<code class="language-plaintext highlighter-rouge">Document</code>) 为形式存储的数据置于 存储桶 (<code class="language-plaintext highlighter-rouge">Bucket</code>) 中对它们进行分类和管理. 任何一个 <code class="language-plaintext highlighter-rouge">Bucket</code> 都承载多个 <strong>名为作用域 (<code class="language-plaintext highlighter-rouge">Scope</code>) 的容器 (<code class="language-plaintext highlighter-rouge">Container</code>)</strong>, 而 <strong>作用域同时承载名为集合 (<code class="language-plaintext highlighter-rouge">Collection</code>) 的容器</strong>, 集合中 <strong>存储 <code class="language-plaintext highlighter-rouge">JSON</code> 文档</strong>.</p>
+
+<p>集合 (<code class="language-plaintext highlighter-rouge">Collection</code>) 是在存储桶 (<code class="language-plaintext highlighter-rouge">Bucket</code>) 中的 <code class="language-plaintext highlighter-rouge">Couchbase</code> 服务器上定义的数据容器. 每个集群 (<code class="language-plaintext highlighter-rouge">Cluster</code>) 最多可以创建 $1000$ 个集合. 而所存储的项目名称在其所属的集合中必须是唯一的.</p>
+
+<p>作用域 (<code class="language-plaintext highlighter-rouge">Scope</code>)是用于对多个集合进行分组的机制. 每个集群最多可以创建 $1000$ 个作用域. 集合名称在其作用域内必须是唯一的.</p>
+
+<p>文档 (<code class="language-plaintext highlighter-rouge">Document</code>) 是存储在 <code class="language-plaintext highlighter-rouge">Couchbase</code> 中的数据点 (<code class="language-plaintext highlighter-rouge">Datapoints</code>). 它们由用来引用数据项的键和与键关联的数据值组成: 该值必须是二进制或 <code class="language-plaintext highlighter-rouge">JSON</code> 文档.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Couchbase</code> 的文档存储结构与关系型数据库之间的类比如下:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220118142523.png" alt="20220118142523" /></p>
+
+<h4 id="422-couchbase-中的数据建模">4.2.2 <code class="language-plaintext highlighter-rouge">Couchbase</code> 中的数据建模</h4>
+
+<p>相比关系数据库模式, 由于 <code class="language-plaintext highlighter-rouge">Couchbase</code> 使用 <code class="language-plaintext highlighter-rouge">JSON</code> 作为存储方式且不对实体间复杂的关系建模, 因此对表结构的修改可以视为对新数据 <code class="language-plaintext highlighter-rouge">JSON</code> 结构的修改, 同时:</p>
+
+<ol>
+  <li>只要表结构修改方式得当, 两种结构不完全相同的数据在库中可以共存.</li>
+  <li>此外, 我们也可以选择将库中现存的旧格式数据全部转换为新格式.</li>
+</ol>
+
+<h4 id="43-couchbase-的-一些潜在考点">4.3 <code class="language-plaintext highlighter-rouge">Couchbase</code> 的 一些潜在考点</h4>
+
+<ol>
+  <li>
+    <p>durability + cas:</p>
+
+    <p>类似于checksum, 或 “版本号”, 在对象被修改时同步改变, 反映该对象 (document) 的当前状态, 相当于metadata. cas: “COMPARE AND SWAP”. 在执行mutation时couchbase会检索app提供的文件的cas和服务器端的cas是否相同, 若相同才能允许mutation操作顺利执行.</p>
+  </li>
+  <li>
+    <p>upsert:</p>
+
+    <p>used if want to overwrite a document with the same key in case it already exists.</p>
+
+    <p>if it doesn’t exist, a new doc will be created with the specified key.</p>
+  </li>
+  <li>
+    <p>Document Expiration:</p>
+
+    <p>在couchbase中可设定文件在一定时间后过期 (expire), 这个时限可在创建文件时被指定.一旦在数据库的定期cleanup process执行时或查询时发现任何文件过期了, 该文件就会被删除, couchbase server会maintain一个墓碑 (tombstone) 作为记录. 墓碑就是对任何已被删除的item的记录, 维护墓碑的作用是确保节点之间和集群之间的eventual consistency.</p>
+  </li>
+  <li>
+    <p>index (索引)</p>
+
+    <p>是在couchbase中执行搜索操作所必须的. 正确创建文件的索引有助于提升数据库的性能.</p>
+
+    <p>index的类型: 主要看covering index: covering index是一种包含该索引所指向域中数据值的索引, 由此无需通过索引再去取值, 而是将索引中包含的数据直接使用, 有助于减少查询语句的消耗时间, 提升数据库性能. indexing是异步的.</p>
+  </li>
+  <li>
+    <p>sub-document operations</p>
+
+    <p>sub-document operations 可用于高效访问和修改数据的一部分: 只从数据库中提取出所需要被检索和改动的部分文件而非直接获取所有文件, 降低带宽要求减少性能浪费. sub-document operation是原子化的, 若一个sub-document mutation失败, 所有的都会失败.</p>
+  </li>
+  <li>
+    <p>N1QL的惰性原则 (Queries are executed lazily):</p>
+
+    <p>只在查询结果被处理的时候执行查询.</p>
+  </li>
+  <li>
+    <p>Place Holder:</p>
+
+    <p>占位符用来在查询 (query) 中指代那些我们希望被用变量代替的常量的位置.占位符有两种:</p>
+
+    <ul>
+      <li>Positional Placeholder: use an ordinal placeholder for substitution</li>
+      <li>Named Parameter: use variables</li>
+    </ul>
+
+    <p>named parameter是用来代替 WHERE, LIMIT, OFFSET 的占位符.</p>
+
+    <p>注: 二者的调用方式也有所不同:</p>
+
+    <p>Named parameters refer to the variables specified in the query while the positional parameters are always referred to by the order in which they are specified.</p>
+  </li>
+  <li>
+    <p>Scan Consistency:</p>
+
+    <p><code class="language-plaintext highlighter-rouge">QueryScanConsistency.REQUEST_PLUS</code> 被选择时查询解释器会花更多的时间进行查询, 但会返回确定是最新的结果.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">OFFSET</code> / <code class="language-plaintext highlighter-rouge">LIMIT</code></p>
+
+    <p>使用 OFFSET/LIMIT 过滤返回的查询结果:</p>
+
+    <ul>
+      <li>LIMIT ==&gt; 前 n个</li>
+      <li>OFFSET ==&gt; 跳过前n个</li>
+    </ul>
+
+    <p>如果二者同时出现, 效果是LIMIT先于OFFSET</p>
+  </li>
+  <li>
+    <p>Aggregate Function:</p>
+
+    <p>Aggregate Function: 聚合函数. 只能在 SELECT, LETTING, HAVING, ORDER BY 语句里用上.</p>
+  </li>
+</ol>
+
+<h3 id="42-图数据库-neo4j">4.2 图数据库: <code class="language-plaintext highlighter-rouge">Neo4j</code></h3>
+
+<p>和 <code class="language-plaintext highlighter-rouge">Couchbase</code> 不同, <code class="language-plaintext highlighter-rouge">Neo4j</code> 名为 “非关系数据库”, 其核心却在于使用 <strong>图</strong> (网络) 将数据间的关系抽象化表示, 且数据建模以数据间的关系网络为主:</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">Neo4j</code> 是 <strong>开源</strong> 的, <strong>图数据库</strong>.</li>
+  <li><code class="language-plaintext highlighter-rouge">Neo4j</code> 是基于 <code class="language-plaintext highlighter-rouge">JVM</code> 的 <strong>非关系数据库</strong>.</li>
+  <li><code class="language-plaintext highlighter-rouge">Neo4j</code> 是具有管理多个数据库能力的数据库管理系统 (<code class="language-plaintext highlighter-rouge">DBMS</code>).</li>
+</ol>
+
+<h4 id="421-图数据库表示基础">4.2.1 图数据库表示基础</h4>
+
+<p>在图数据库中, 数据被表示为存储在图 (<code class="language-plaintext highlighter-rouge">Graph</code>)中的 <strong>节点 (<code class="language-plaintext highlighter-rouge">Node</code>, <code class="language-plaintext highlighter-rouge">Vertices</code>)</strong> , <strong>边 (<code class="language-plaintext highlighter-rouge">Vertices</code>)</strong> (一般表示关系) 和 <strong>属性</strong>.</p>
+
+<p>其中, 节点 (<code class="language-plaintext highlighter-rouge">Nodes</code>) 一般 <strong>作为实体的抽象</strong>, 因而 <strong>节点可以具有属性</strong>.</p>
+
+<p><strong>边</strong> 连接两个节点, 一般作为 <strong>关系的抽象</strong>, 需要注意 <strong>边也可以具备属性</strong>. 但是, 任何边都 <strong>具备且仅具备一种关系属性 (<code class="language-plaintext highlighter-rouge">Relationship Type</code>)</strong>.</p>
+
+<p>举例而言: 考虑 <strong>关系类型</strong> <code class="language-plaintext highlighter-rouge">ACTED_IN</code>, 则在下图中有如下结论:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220115195050.png" alt="20220115195050" /></p>
+
+<ol>
+  <li>节点 “Person” 具备属性 “name”, 值为 “Leonard Nimoy”, 该节点为 <strong>源节点</strong>.</li>
+  <li>节点 “Movie” 具备属性 “title” 和 ”released“, 值分别为 “Star Trek” 和 “2009”, 该节点为 <strong>目标节点</strong>.</li>
+  <li>“Leonard Nimoy” 节点具有一个 <strong>传出关系</strong> (<code class="language-plaintext highlighter-rouge">Outgoing Relationship</code>).</li>
+  <li>“Star Trek 节点具有一个 <strong>传入关系</strong> (<code class="language-plaintext highlighter-rouge">Incoming Relationship</code>).</li>
+</ol>
+
+<p>显然, 在某个图中遍历的行为可以被视作 <strong>沿着各种各样的关系遍历节点的行为</strong>.</p>
+
+<p>在上面的例子中, 显然我们可以从 “Leonard Nimoy” 节点开始, 沿着关系 <code class="language-plaintext highlighter-rouge">ACTED_IN</code> 遍历到目标节点上, 该遍历结果是标记为 “Star Trek” 的节点, 而返回值为一个长为 $1$ 的路径.</p>
+
+<p>长为 $0$ 的路径显然是最短路径, 它表示在该路径中只包含一个节点, 并且不包含任何关系.</p>
+
+<p>一般地, 节点名 <strong>首字母大写</strong>, 关系类型名 <strong>全部大写</strong>, 而属性名 <strong>全部小写</strong>.</p>
+
+<h4 id="422-图数据库查询语言-cypher">4.2.2 图数据库查询语言 <code class="language-plaintext highlighter-rouge">Cypher</code></h4>
+
+<p><code class="language-plaintext highlighter-rouge">Neo4j</code> 的查询语言是 <code class="language-plaintext highlighter-rouge">Cypher</code>, 它基于 <strong>模式</strong> (<code class="language-plaintext highlighter-rouge">Patterns</code>). 下面介绍它的基本语法:</p>
+
+<ol>
+  <li>
+    <p>节点表示</p>
+
+    <p><code class="language-plaintext highlighter-rouge">Cypher</code> 使用一对括号表示一个节点. 一般括号内需要含有节点名.</p>
+  </li>
+  <li>
+    <p>关系表示</p>
+
+    <p><code class="language-plaintext highlighter-rouge">Cypher</code> 使用一对间隔线 <code class="language-plaintext highlighter-rouge">--</code> 表示 <strong>无向关系</strong>. 有向关系表示为 <code class="language-plaintext highlighter-rouge">&lt;--</code> 或 <code class="language-plaintext highlighter-rouge">--&gt;</code>, 关系的属性用一对中括号包裹, 属性需位于两个间隔线之间, 如: <code class="language-plaintext highlighter-rouge">-[...]-&gt;</code>.</p>
+  </li>
+  <li>
+    <p>节点创建</p>
+
+    <p><code class="language-plaintext highlighter-rouge">CREATE (newnode) RETURN newnode</code></p>
+  </li>
+  <li>
+    <p>关系创建</p>
+
+    <p><code class="language-plaintext highlighter-rouge">CREATE (a)-[r:NEWRELATIONSHIP]-&gt;(b) RETURN a, b, r</code></p>
+  </li>
+  <li>
+    <p>数据删除</p>
+
+    <p>可以使用 <code class="language-plaintext highlighter-rouge">MATCH</code> 语句删除数据:</p>
+
+    <p><code class="language-plaintext highlighter-rouge">MATCH (n) DETACH DELETE n</code></p>
+  </li>
+  <li>
+    <p>创建/更新数据</p>
+
+    <p>可以使用 <code class="language-plaintext highlighter-rouge">MERGE</code> 语句创建或更新数据:</p>
+
+    <p><code class="language-plaintext highlighter-rouge">MATCH (a), (b) MERGE (a)-[r:RELATIONSHIP_TYPE]-&gt;(b) SET r.property = ['value'] RETURN a,r,b</code></p>
+  </li>
+  <li>
+    <p>条件匹配</p>
+
+    <p>可以使用 <code class="language-plaintext highlighter-rouge">MATCH</code> 语句基于 <strong>复杂条件语句</strong> 搜索匹配:</p>
+
+    <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre> <span class="k">MATCH</span> <span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">WHERE</span> <span class="k">some</span><span class="o">-</span><span class="n">criteria</span><span class="o">-</span><span class="n">goes</span><span class="o">-</span><span class="n">here</span> <span class="k">RETURN</span> <span class="n">n</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+
+    <p><code class="language-plaintext highlighter-rouge">MATCH</code> 语句还可以在图中搜索满足给定模式的关系取得节点或节点的属性:</p>
+
+    <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre> <span class="o">#</span> <span class="err">基于模式匹配取得节点</span><span class="p">,</span> <span class="err">可以从两个方向搜索</span>
+ <span class="o">#</span> <span class="err">方向</span><span class="p">:</span> <span class="n">a</span> <span class="c1">--&gt; b</span>
+ <span class="k">MATCH</span> <span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">-</span><span class="p">[</span><span class="n">r</span><span class="p">:</span><span class="n">RELATIONSHIP_TYPE</span><span class="p">]</span><span class="o">-&gt;</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="k">RETURN</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span>
+    
+ <span class="o">#</span> <span class="err">方向</span><span class="p">:</span> <span class="n">b</span> <span class="c1">--&gt; a</span>
+ <span class="k">MATCH</span> <span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="o">-</span><span class="p">[</span><span class="n">r</span><span class="p">:</span><span class="n">RELATIONSHIP_TYPE</span><span class="p">]</span><span class="o">&lt;-</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="k">RETURN</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span>
+
+ <span class="o">#</span> <span class="err">可以直接取回节点的属性值</span>
+ <span class="k">MATCH</span> <span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">-</span><span class="p">[</span><span class="n">r</span><span class="p">:</span><span class="n">RELATIONSHIP_TYPE</span><span class="p">]</span><span class="o">-&gt;</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="o">&lt;-</span><span class="p">[</span><span class="n">r</span><span class="p">:</span><span class="n">RELATIONSHIP_TYPE</span><span class="p">]</span><span class="o">-</span><span class="p">(</span><span class="k">c</span><span class="p">)</span> <span class="k">RETURN</span> <span class="k">c</span><span class="p">.</span><span class="n">property</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+
+    <p>也可以使用内建的最短路径算法 <code class="language-plaintext highlighter-rouge">shortestPath()</code> 取得从给定节点之间的最短路径:</p>
+
+    <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre> <span class="o">#</span> <span class="err">调用内建算法</span> <span class="n">shortestPath</span><span class="p">()</span>
+ <span class="k">MATCH</span> <span class="n">p</span><span class="o">=</span><span class="n">shortestPath</span><span class="p">((</span><span class="n">bacon</span><span class="p">:</span><span class="n">a</span><span class="p">)</span><span class="o">-</span><span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="o">-</span><span class="p">(</span><span class="n">b</span><span class="p">))</span> <span class="k">RETURN</span> <span class="n">p</span>
+
+ <span class="o">#</span> <span class="err">其中节点</span><span class="n">a</span><span class="err">被取别名</span> <span class="nv">`bacon', `</span><span class="n">b</span><span class="s1">' 为另一个目标节点, 返回的是 `a'</span> <span class="err">和</span> <span class="nv">`b' 之间的最短路径
+</span></pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+</ol>
+
+<h4 id="423-slides部分内容摘抄">4.2.3 Slides部分内容摘抄</h4>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220115201449.png" alt="20220115201449" /></p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220115201504.png" alt="20220115201504" /></p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220115201520.png" alt="20220115201520" /></p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220115201533.png" alt="20220115201533" /></p>
+
+<p>Centrality 中心度:</p>
+
+<ol>
+  <li>Degree Centrality: “度中心”: 度最大的节点</li>
+  <li>Closeness Centrality: 离得最近 (相隔边数最少) 的节点</li>
+  <li>Betweenness Centrality</li>
+  <li>Importance Centrality (Pagerank)</li>
+</ol>
+
+<h3 id="43-数据搜索和分析-elasticsearch">4.3 数据搜索和分析: <code class="language-plaintext highlighter-rouge">Elasticsearch</code></h3>
+
+<ol>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">query string query</code>:</p>
+
+    <p>You can use the query_string query to create a complex search that includes wildcard characters, searches across multiple fields, and more</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">term string query</code>:</p>
+
+    <p>You can use the term query to find documents based on a precise value such as a price, a product ID, or a username.</p>
+
+    <p>Avoid using the term query for text fields: use match query instead.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">wildcard query</code>:</p>
+
+    <p>不能查日期, 只能查text, keyword, wildcard fild</p>
+  </li>
+  <li>
+    <p>语句改错: 无脑
+<code class="language-plaintext highlighter-rouge">-H 'Content-Type: application/json'</code></p>
+  </li>
+</ol>
+
+<p>架构类比:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220118211519.png" alt="20220118211519" /></p>
+
+<p>正确语法:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+</pre></td><td class="rouge-code"><pre><span class="c1"># 1. A correct curl command for creating a mapping for the index movie with the property year as date
+# 注意 “-H 'Content-Type: application/json'”  非常重要!
+</span>
+<span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">PUT</span> <span class="s">'localhost:9200/movies'</span> <span class="o">-</span><span class="n">H</span> <span class="s">'Content-Type: application/json'</span> <span class="o">-</span><span class="n">d</span> <span class="s">'{"mappings": {"properties" : {"year" : {"type": "date"}}}}'</span>
+
+
+<span class="c1"># 2. check if the mapping for the index movies was created correctly
+</span>
+<span class="n">curl</span> <span class="o">-</span><span class="n">XGET</span> <span class="n">localhost</span><span class="p">:</span><span class="mi">9200</span><span class="o">/</span><span class="n">movies</span><span class="o">/</span><span class="n">_mapping</span>
+
+
+<span class="c1"># 3. import one document in the index movie
+</span>
+<span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">PUT</span> <span class="s">'localhost:9200/movies/_doc/109487?pretty'</span> <span class="o">-</span><span class="n">H</span> <span class="s">'Content-Type: application/json'</span> <span class="o">-</span><span class="n">d</span> <span class="s">'{"genre" : ["IMAX","Sci-Fi"],"title" : "Interstellar","year" : 2014}'</span>
+
+
+<span class="c1"># 4. How to import many documents in the index `movies':
+# i. create a JSON file with correct context (make sure there's a new empty line at the end)
+# ii. get the name and the location of that JSON file, for example "/home/csimage/m2.json"
+# iii. execute the curl command:
+</span>
+<span class="n">curl</span> <span class="o">-</span><span class="n">XPOST</span> <span class="s">"localhost:9200/movies/_bulk?pretty&amp;refresh"</span> <span class="o">-</span><span class="n">H</span> <span class="s">"Content-Type: application/x-ndjson"</span> <span class="o">--</span><span class="n">data</span><span class="o">-</span><span class="n">binary</span> <span class="s">"@/home/csimage/m2.json"</span>
+
+
+<span class="c1"># 5. delete the document with identifier `58559'
+# this time no "-H 'Content-Type: application/json'"
+</span>
+<span class="n">curl</span> <span class="o">-</span><span class="n">XDELETE</span> <span class="s">'http://localhost:9200/movies/_doc/58559'</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220118145339.png" alt="20220118145339" /></p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220118145421.png" alt="20220118145421" /></p>
+
+<p><code class="language-plaintext highlighter-rouge">curl</code> 常用语法 (<code class="language-plaintext highlighter-rouge">http</code>)</p>
+
+<p>1、get请求</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>  curl http://xxx.xxx.xxx.xxx:port/xxxxxxxx
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>2、post请求</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>  curl -XPOST http://xxx.xxx.xxx.xxx:port/xxxxxxxx --data '{"xxxx" : "xxxx",  "xxxx" : "xxxxx"}' -H "Content-Type: application/json"
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre>-H表示自定义header (一般是: -H "Content-Type: application/json")
+
+--data表示body
+
+-X表示请求方式
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>3、put请求</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>  curl -XPUT http://xxx.xxx.xxx.xxx:port/xxxxxxxx --data '{"xxxx" : "xxxx",  "xxxx" : "xxxxx"}' -H "Content-Type: application/json"
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>4、delete请求</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>  curl -XDELETE http://xxx.xxx.xxx.xxx:port/xxxxxxxx --data '{"xxxx" : "xxxx",  "xxxx" : "xxxxx"}' -H "Content-Type: application/json" 
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>REFERENCE:</p>
+
+<p><a href="https://www.cnblogs.com/to-here/p/12525558.html">curl常用语法举例</a></p>
+:ET

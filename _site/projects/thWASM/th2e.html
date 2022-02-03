@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=0.56, maximum-scale=0.56, user-scalable=no" />
+	<meta name="HandheldFriendly" content="true" />
+    <title>Emscripten-Generated Code</title>
+    <style>
+      body {
+        font-family: arial;
+        margin: 0;
+        color:#fff;
+        padding: none;
+		    touch-action: none;
+        background-image: url('./thbg.png');
+        background-repeat:repeat;
+        background-size: 8%;
+      }
+
+      .emscripten { padding-right: 0; margin-left: auto; margin-right: auto; display: block; }
+      div.emscripten { text-align: center; }      
+      div.emscripten_border { border: 0px; }
+      /* the canvas *must not* have any border or padding, or mouse coords will be wrong */
+      canvas.emscripten { border: 0px; background-color: black; }
+
+      #emscripten_logo {
+        display: inline-block;
+        margin: 0;
+      }
+
+      .spinner {
+        height: 30px;
+        width: 30px;
+        margin: 0;
+        margin-top: 20px;
+        margin-left: 20px;
+        display: inline-block;
+        vertical-align: top;
+
+        -webkit-animation: rotation .8s linear infinite;
+        -moz-animation: rotation .8s linear infinite;
+        -o-animation: rotation .8s linear infinite;
+        animation: rotation 0.8s linear infinite;
+
+        border-left: 5px solid rgb(235, 235, 235);
+        border-right: 5px solid rgb(235, 235, 235);
+        border-bottom: 5px solid rgb(235, 235, 235);
+        border-top: 5px solid rgb(120, 120, 120);
+        
+        border-radius: 100%;
+        background-color: rgb(189, 215, 46);
+      }
+
+      @-webkit-keyframes rotation {
+        from {-webkit-transform: rotate(0deg);}
+        to {-webkit-transform: rotate(360deg);}
+      }
+      @-moz-keyframes rotation {
+        from {-moz-transform: rotate(0deg);}
+        to {-moz-transform: rotate(360deg);}
+      }
+      @-o-keyframes rotation {
+        from {-o-transform: rotate(0deg);}
+        to {-o-transform: rotate(360deg);}
+      }
+      @keyframes rotation {
+        from {transform: rotate(0deg);}
+        to {transform: rotate(360deg);}
+      }
+
+      #status {
+        display: inline-block;
+        vertical-align: top;
+        margin-top: 30px;
+        margin-left: 20px;
+        font-weight: bold;
+        color: rgb(120, 120, 120);
+      }
+
+      #progress {
+        height: 20px;
+        width: 300px;
+      }
+
+      #controls {
+        display: inline-block;
+        float: right;
+        vertical-align: top;
+        margin-top: 30px;
+        margin-right: 20px;
+      }
+
+      #output {
+        width: 100%;
+        height: 0px;
+        margin: 0 auto;
+        margin-top: 10px;
+        border-left: 0px;
+        border-right: 0px;
+        padding-left: 0px;
+        padding-right: 0px;
+        display: none;
+        background-color: black;
+        color: white;
+        font-family: 'Lucida Console', Monaco, monospace;
+        outline: none;
+      }
+	  
+
+	  div.softkbd
+	  {
+		width: 1200px;
+    height: 167px;
+		position: relative;
+		bottom: 20pt;
+		opacity: 1;
+    background: #333;
+    border: 1px solid #000000;
+    margin: 50px auto;
+    border-radius: 1px;
+	  }
+
+  .arrow_keys_bg
+    {
+      position: relative;
+      top:-134px;
+      right: -895px;
+      width: 295px;
+      height:145px;
+      background: rgb(109, 110, 106);
+      border-radius: 0px;
+      border: 1px solid #333;
+    }
+
+  .arrow_keys 
+    {
+      height: 55px;
+      width: 85px;
+      color: #fff;
+      background-color: #0068bd;
+      margin: 5px 5px;
+      font: 200 20px "Arial";
+      border-width: 0px;
+      border-radius: 0px;
+      text-align: center;
+      vertical-align: middle;
+      border: 1px solid #333;
+    }
+
+  .arrow_keys:hover
+    {
+      background-color: #000000;
+    }
+
+
+  .ctrl_keys_bg
+    {
+      position: relative;
+      left:10px;
+      top:13px;
+      background: rgb(109, 110, 106);
+      border:1px solid #333;
+      width:435px;
+      height:80px;
+    }
+
+  .ctrl_keys
+    {
+      height: 55px;
+      width: 85px;
+      color: #fff;
+      background-color: #0068bd;
+      margin: 5px 5px;
+      font: 200 20px "Arial";
+      border-width: 0px;
+      border-radius: 0px;
+      text-align: center;
+      vertical-align: middle;
+      border: 1px solid #333;
+    }
+
+    .settings_bg
+    {
+        position: relative;
+        left:10px;
+        top:10px;
+        background: rgb(109, 110, 106);
+        border:1px solid #333;
+        width:435px;
+        height:60px;
+    }
+    
+
+    </style>
+  </head>
+  <body>
+    
+
+    <div class="spinner" id='spinner'></div>
+    <div class="emscripten" id="status">Downloading...</div>
+
+    <div class="emscripten">
+      <progress value="0" max="100" id="progress" hidden=1></progress>
+    </div>
+
+    
+    <div class="emscripten_border">
+      <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()"></canvas>
+    </div>
+    <textarea id="output" rows="8"></textarea>
+
+	<div id="softkbd" class="softkbd">
+	
+    <div id="settings_bg" class="settings_bg">
+      <span id='controls'>
+        <span><input type="checkbox" id="resize">Resize canvas</span>
+        <span><input type="checkbox" id="pointerLock" checked>Lock/hide mouse pointer &nbsp;&nbsp;&nbsp;</span>
+        <span><input type="button" value="Fullscreen" onclick=
+          "Module.requestFullscreen(document.getElementById('pointerLock').checked, document.getElementById('resize').checked)" style="height: 10px;"></span>
+      </span>
+    </div>
+
+
+    <div id="ctrl_keys_bg" class="ctrl_keys_bg">
+      <button class="ctrl_keys" onpointerdown='kd(this, 16)', onpointerup='ku(this, 16)' style="width: 180px;">Shift</button>
+      <button class="ctrl_keys" onpointerdown='kd(this, 90)', onpointerup='ku(this, 90)'>Z</button>
+      <button class="ctrl_keys" onpointerdown='kd(this, 88)', onpointerup='ku(this, 88)'>X</button>
+    </div>
+
+    <div id="arrow_keys_bg" class="arrow_keys_bg">
+      <button class='arrow_keys' type="button" onpointerdown='kd(this, 32)', onpointerup='ku(this, 32)' style="height: 70px;">SP</button>
+    	<button class='arrow_keys' type="button" onpointerdown='kd(this, 38)', onpointerup='ku(this, 38)' style="height: 70px;">⬆︎</button>
+      <button class='arrow_keys' type="button" onpointerdown='kd(this, 27)', onpointerup='ku(this, 27)' style="height: 70px;">ESC</button>
+      <button class='arrow_keys' type="button" onpointerdown='kd(this, 37)', onpointerup='ku(this, 37)'>⬅︎</button>
+      <button class='arrow_keys' type="button" onpointerdown='kd(this, 40)', onpointerup='ku(this, 40)'>⬇︎</button>
+      <button class='arrow_keys' type="button" onpointerdown='kd(this, 39)', onpointerup='ku(this, 39)'>⮕</button>
+    </div>
+
+
+
+	</div>
+
+
+    <script type='text/javascript'>
+      var statusElement = document.getElementById('status');
+      var progressElement = document.getElementById('progress');
+      var spinnerElement = document.getElementById('spinner');
+
+      var Module = {
+        preRun: [],
+        postRun: [],
+        print: (function() {
+          var element = document.getElementById('output');
+          if (element) element.value = ''; // clear browser cache
+          return function(text) {
+            if (arguments.length > 1) text = Array.prototype.slice.call(arguments).join(' ');
+            // These replacements are necessary if you render to raw HTML
+            //text = text.replace(/&/g, "&amp;");
+            //text = text.replace(/</g, "&lt;");
+            //text = text.replace(/>/g, "&gt;");
+            //text = text.replace('\n', '<br>', 'g');
+            console.log(text);
+            if (element) {
+              element.value += text + "\n";
+              element.scrollTop = element.scrollHeight; // focus on bottom
+            }
+          };
+        })(),
+        printErr: function(text) {
+          if (arguments.length > 1) text = Array.prototype.slice.call(arguments).join(' ');
+          if (0) { // XXX disabled for safety typeof dump == 'function') {
+            dump(text + '\n'); // fast, straight to the real console
+          } else {
+            console.error(text);
+          }
+        },
+        canvas: (function() {
+          var canvas = document.getElementById('canvas');
+
+          // As a default initial behavior, pop up an alert when webgl context is lost. To make your
+          // application robust, you may want to override this behavior before shipping!
+          // See http://www.khronos.org/registry/webgl/specs/latest/1.0/#5.15.2
+          canvas.addEventListener("webglcontextlost", function(e) { alert('WebGL context lost. You will need to reload the page.'); e.preventDefault(); }, false);
+
+          return canvas;
+        })(),
+        setStatus: function(text) {
+          if (!Module.setStatus.last) Module.setStatus.last = { time: Date.now(), text: '' };
+          if (text === Module.setStatus.last.text) return;
+          var m = text.match(/([^(]+)\((\d+(\.\d+)?)\/(\d+)\)/);
+          var now = Date.now();
+          if (m && now - Module.setStatus.last.time < 30) return; // if this is a progress update, skip it if too soon
+          Module.setStatus.last.time = now;
+          Module.setStatus.last.text = text;
+          if (m) {
+            text = m[1];
+            progressElement.value = parseInt(m[2])*100;
+            progressElement.max = parseInt(m[4])*100;
+            progressElement.hidden = false;
+            spinnerElement.hidden = false;
+          } else {
+            progressElement.value = null;
+            progressElement.max = null;
+            progressElement.hidden = true;
+            if (!text) spinnerElement.style.display = 'none';
+          }
+          statusElement.innerHTML = text;
+        },
+        totalDependencies: 0,
+        monitorRunDependencies: function(left) {
+          this.totalDependencies = Math.max(this.totalDependencies, left);
+          Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies-left) + '/' + this.totalDependencies + ')' : 'All downloads complete.');
+        }
+      };
+      Module.setStatus('Downloading...');
+      window.onerror = function(event) {
+        // TODO: do not warn on ok events like simulating an infinite loop or exitStatus
+        Module.setStatus('Exception thrown, see JavaScript console');
+        spinnerElement.style.display = 'none';
+        Module.setStatus = function(text) {
+          if (text) Module.printErr('[post-exception status] ' + text);
+        };
+      };
+
+	  var oldBkColor = null ;
+	  	function kd(e, keyCode)
+		{
+			if (oldBkColor == null)
+				oldBkColor = e.style.background;
+			e.style.background="red";
+			__triggerEvent(document.getElementById("canvas"), "keydown", keyCode);
+		}
+		function ku(e, keyCode)
+		{
+			e.style.background=oldBkColor;
+			__triggerEvent(document.getElementById("canvas"), "keyup", keyCode);
+		}
+		
+		function __triggerEvent(el, evname, keyCode)
+		{
+			var eventObj = document.createEventObject ?
+				document.createEventObject() : document.createEvent("Events");
+		  
+			if(eventObj.initEvent){
+			  eventObj.initEvent(evname, true, true);
+			}
+		  
+			eventObj.keyCode = keyCode;
+			eventObj.which = keyCode;
+			
+			el.dispatchEvent ? el.dispatchEvent(eventObj) : el.fireEvent("onkeydown", eventObj); 
+		} 
+
+		document.getElementById('softkbd').addEventListener("touchstart", function(e){
+			e.preventDefault();
+		},{passive: false});
+		document.getElementById('softkbd').addEventListener("touchmove", function(e){
+			e.preventDefault();
+		},{passive: false});
+    </script>
+    <script async type="text/javascript" src="th2e.js"></script>
+  </body>
+</html>
+
+

@@ -4,8 +4,6 @@ description: "高阶线性微分方程组会梦见基础解系吗?"
 header-img: "img/post-bg-desk.jpg"
 ---
 
-
-
 {% for post in paginator.posts %}
 <div class="post-preview">
     <a href="{{ post.url | prepend: site.baseurl }}">
@@ -17,7 +15,16 @@ header-img: "img/post-bg-desk.jpg"
             {{ post.subtitle }}
         </h3>
         {% endif %}
-            {% if post.description %}
+        <!--
+        <div class="post-content-preview">
+            {% if post.lang == 'en' %}
+                {{ post.content | strip_html | truncate:300 }}
+            {% else %}
+                {{ post.content | strip_html | truncate:200 }}
+            {% endif %}
+        </div>
+        -->
+        {% if post.description %}
         <div class="post-content-preview">
                 {% if post.description %}
                     {{ post.description }}
@@ -26,12 +33,11 @@ header-img: "img/post-bg-desk.jpg"
             {% endif %}
     </a>
     <p class="post-meta">
-        Posted on {{ post.date | date: "%B %-d, %Y" }}
+        Posted by {% if post.author %}{{ post.author }}{% else %}{{ site.title }}{% endif %} on {{ post.date | date: "%B %-d, %Y" }}
     </p>
 </div>
 <hr>
 {% endfor %}
-</hr>
 
 <!-- Pager -->
 {% if paginator.total_pages > 1 %}

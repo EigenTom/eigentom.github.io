@@ -1,0 +1,135 @@
+I"�&<h1 id="表述复杂语言">表述复杂语言</h1>
+
+<p>在本章中, 我们将继续探究对复杂语言的表述方法, 介绍 <strong>上下文无关语法</strong>, 以及 <strong>巴克斯 - 诺尔范式</strong> .</p>
+
+<p><br /></p>
+
+<h2 id="1-上下文无关语法">1. 上下文无关语法</h2>
+<p>我们现在考虑通过某种良好的递归定义 <strong>生成</strong> 我们所需要的文字并组成语言, 而非构造能够从 $\mathscr{L}^{\star}$ 中过滤出所需文字的正则表达式.</p>
+
+<p>在生成文字的过程中, 我们首先从零开始, 以某个字母作为起始点, 并依据一定的规则递归地将现有的文字进行扩展, 最后在有限步后终止. 这是一个机械性的过程. <strong>上下文无关语法</strong> 的定义与之类似:</p>
+
+<p><strong>定义3.1.1</strong> 上下文无关语法 (<code class="language-plaintext highlighter-rouge">Context-free grammars</code>)</p>
+<blockquote>
+  <p>称一个上下文无关语法 (<code class="language-plaintext highlighter-rouge">CFG</code>) 由下列元素组成:</p>
+  <ul>
+    <li>由一系列 <strong>终止符</strong> (<code class="language-plaintext highlighter-rouge">Terminal Symbols</code>) 组成的字母表 $\Sigma$, 又称其为 <strong>对象字母表</strong> (<code class="language-plaintext highlighter-rouge">Object alphabet</code>)</li>
+    <li>由一系列 <strong>非终止符</strong> (<code class="language-plaintext highlighter-rouge">Non-terminal Symbols</code>) 组成的字母表 $\Xi$. 非终止符又称为 <strong>辅助字符</strong> (<code class="language-plaintext highlighter-rouge">Auxiliary Characters</code>).</li>
+    <li>一个位于 $\Xi$ 中的 <strong>起始字母</strong> $S$</li>
+    <li>一个由有限种 <strong>生成规则</strong> 组成的集合, 又称 <strong>产生式集合</strong>. 其中, 每个产生式包含一个称为 “产生式头” 或 “左部” 的非终止符号, 一个箭头以及一个称为 “产生式体” 或 “右部” 的, 由终止符号和非终止符组成的序列.</li>
+  </ul>
+</blockquote>
+
+<p><br /></p>
+
+<p>我们称这样定义的语法为 <strong>上下文无关的</strong>, 因为在遵循这样的语法规则中, 按照顺序生成文字时, 此前已经生成的片段不会对将来要生成的新片段产生影响, 彼此独立.</p>
+
+<p><strong>定义3.1.2</strong> 由语法生成的字符串</p>
+<blockquote>
+  <p>称字符串 $X \in (\Sigma \cup \Xi)^{\star}$ 为由语法 $G$ 生成的字符串, 若存在字符串序列:
+\(S = X_0\Rightarrow X_1\Rightarrow \cdots \Rightarrow X_n = X\)
+满足: 任意一步变换 $X_i \Rightarrow X_{i+1}$ 均是通过应用语法 $G$ 中的某个规则到非终止符 $X_i$ 上实现的.</p>
+</blockquote>
+
+<p>相应地, 还有:</p>
+
+<p><br /></p>
+
+<p><strong>定义3.1.3</strong> 由语法生成的语言</p>
+<blockquote>
+  <p>称一切定义在 $\Sigma$ 上, 由语法 $G$ 生成的文字所组成的集合为 <strong>由语法 $G$ 生成的语言</strong>.</p>
+</blockquote>
+
+<p><br /></p>
+
+<p>下面给出 <strong>上下文无关语言</strong> 的定义:</p>
+
+<p><strong>定义3.1.4</strong> 上下文无关语言</p>
+<blockquote>
+  <p>称基于字母表 $\Sigma$ 的语言 $\mathscr{L}$ 是 <strong>上下文无关</strong> (<code class="language-plaintext highlighter-rouge">context-free</code>) 的, 若它是由某个上下文无关语法所生成的.</p>
+</blockquote>
+
+<p>我们可以使用上下文无关语法表示一些非正则语言, 而正则语言本身也是上下文无关的. 下面我们介绍使用上下文无关语言表示正则语言的方法:<br /></p>
+
+<p>考虑基于字母表 $\Sigma$ 上的正则语言 $\mathscr{L}$. 根据 <strong>算法3</strong> 和 <strong>算法4</strong>, 我们可以构造出一个与之等价的非确定性有穷自动机 $(Q, q_{\cdot}, F, \delta)$. 下面我们将从这个自动机中导出一个上下文无关语法:</p>
+
+<ul>
+  <li>我们使用 $\Sigma$ 作为对象字母表.</li>
+  <li>我们使用 $\Xi = Q$ 作为非终止字母表.</li>
+  <li>我们使用 $S = q_{\cdot}$ 作为起始字母.</li>
+  <li>对任何自动机中的状态转换对 $(q^{x}, q’)$ (也就是 $q\rightarrow^{x}q’$), 都声明一个与之对应的生成规则 $q\rightarrow xq’$.</li>
+  <li>对任何自动机中的可接受态 $q\in F$, 都声明一个与之对应的生成规则 $q \rightarrow \epsilon$.</li>
+</ul>
+
+<p>[补充: 左线性和右线性]</p>
+
+<p><br /></p>
+
+<h2 id="2-语法分析和不明确性">2. 语法分析和不明确性</h2>
+<p>编译器在解读程序时所必须执行的一步是 <strong>语法分析</strong> (<code class="language-plaintext highlighter-rouge">parsing</code>). 简而言之, 语法分析是按照将句子拆解成不同的组成部分, 由此判断语句在语法上是否正确的流程. 在这里, 我们所关心的语法分析恰好是我们按照语法生成字符串的逆过程: 给定字符串, 设法找出按照给定语法将其组装起来的步骤. <strong>语法树</strong> (<code class="language-plaintext highlighter-rouge">parse tree</code>) 可以为我们明确提供某个字符串的组合流程.</p>
+
+<p>考虑下列的例子, $5 \times 3 + 4$:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameMarisaa/KirisameMarisaa.github.io/img/blogpost_images/20210317162437.png" alt="20210317162437" /></p>
+
+<p>上图所示的即为 $5 \times 3 + 4$ 的语法树. 语法树的阅读方法是直接阅读整棵树的叶子元素 (<code class="language-plaintext highlighter-rouge">leaves</code>). 任何可以用上下文无关语言所表述的, 较为复杂的文字往往都可以被不止一棵语法树所表示. 本例就可以由上述的两棵语法树所表示.</p>
+
+<p><strong>定义3.2.1</strong> 不明确性</p>
+<blockquote>
+  <p>若某个文字可以由不止一棵语法树表示, 则称该文字的生成是 <strong>不明确的</strong>, 对应的语法也是 <strong>不明确的</strong>.</p>
+</blockquote>
+
+<p><br /></p>
+
+<p><strong>定义3.2.2</strong> 上下文无关语法的不确定性</p>
+<blockquote>
+  <p>称一个上下文无关语法是不确定的, 若对于由该语法生成的文字 $w$, 存在不止一棵语法树可以将其正确表示.</p>
+</blockquote>
+
+<p><br /></p>
+
+<h2 id="3-backus-naur-范式">3. <code class="language-plaintext highlighter-rouge">Backus-Naur</code> 范式</h2>
+<p>巴克斯 - 诺尔范式常用于在程序设计语言和文法中表示的上下文无关语法, 并且其形式和我们此前在定义中接触到的表示方式有所不同, 因此同样有必要单独介绍.</p>
+
+<p>在巴克斯 - 诺尔范式中, 非终止字母无需记为大写字母, 而使用斜体与其余的符号作区分. 我们也可以将非终止字母替换为由 <code class="language-plaintext highlighter-rouge">“&lt;&gt;”</code> 扩起来的描述性语句.</p>
+
+<p>此外, 用于表示替换的箭头 $\rightarrow$ 在该范式中用 $:=$ 表示.</p>
+
+<p><br /></p>
+
+<h2 id="4-上下文无关语法的性质">4. 上下文无关语法的性质</h2>
+
+<p>我们在第二章中介绍过使用正则操作正则语言, 从而生成新的正则语言的方法. 下面我们探讨生成新的上下文无关语法的方式:</p>
+
+<ul>
+  <li>连接 <code class="language-plaintext highlighter-rouge">Concatenation</code>:<br />
+我们可以使用连接的方式构造新的上下文无关语法. 考虑两个基于 $\Sigma$ 的上下文无关语法, 其非终止字母表分别为 $\Xi_1, \Xi_2$.
+    <ul>
+      <li>首先, 为 $\Xi_1$ 中的所有字母加上下标 $1$, 为后者中的所有字母加上下标 $2$. 由此, 我们让两个非终止字母表中的元素区隔开来.</li>
+      <li>其次, 新增加一个起始字母 $S$, 并将原来两个语法中的全部生成规则用同样的方式加上下标进行区隔. <br /></li>
+      <li>最后, 我们新增一个生成规则: $S \rightarrow S_1S_2$.</li>
+    </ul>
+  </li>
+  <li>克莱尼星号: <br />
+对给定的上下文无关语法应用克莱尼星号并不比连接复杂:
+    <ul>
+      <li>添加两条新的生成规则: $S \rightarrow SS$, 以及 $S \rightarrow \epsilon$. <br />
+我们可以立即看出, 若要生成一个由给定语言中的字母连接成的, 长为 $n$ 的文字, 只需要应用规则 $S \rightarrow SS$ 共 $n-1$ 次. 而要生成空文字, 只需应用规则 $S\rightarrow \epsilon$.</li>
+    </ul>
+  </li>
+  <li>
+    <p>取反:<br />
+要对给定的上下文无关语法取反, 我们只需要将它的每一条生成规则替换为该规则的逆.</p>
+  </li>
+  <li>
+    <p>取并: <br />
+我们只需要对两个上下文无关语法的起始字母(表), 非终止字母表, 终止字母表以及生成规则等简单取并即可得到由两个上下文无关语法取并所得到的新语法.</p>
+  </li>
+  <li>取交和取补: <br />
+对任意的两个给定的上下文无关语法应用这两种操作方式并不能得到新的上下文无关语法.  但是, 在一些特殊情况下这两种规则仍是有效的.</li>
+</ul>
+
+<p>在本章中, 我们了解了上下文无关语法的定义和使用上下文无关语法进行语言的生成和描述的具体方式, 了解了使用语法树对某个上下文无关语法进行剖析并确定其是否具有歧义的方法, 并且还明晰了正则语言与上下文无关语法的关系. 最后, 我们介绍了基于给定的上下文无关语法生成新的上下文无关语法的一些方法.</p>
+
+<p>自此, 计算理论的上半部分告一段落. 在后半部分中, 我们将继续研究程序的复杂度 (<code class="language-plaintext highlighter-rouge">Complexity</code>) 并进行复杂度分析的基本介绍, 探讨程序的正确性 (<code class="language-plaintext highlighter-rouge">Correctness</code>) 以及可计算性 (<code class="language-plaintext highlighter-rouge">Computability</code>).</p>
+:ET

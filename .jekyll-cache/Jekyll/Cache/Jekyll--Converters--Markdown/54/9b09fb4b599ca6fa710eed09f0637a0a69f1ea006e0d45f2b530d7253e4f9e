@@ -1,0 +1,153 @@
+I"	7<h1 id="comp23111-revision-ch2">COMP23111 REVISION Ch2</h1>
+
+<h2 id="2-数据库建模">2. 数据库建模</h2>
+
+<p>一般地, 我们在对某个现实需求建模时, 需要执行的流程是: 首先从现实问题中总结出现实需求 (<strong>需求的汇集和分析</strong>), 将需求提炼成某种更抽象和精确的模型, 使用高级数据模型创建数据库的 <strong>概念模式 (<code class="language-plaintext highlighter-rouge">Conceptual Schema</code>)</strong>, (<strong>概念设计, <code class="language-plaintext highlighter-rouge">Conceptual Design</code></strong>) 并最终从这个模型得到可直接在 <code class="language-plaintext highlighter-rouge">DBMS</code> 上运行的数据库实现. (这一步也称为 <strong>逻辑设计</strong> <code class="language-plaintext highlighter-rouge">Logical Design</code>) 基于这个特定的数据库实现, 再在此基础上进行其他的优化和功能补足 (<strong>物理设计</strong> <code class="language-plaintext highlighter-rouge">Physical Design</code>).</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113093435.png" alt="20220113093435" /></p>
+
+<h3 id="21-需求分析和逻辑建模">2.1 需求分析和逻辑建模</h3>
+
+<p>本课程所教授的建模方法以 <strong>对象-实体模型</strong> 为概念模式, 以 <code class="language-plaintext highlighter-rouge">SQL</code> 为逻辑模式, 建模流程可以基本简化为: 提取需求 - 基于对象-实体模型构造 <code class="language-plaintext highlighter-rouge">E-R</code> 表并规范化 - 使用 <code class="language-plaintext highlighter-rouge">SQL</code> 实现数据库设计.</p>
+
+<p>在上一节中我们已经知道, 对象-实体模型的核心思想是将现实世界的事物抽象为具备 <strong>属性</strong> 的不同 <strong>对象</strong>, 并且不同 <strong>对象</strong> 之间通过 <strong>关系</strong> 相联.</p>
+
+<p>举例来说, <strong>对象</strong> 就如同句子中的名词/主语/谓语, 而修饰它的形容词就等价于 <strong>属性</strong>. 最后, <strong>关系</strong> 又可以视为 <strong>动词</strong>, 描述对象之间的行为或交互.</p>
+
+<p>下面我们举例说明如何使用 <code class="language-plaintext highlighter-rouge">E-R</code> 模型建模:</p>
+
+<p>考虑对一个零售公司的销售业务进行建模. 我们已知的事实是:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113203610.png" alt="20220113203610" /></p>
+
+<h4 id="211-对实体建模">2.1.1 对实体建模</h4>
+
+<p>从中我们首先可以直接看出, 我们需要对 $4$ 种实体进行建模: <code class="language-plaintext highlighter-rouge">Customer</code>, <code class="language-plaintext highlighter-rouge">Product</code>, <code class="language-plaintext highlighter-rouge">Order</code> 和 <code class="language-plaintext highlighter-rouge">Employee</code>.</p>
+
+<h4 id="212-对属性建模">2.1.2 对属性建模</h4>
+
+<p>对现实问题进行建模通常需要我们结合实际情况做出主观的假设. 进一步地, 我们可以基于假设和对给定信息的推断得出不同实体所应当被建模的属性:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113204125.png" alt="20220113204125" /></p>
+
+<p>需要注意的是: <code class="language-plaintext highlighter-rouge">E-R</code> 模型要求每个实体类型都要有一个可用来唯一确定实体实例的 <strong>码</strong>. 因此, 在构建 <code class="language-plaintext highlighter-rouge">E-R</code> 模型时, 我们就用 <code class="language-plaintext highlighter-rouge">*</code> 表示不同实体类型的 <strong>码</strong>.</p>
+
+<h4 id="213-对关系建模">2.1.3 对关系建模</h4>
+
+<p>在完成对实体类型的建模后, 我们就需要考虑实体之间的关系. 一般而言, 从给定的信息中提取或推断实体类型之间的关系是很自然的事. 在本例中, 我们就可以直观地看出, <code class="language-plaintext highlighter-rouge">Customer</code> 和 <code class="language-plaintext highlighter-rouge">Order</code> 之间必存在一个关系 <code class="language-plaintext highlighter-rouge">Places</code>, 也就是 “下订单”.</p>
+
+<p>在 <code class="language-plaintext highlighter-rouge">E-R</code> 表中, 我们通过 <strong>将表示不同实体类型的表用实线相连</strong> 来标记这些实体之间存在 <strong>关系</strong>. 我们一般还会把关系名写在实线上方, 从而便于理解.</p>
+
+<p>需要注意的是, 在对关系建模时, 除了标明 <strong>关系影响或包含的对象</strong>, <strong>关系名</strong> 以外, 我们还需要明确标示关系的 <strong>基数约束</strong>, 也就是标明 <strong>某关系一侧可以出现的最大和最小实体数</strong>.</p>
+
+<p>在本课程中, 我们使用 <strong>鸦脚标记法</strong> 标记 <code class="language-plaintext highlighter-rouge">E-R</code> 表中每个关系的基数约束. 如:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113205045.png" alt="20220113205045" /></p>
+
+<p>其语法规则如下:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113205111.png" alt="20220113205111" /></p>
+
+<p>下面讨论一些在构造 <code class="language-plaintext highlighter-rouge">E-R</code>图时可能会遇到的问题和一些特殊记法.</p>
+
+<p>首先, 双向的一对一关系可能会造成死锁问题, 这样的关系在对关系进行建模时要注意避免:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113211023.png" alt="20220113211023" /></p>
+
+<p>此外, 我们可以在 <code class="language-plaintext highlighter-rouge">E-R</code> 图中表示两个实体类型之间的多个不同关系:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113211116.png" alt="20220113211116" /></p>
+
+<p>形式上, 我们还可以在构造 <code class="language-plaintext highlighter-rouge">E-R</code> 图时就提前指定每个实体类型表中的 <strong>主键</strong> 和 <strong>外键</strong>, 但在该步骤中由于我们 <strong>仍然处在概念建模阶段</strong>, 尚未开始数据库的具体实现, 因此 <strong>不能提前添加属性域和对属性的约束</strong>:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113205421.png" alt="20220113205421" /></p>
+
+<p>我们可能会需要对 <strong>本身不具备码</strong> 的 <strong>弱实体类型</strong> (见本文 <code class="language-plaintext highlighter-rouge">定义 1.2.4</code>) 建模. 由于 <strong>弱实体类型的存在依赖于某个正常的实体类型</strong> (因为只有通过某个由正常实体类型的主键和弱实体类型的属性组成的复合键才能对它的实例进行唯一确定), 因此任何弱实体类型必然与某个正常实体类型存在某种关系. 在 <code class="language-plaintext highlighter-rouge">ER</code> 表中, 弱实体类型的标记语法如下:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113210700.png" alt="20220113210700" /></p>
+
+<p>同样地, 在对某些实体类型建模时, 我们可能需要对它的一些属性的表示方式进行取舍. 具体选择什么表示方式取决于实际问题的需要.</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113210835.png" alt="20220113210835" /></p>
+
+<h3 id="22-e-r-模型到数据库模式-schema-间的转换">2.2 <code class="language-plaintext highlighter-rouge">E-R</code> 模型到数据库模式 (<code class="language-plaintext highlighter-rouge">Schema</code>) 间的转换</h3>
+
+<p>在得到 <code class="language-plaintext highlighter-rouge">E-R</code> 图后, 我们需要将其转换为数据库模式 (本质上还是关系模式中定义的规则):</p>
+
+<p>在转换过程中一般地有以下的一一对应关系:</p>
+
+<ol>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">E-R</code> 图中的每个 <strong>实体类型</strong> 被转换为数据库模式中的一个用表格 (<code class="language-plaintext highlighter-rouge">table</code>) 表示的关系, 其原因是我们的数据库基于关系模型, 而在关系模型中, 原来的 “实体” 也需要被建模成关系.</p>
+  </li>
+  <li>
+    <p>每个实体类型中的 <strong>属性</strong> 被相应地转化为对应关系 (数据库模式中被建模成关系的实体类型) 中的属性.</p>
+  </li>
+  <li>
+    <p>一般地, 用 <code class="language-plaintext highlighter-rouge">*</code> 表示的 <strong>码</strong> 被转换为对应关系的主键.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">E-R</code> 图中用实线表示的, 实体类型之间的关系现在用外键或联表表示.</p>
+  </li>
+</ol>
+
+<h4 id="221-对象类型转换">2.2.1 对象类型转换</h4>
+
+<p>具有码的强对象类型会被直接转换为关系. 需要注意的是, 在从 <code class="language-plaintext highlighter-rouge">E-R</code> 图转换到数据库模式时, 我们需要补足每个关系中每个属性的 <strong>约束</strong>, <strong>默认值</strong> 和 <strong>主键/外键标示</strong>:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113212432.png" alt="20220113212432" /></p>
+
+<p>由于弱类型本身没有码, 在转换时弱类型对应的关系中会新增一个身为外键的属性, 该属性就是它的设计中复合主键的一部分: 其父关系类型的主键.</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113212610.png" alt="20220113212610" /></p>
+
+<h4 id="222-关系转换">2.2.2 关系转换</h4>
+
+<p>下面考虑对 <strong>关系</strong> 的转换:</p>
+
+<p>若某两个实体类型之间存在 <strong>一对一关系</strong> (<code class="language-plaintext highlighter-rouge">1-to-1 relationship</code>), <strong>则在转换时要在父类型</strong> (<code class="language-plaintext highlighter-rouge">Parent Node</code>) 对应的关系中新增一个属性, 该属性作为这个关系的 <strong>非空外键</strong>, 指向子类型的主键.</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113212748.png" alt="20220113212748" /></p>
+
+<p>比如, <code class="language-plaintext highlighter-rouge">Customer</code> 和 <code class="language-plaintext highlighter-rouge">User</code> 是一一对应关系, <code class="language-plaintext highlighter-rouge">Customer</code> 是父类型, 则在表示 <code class="language-plaintext highlighter-rouge">Customer</code> 时就需要添加指向 子类型 <code class="language-plaintext highlighter-rouge">User</code> 表主键的非空外键 <code class="language-plaintext highlighter-rouge">userID</code>.</p>
+
+<p><br /></p>
+
+<p>若某两个实体类型之间存在 <strong>一对多关系</strong> (<code class="language-plaintext highlighter-rouge">one-to many relationship</code>), <strong>则在转换时要在子类型</strong> (<code class="language-plaintext highlighter-rouge">'many' side</code>) 对应的关系中新增一个属性, 该属性作为这个关系的 <strong>可空外键</strong>, 指向父类型的主键.</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113214137.png" alt="20220113214137" /></p>
+
+<p>比如, <code class="language-plaintext highlighter-rouge">Customer</code> 和 <code class="language-plaintext highlighter-rouge">Order</code> 是一对多关系, <code class="language-plaintext highlighter-rouge">Order</code> 是子类型, 则在表示 <code class="language-plaintext highlighter-rouge">Order</code> 时就需要添加指向 父类型 <code class="language-plaintext highlighter-rouge">Customer</code> 表主键的外键 <code class="language-plaintext highlighter-rouge">custID</code>.</p>
+
+<p><br /></p>
+
+<p>多对多关系不能被直接转换, 需要构造联合类型(<code class="language-plaintext highlighter-rouge">Joining Entity</code>).</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113214425.png" alt="20220113214425" /></p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113214400.png" alt="20220113214400" /></p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113214415.png" alt="20220113214415" /></p>
+
+<p>REFERENCE:</p>
+
+<p><a href="https://www.cnblogs.com/dekevin/archive/2012/07/18/2596745.html">Powerdesigner数据库建模–概念模型–ER图</a></p>
+
+<p><a href="https://blog.csdn.net/u010429286/article/details/79022484">数据库中的Schema是什么?</a></p>
+
+<p><a href="https://beginnersbook.com/2015/04/super-key-in-dbms/">Super key in DBMS</a></p>
+
+<p><a href="https://www.techopedia.com/definition/21/candidate-key">Candidate key</a></p>
+
+<p><a href="https://blog.csdn.net/suguoliang/article/details/82844328">SQL–超键、候选键、主键、外键的认识和区分</a></p>
+
+<p><a href="https://en.wikipedia.org/wiki/Armstrong%27s_axioms">Wikipedia: Armstrong’s axioms</a></p>
+
+<p><a href="https://zhuanlan.zhihu.com/p/20028672">数据库第一二三范式到底在说什么？</a></p>
+
+<p><a href="https://blog.csdn.net/Swocky/article/details/105059674">【数据库系统】第十一讲 数据建模之思想与方法</a></p>
+
+<p><a href="https://blog.csdn.net/maxle/article/details/122006538">数据库概念（基数、关系模式的概念）</a></p>
+
+<p><a href="https://www.techopedia.com/definition/25122/one-to-many-relationship">One-to-Many Relationship</a></p>
+:ET

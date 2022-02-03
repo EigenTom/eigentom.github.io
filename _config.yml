@@ -5,45 +5,42 @@ SEOTitle: 某一般线性空间 | Ramdom Linear Space
 header-img: img/post-bg-desk.jpg
 email: Luyi1720839132@Gmail.com
 description: "由于相关法律法规规定, 该内容无法显示."
-keyword: "RLS, R1NG Blog, Learning"
+keyword: "菜"
 url: "https://kirisamer.github.io"          # your host, for absolute URL
-baseurl: "/"      # for example, '/blog' if your blog hosted on 'host/blog'
-searchurl: "/calculator.html"
+baseurl: ""      # for example, '/blog' if your blog hosted on 'host/blog'
 projectsurl: "/projects/main.html"
 github_repo: "https://github.com/kirisamer/kirisamer.github.io.git" # you code repository
 
-# Sidebar settings
-sidebar: False                           # whether or not using Sidebar.
-# sidebar-about-description: "Goals determine what you going to be!"
-# sidebar-avatar: /img/about.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
-
-
+# Publish posts or collection documents with a future date.
+future: true
 
 # SNS settings
 RSS: false
-# weibo_username:     
-# zhihu_username:     
-# github_username:    
-# facebook_username:  
-# jianshu_username:   
-#twitter_username:   
-
-
+weibo_username:     
+zhihu_username:     
+github_username:    KirisameR
+twitter_username:   
+#facebook_username:  huxpro
+#linkedin_username:  firstname-lastname-idxxxx
 
 
 # Build settings
 # from 2016, 'pygments' is unsupported on GitHub Pages. Use 'rouge' for highlighting instead.
+highlighter: rouge
 permalink: pretty
 paginate: 10
-exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
+exclude: ["less","node_modules","Gruntfile.js","package.json","README.md","README.zh.md"]
 anchorjs: true                          # if you want to customize anchor. check out line:181 of `post.html`
+# If you have timezone issue (e.g. #68) in China, uncomment to use this:
+#timezone: CN  
 
 
 
 # Gems
 # from PR#40, to support local preview for Jekyll 3.0
-gems: [jekyll-paginate]
-
+# make sure you have this gem installed
+# `$ gem install jekyll-paginate`
+plugins: [jekyll-paginate]
 
 
 
@@ -55,41 +52,43 @@ markdown: kramdown
 highlighter: rouge
 kramdown:
   input: GFM                            # use Github Flavored Markdown !important
+  syntax_highlighter_opts:
+    span:
+      line_numbers: false
+    block:
+      line_numbers: true
+      start_line: 1
 
 
 
-# 评论系统
-# Disqus（https://disqus.com/）
-# disqus_username: 
+# Disqus settings
+disqus_username: kirisamer
 
-# Gitalk
-gitalk:
-  enable: false    #是否开启Gitalk评论
-  clientID: f2c84e7629bb1446c1a4                            #生成的clientID
-  clientSecret: ca6d6139d1e1b8c43f8b2e19492ddcac8b322d0d    #生成的clientSecret
-  repo: kirisamer.github.io    #仓库名称
-  owner: kirisamer   #github用户名
-  admin: kirisamer
-  distractionFreeMode: true #是否启用类似FB的阴影遮罩
+# Netease settings
+netease_comment: false
 
 
-# 统计
 
 # Analytics settings
-# Baidu Analytics
-ba_track_id: b50bf2b12b5338a1845e33832976fd68
+# Baidu Analytics 
+# ba_track_id: [your track id]
 
 # Google Analytics
-ga_track_id: 'UA-90855596-1'            # Format: UA-xxxxxx-xx
-ga_domain: auto
+# ga_track_id: ''            # Format: UA-xxxxxx-xx
+# ga_domain: 
 
 
+
+# Sidebar settings
+sidebar: true                           # whether or not using Sidebar.
+sidebar-about-description: ""
+sidebar-avatar: https://github.com/KirisameR.png # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
 
 # Featured Tags
-featured-tags: true                     # 是否使用首页标签
-featured-condition-size: 1              # 相同标签数量大于这个数，才会出现在首页
+featured-tags: true                     # whether or not using Feature-Tags
+featured-condition-size: 1              # A tag will be featured if the size of it is more than this condition value
 
 
 
@@ -99,16 +98,24 @@ service-worker: true
 
 
 
+# MathJax rendering for layout:page (e.g. post preview)
+page-mathjax: true
+
+
+
 # Friends
 friends: [
     {
-        title: "My CSDN Blog",
-        href: "https://blog.csdn.net/u010186354"
+        title: "Ryan Xin",
+        href: "http://ryanxin.cn"
     },{
-        title: "Apple",
-        href: "https://apple.com"
+        title: "Axton.Gay",
+        href: "https://flyhigher.top"
     },{
-        title: "tonymacX86",
-        href: "https://www.tonymacx86.com"
+        title: "GrayNekoBean",
+        href: "https://graynekocafe.net"
+    },{
+        title: "Gnefil",
+        href: "Gnefil.github.io"
     }
 ]

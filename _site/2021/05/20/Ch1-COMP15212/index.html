@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="description" content="由于相关法律法规规定, 该内容无法显示.">
+    <meta name="keywords" content="菜">
+    <meta name="theme-color" content="#333">
+
+    <!-- Open Graph -->
+    <meta property="og:title"
+        content="Ch1 Memory Management - 某一般线性空间 | Ramdom Linear Space">
+    
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Ch1 Memory Management
+">
+    
+    <meta property="article:published_time" content=" 2021-05-20T00:00:00Z">
+    
+    
+    <meta property="article:author" content="R1NG">
+    
+    
+    <meta property="article:tag" content="COMP15212">
+    
+    <meta property="article:tag" content="课程笔记">
+    
+    <meta property="article:tag" content="2021">
+    
+    
+    <meta property="og:image" content="http://localhost:4000https://github.com/KirisameR.png">
+    <meta property="og:url" content="http://localhost:4000/2021/05/20/Ch1-COMP15212/">
+    <meta property="og:site_name" content="某一般线性空间 | Ramdom Linear Space">
+
+    <title>Ch1 Memory Management - 某一般线性空间 | Ramdom Linear Space</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4000/2021/05/20/Ch1-COMP15212/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href=" /css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href=" /css/hux-blog.min.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"type="text/css">
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+
+    <!-- 数学公式 -->
+    <script type="text/javascript" async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+            showProcessingMessages: true, //关闭js加载过程信息
+            messageStyle: "none", //不显示信息
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code','a'], //避开某些标签
+                ignoreClass:"comment-content" //避开含该Class的标签
+            },
+            "HTML-CSS": {
+                availableFonts: ["STIX","TeX"], //可选字体
+                showMathMenu: false //关闭右击菜单显示
+            }
+        });
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+    </script>
+
+    
+
+    <!-- Google AdSense -->
+    <script data-ad-client="ca-pub-6487568398225121" async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">RANDOM LINEAR SPACE</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div id="huxblog_navbar">
+                <div class="navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                        
+                        
+                        <li>
+                            <a href="/archive/">Archive</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li class="search-icon">
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <script>
+        // Drop Bootstarp low-performance Navbar
+        // Use customize navbar with high-quality material design animation
+        // in high-perf jank-free CSS3 implementation
+        var $body = document.body;
+        var $toggle = document.querySelector('.navbar-toggle');
+        var $navbar = document.querySelector('#huxblog_navbar');
+        var $collapse = document.querySelector('.navbar-collapse');
+
+        var __HuxNav__ = {
+            close: function () {
+                $navbar.className = " ";
+                // wait until animation end.
+                setTimeout(function () {
+                    // prevent frequently toggle
+                    if ($navbar.className.indexOf('in') < 0) {
+                        $collapse.style.height = "0px"
+                    }
+                }, 400)
+            },
+            open: function () {
+                $collapse.style.height = "auto"
+                $navbar.className += " in";
+            }
+        }
+
+        // Bind Event
+        $toggle.addEventListener('click', function (e) {
+            if ($navbar.className.indexOf('in') > 0) {
+                __HuxNav__.close()
+            } else {
+                __HuxNav__.open()
+            }
+        })
+
+        /**
+         * Since Fastclick is used to delegate 'touchstart' globally
+         * to hack 300ms delay in iOS by performing a fake 'click',
+         * Using 'e.stopPropagation' to stop 'touchstart' event from 
+         * $toggle/$collapse will break global delegation.
+         * 
+         * Instead, we use a 'e.target' filter to prevent handler
+         * added to document close HuxNav.  
+         *
+         * Also, we use 'click' instead of 'touchstart' as compromise
+         */
+        document.addEventListener('click', function (e) {
+            if (e.target == $toggle) return;
+            if (e.target.className == 'icon-bar') return;
+            __HuxNav__.close();
+        })
+    </script>
+    <!-- Search -->
+<div class="search-page">
+  <div class="search-icon-close-container">
+    <span class="search-icon-close">
+      <i class="fa fa-chevron-down"></i>
+    </span>
+  </div>
+  <div class="search-main container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <form></form>
+        <input type="text" id="search-input" placeholder="$ grep...">
+        </form>
+        <div id="search-results" class="mini-post-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/post-bg-os.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+
+
+
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/post-bg-os.jpg');
+        background: ;
+    }
+
+    
+</style>
+
+<header class="intro-header" >
+
+    <div class="header-mask"></div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/archive/?tag=COMP15212" title="COMP15212">COMP15212</a>
+                        
+                        <a class="tag" href="/archive/?tag=%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0" title="课程笔记">课程笔记</a>
+                        
+                        <a class="tag" href="/archive/?tag=2021" title="2021">2021</a>
+                        
+                    </div>
+                    <h1>Ch1 Memory Management</h1>
+                    
+                    <h2 class="subheading">Introduction of Memory Management</h2>
+                    <span class="meta">Posted by R1NG on May 20, 2021</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <!-- Multi-Lingual -->
+                
+
+				<h1 id="ch1-memory-management">Ch1 Memory Management</h1>
+
+<p>We now look at the software tasks involved in managing memory as a resource:</p>
+
+<h2 id="1-definitions--properties-of-memory">1. Definitions &amp; Properties of Memory</h2>
+
+<p><strong>Definition: Memory</strong></p>
+<blockquote>
+  <p>Computers hold data in a <strong>memory</strong> which is a large array of <strong>equal-sized storage spaces</strong>. <br />
+Each location has its own <strong>identifier</strong>: this is usually expressed as a hexadecimal number. This is the <strong>address</strong> of the location.<br />
+Inside the store is a value which is the data. The data can represent <strong>whatever</strong> you choose it to represent.</p>
+</blockquote>
+
+<p><br /></p>
+
+<p>The size of the virtual address space of a particular computer processor is <strong>fixed by the architecture</strong> of that processor.</p>
+
+<p>Because artificial computers are almost all digital, binary systems, the size is a typically a power of two – and most likely a power of (a power of 2).</p>
+
+<p>$16$-bit spaces with $2^{16}$ = $64$Ki = $65,536$ locations<br />
+$32$-bit spaces with $2^{32}$ = $4$Gi = $4,294,967,296$ locations<br />
+$64$-bit spaces with $2^{64}$ = $16$Ei = $18,446,744,073,709,551,616$locations</p>
+
+<h2 id="2-managing-the-memory">2. Managing the memory</h2>
+
+<p><strong>Definition: Memory Management</strong></p>
+<blockquote>
+  <p>In a simple system without virtual memory, as one process uses up some proportion of the memory it becomes unavailable for others. <br />
+With virtual memory and paging some of the restrictions can be bypassed (up to a point) but the problems still arise.<br />
+Any process will require one or more logical memory segments. (contiguous parts of the address space). 
+Therefore, memory, as one subclass of <strong>Resources</strong>, should be allocated, managed and controlled. This is done via <strong>Memory Management</strong>.</p>
+</blockquote>
+
+<p>Memory management can be done by <strong>both the application and the OS</strong>. Sometimes an application will request large blocks of memory and then allocate from them to save some (expensive) system calls. <br />
+However in the end it is the OS which is responsible for the memory as a resource.</p>
+
+<p>The O.S. may need to: (<strong>The Context of Memory Management</strong>)</p>
+
+<ul>
+  <li>allocate spaces when a process is loaded</li>
+  <li>set up pages in a virtual memory system</li>
+  <li>manage access permissions</li>
+  <li>allocate additional space if the stack or heap overflow</li>
+  <li>keep track of a process’ use and recover the resource when the process terminates.</li>
+</ul>
+
+<h3 id="21-memory-mapping">2.1 Memory Mapping</h3>
+
+<p><strong>Definition: Virtual Memory</strong></p>
+<blockquote>
+  <p>In a virtual memory system, a process’ address is referred to as a <strong>virtual address</strong>: this is <strong>translated</strong> to a physical address such that each physical location has a <strong>single correspondence</strong> with a process-plus-virtual-address combination.</p>
+</blockquote>
+
+<p>Different machines may have different amounts of physical memory installed. However, in a virtual memory system the application can simply assume that ’all’ the memory – the amount being set by the virtual machine size – is present and it can use any which it wants.<br /> This is also independent of other applications which may be running concurrently.</p>
+
+<p>To achieve this, each process has a <strong>private map</strong> which translates the virtual addresses, which the application generates, into <strong>non-conflicting physical addresses</strong>. This solves any potential address address conflicts.</p>
+
+<p><img src="https://wiki.cs.manchester.ac.uk/COMP15212/images/e/ed/Page_mapping.png" alt="" /></p>
+
+<p>Then how to implement memory mapping? We have the following observations:</p>
+
+<ol>
+  <li>Very <strong>few</strong> processes use the <strong>whole</strong> of their virtual address space.</li>
+  <li>It may be <strong>hard to predict</strong> which virtual addresses a given process chooses to use.</li>
+  <li>There is typically <strong>significant locality of access</strong>: if one address is used it is likely that addresses around it are also used.</li>
+</ol>
+
+<p>These properties are therefore exploited when memory mapping virtual to physical addresses, a process usually called <strong>address translation</strong>.</p>
+
+<p><strong>Definition: Address Translation</strong></p>
+<blockquote>
+  <p>Address translation is a process to translate addresses from a <strong>virtual address space</strong> (the addresses the application is aware of) to a <strong>physical address</strong> which the memory hardware deals with.<br /></p>
+</blockquote>
+
+<p>Notes:</p>
+<ol>
+  <li>Addresses are not translated individually: they are organised into <strong>pages</strong> which share a translation. This keeps the size of the tables manageable.</li>
+  <li>The <strong>most significant bits of the address</strong> are used to define the page number. <strong>Only the page number is translated</strong>.</li>
+  <li>It is possible to alias <strong>more than one virtual page</strong> to the same physical page.</li>
+  <li>Not all virtual pages need an allocation of physical RAM. A page can be marked as ‘invalid’ if it is not wanted.</li>
+  <li>The page table may have some ‘spare’ bits which can be used for other purposes.</li>
+</ol>
+
+<p><br /></p>
+
+<h3 id="22-memory-paging--segmentation">2.2 Memory Paging &amp; Segmentation</h3>
+
+<p><strong>Definition: Memory Segmentation</strong></p>
+<blockquote>
+  <p>The memory is divided logically into a number of regions in any given application. The parts of memory grouped together in these logical divisions are typically referred to as <strong>segments</strong>.<br />
+The process of dividing and grouping memory into segments is called <strong>Memory Segmentation</strong>.</p>
+</blockquote>
+
+<p>Notes:</p>
+<ol>
+  <li>A particular segment will have <strong>a set of attributes</strong> (such as can or cannot be written to) and different segments will have different attributes.</li>
+  <li>There can be an arbitrary number of segments and they will typically have <strong>different</strong> sizes.</li>
+  <li>The logical segment will typically be mapped using <strong>hardware pages</strong> and the pages will be <strong>organised by software</strong>.</li>
+</ol>
+
+<p>Question: <br /></p>
+
+<p>can you spot any advantages in using paging hardware over trying to map variable-sized segments into RAM?</p>
+
+<p>Answer: <br />
+Mapping a segment using page tables is more expensive than having a single mapping entry for the segment, but it brings a couple of useful advantages.</p>
+
+<ul>
+  <li>Because each page can be mapped individually, the segment does not need a (possibly, large) contiguous space in the physical memory. The pages can be used to fragment the segment. This gives much more flexibility and (largely) overcomes the problem of having enough memory in total to accommodate another segment, but not enough in one place.</li>
+  <li>By implication, if necessary a logical segment can be increased in size whilst the program is running without worrying about overlapping other memory. This could happen if, for example, more memory was being demanded for the stack or the heap.</li>
+  <li>With virtual memory only some of the pages in a segment – those which are actually in use – need be present in physical memory at any time.</li>
+  <li>As an example, consider a code segment. In any given run, quite a lot of the code may never be needed: for example code to handle errors is important to have, but rarely executes. With paging and virtual memory, unwanted code (or data) need not occupy valuable physical memory as it is only fetched if it is needed.</li>
+</ul>
+
+<p><strong>Definition: Memory Pages</strong></p>
+<blockquote>
+  <p>A page is a division of a virtual memory system (a fixed size block of memory). The whole address space is <strong>sliced into pages</strong> which – for implementation purposes – will each contain 2N locations.<br />
+The page is an <strong>indivisible block</strong>. The operating system will assign memory to a process in pages: thus a program which has (say) 14 KiB of code will have four pages in which that code will be stored.</p>
+</blockquote>
+
+<p><strong>Definition: Page look-up</strong></p>
+<blockquote>
+  <p>The processor produces a virtual address from which the <strong>MMU looks up a page reference</strong>. If the page is present in physical memory the translated (physical) address is passed on and everything just works. The look-up is <strong>all done by the MMU hardware</strong> so this can all run as part of a user’s application process.</p>
+</blockquote>
+
+<p><strong>Definition: Page faults</strong></p>
+<blockquote>
+  <p>A <strong>page fault</strong> is a form of a <strong>memory fault</strong>: a hardware-level exception which causes a form of operating system call. The information about the ‘problem’ is maintained so the processor can recover.<br />
+A page fault is caused when a virtual address <strong>fails to be translated into a physical address</strong> – usually because the page is not present in the physical memory. They are usually recoverable-from.</p>
+</blockquote>
+
+<p>If the virtual page is marked as not resident, things become more complicated and the operating system needs to intervene. This is triggered by the MMU hardware indicating a page fault. This loading of memory when required is sometimes referred to as “demand paging”.</p>
+
+<p>The exception handler (part of the O.S.) must determine that this is a page fault and not some other form of memory fault. This checks that the virtual address and operation (such as a write) is legitimate.</p>
+
+<p>If this is a genuine page fault the page must now be “swapped in”.</p>
+
+<p><strong>Definition: Memory Paging(Swapping)</strong></p>
+<blockquote>
+  <p>Memory paging is the process of modifying the context of some particular memory pages.</p>
+</blockquote>
+
+<p>The O.S. has to find a page frame for the desired page. In a memory mapped system this can be anywhere in the physical RAM; it may involve evicting an existing page. There are many factors which can be considered when choosing a page to evict.</p>
+
+<p>If the evicted page has been modified then it must be copied back to disk – a time-consuming process.</p>
+
+<p>The chosen physical page is loaded with the appropriate contents from disk. The page tables are modified appropriately.</p>
+
+<p>The figure below is an attempt to show a possible state diagram for a virtual memory page. Each potential page will have its own state.</p>
+
+<p><img src="https://wiki.cs.manchester.ac.uk/COMP15212/images/c/c3/Page_states.png" alt="" /></p>
+
+<p>A page fault has just required that a memory page be evicted so that the urgently needed page can be loaded. Which page should be evicted?</p>
+
+<p>Here are some possible algorithms for choosing:</p>
+
+<ul>
+  <li>
+    <p>‘Random’ - pick any page. Fairly simple and yet this works reasonably well.</p>
+  </li>
+  <li>
+    <p>‘First-In,First-Out(FIFO)’ - It is one of the simplest page replacement algorithm. The oldest page, which has spent the longest time in memory is chosen and replaced. This algorithm is implemented with the help of a FIFO queue to list the pages in memory. A page is inserted at the rear end of the queue and is replaced at the front of the queue.</p>
+  </li>
+  <li>
+    <p>‘Least Recently Used’ - the page which hasn’t been touched for the longest time. The assumption is that ‘if you haven’t used it recently you probably won’t want it again, soon’. This holds reasonably well for most software.<br />
+LRU is often cited as one of the ‘better’ means of predicting the future, but it requires <strong>some effort to keep a list of references sorted chronologically</strong>; this needs to be supported in hardware as each memory operation (load or store) may move any pave to the back-of-the-queue.</p>
+  </li>
+</ul>
+
+<p><strong>Definition: Page Pinning</strong></p>
+<blockquote>
+  <p>Pinning the page is the process to avoid some important pages to be evicted.</p>
+</blockquote>
+
+<p>There are some pages which should not be evicted – and others which are highly desirable to keep in memory – which contain code critical to the operating system. One example might be an interrupt service routine for interrupts requiring low latency.</p>
+
+<p>Such pages are ‘permanently’ resident and are sometimes referred to as being “pinned”; they are excluded from being chosen for eviction.</p>
+
+<p><br /></p>
+
+<h2 id="3-memory-swapping">3. Memory Swapping</h2>
+
+<p>Mapping the memory works okay providing that the sum of the memory used by all current applications <strong>does not exceed</strong> the size of the installed physical memory. If that happens then some more storage needs to be found.</p>
+
+<p>If the demand on the physical store becomes too great, <strong>some pages are copied onto disk to free up some new space</strong>. The pages are chosen by a <strong>scheduling algorithm</strong>; this is the same principle as caching. The process is usually referred to <strong>as “paging” or “swapping”.</strong></p>
+
+<p>It is done with a combination of hardware and (operating system) software. the key concepts are probably:</p>
+
+<ul>
+  <li><strong>Memory mapping</strong> keeps the application code supplied with memory.</li>
+  <li><strong>Memory protection</strong> keeps the applications secure and separated.</li>
+  <li><strong>The MMU</strong> is the hardware which implements all this.</li>
+  <li><strong>Paging</strong> supports swapping to disk.</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="4-memory-protection">4. Memory Protection</h2>
+
+<p>The computer’s memory is a resource needed by anything and everything which executes. On the other hand each process wants its own private space which is <strong>inaccessible</strong> to other processes. This <strong>prevents contamination</strong> – either accidental or malicious – from one process to another.</p>
+
+<p>It is also important to p<strong>rotect the operating system space from being altered by the user</strong> – except in carefully controlled ways which are provided by system calls. This includes:</p>
+
+<ul>
+  <li>operating system code</li>
+  <li>operating system data</li>
+  <li>memory-mapped peripheral devices</li>
+</ul>
+
+<p>Some protection <strong>can be given by memory mapping</strong>: if a process has a limited memory map then it can’t ‘see’ memory which isn’t currently ‘mapped in’.</p>
+
+<p>However something (i.e. the operating system) has to be able to do the mapping and any user application has to be able to interact with operating system services.</p>
+
+<p>Thus there is liable to be some memory protection which <strong>validates a particular access</strong>, using both the requested (virtual) address, the particular action and the processor’s privilege at the time.</p>
+
+<p>If <strong>an access of a disallowed type or without adequate privilege</strong> is attempted, there will be a <strong>hardware exception</strong> used to invoke an operating system handler.</p>
+
+<p>The sort of permissions which might be implemented are:</p>
+
+<ul>
+  <li>No access</li>
+  <li>Supervisor read-only</li>
+  <li>Supervisor read/write</li>
+  <li>Read-only</li>
+  <li>Read/write by any privilege level</li>
+</ul>
+
+<p>These will be <strong>specified in the MMU</strong>. Page-based schemes are probably the most common now, so the following description may assume this in places.</p>
+
+<p><br /></p>
+
+<h2 id="5-memory-management-unit-mmu">5. Memory Management Unit (MMU)</h2>
+
+<p><strong>Definition: MMU</strong></p>
+<blockquote>
+  <p>A <strong>Memory Management Unit (MMU)</strong> is the hardware system which <strong>performs both virtual memory mapping and checks the current privilege to keep user processes separated from the operating system</strong> — and each other. <br />
+In addition it helps to prevent caching of ‘volatile’ memory regions (such as areas containing I/O peripherals.</p>
+</blockquote>
+
+<p>MMU inputs: <br /></p>
+<ul>
+  <li>a virtual memory address</li>
+  <li>an operation: read/write, maybe a transfer size</li>
+  <li>the processor’s privilege information</li>
+</ul>
+
+<p>MMU outputs<br /></p>
+<ul>
+  <li>a physical memory address</li>
+  <li>cachability (etc.) information</li>
+  <li>…or a rejection.</li>
+</ul>
+
+<p>a rejection (memory fault) indicating:<br /></p>
+<ul>
+  <li>no physical memory (currently) mapped to the requested page</li>
+  <li>illegal operation (e.g. writing to a ‘read only’ area)</li>
+  <li>privilege violation (e.g. user tries to get at O.S. space)</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="6-translation-look-aside-buffer-tlb">6. Translation Look-aside Buffer (TLB)</h2>
+
+<p><strong>Definition: TLB</strong></p>
+<blockquote>
+  <p>TLB (Translation Lok-aside Buffer) is a caching buffer which caches a very small portion of page table.</p>
+</blockquote>
+
+<p>Memory Mapping involves page table look-up. The page tables are large enough to need to be stored in memory. Thus, with a two-level page table scheme every memory access is <strong>logically preceded by two more memory reads</strong> to translate the virtual address to the physical address.</p>
+
+<p>Slowing down by 200% is not generally acceptable. Thus, when a translation has been done <strong>the result is cached</strong>, associating the input virtual page address with the resolved physical page. Because there only needs to be one TLB entry <strong>per page</strong> (not per address) and software typically exhibits locality quite a small TLB can accommodate most software efficiently; this can be fast, specialised hardware.</p>
+
+<p><img src="https://wiki.cs.manchester.ac.uk/COMP15212/images/f/f4/TLB.png" alt="" /></p>
+
+<p>The TLB holds a recently used set of translations.</p>
+
+<ul>
+  <li>Input: a virtual address (page)</li>
+  <li>Outputs: a physical address and some page permissions etc.</li>
+</ul>
+
+<p>Although it is not itself called a ‘cache’ it certainly uses the principle of caching.</p>
+
+
+                <hr style="visibility: hidden;">
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2021/05/20/Ch0-COMP15212/" data-toggle="tooltip" data-placement="top" title="Ch0 Intro">
+                        Previous<br>
+                        <span>Ch0 Intro</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2021/05/20/Ch2-COMP15212/" data-toggle="tooltip" data-placement="top" title="Ch2 Process Management">
+                        Next<br>
+                        <span>Ch2 Process Management</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <hr style="visibility: hidden;">
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+                
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+
+
+<section>
+    
+        <hr class="hidden-sm hidden-xs">
+    
+    <h5><a href="/archive/">FEATURED TAGS</a></h5>
+    <div class="tags">
+        
+        
+        
+        
+        
+        
+                <a data-sort="0109" 
+                    href="/archive/?tag=COMP12111"
+                    title="COMP12111"
+                    rel="10">COMP12111</a>
+        
+                <a data-sort="0027" 
+                    href="/archive/?tag=2021"
+                    title="2021"
+                    rel="92">2021</a>
+        
+                <a data-sort="0073" 
+                    href="/archive/?tag=%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0"
+                    title="课程笔记"
+                    rel="46">课程笔记</a>
+        
+                <a data-sort="0079" 
+                    href="/archive/?tag=%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0"
+                    title="前端学习"
+                    rel="40">前端学习</a>
+        
+                <a data-sort="0079" 
+                    href="/archive/?tag=50P50D"
+                    title="50P50D"
+                    rel="40">50P50D</a>
+        
+                <a data-sort="0094" 
+                    href="/archive/?tag=2020"
+                    title="2020"
+                    rel="25">2020</a>
+        
+                <a data-sort="0104" 
+                    href="/archive/?tag=COMP24011"
+                    title="COMP24011"
+                    rel="15">COMP24011</a>
+        
+                <a data-sort="0107" 
+                    href="/archive/?tag=%E9%80%BB%E8%BE%91%E5%AD%A6"
+                    title="逻辑学"
+                    rel="12">逻辑学</a>
+        
+                <a data-sort="0109" 
+                    href="/archive/?tag=COMP15111"
+                    title="COMP15111"
+                    rel="10">COMP15111</a>
+        
+                <a data-sort="0110" 
+                    href="/archive/?tag=%E6%89%A9%E5%B1%95%E8%87%AA%E4%B9%A0"
+                    title="扩展自习"
+                    rel="9">扩展自习</a>
+        
+                <a data-sort="0110" 
+                    href="/archive/?tag=COMP21111"
+                    title="COMP21111"
+                    rel="9">COMP21111</a>
+        
+                <a data-sort="0112" 
+                    href="/archive/?tag=%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0"
+                    title="机器学习"
+                    rel="7">机器学习</a>
+        
+                <a data-sort="0112" 
+                    href="/archive/?tag=COMP11212"
+                    title="COMP11212"
+                    rel="7">COMP11212</a>
+        
+                <a data-sort="0115" 
+                    href="/archive/?tag=%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95"
+                    title="数据结构和算法"
+                    rel="4">数据结构和算法</a>
+        
+                <a data-sort="0115" 
+                    href="/archive/?tag=COMP15212"
+                    title="COMP15212"
+                    rel="4">COMP15212</a>
+        
+                <a data-sort="0115" 
+                    href="/archive/?tag=COMP23111"
+                    title="COMP23111"
+                    rel="4">COMP23111</a>
+        
+                <a data-sort="0116" 
+                    href="/archive/?tag=%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7"
+                    title="奇技淫巧"
+                    rel="3">奇技淫巧</a>
+        
+                <a data-sort="0117" 
+                    href="/archive/?tag=%E7%99%BD%E6%9E%9C%E5%9B%AD"
+                    title="白果园"
+                    rel="2">白果园</a>
+        
+                <a data-sort="0117" 
+                    href="/archive/?tag=%E7%AE%97%E6%B3%95"
+                    title="算法"
+                    rel="2">算法</a>
+        
+                <a data-sort="0117" 
+                    href="/archive/?tag=Lab"
+                    title="Lab"
+                    rel="2">Lab</a>
+    </div>
+</section>
+
+
+                <!-- Friends Blog -->
+                
+<hr>
+<h5>FRIENDS</h5>
+<ul class="list-inline">
+  
+  <li><a href="http://ryanxin.cn">Ryan Xin</a></li>
+  
+  <li><a href="https://flyhigher.top">Axton.Gay</a></li>
+  
+  <li><a href="https://graynekocafe.net">GrayNekoBean</a></li>
+  
+  <li><a href="Gnefil.github.io">Gnefil</a></li>
+  
+</ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<!-- add support for mathjax by voleking-->
+
+
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "KirisameR";
+    var disqus_identifier = "/2021/05/20/Ch1 COMP15212";
+    var disqus_url = "http://localhost:4000/2021/05/20/Ch1-COMP15212/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'right',
+          // icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <!-- SNS Link -->
+                
+
+
+<ul class="list-inline text-center">
+
+
+  
+  
+  
+  
+  
+  
+  <li>
+    <a target="_blank" href="https://github.com/KirisameR">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  
+  
+</ul>
+
+                <p class="copyright text-muted">
+                    Copyright &copy; 某一般线性空间 2022
+                    <br>
+                    Powered by <a href="http://huangxuan.me">Hux Blog</a> |
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="100px"
+                        height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=huxpro&repo=huxpro.github.io&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<!-- Currently, only navbar scroll-down effect at desktop still depends on this -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Simple Jekyll Search -->
+<script src="/js/simple-jekyll-search.min.js"></script>
+
+<!-- Service Worker -->
+
+<script src="/js/snackbar.js "></script>
+<script src="/js/sw-registration.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+        var d = document, t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+
+
+
+
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog(selector) {
+
+        // interop with multilangual 
+        if ('' == 'true') {
+            _containerSelector = 'div.post-container.active'
+        } else {
+            _containerSelector = 'div.post-container'
+        }
+
+        // init
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        // clean
+        $(selector).html('')
+
+        // appending
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+<!-- Multi-Lingual -->
+
+
+<!-- Simple Jekyll Search -->
+<script>
+    // https://stackoverflow.com/questions/1912501/unescape-html-entities-in-javascript
+    function htmlDecode(input) {
+        var e = document.createElement('textarea');
+        e.innerHTML = input;
+        // handle case of empty input
+        return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+    }
+
+    SimpleJekyllSearch({
+        searchInput: document.getElementById('search-input'),
+        resultsContainer: document.getElementById('search-results'),
+        json: '/search.json',
+        searchResultTemplate: '<div class="post-preview item"><a href="{url}"><h2 class="post-title">{title}</h2><h3 class="post-subtitle">{subtitle}</h3><hr></a></div>',
+        noResultsText: 'No results',
+        limit: 50,
+        fuzzy: false,
+        // a hack to get escaped subtitle unescaped. for some reason, 
+        // post.subtitle w/o escape filter nuke entire search.
+        templateMiddleware: function (prop, value, template) {
+            if (prop === 'subtitle' || prop === 'title') {
+                if (value.indexOf("code")) {
+                    return htmlDecode(value);
+                } else {
+                    return value;
+                }
+            }
+        }
+    });
+
+    $(document).ready(function () {
+        var $searchPage = $('.search-page');
+        var $searchOpen = $('.search-icon');
+        var $searchClose = $('.search-icon-close');
+        var $searchInput = $('#search-input');
+        var $body = $('body');
+
+        $searchOpen.on('click', function (e) {
+            e.preventDefault();
+            $searchPage.toggleClass('search-active');
+            var prevClasses = $body.attr('class') || '';
+            setTimeout(function () {
+                $body.addClass('no-scroll');
+            }, 400)
+
+            if ($searchPage.hasClass('search-active')) {
+                $searchClose.on('click', function (e) {
+                    e.preventDefault();
+                    $searchPage.removeClass('search-active');
+                    $body.attr('class', prevClasses);  // from closure 
+                });
+                $searchInput.focus();
+            }
+        });
+    });
+</script>
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

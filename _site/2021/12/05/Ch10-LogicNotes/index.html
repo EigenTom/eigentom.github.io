@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="description" content="由于相关法律法规规定, 该内容无法显示.">
+    <meta name="keywords" content="菜">
+    <meta name="theme-color" content="#333">
+
+    <!-- Open Graph -->
+    <meta property="og:title"
+        content="逻辑学探幽 Part10 - 某一般线性空间 | Ramdom Linear Space">
+    
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="有限域下的谓词逻辑
+">
+    
+    <meta property="article:published_time" content=" 2021-12-05T00:00:00Z">
+    
+    
+    <meta property="article:author" content="R1NG">
+    
+    
+    <meta property="article:tag" content="逻辑学">
+    
+    <meta property="article:tag" content="2021">
+    
+    <meta property="article:tag" content="COMP21111">
+    
+    
+    <meta property="og:image" content="http://localhost:4000https://github.com/KirisameR.png">
+    <meta property="og:url" content="http://localhost:4000/2021/12/05/Ch10-LogicNotes/">
+    <meta property="og:site_name" content="某一般线性空间 | Ramdom Linear Space">
+
+    <title>逻辑学探幽 Part10 - 某一般线性空间 | Ramdom Linear Space</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4000/2021/12/05/Ch10-LogicNotes/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href=" /css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href=" /css/hux-blog.min.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"type="text/css">
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+
+    <!-- 数学公式 -->
+    <script type="text/javascript" async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+            showProcessingMessages: true, //关闭js加载过程信息
+            messageStyle: "none", //不显示信息
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code','a'], //避开某些标签
+                ignoreClass:"comment-content" //避开含该Class的标签
+            },
+            "HTML-CSS": {
+                availableFonts: ["STIX","TeX"], //可选字体
+                showMathMenu: false //关闭右击菜单显示
+            }
+        });
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+    </script>
+
+    
+
+    <!-- Google AdSense -->
+    <script data-ad-client="ca-pub-6487568398225121" async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">RANDOM LINEAR SPACE</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div id="huxblog_navbar">
+                <div class="navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                        
+                        
+                        <li>
+                            <a href="/archive/">Archive</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li class="search-icon">
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <script>
+        // Drop Bootstarp low-performance Navbar
+        // Use customize navbar with high-quality material design animation
+        // in high-perf jank-free CSS3 implementation
+        var $body = document.body;
+        var $toggle = document.querySelector('.navbar-toggle');
+        var $navbar = document.querySelector('#huxblog_navbar');
+        var $collapse = document.querySelector('.navbar-collapse');
+
+        var __HuxNav__ = {
+            close: function () {
+                $navbar.className = " ";
+                // wait until animation end.
+                setTimeout(function () {
+                    // prevent frequently toggle
+                    if ($navbar.className.indexOf('in') < 0) {
+                        $collapse.style.height = "0px"
+                    }
+                }, 400)
+            },
+            open: function () {
+                $collapse.style.height = "auto"
+                $navbar.className += " in";
+            }
+        }
+
+        // Bind Event
+        $toggle.addEventListener('click', function (e) {
+            if ($navbar.className.indexOf('in') > 0) {
+                __HuxNav__.close()
+            } else {
+                __HuxNav__.open()
+            }
+        })
+
+        /**
+         * Since Fastclick is used to delegate 'touchstart' globally
+         * to hack 300ms delay in iOS by performing a fake 'click',
+         * Using 'e.stopPropagation' to stop 'touchstart' event from 
+         * $toggle/$collapse will break global delegation.
+         * 
+         * Instead, we use a 'e.target' filter to prevent handler
+         * added to document close HuxNav.  
+         *
+         * Also, we use 'click' instead of 'touchstart' as compromise
+         */
+        document.addEventListener('click', function (e) {
+            if (e.target == $toggle) return;
+            if (e.target.className == 'icon-bar') return;
+            __HuxNav__.close();
+        })
+    </script>
+    <!-- Search -->
+<div class="search-page">
+  <div class="search-icon-close-container">
+    <span class="search-icon-close">
+      <i class="fa fa-chevron-down"></i>
+    </span>
+  </div>
+  <div class="search-main container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <form></form>
+        <input type="text" id="search-input" placeholder="$ grep...">
+        </form>
+        <div id="search-results" class="mini-post-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/post-bg-logicnotes.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+
+
+
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/post-bg-logicnotes.jpg');
+        background: ;
+    }
+
+    
+</style>
+
+<header class="intro-header" >
+
+    <div class="header-mask"></div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/archive/?tag=%E9%80%BB%E8%BE%91%E5%AD%A6" title="逻辑学">逻辑学</a>
+                        
+                        <a class="tag" href="/archive/?tag=2021" title="2021">2021</a>
+                        
+                        <a class="tag" href="/archive/?tag=COMP21111" title="COMP21111">COMP21111</a>
+                        
+                    </div>
+                    <h1>逻辑学探幽 Part10</h1>
+                    
+                    <h2 class="subheading">没有逻辑 只有heip</h2>
+                    <span class="meta">Posted by R1NG on December 5, 2021</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <!-- Multi-Lingual -->
+                
+
+				<h1 id="有限域下的谓词逻辑">有限域下的谓词逻辑</h1>
+
+<p>在本章中, 我们介绍有限域下的谓词逻辑 (<code class="language-plaintext highlighter-rouge">Propositional Logic of Finite Domains, PLFD</code>) , 它可被用于描述那些状态可以通过指定变量的值而定义的状态转换系统的属性. 我们认知下的谓词逻辑 (<code class="language-plaintext highlighter-rouge">Propositional Logic</code>) 可被视为一种特殊的 <code class="language-plaintext highlighter-rouge">PLFD</code>: 在该系统中, 任何谓词变量的取值都是布尔值.</p>
+
+<p>我们将首先解释 <code class="language-plaintext highlighter-rouge">PLFD</code> 的语法和语义. 在此之后, 我们会进一步地通过引入 <code class="language-plaintext highlighter-rouge">PLFD</code> 与谓词逻辑之间的模式转换 (<code class="language-plaintext highlighter-rouge">Model-Preserving Translations</code>), 从而使利用谓词逻辑解决 <code class="language-plaintext highlighter-rouge">PLFD</code> 问题成为可能. 最后, 我们为 <code class="language-plaintext highlighter-rouge">PLFD</code> 引入语义表系统 (<code class="language-plaintext highlighter-rouge">Tableau System</code>).</p>
+
+<h2 id="101-语法和语义">10.1 语法和语义</h2>
+
+<p>有限域下的谓词逻辑实际上是一类具有相同特征的逻辑系统的总和. 这一类逻辑系统都包含存储变量的有限集 $\mathscr{X}$ 和一个由 <strong>域</strong> 组成的有限集. 在其中, 我们称有限集 $\mathscr{X}$ 中的元素为 <strong>值</strong>, 每个值都和某个域相关联, 记为 $\text{dom}(x)$. 我们称, $\text{dom}(x)$ 为变量 $x$ 的定义域.</p>
+
+<p><strong>定义 10.1.1</strong> (有限域下谓词逻辑中的公式)</p>
+<blockquote>
+  <p>我们使用下列的归纳法定义有限域下谓词逻辑中公式的概念:<br /></p>
+  <ol>
+    <li>若 $x$ 为变量, $v \in \text{dom}(x)$ 为 $x$ 的定义域中的一个值, 则 $x=v$ 为 <strong>公式 (原子公式)</strong>, 或称为 <strong>原子</strong>.</li>
+    <li>使用原子公式, 利用逻辑联结词构造的复合公式也是 <strong>公式</strong>.</li>
+  </ol>
+</blockquote>
+
+<p><code class="language-plaintext highlighter-rouge">PLFD</code> 语义的定义和谓词逻辑类似. 我们首先定义 “解释” 的概念, 再定义在某个解释中原子公式的含义. 我们下面解释 <code class="language-plaintext highlighter-rouge">PLFD</code> 的语义:</p>
+
+<p><strong>定义 10.1.2</strong> (有限域下谓词逻辑的解释)</p>
+<blockquote>
+  <p>称对由一系列变量组成的结合 $X$ 的 <strong>解释</strong> 为一个从 $X$ 到一个集合的映射 $I$, 满足</p>
+
+\[\forall x, ~ I(x) \in \text{dom}(x).\]
+
+  <p>同时有:<br /></p>
+  <ol>
+    <li>$I(x=v) = 1$ 当且仅当 $I(x)=v$.</li>
+    <li>若 $F$ 不为原子公式, 则 $I(F)$ 的定义和谓词逻辑中的定义一致.</li>
+  </ol>
+</blockquote>
+
+<p>此外, 有限域下谓词逻辑的 <strong>真性</strong>. <strong>模型 (<code class="language-plaintext highlighter-rouge">model</code>)</strong>, <strong>重言性</strong>, <strong>可满足性</strong> 和 <strong>等价性</strong> 都与谓词逻辑一致.</p>
+
+<p>需要注意的是: <code class="language-plaintext highlighter-rouge">PLFD</code> 的语法和语义是 <strong>参数化</strong> 的. 也就是说, <code class="language-plaintext highlighter-rouge">PLFD</code> 的一些性质实际上可能受一些特定变量的定义域的影响. 如公式 <code class="language-plaintext highlighter-rouge">door = open \/ door = closed</code> 对任何满足 $\text{dom}(\text{door}) = {\text{open}, \text{closed}}$ 的逻辑均满足, 但若某个逻辑实例的 $\text{dom}(\text{door})$ 包含三个或以上元素时, 情况就不一样了.</p>
+
+<h2 id="102-模式转换">10.2 模式转换</h2>
+
+<p>我们将在本节中讨论 <code class="language-plaintext highlighter-rouge">PLFD</code> 和谓词逻辑的转换问题, 并提供一种转换方法. 我们将看到, 谓词逻辑本质上是 <code class="language-plaintext highlighter-rouge">PLFD</code> 的一个实例.</p>
+
+<h3 id="1021-谓词逻辑到-plfd-的转换">10.2.1 谓词逻辑到 <code class="language-plaintext highlighter-rouge">PLFD</code> 的转换</h3>
+
+<p>考虑 <code class="language-plaintext highlighter-rouge">PLFD</code> 的一个实例, 在该实例中, 任何变量 $p_i$ 的定义域都是 ${0, 1}$, 也就是布尔值. 显然, 谓词逻辑和我们刚才定义的实例具有相同的解释: 这两个逻辑系统中的任何一个的任一解释本质上都是将变量映射到某个布尔值上. 在本章中, 我们给出的转换法将具有把任何谓词逻辑中的公式 $F$ 转换为 <code class="language-plaintext highlighter-rouge">PLFD</code> 中的公式 $F’$, 使得在谓词逻辑中 $I \vDash F$ 当且仅当在 <code class="language-plaintext highlighter-rouge">PLFD</code> 中 $I \vDash F’$.</p>
+
+<p>谓词逻辑到 <code class="language-plaintext highlighter-rouge">PLFD</code> 的转换的定义如下: 对任意谓词逻辑下的公式 $F$, 公式 $\text{plfd}(F)$ 将通过从 $F$ 中将任何谓词原子 $p$ 替换为 <code class="language-plaintext highlighter-rouge">PLFD</code> 原子公式 $p=1$ 所得到.</p>
+
+<p><strong>定理 10.2.1</strong></p>
+<blockquote>
+  <p>谓词公式 $F$ 和通过上述规则转换得到的公式 $\text{plfd}(F)$ 具有相同的模型.</p>
+</blockquote>
+
+<h3 id="1022-plfd-到谓词逻辑的转换">10.2.2 <code class="language-plaintext highlighter-rouge">PLFD</code> 到谓词逻辑的转换</h3>
+
+<p>下面考虑从 <code class="language-plaintext highlighter-rouge">PLFD</code> 到谓词逻辑的转换.</p>
+
+<p>对任意包含非布尔变量的 <code class="language-plaintext highlighter-rouge">PLFD</code> 而言, 我们是无法找到保持语义不变的转换方法将其转换为谓词逻辑的. 在这种情况下, 我们仍可构造出一个 <strong>保持 <code class="language-plaintext highlighter-rouge">PLFD</code> 和谓词逻辑的部分性质之间的映射</strong>, 我们也可以使用这样的映射寻找 <code class="language-plaintext highlighter-rouge">PLFD</code> 公式的模型, 检验其可满足性和其他的属性.</p>
+
+<p>我们使用这样的思想构造保持性质的映射: 对 <code class="language-plaintext highlighter-rouge">PLFD</code> 中的原子公式, 我们可以引入 <strong>布尔变量</strong> 来将其表示, 如使用 $x_v$ 表示公式 $x=v$. 在对 <code class="language-plaintext highlighter-rouge">PLFD</code> 中的所有原子公式都这样替代后, 我们记这样得到的谓词公式为 $F’$. 一般地, 在执行完这样的转换后, 我们往往还需要附加一些限制条件以排除掉一些在 $F’$ 中合法, 但在 <code class="language-plaintext highlighter-rouge">PLFD</code> 中无效的模型.</p>
+
+<p><strong>定义 10.2.1</strong> (域公理)</p>
+<blockquote>
+  <p>设 $x$ 为变量, 其定义域为 $\text{dom}(x) ={v_1, \cdots, v_n}$. 则 $x$ 的 <strong>域公理</strong> 为谓词公式:</p>
+
+\[(x_{v_1} \vee \cdots \vee x_{v_n}) \wedge \bigwedge_{i &lt; j} (\neg x_{v_i} \wedge \neg x_{v_j}).\]
+</blockquote>
+
+<p><strong>引理 10.2.1</strong></p>
+<blockquote>
+  <p>记 $\text{dom}(x) = {v_1, \cdots, v_n}.$ 记 $F$ 为 $x$ 的域公理, $I$ 为定义在一系列布尔变量 $X = {x_{v_1}, \cdots, x_{v_n}}$ 上的解释. 则 $I \vDash F$ 当且仅当 $X$ 中 <strong>恰有一个</strong> 布尔变量在 $I$ 中是被满足的.</p>
+</blockquote>
+
+<p><strong>证明</strong><br />
+显然 $x_{v_1} \vee \cdots \vee x_{v_n}$ 表示的是 “解释 $I$ 至少要满足 $X$ 中的一个元素”, 而 $\neg x_{v_i} \wedge \neg x_{v_j}$ 表示的是 “解释最多满足变量 $x_{v_i}, x_{v_j}$ 中的一个”. 因此结合可知, 域公理的 <strong>模型</strong> 恰为: 恰好满足 $X$ 中某一个变量的那些解释 (<code class="language-plaintext highlighter-rouge">Intepretation</code>). $\blacksquare$</p>
+
+<h2 id="103-plfd-的语义表系统">10.3 <code class="language-plaintext highlighter-rouge">PLFD</code> 的语义表系统</h2>
+
+<p>在本节中, 我们通过对谓词逻辑的 <strong>语义表</strong> 构造规则进行扩展, 引入 <code class="language-plaintext highlighter-rouge">PLFD</code> 的语义表系统.</p>
+
+<p>考虑变量 $x$ 与集合 $D$, $D \in \text{dom}(x)$, 认定 $x \in D$ 为具有下列语义的原子公式:</p>
+
+<p>对某个解释 $I$, 我们有 $I \vDash x \in D$ 当且仅当 $I(x) \in D$, 显然 任何形如 $x=v$ 的公式都和公式 $x \in {v}$ 等价, 且任何形如 $x \in {v_1, \cdots, v_n}$ 的公式都等价于 $(x=v_1) \vee (x=v_2) \vee \cdots (x=v_n)$.</p>
+
+<p><code class="language-plaintext highlighter-rouge">PLFD</code> 的语义表系统基本上使用与谓词逻辑中的语义表系统相同的分支扩展规则, 但是在此基础上我们还要引入两条新的规则;</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20211222091925.png" alt="20211222091925" /></p>
+
+<p>注意我们可以对有符号公式进行如下的简化;</p>
+
+<ol>
+  <li>$(x \in D)=1$ 的简化表述是 $x \in D$.</li>
+  <li>$(x \in D)=0$ 的简化表述是 $x \notin D$.</li>
+</ol>
+
+<p>此外, 需要注意的是, 第二条新规则要求公式 $x \in D_1, x \in D_2$ 位于相同的分支上 $(D_1, D_2 \in \text{dom}(x))$.</p>
+
+<p>我们同时称语义表中的某个分支为 <strong>闭的</strong>, 若它包含下列的有符号公式的至少一种: $\top = 0, ~ \perp = 1, ~ x \in {}$.</p>
+
+<p><strong>定理 10.3.1</strong> (正确性和完备性)</p>
+<blockquote>
+  <p>令 $T$ 为由某个有符号公式 $\gamma$ 表示的已终止的决策所得到的表, 则公式 $\gamma$ 为可满足的, <strong>当且仅当 $T$ 中所有分支都是闭的</strong>.</p>
+</blockquote>
+
+
+                <hr style="visibility: hidden;">
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2021/11/19/Ch9-LogicNotes/" data-toggle="tooltip" data-placement="top" title="逻辑学探幽 Part9">
+                        Previous<br>
+                        <span>逻辑学探幽 Part9</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2021/12/15/Ch11-LogicNotes/" data-toggle="tooltip" data-placement="top" title="逻辑学探幽 Part11">
+                        Next<br>
+                        <span>逻辑学探幽 Part11</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <hr style="visibility: hidden;">
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+                
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+
+
+<section>
+    
+        <hr class="hidden-sm hidden-xs">
+    
+    <h5><a href="/archive/">FEATURED TAGS</a></h5>
+    <div class="tags">
+        
+        
+        
+        
+        
+        
+                <a data-sort="0109" 
+                    href="/archive/?tag=COMP12111"
+                    title="COMP12111"
+                    rel="10">COMP12111</a>
+        
+                <a data-sort="0027" 
+                    href="/archive/?tag=2021"
+                    title="2021"
+                    rel="92">2021</a>
+        
+                <a data-sort="0073" 
+                    href="/archive/?tag=%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0"
+                    title="课程笔记"
+                    rel="46">课程笔记</a>
+        
+                <a data-sort="0079" 
+                    href="/archive/?tag=%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0"
+                    title="前端学习"
+                    rel="40">前端学习</a>
+        
+                <a data-sort="0079" 
+                    href="/archive/?tag=50P50D"
+                    title="50P50D"
+                    rel="40">50P50D</a>
+        
+                <a data-sort="0094" 
+                    href="/archive/?tag=2020"
+                    title="2020"
+                    rel="25">2020</a>
+        
+                <a data-sort="0104" 
+                    href="/archive/?tag=COMP24011"
+                    title="COMP24011"
+                    rel="15">COMP24011</a>
+        
+                <a data-sort="0107" 
+                    href="/archive/?tag=%E9%80%BB%E8%BE%91%E5%AD%A6"
+                    title="逻辑学"
+                    rel="12">逻辑学</a>
+        
+                <a data-sort="0109" 
+                    href="/archive/?tag=COMP15111"
+                    title="COMP15111"
+                    rel="10">COMP15111</a>
+        
+                <a data-sort="0110" 
+                    href="/archive/?tag=%E6%89%A9%E5%B1%95%E8%87%AA%E4%B9%A0"
+                    title="扩展自习"
+                    rel="9">扩展自习</a>
+        
+                <a data-sort="0110" 
+                    href="/archive/?tag=COMP21111"
+                    title="COMP21111"
+                    rel="9">COMP21111</a>
+        
+                <a data-sort="0112" 
+                    href="/archive/?tag=%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0"
+                    title="机器学习"
+                    rel="7">机器学习</a>
+        
+                <a data-sort="0112" 
+                    href="/archive/?tag=COMP11212"
+                    title="COMP11212"
+                    rel="7">COMP11212</a>
+        
+                <a data-sort="0115" 
+                    href="/archive/?tag=%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95"
+                    title="数据结构和算法"
+                    rel="4">数据结构和算法</a>
+        
+                <a data-sort="0115" 
+                    href="/archive/?tag=COMP15212"
+                    title="COMP15212"
+                    rel="4">COMP15212</a>
+        
+                <a data-sort="0115" 
+                    href="/archive/?tag=COMP23111"
+                    title="COMP23111"
+                    rel="4">COMP23111</a>
+        
+                <a data-sort="0116" 
+                    href="/archive/?tag=%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7"
+                    title="奇技淫巧"
+                    rel="3">奇技淫巧</a>
+        
+                <a data-sort="0117" 
+                    href="/archive/?tag=%E7%99%BD%E6%9E%9C%E5%9B%AD"
+                    title="白果园"
+                    rel="2">白果园</a>
+        
+                <a data-sort="0117" 
+                    href="/archive/?tag=%E7%AE%97%E6%B3%95"
+                    title="算法"
+                    rel="2">算法</a>
+        
+                <a data-sort="0117" 
+                    href="/archive/?tag=Lab"
+                    title="Lab"
+                    rel="2">Lab</a>
+    </div>
+</section>
+
+
+                <!-- Friends Blog -->
+                
+<hr>
+<h5>FRIENDS</h5>
+<ul class="list-inline">
+  
+  <li><a href="http://ryanxin.cn">Ryan Xin</a></li>
+  
+  <li><a href="https://flyhigher.top">Axton.Gay</a></li>
+  
+  <li><a href="https://graynekocafe.net">GrayNekoBean</a></li>
+  
+  <li><a href="Gnefil.github.io">Gnefil</a></li>
+  
+</ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<!-- add support for mathjax by voleking-->
+
+
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "KirisameR";
+    var disqus_identifier = "/2021/12/05/Ch10 LogicNotes";
+    var disqus_url = "http://localhost:4000/2021/12/05/Ch10-LogicNotes/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'right',
+          // icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <!-- SNS Link -->
+                
+
+
+<ul class="list-inline text-center">
+
+
+  
+  
+  
+  
+  
+  
+  <li>
+    <a target="_blank" href="https://github.com/KirisameR">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  
+  
+</ul>
+
+                <p class="copyright text-muted">
+                    Copyright &copy; 某一般线性空间 2022
+                    <br>
+                    Powered by <a href="http://huangxuan.me">Hux Blog</a> |
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="100px"
+                        height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=huxpro&repo=huxpro.github.io&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<!-- Currently, only navbar scroll-down effect at desktop still depends on this -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Simple Jekyll Search -->
+<script src="/js/simple-jekyll-search.min.js"></script>
+
+<!-- Service Worker -->
+
+<script src="/js/snackbar.js "></script>
+<script src="/js/sw-registration.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+        var d = document, t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+
+
+
+
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog(selector) {
+
+        // interop with multilangual 
+        if ('' == 'true') {
+            _containerSelector = 'div.post-container.active'
+        } else {
+            _containerSelector = 'div.post-container'
+        }
+
+        // init
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        // clean
+        $(selector).html('')
+
+        // appending
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+<!-- Multi-Lingual -->
+
+
+<!-- Simple Jekyll Search -->
+<script>
+    // https://stackoverflow.com/questions/1912501/unescape-html-entities-in-javascript
+    function htmlDecode(input) {
+        var e = document.createElement('textarea');
+        e.innerHTML = input;
+        // handle case of empty input
+        return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+    }
+
+    SimpleJekyllSearch({
+        searchInput: document.getElementById('search-input'),
+        resultsContainer: document.getElementById('search-results'),
+        json: '/search.json',
+        searchResultTemplate: '<div class="post-preview item"><a href="{url}"><h2 class="post-title">{title}</h2><h3 class="post-subtitle">{subtitle}</h3><hr></a></div>',
+        noResultsText: 'No results',
+        limit: 50,
+        fuzzy: false,
+        // a hack to get escaped subtitle unescaped. for some reason, 
+        // post.subtitle w/o escape filter nuke entire search.
+        templateMiddleware: function (prop, value, template) {
+            if (prop === 'subtitle' || prop === 'title') {
+                if (value.indexOf("code")) {
+                    return htmlDecode(value);
+                } else {
+                    return value;
+                }
+            }
+        }
+    });
+
+    $(document).ready(function () {
+        var $searchPage = $('.search-page');
+        var $searchOpen = $('.search-icon');
+        var $searchClose = $('.search-icon-close');
+        var $searchInput = $('#search-input');
+        var $body = $('body');
+
+        $searchOpen.on('click', function (e) {
+            e.preventDefault();
+            $searchPage.toggleClass('search-active');
+            var prevClasses = $body.attr('class') || '';
+            setTimeout(function () {
+                $body.addClass('no-scroll');
+            }, 400)
+
+            if ($searchPage.hasClass('search-active')) {
+                $searchClose.on('click', function (e) {
+                    e.preventDefault();
+                    $searchPage.removeClass('search-active');
+                    $body.attr('class', prevClasses);  // from closure 
+                });
+                $searchInput.focus();
+            }
+        });
+    });
+</script>
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

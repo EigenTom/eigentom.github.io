@@ -1,0 +1,241 @@
+I"�W<h1 id="prolog-入门-列表"><code class="language-plaintext highlighter-rouge">Prolog</code> 入门: 列表</h1>
+
+<p>在本章中，我们将介绍一种在 <code class="language-plaintext highlighter-rouge">Prolog</code> 程序设计中常用的 <strong>递归型数据结构</strong>: <strong>列表</strong>. 此外, 我们还将介绍一个用于对列表进行操作的常用谓词: <code class="language-plaintext highlighter-rouge">member/2</code>. 最后, 我们将简单介绍对列表的 <strong>递归式访问</strong>.</p>
+
+<h2 id="1-列表">1 列表</h2>
+
+<p>我们首先引入 <strong>列表</strong> 的概念.</p>
+
+<p><strong>定义 1.1</strong> (列表)</p>
+<blockquote>
+  <p>称元素的 <strong>有限序列</strong> 为 <strong>列表</strong>, <code class="language-plaintext highlighter-rouge">Prolog</code> 中列表的形态和其他程序设计语言中常见的没有区别.</p>
+</blockquote>
+
+<p>下面给出一些 <code class="language-plaintext highlighter-rouge">Prolog</code> 中列表的例子:</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="p">[</span><span class="ss">axton</span><span class="p">,</span> <span class="ss">ryan</span><span class="p">,</span> <span class="ss">graynekobean</span><span class="p">,</span> <span class="ss">determination</span><span class="p">,</span> <span class="ss">angus</span><span class="p">]</span>
+
+<span class="p">[</span><span class="ss">axton</span><span class="p">,</span> <span class="ss">glorious</span><span class="p">(</span><span class="ss">axton</span><span class="p">),</span> <span class="nv">X</span><span class="p">,</span> <span class="m">114514</span><span class="p">,</span> <span class="ss">axton</span><span class="p">]</span>
+
+<span class="p">[]</span>
+
+<span class="p">[</span><span class="ss">axton</span><span class="p">,</span> <span class="p">[</span><span class="ss">cytusii</span><span class="p">,</span> <span class="ss">arcaea</span><span class="p">],</span> <span class="p">[</span><span class="ss">genshin</span><span class="p">,</span> <span class="ss">genshinPlayer</span><span class="p">(</span><span class="ss">ryan</span><span class="p">)]]</span>
+
+<span class="p">[[],</span> <span class="ss">best</span><span class="p">(</span><span class="ss">axton</span><span class="p">),</span> <span class="p">[</span><span class="m">114514</span><span class="p">,</span> <span class="p">[</span><span class="m">1919</span><span class="p">,</span> <span class="m">810</span><span class="p">]],</span> <span class="p">[],</span> <span class="nv">Z</span><span class="p">,</span> <span class="p">[</span><span class="m">114514</span><span class="p">,</span> <span class="p">[</span><span class="ss">tadokoro</span><span class="p">,</span> <span class="ss">koji</span><span class="p">]]]</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>从上述的例子中可以看出:</p>
+
+<ol>
+  <li>我们可以通过将项用逗号 <code class="language-plaintext highlighter-rouge">,</code> 分割并将其置于中括号 <code class="language-plaintext highlighter-rouge">[</code> 和 <code class="language-plaintext highlighter-rouge">]</code> 中声明列表.</li>
+  <li>列表的长度等于它所存储的项目数量.</li>
+  <li>列表中可存储的元素类型没有限制, 我们既可以存储原子, 数字, 列表, 谓词, 也可以存储复杂项.</li>
+  <li>列表中可以存储多个完全相同的元素, 这与通常所熟知的 <strong>集合</strong> 不同.</li>
+  <li>列表被允许定义为 <strong>空</strong> 的. 称不存储任何元素的列表为 <strong>空列表</strong>, 其长度为 $0$.</li>
+  <li>列表可以作为另一个 (或一些) 列表的子元素而被嵌套存储. 当一个列表被作为子元素存储时, 父列表的长度与作为子元素的列表无关.</li>
+</ol>
+
+<p>需要注意的是, 在 <code class="language-plaintext highlighter-rouge">Prolog</code> 中我们一般将列表逻辑上划分为两部分:</p>
+
+<p><strong>定义 1.2</strong> (列表头)</p>
+<blockquote>
+  <p>称列表的第一个元素为 <strong>列表头</strong>. 存储单个元素的列表的列表头为这个元素本身, 空列表没有列表头.</p>
+</blockquote>
+
+<p><strong>定义 1.3</strong> (列表尾)</p>
+<blockquote>
+  <p>称一个列表被去掉列表头后原列表剩下的其他所有部分为 <strong>列表尾</strong>. 注意, 列表尾不是列表的最后一个元素. <code class="language-plaintext highlighter-rouge">Prolog</code> 中任何一个列表的列表尾都是一个列表, 而非元素. 对存储单个元素的列表而言, 其列表尾为空列表, 空列表没有列表尾.</p>
+</blockquote>
+
+<p>下面用一些例子解释列表头和列表尾的概念:</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+</pre></td><td class="rouge-code"><pre><span class="o">//</span> <span class="ss">consider</span> <span class="ss">the</span> <span class="ss">following</span> <span class="ss">list</span><span class="o">:</span>
+<span class="p">[</span><span class="ss">axton</span><span class="p">,</span> <span class="ss">ryan</span><span class="p">,</span> <span class="ss">graynekobean</span><span class="p">,</span> <span class="ss">determination</span><span class="p">,</span> <span class="ss">angus</span><span class="p">]</span>
+
+<span class="o">//</span> <span class="ss">its</span> <span class="ss">head</span> <span class="ss">is</span><span class="o">:</span>
+<span class="ss">axton</span>
+
+<span class="o">//</span><span class="ss">while</span> <span class="ss">its</span> <span class="ss">tail</span> <span class="ss">is</span><span class="o">:</span>
+<span class="p">[</span><span class="ss">ryan</span><span class="p">,</span> <span class="ss">graynekobean</span><span class="p">,</span> <span class="ss">determination</span><span class="p">,</span> <span class="ss">angus</span><span class="p">]</span>
+
+<span class="o">//</span> <span class="ss">now</span> <span class="ss">consider</span> <span class="ss">an</span> <span class="ss">odd</span> <span class="ss">example</span><span class="o">:</span>
+<span class="p">[</span><span class="ss">arcaea</span><span class="p">]</span>
+
+<span class="o">//</span> <span class="ss">its</span> <span class="ss">head</span> <span class="ss">is</span><span class="o">:</span>
+<span class="ss">arcaea</span>
+
+<span class="o">//</span> <span class="ss">while</span> <span class="ss">its</span> <span class="ss">tail</span> <span class="ss">is</span> <span class="ss">an</span> <span class="ss">empty</span> <span class="ss">list</span><span class="p">,</span> <span class="ss">since</span> <span class="ss">the</span> <span class="ss">original</span><span class="p">...</span>
+<span class="o">//</span> <span class="p">...</span><span class="ss">list</span> <span class="ss">has</span> <span class="ss">nothing</span> <span class="ss">left</span> <span class="ss">after</span> <span class="ss">its</span> <span class="ss">head</span> <span class="ss">being</span> <span class="ss">stripped</span>
+<span class="p">[]</span>
+
+<span class="o">//</span> <span class="ss">so</span> <span class="ss">what</span> <span class="ss">about</span> <span class="ss">an</span> <span class="ss">empty</span> <span class="ss">list</span><span class="o">?</span>
+<span class="p">[]</span>
+
+<span class="o">//</span> <span class="ss">its</span> <span class="ss">has</span> <span class="nv">NEITHER</span> <span class="ss">a</span> <span class="ss">head</span> <span class="nv">NOR</span> <span class="ss">tail</span><span class="p">!</span>
+<span class="o">//</span> <span class="ss">in</span> <span class="ss">other</span> <span class="ss">words</span><span class="p">,</span> <span class="p">[]</span> <span class="ss">has</span> <span class="ss">no</span> <span class="ss">internal</span> <span class="ss">structure</span><span class="p">.</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>下面引入一个新的 <code class="language-plaintext highlighter-rouge">Prolog</code> 内置运算符.</p>
+
+<p><strong>定义 1.4</strong> (列表拆分运算符)</p>
+<blockquote>
+  <p>在 <code class="language-plaintext highlighter-rouge">Prolog</code> 中, 分割线 <code class="language-plaintext highlighter-rouge">|</code> 被视为一个二元谓词, 其作用为将一个列表拆分为头尾两个部分.</p>
+</blockquote>
+
+<p>列表拆分运算符的用法如下:</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="o">?-</span> <span class="p">[</span><span class="nv">Head</span><span class="p">|</span><span class="nv">Tail</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="ss">axton</span><span class="p">,</span> <span class="ss">ryan</span><span class="p">,</span> <span class="ss">graynekobean</span><span class="p">,</span> <span class="ss">determination</span><span class="p">,</span> <span class="ss">angus</span><span class="p">].</span>
+
+<span class="nv">Head</span> <span class="o">=</span> <span class="ss">axton</span>
+<span class="nv">Tail</span> <span class="o">=</span> <span class="p">[</span><span class="ss">ryan</span><span class="p">,</span> <span class="ss">graynekobean</span><span class="p">,</span> <span class="ss">determination</span><span class="p">,</span> <span class="ss">angus</span><span class="p">]</span>
+<span class="ss">true</span>
+
+<span class="o">?-</span> <span class="p">[</span><span class="nv">Head</span><span class="p">|</span><span class="nv">Tail</span><span class="p">].</span>
+
+<span class="ss">false</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>可见该运算符将列表拆分, 并分别将拆分得到的列表头和列表尾赋值给变量 <code class="language-plaintext highlighter-rouge">Head</code> 和 <code class="language-plaintext highlighter-rouge">Tail</code>. 由于 <code class="language-plaintext highlighter-rouge">Prolog</code> 将空列表视为一种特殊的列表, 我们无法使用拆分运算符拆分 <code class="language-plaintext highlighter-rouge">[]</code>.</p>
+
+<p>显然, 拆分运算符不仅可以用来对列表进行分划, 还可用于取列表的首元以及它的残余部分. 实际上, 只需将查询语句稍作修改, 我们就可以使用拆分运算符取得列表的前 $n$ 个元素 (只要 $n$ 不越界):</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="o">?-</span> <span class="p">[</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Y</span><span class="p">|</span><span class="nv">Z</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="ss">axton</span><span class="p">,</span> <span class="ss">ryan</span><span class="p">,</span> <span class="ss">graynekobean</span><span class="p">,</span> <span class="ss">determination</span><span class="p">,</span> <span class="ss">angus</span><span class="p">].</span>
+
+<span class="nv">X</span> <span class="o">=</span> <span class="ss">axton</span>
+<span class="nv">Y</span> <span class="o">=</span> <span class="ss">ryan</span>
+<span class="nv">Z</span> <span class="o">=</span> <span class="p">[</span><span class="ss">graynekobean</span><span class="p">,</span> <span class="ss">determination</span><span class="p">,</span> <span class="ss">angus</span><span class="p">]</span>
+<span class="ss">true</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>在上述例子中, 我们可以看出经过对查询语句的合理修改后, 理论上我们可以取得列表中任何已知位置上的元素, 但这种方法一般会不可避免地在取得我们需要的信息的同时获取其他无关的信息. 下面介绍 <code class="language-plaintext highlighter-rouge">Prolog</code> 中的 <strong>匿名变量</strong> 符号 <code class="language-plaintext highlighter-rouge">_</code>, 并解释它在列表元素的精准查询中的应用.</p>
+
+<p><strong>定义 1.5</strong> (匿名变量)</p>
+<blockquote>
+  <p>在 <code class="language-plaintext highlighter-rouge">Prolog</code> 中, 符号 <code class="language-plaintext highlighter-rouge">_</code> 被定义为 <strong>匿名变量符号</strong>. 它可以被用作占位符, 用来在需要使用但不关心某个特定变量的值时为该变量占位. 匿名变量可以在同一条查询语句中重复出现, 此时每个位置上的匿名变量都有其相应的不同含义.</p>
+</blockquote>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="o">//</span> <span class="ss">what</span> <span class="ss">if</span> <span class="ss">we</span> <span class="nv">ONLY</span> <span class="ss">cares</span> <span class="ss">the</span> <span class="ss">fourth</span> <span class="ss">variable</span> <span class="ss">in</span> <span class="ss">the</span> <span class="ss">list</span><span class="o">?</span>
+<span class="o">?-</span> <span class="p">[</span><span class="nv">_</span><span class="p">,</span> <span class="nv">_</span><span class="p">,</span> <span class="nv">_</span><span class="p">,</span> <span class="nv">X</span><span class="p">|</span><span class="nv">_</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="ss">axton</span><span class="p">,</span> <span class="ss">ryan</span><span class="p">,</span> <span class="ss">graynekobean</span><span class="p">,</span> <span class="ss">determination</span><span class="p">,</span> <span class="ss">angus</span><span class="p">].</span>
+<span class="nv">X</span> <span class="o">=</span> <span class="ss">determination</span>
+<span class="ss">true</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="2-成员">2. 成员</h2>
+
+<p>下面我们介绍一个 <strong>递归地</strong> 对列表进行操作的简易程序 <code class="language-plaintext highlighter-rouge">member</code>. 该程序的功能为给定任意元素 $X$ 和一个列表 $L$, 检查 $X$ 是否在 $L$ 中:</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="ss">member</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="p">[</span><span class="nv">X</span><span class="p">|</span><span class="nv">T</span><span class="p">]).</span>
+<span class="ss">member</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="p">[</span><span class="nv">X</span><span class="p">|</span><span class="nv">T</span><span class="p">])</span> <span class="p">:-</span> <span class="ss">member</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">T</span><span class="p">).</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>程序仅由一条事实和一条规则组成, 其中唯一的一条规则是 <strong>递归</strong> 的. 我们可以从声明式的角度理解它们:</p>
+
+<p>唯一的一条 <strong>事实</strong> 声明, 变量 $X$ 为某个列表的 <strong>成员</strong>, 当且仅当它是该列表的首位元素. 而 <strong>规则</strong> 指定, 变量 $X$ 为某个列表的成员, 当且仅当它位于该列表的表尾中.</p>
+
+<p>下面考虑它的过程式含义. 在该程序尝试联合某个指定原子和某个给定列表时, 它总会先检查该原子是否为给定列表的表头. 若非如此, 它会调用第二条递归规则检测原子是否位于列表的表尾中, 而由于规则是 <strong>递归的</strong>, 这样的检查会持续进行下去, 每次都会优先检查给定列表的表头, 直到遍历整个列表.</p>
+
+<p>需要注意的是, 若事实上给定的原子并不在列表中出现, 则递归将会导致在某次最后的循环中程序不得不在空列表中尝试找到该原子的存在. 不过, 虽然在程序的定义中没有任何一条规则或事实能够满足这种情况, 但程序并不会如那些没有任何基本子句的递归程序一样遁入死循环, 而是会因为找不到任何可以联合的语句而停止执行.</p>
+
+<p>总的来说, 谓词 <code class="language-plaintext highlighter-rouge">member/2</code> 是一个 <strong>递归的谓词</strong>, 其作用是遍历给定的列表, 从而尝试在列表中找到某个指定的原子. 虽然该谓词的定义中的基本子句只声明了原子位于列表头的情况而未考虑原子不属于列表的情形, 由于 <code class="language-plaintext highlighter-rouge">Prolog</code> 对空列表的特殊定义, 程序在检查到空列表后会由于无法对空列表 <code class="language-plaintext highlighter-rouge">[]</code> 执行拆分操作而无法联合任何一条子句, 从而自动停机跳出循环.</p>
+
+<p>此外, 我们还可以使用 <code class="language-plaintext highlighter-rouge">member\2</code> 遍历列表并依次取出表内的每个元素:</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="ss">member</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="p">[</span><span class="ss">axton</span><span class="p">,</span> <span class="ss">ryan</span><span class="p">,</span> <span class="ss">graynekobean</span><span class="p">,</span> <span class="ss">determination</span><span class="p">,</span> <span class="ss">angus</span><span class="p">]).</span>
+
+<span class="nv">X</span> <span class="o">=</span> <span class="ss">axton</span> <span class="p">;</span>
+<span class="nv">X</span> <span class="o">=</span> <span class="ss">ryan</span> <span class="p">;</span>
+<span class="nv">X</span> <span class="o">=</span> <span class="ss">graynekobean</span> <span class="p">;</span>
+<span class="nv">X</span> <span class="o">=</span> <span class="ss">determination</span> <span class="p">;</span>
+<span class="nv">X</span> <span class="o">=</span> <span class="ss">angus</span><span class="p">;</span>
+<span class="ss">false</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="3-列表的递归式访问">3. 列表的递归式访问</h2>
+
+<p>在上一节中, 我们已经了解到了谓词 <code class="language-plaintext highlighter-rouge">member</code> 的递归原理: 首先处理列表头, 然后递归地对列表剩下的部分做同样的操作. 使用这种方法递归地访问或处理列表在 <code class="language-plaintext highlighter-rouge">Prolog</code> 中很常见. 下面我们用一个新的例子加深对递归式访问列表的理解.</p>
+
+<p>我们将要研究的是双列表的递归式访问模型的一个应用. 该模型可被扩展为列表之间每个元素的比较, 列表元素值的运算和变换等.</p>
+
+<p>我们考虑这一模型的其中一个应用: 相同长度的列表间元素的比较: 若第一个列表中 $a$ 的数量和第二个列表中 $b$ 的数量相同, 则返回 <code class="language-plaintext highlighter-rouge">true</code>, 反之返回 <code class="language-plaintext highlighter-rouge">false</code>. 我们定义二元谓词 <code class="language-plaintext highlighter-rouge">a2b()/2</code>.</p>
+
+<p>首先, 显然规则需满足</p>
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="ss">a2b</span><span class="p">([],</span> <span class="p">[]).</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>因为显然在空列表中, 无论是 $a$ 还是 $b$ 的数量都为 $0$.</p>
+
+<p>下面考虑更复杂的情况. 对于含有元素的非空列表, 我们可以从头开始比对:</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="ss">a2b</span><span class="p">([</span><span class="ss">a</span><span class="p">|</span><span class="nv">Ta</span><span class="p">],</span> <span class="p">[</span><span class="ss">b</span><span class="p">|</span><span class="nv">Tb</span><span class="p">])</span> <span class="p">:-</span> <span class="ss">a2b</span><span class="p">(</span><span class="nv">Ta</span><span class="p">,</span> <span class="nv">Tb</span><span class="p">).</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>显然, 结合两条子式我们可以得到一个完整的判断算法. 在给定两个不同的列表后, <code class="language-plaintext highlighter-rouge">Prolog</code> , 若不然联合第二条递归子式, 逐步从列表头比对 两个列表中 $a$ 和 $b$ 的数量. 若它们的确相等, 则最终递归结果恰好与第一条事实完全相同, 故证明搜索结束; 若它们不相等, 则必然在经过某一步递归后, <code class="language-plaintext highlighter-rouge">Prolog</code> 需要判断一个空列表与一个非空列表中 $a$ 和 $b$ (或 $b$ 和 $a$) 的个数是否相等, 而这个情况没有被所构造的知识库中任何一条规则或事实声明, 因此程序终止, 跳出递归.</p>
+
+:ET

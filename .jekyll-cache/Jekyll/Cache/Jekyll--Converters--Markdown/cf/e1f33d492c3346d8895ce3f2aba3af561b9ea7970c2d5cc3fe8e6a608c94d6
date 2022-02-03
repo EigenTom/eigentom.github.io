@@ -1,0 +1,193 @@
+I"�C<h1 id="prolog-入门-运算"><code class="language-plaintext highlighter-rouge">Prolog</code> 入门: 运算</h1>
+
+<p>在本章中, 我们将对 <code class="language-plaintext highlighter-rouge">Prolog</code> 内置的运算方法进行简介, 并讨论如何使用这些方法解决一些和列表相关的计算问题.</p>
+
+<h2 id="1-prolog-的内置运算方法">1. <code class="language-plaintext highlighter-rouge">Prolog</code> 的内置运算方法</h2>
+
+<p><code class="language-plaintext highlighter-rouge">Prolog</code> 提供了基本的面向整数的运算方法. 在此处由于实用性不大, 我们不再讨论面向实数的运算. 首先来讨论整数运算:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20211024155114.png" alt="20211024155114" /></p>
+
+<p>我们可以用下述例子展示的方式进行运算或验证运算结果:</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="o">//</span> <span class="ss">verify</span> <span class="ss">arithmetic</span> <span class="ss">result</span>
+<span class="o">?-</span> <span class="m">114514</span> <span class="ss">is</span> <span class="m">1919</span> <span class="o">+</span> <span class="m">112595</span><span class="p">.</span>
+<span class="ss">true</span>
+
+<span class="o">//</span> <span class="ss">perform</span> <span class="ss">calculation</span>
+<span class="o">?-</span> <span class="nv">X</span> <span class="ss">is</span> <span class="m">114514</span> <span class="o">+</span> <span class="m">1919810</span><span class="p">.</span>
+<span class="nv">X</span> <span class="o">=</span> <span class="m">2034324</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>此外, 我们还可以在定义谓词时使用预置运算符:</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="o">//</span> <span class="ss">if</span> <span class="ss">we</span> <span class="ss">define</span> <span class="ss">a</span> <span class="ss">predicate</span> <span class="ss">as</span> <span class="ss">follows</span><span class="p">...</span>
+<span class="ss">add_3_and_double</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Y</span><span class="p">)</span> <span class="p">:-</span> <span class="nv">Y</span> <span class="ss">is</span> <span class="p">(</span><span class="nv">X</span> <span class="o">+</span> <span class="m">3</span><span class="p">)</span> <span class="o">*</span> <span class="m">2</span><span class="p">.</span>
+
+<span class="o">//</span> <span class="ss">then</span> <span class="ss">it</span> <span class="ss">will</span> <span class="ss">work</span><span class="p">!</span>
+<span class="o">?-</span> <span class="ss">add_3_and_double</span><span class="p">(</span><span class="m">114514</span><span class="p">,</span> <span class="nv">X</span><span class="p">).</span>
+<span class="nv">X</span> <span class="o">=</span> <span class="m">229034</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>同时需要注意的是, <code class="language-plaintext highlighter-rouge">Prolog</code> 中定义的数值运算符优先级和我们常识中的一致.</p>
+
+<p><br /></p>
+
+<h2 id="2-数值算符的一些特性">2. 数值算符的一些特性</h2>
+
+<p>由于 <code class="language-plaintext highlighter-rouge">Prolog</code> 为逻辑型语言, 因此与大部分程序设计语言不同的是, 数值运算符 <code class="language-plaintext highlighter-rouge">+</code>, <code class="language-plaintext highlighter-rouge">-</code>, <code class="language-plaintext highlighter-rouge">*</code>, <code class="language-plaintext highlighter-rouge">/</code> 和取模运算符本身 <strong>并不执行任何运算</strong>. 若我们执行</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="o">?-</span> <span class="nv">X</span> <span class="o">=</span> <span class="m">114514</span> <span class="o">+</span> <span class="m">1919810</span>
+<span class="o">~~</span>
+
+<span class="err">或</span> 
+
+<span class="o">~~~</span><span class="ss">prolog</span>
+<span class="o">?-</span> <span class="m">114514</span> <span class="o">+</span> <span class="m">1919810</span> <span class="o">=</span> <span class="nv">X</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>我们并不会得到计算结果, 而程序也不会如我们预料的一样执行运算, 而是会单纯地依照内置谓词 <code class="language-plaintext highlighter-rouge">=/2</code> 的语法规则将等号一边的算式作为复杂项与另一边的变量 $X$ 相联合.</p>
+
+<p>为了让 <code class="language-plaintext highlighter-rouge">Prolog</code> 实际的执行运算, 我们需要使用内置的另一个谓词 <code class="language-plaintext highlighter-rouge">is/2</code>. 由于数值预算只是 <code class="language-plaintext highlighter-rouge">Prolog</code> 的附加功能而与逻辑语句的处理并非强相关, 因此这一谓词本身 (或者说 <code class="language-plaintext highlighter-rouge">Prolog</code> 的运算功能本身) 存在一些限制:</p>
+
+<p>首先, 我们需要求解的算式必须位于 <code class="language-plaintext highlighter-rouge">is</code> 谓词的 <strong>右侧</strong>. 其次, 在执行运算时, 我们必须保证 <code class="language-plaintext highlighter-rouge">is</code> 谓词右侧的算式中所有的变量 (如果存在的话) 必须已经被实例化 (也就是赋值).</p>
+
+<p><br /></p>
+
+<h2 id="3-数值运算与列表">3. 数值运算与列表</h2>
+
+<p>我们还是从一个简单的例子开始探究数值运算与列表数据结构相结合后可以为我们带来的简便性.</p>
+
+<p>考虑对给定列表长度的计算. 显然我们可以结合第三, 四章中的知识, 使用 <strong>递归定义</strong> 实现一个可计算列表长度的程序:</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="o">//</span> <span class="ss">base</span> <span class="ss">case</span><span class="o">:</span> <span class="ss">the</span> <span class="ss">empty</span> <span class="ss">list</span> <span class="ss">has</span> <span class="ss">length</span> <span class="m">0</span><span class="p">.</span>
+<span class="ss">len</span><span class="p">([],</span> <span class="m">0</span><span class="p">).</span>
+
+<span class="o">//</span> <span class="ss">recursive</span> <span class="ss">examining</span><span class="o">:</span> <span class="ss">a</span> <span class="ss">non</span><span class="o">-</span><span class="ss">empty</span> <span class="ss">list</span> <span class="ss">has</span> 
+<span class="o">//</span> <span class="ss">length</span> <span class="m">1</span> <span class="o">+</span> <span class="ss">len</span><span class="p">(</span><span class="nv">T</span><span class="p">),</span> <span class="ss">where</span> <span class="ss">len</span><span class="p">(</span><span class="nv">T</span><span class="p">)</span> <span class="ss">is</span> <span class="ss">the</span> <span class="ss">length</span>
+<span class="o">//</span> <span class="ss">if</span> <span class="ss">its</span> <span class="ss">tail</span><span class="p">.</span>
+<span class="ss">len</span><span class="p">([</span><span class="nv">_</span><span class="p">|</span><span class="nv">T</span><span class="p">],</span> <span class="nv">N</span><span class="p">)</span> <span class="p">:-</span> <span class="ss">len</span><span class="p">(</span><span class="nv">T</span><span class="p">,</span> <span class="nv">X</span><span class="p">),</span> <span class="nv">N</span> <span class="ss">is</span> <span class="nv">X</span> <span class="o">+</span> <span class="m">1</span><span class="p">.</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>我们下面从另一个角度考虑相同的问题. 在本章的前两节中, 我们引入了数值运算. 我们考虑在 <code class="language-plaintext highlighter-rouge">Prolog</code> 中构造一个在其他程序设计语言中常见的, 用于存储次数或长度的变量, 并利用加法令其记录循环的深度, 由此计算出列表的长度.</p>
+
+<p>首先定义一个三元谓词 <code class="language-plaintext highlighter-rouge">accLen(List, Acc, Length)/2</code>:</p>
+
+<p>其中 <code class="language-plaintext highlighter-rouge">List</code> 为我们要计算长度的目标列表, <code class="language-plaintext highlighter-rouge">Length</code> 为在最后记录列表最终长度的变量, 数据类型为整数, 直到递归循环结束时才会被赋值. <code class="language-plaintext highlighter-rouge">Acc</code> 为用于记录中间值的加法器 <code class="language-plaintext highlighter-rouge">Accumulator</code>. 在程序执行伊始, 首先将 <code class="language-plaintext highlighter-rouge">Acc</code> 初始化为 $0$, 然后递归地寻找列表的表头, 每次找到一个表头为 <code class="language-plaintext highlighter-rouge">Acc</code> $+1$, 直到无法再找到表头 (此时目标列表为空列表, 意味着我们已经遍历了整个列表) 为止, 此时 <code class="language-plaintext highlighter-rouge">Acc</code> 就是我们所要的值, 它的值将被联合到 <code class="language-plaintext highlighter-rouge">L</code> 上.</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="ss">accLen</span><span class="p">([</span><span class="nv">_</span><span class="p">|</span><span class="nv">T</span><span class="p">],</span> <span class="nv">A</span><span class="p">,</span> <span class="nv">L</span><span class="p">)</span> <span class="p">:-</span> <span class="nv">Anew</span> <span class="ss">is</span> <span class="nv">A</span><span class="o">+</span><span class="m">1</span><span class="p">,</span> <span class="ss">accLen</span><span class="p">(</span><span class="nv">T</span><span class="p">,</span> <span class="nv">Anew</span><span class="p">,</span> <span class="nv">L</span><span class="p">).</span>
+<span class="ss">accLen</span><span class="p">([],</span> <span class="nv">A</span><span class="p">,</span> <span class="nv">A</span><span class="p">).</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="4-整数的比对">4. 整数的比对</h2>
+<p>我们下面介绍一些无需内置谓词 <code class="language-plaintext highlighter-rouge">is</code> 的辅助就可自行完成计算结果的内置谓词:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20211024195326.png" alt="20211024195326" /></p>
+
+<p>它们显然有下列含义:</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+</pre></td><td class="rouge-code"><pre><span class="o">?-</span> <span class="m">114</span> <span class="o">&lt;</span> <span class="m">514</span><span class="p">.</span> 
+<span class="ss">true</span> 
+
+<span class="o">?-</span> <span class="m">114</span> <span class="o">=&lt;</span> <span class="m">514</span><span class="p">.</span> 
+<span class="ss">true</span> 
+
+<span class="o">?-</span> <span class="m">514</span> <span class="o">=&lt;</span> <span class="m">514</span><span class="p">.</span> 
+<span class="ss">true</span> 
+
+<span class="o">?-</span> <span class="m">514</span> <span class="o">=:=</span> <span class="m">514</span><span class="p">.</span> 
+<span class="ss">true</span> 
+
+<span class="o">?-</span> <span class="m">514</span> <span class="o">=</span><span class="err">\</span><span class="o">=</span> <span class="m">1919</span><span class="p">.</span> 
+<span class="ss">true</span> 
+
+<span class="o">?-</span> <span class="m">514</span> <span class="o">=</span><span class="err">\</span><span class="o">=</span> <span class="m">514</span><span class="p">.</span> 
+<span class="ss">false</span> 
+
+<span class="o">?-</span> <span class="m">514</span> <span class="o">&gt;=</span> <span class="m">514</span><span class="p">.</span> 
+<span class="ss">true</span> 
+
+<span class="o">?-</span> <span class="m">514</span> <span class="o">&gt;</span> <span class="m">114</span><span class="p">.</span> 
+<span class="ss">true</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>注:</p>
+
+<ol>
+  <li>上述谓词在执行时会强制将自身 <strong>两侧</strong> 的复合项视为算式并执行运算.</li>
+  <li>注意谓词 <code class="language-plaintext highlighter-rouge">=:=</code> 和 <code class="language-plaintext highlighter-rouge">=</code> 的差别. 前者比对的是谓词两侧复合项经过计算后的结果, 而后者直接对项本身进行联合.</li>
+  <li>谓词两侧的参数必须被实例化为整数.</li>
+</ol>
+
+<p>下面来看一个结合了累加器 <code class="language-plaintext highlighter-rouge">accumulator</code> 和 “&gt;” 运算符的, 用于找出列表中最大元的程序:</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="ss">accMax</span><span class="p">([</span><span class="nv">H</span><span class="p">|</span><span class="nv">T</span><span class="p">],</span> <span class="nv">A</span><span class="p">,</span> <span class="nv">Max</span><span class="p">)</span> <span class="p">:-</span> <span class="nv">H</span> <span class="o">&gt;</span> <span class="nv">A</span><span class="p">,</span> <span class="ss">accMax</span><span class="p">(</span><span class="nv">T</span><span class="p">,</span> <span class="nv">H</span><span class="p">,</span> <span class="nv">Max</span><span class="p">).</span>
+<span class="ss">accMax</span><span class="p">([</span><span class="nv">H</span><span class="p">|</span><span class="nv">T</span><span class="p">],</span> <span class="nv">A</span><span class="p">,</span> <span class="nv">Max</span><span class="p">)</span> <span class="p">:-</span> <span class="nv">H</span> <span class="o">=&lt;</span> <span class="nv">A</span><span class="p">,</span> <span class="ss">accMax</span><span class="p">(</span><span class="nv">T</span><span class="p">,</span> <span class="nv">A</span><span class="p">,</span> <span class="nv">Max</span><span class="p">).</span>
+<span class="ss">accMax</span><span class="p">([],</span> <span class="nv">A</span><span class="p">,</span> <span class="nv">A</span><span class="p">).</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>在执行程序时, <code class="language-plaintext highlighter-rouge">Prolog</code> 会抽取列表头并选择表头元素的值和 <code class="language-plaintext highlighter-rouge">A</code> 中最大的那个为变量 <code class="language-plaintext highlighter-rouge">A</code> 赋值, 然后对剩下的表尾执行同样的操作, 知道遍历完整个列表为止, 此时 <code class="language-plaintext highlighter-rouge">Max</code> 与累加器 <code class="language-plaintext highlighter-rouge">A</code> 联合, <code class="language-plaintext highlighter-rouge">Max</code> 的值就是所要求的全表最大值.</p>
+
+<p>而若要考虑表中可能出现非正元素的情形, 我们需要对程序定义稍作修改. 由于在任何情况下作为程序输入的列表始终是非空的, 我们只需要单独取出表头将其作为 <code class="language-plaintext highlighter-rouge">A</code> 的初始值即可:</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="ss">max</span><span class="p">(</span><span class="nv">List</span><span class="p">,</span> <span class="nv">Max</span><span class="p">)</span> <span class="p">:-</span> <span class="nv">List</span> <span class="o">=</span> <span class="p">[</span><span class="nv">H</span><span class="p">|</span><span class="nv">_</span><span class="p">],</span> <span class="ss">accMax</span><span class="p">(</span><span class="nv">List</span><span class="p">,</span> <span class="nv">H</span><span class="p">,</span> <span class="nv">Max</span><span class="p">).</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+:ET

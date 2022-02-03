@@ -1,0 +1,145 @@
+I"%<h1 id="状态转换系统和时间特性">状态转换系统和时间特性</h1>
+
+<p>在本章中, 我们将讨论状态变化系统 (<code class="language-plaintext highlighter-rouge">State-Changing Systems</code>) 以及它们的形式化: 状态转换系统 (<code class="language-plaintext highlighter-rouge">Transition System</code>).</p>
+
+<p>状态变化系统指在各种动作的影响下随时间推移而运行并改变状态的系统, 而状态转换系统是状态变化系统的特殊形式化, 其中系统由一组变量表示, 状态由对这些变量的赋值组成.</p>
+
+<p>我们将从对状态变换系统的讨论引入形式化它们的可行方法, 并通过举例解释状态转换系统中的核心概念: 状态 (<code class="language-plaintext highlighter-rouge">State</code>), 状态变量 (<code class="language-plaintext highlighter-rouge">State Variable</code>) 和状态转换 (<code class="language-plaintext highlighter-rouge">Transition</code>). 我们随后说明如何使用逻辑表示状态转换系统.</p>
+
+<h2 id="111-对状态转换系统的讨论">11.1 对状态转换系统的讨论</h2>
+
+<p>在之前的学习中, 我们已经掌握了谓词逻辑, 有限域上的谓词逻辑 (<code class="language-plaintext highlighter-rouge">PLFD</code>) 和量化布尔公式逻辑. 我们同时知道, 这些逻辑系统可以用来表示 <strong>静态</strong> 的应用场景, 也就是那些状态不随时间推移或动作发生而改变的场景中. 进一步地, 在我们需要讨论和研究更为普适的 <strong>动态</strong> 场景时, 我们就需要构造一些新的工具.</p>
+
+<p>首先我们考虑收研究的对象: 状态转换系统. 一般地, 状态转换系统具备如下特征:</p>
+
+<ol>
+  <li>在特定的 <strong>时刻 (<code class="language-plaintext highlighter-rouge">Time Moment</code>)</strong>, 这样的系统会具备某个特定的 <strong>状态 (<code class="language-plaintext highlighter-rouge">State</code>)</strong>.</li>
+  <li>一般而言系统的状态会随着来自系统内部或源自外部环境的 <strong>行为/动作 (<code class="language-plaintext highlighter-rouge">Action</code>)</strong> 的发生而变化.</li>
+</ol>
+
+<p>为了对这样的系统进行数学建模, 我们需要进行下列的 <strong>抽象化</strong>:</p>
+
+<ol>
+  <li>我们通过引入 <strong>变量</strong> 描述系统中部分参数的特征, 并假设我们通过某些变量的值来识别 (区分) 不同的状态. 我们称这些可用来区分状态的变量为 <strong>状态变量 (<code class="language-plaintext highlighter-rouge">State Variables</code>)</strong>.</li>
+  <li>对 <strong>行为/动作</strong> 的形式化是通过确定在执行这一行为/动作后, 系统中的哪些状态变量的值会发生变化而实现的. 我们称形式化的行为/动作为 <strong>转换 (<code class="language-plaintext highlighter-rouge">Transitions</code>)</strong>.</li>
+</ol>
+
+<p>对于状态变化系统的形式化一般又包含两个阶段:</p>
+<ol>
+  <li>构造能够描述这个系统功能的形式化模型.</li>
+  <li>使用某种逻辑系统指定和检验系统的属性.</li>
+</ol>
+
+<h2 id="112-状态转换系统的核心概念">11.2 状态转换系统的核心概念</h2>
+
+<p><strong>定义 11.2.1</strong> (状态转换系统)</p>
+<blockquote>
+  <p>一个 <strong>状态转换系统</strong> 表示为一个五元组</p>
+
+\[\mathbb{S} = (S, \text{In}, T, \mathscr{X}, \text{dom}, L),\]
+
+  <p>其中</p>
+  <ol>
+    <li>有限非空集合 $S$ 包含系统中的所有可能状态, 称为 <strong>系统 $\mathbb{S}$ 的状态集</strong>.</li>
+    <li>$\text{In}$ 为 $S$ 的真子集, 称为 <strong>系统 $\mathbb{S}$ 的初始状态集</strong>.</li>
+    <li>$T \in S \times S$ 称为 <strong>$\mathbb{S}$ 的转换关系集</strong>.</li>
+    <li>$\mathscr{X}$ 由系统中的状态变量组成, 也是有限非空集合.</li>
+    <li>$\text{dom}$ 为一个从 $\mathscr{X}$ 的映射, 对于任一个状态变量 $x \in \mathscr{X}$, $\text{dom}(x)$ 为一个非空集合, 称为 <strong>$x$ 的定义域</strong>.</li>
+    <li>$L$ 为 $\mathbb{S}$ 的标记函数.</li>
+  </ol>
+</blockquote>
+
+<p>称状态转换系统 $\mathbb{S}$ 为 <strong>有限</strong> 的, 若对每个状态变量 $x$, 其定义域 $\text{dom}(x)$ 也是有限的, 我们只考虑有限的状态转换系统.</p>
+
+<p>注意对系统 $\mathbb{S} = (S, \text{In}, T, \mathscr{X}, \text{dom}, L)$ 而言, 它的变量集 $\mathscr{X}$ 和映射 $\text{dom}$ 实际上定义了一个 <code class="language-plaintext highlighter-rouge">PLFD</code> 实例. 记这个 <code class="language-plaintext highlighter-rouge">PLFD</code> 实例的所有解释为 $\mathbb{I}$, 标记函数 $L$ 就可被定义为 $L: S \rightarrow \mathbb{I}$, 也就是说标记函数 <strong>将每个状态都映射到一个解释上</strong>. 这意味着:</p>
+
+<ol>
+  <li>对任何变量 $x \in \mathscr{X}$ 和任意状态 $s \in S$, 有 $L(s)(x) \in \text{dom}(x)$.</li>
+  <li>对任何这个 <code class="language-plaintext highlighter-rouge">PLFD</code> 实例中的公式 $A$, 以及任意状态 $s \in S$, 我们有: $L(s) \vDash A$ 或 $L(s) \nvDash A$.</li>
+</ol>
+
+<p>我们进一步引入下述的两种简化表述:</p>
+
+<ol>
+  <li>若 $L(s)(x)=v$, 称 <strong>变量 $x$ 在状态 $s$ 下的值为 $v$</strong>, 并将值 $v$ 表示为 $s(x)$.</li>
+  <li>若 $L(s) \vDash A$, 则称 <strong>$s$ 满足 $A$</strong> 或 <strong>$A$ 在状态 $s$ 下为真</strong>, 记为 $s \vDash A$.</li>
+</ol>
+
+<p>举例而言, 若 $s(x)=v$, 则 $s \vDash x=v$.</p>
+
+<p>我们还可以用 <strong>状态转换图</strong> 表示状态转换系统:</p>
+
+<p><strong>定义 11.2.2</strong> (状态转换图)</p>
+<blockquote>
+  <p>考虑状态转换系统</p>
+
+\[\mathbb{S} = (S, \text{In}, T, \mathscr{X}, \text{dom}, L).\]
+
+  <p>它的 <strong>状态转换图</strong> 为一个以 $S$ 为节点集, 以 $T$ 为边集的有向图. 此外, 图中的每个节点 $s$ 都被解释 $L(s)$ 标记.</p>
+</blockquote>
+
+<p><strong>定义 11.2.3</strong> (可应用性, 确定性和非确定性)</p>
+<blockquote>
+  <p>称转换 $t$ 在状态 $s$ 上为 <strong>可应用的</strong>, 若存在新状态 $s‘$ 满足 $(s, s’) \in t$. 
+称转换 $t$ 为 <strong>确定的</strong>, 若对任何状态 $s$, 存在最多一个状态 $s’$, 满足 $(s, s’) \in t$. 反之, 称这个转换为 <strong>非确定的</strong>.</p>
+</blockquote>
+
+<p>$\mathbb{S}$ 的 <strong>转换关系</strong> 记为 $T_{r_{\mathbb{S}}}$, 就是状态系统中所有转换的并.</p>
+
+<p>称状态转换系统 $\mathbb{S}$ 为 <strong>有限</strong> 的, 若它的状态集为有限的, 反之称其为 <strong>无限</strong> 的.</p>
+
+<h2 id="113-状态转换系统的符号化表示">11.3 状态转换系统的符号化表示</h2>
+
+<p>在本节中我们引入状态转换系统的符号化表示.</p>
+
+<p><strong>定义 11.3.1</strong> (状态集的符号化表示)</p>
+<blockquote>
+  <p>考虑状态转换系统 $\mathbb{S}$, 记 $\mathscr{L}(\mathbb{S})$ 为满足下列性质的 <code class="language-plaintext highlighter-rouge">PLFD</code> 实例:</p>
+  <ol>
+    <li>$\mathscr{L}(\mathbb{S})$ 的变量集就是 $\mathbb{S}$ 的变量集 $\mathscr{X}$.</li>
+    <li>$\mathscr{L}(\mathbb{S})$ 的域映射就是 $\mathbb{S}$ 的域映射 $\text{dom}$.</li>
+  </ol>
+</blockquote>
+
+<p>称 $\mathscr{L}(\mathbb{S})$ 中的公式 $F$ <strong>符号化表示了一系列状态 $S$</strong>, 若</p>
+
+\[S = \{s \vert s \vDash F\}.\]
+
+<p>和 <strong>状态</strong> 一样, <strong>转换</strong> 也可以被符号化表示. 由于转换是由 <strong>一对状态</strong> 组成的, 要表示状态, 就需要构造出能够表示两个连续的状态的语法.</p>
+
+<p>我们使用两个变量集合表示转换, 它们分别存储当前态 (<code class="language-plaintext highlighter-rouge">Current State</code>) 和下一态 (<code class="language-plaintext highlighter-rouge">Next State</code>). 对任何变量集 $\mathscr{X}$ 中的变量 $x$, 在下一态中则被表示为 $x’$.</p>
+
+<p>对状态转换系统</p>
+
+\[\mathbb{S} = (S, \text{In}, T, \mathscr{X}, \text{dom}, L)\]
+
+<p>记 $\mathscr{X’}$ 为:</p>
+
+\[\mathscr{X'} \overset{\text{def}}{=} \{x' \vert x \in \mathscr{X}\}.\]
+
+<p>同时定义 $\mathscr{L’}(\mathbb{S}) = \mathscr{X} \cup \mathscr{X’}.$</p>
+
+<p><strong>定义 11.3.2</strong> (转换的符号化表示)</p>
+<blockquote>
+  <p>称 $\mathscr{L’}(\mathbb{S})$ 中的公式 $F$ <strong>符号化表示转换 $t$</strong>, 若:</p>
+
+\[t = \{(s, s') \vert (s, s') \vDash F\}.\]
+</blockquote>
+
+<p><strong>定理 11.3.1</strong></p>
+<blockquote>
+  <p>令 $t_1, \cdots, t_n$ 为 $\mathbb{S}$ 中的全体转换, $F_1, \cdots, F_n$ 分别是这些转换的符号化表示. 则公式</p>
+
+  <p>\(F_1 \vee F_2 \vee \cdots \vee F_n\)
+即是 $\mathscr{S}$ 转换关系的符号化表示.</p>
+</blockquote>
+
+<p><strong>定义 11.3.3</strong> (状态转换系统的符号化表示)</p>
+<blockquote>
+  <p>考虑状态转换系统</p>
+
+\[\mathbb{S} = (S, \text{In}, T, \mathscr{X}, \text{dom}, L)\]
+
+  <p>称一对分别属于逻辑 $\mathscr{L}(\mathbb{S}), \mathscr{L’}(\mathbb{S})$ 的公式 $F, F’$ 是 <strong>$\mathbb{S}$ 的符号化表示</strong>, 若 $F$ 为初始状态集 $\text{In}$ 的符号化表示, 且 $F’$ 为 $\mathbb{S}$ 的状态转换关系 $T_{r_{\mathbb{S}}}$ 的符号化表示.</p>
+</blockquote>
+:ET

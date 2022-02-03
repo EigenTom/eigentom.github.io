@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="description" content="由于相关法律法规规定, 该内容无法显示.">
+    <meta name="keywords" content="菜">
+    <meta name="theme-color" content="#333">
+
+    <!-- Open Graph -->
+    <meta property="og:title"
+        content="人工智能导论 知识表示 - 某一般线性空间 | Ramdom Linear Space">
+    
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="知识表示
+">
+    
+    <meta property="article:published_time" content=" 2021-12-25T00:00:00Z">
+    
+    
+    <meta property="article:author" content="R1NG">
+    
+    
+    <meta property="article:tag" content="2021">
+    
+    <meta property="article:tag" content="课程笔记">
+    
+    <meta property="article:tag" content="COMP24011">
+    
+    
+    <meta property="og:image" content="http://localhost:4000https://github.com/KirisameR.png">
+    <meta property="og:url" content="http://localhost:4000/2021/12/25/COMP24011-Ch5/">
+    <meta property="og:site_name" content="某一般线性空间 | Ramdom Linear Space">
+
+    <title>人工智能导论 知识表示 - 某一般线性空间 | Ramdom Linear Space</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4000/2021/12/25/COMP24011-Ch5/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href=" /css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href=" /css/hux-blog.min.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"type="text/css">
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+
+    <!-- 数学公式 -->
+    <script type="text/javascript" async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+            showProcessingMessages: true, //关闭js加载过程信息
+            messageStyle: "none", //不显示信息
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code','a'], //避开某些标签
+                ignoreClass:"comment-content" //避开含该Class的标签
+            },
+            "HTML-CSS": {
+                availableFonts: ["STIX","TeX"], //可选字体
+                showMathMenu: false //关闭右击菜单显示
+            }
+        });
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+    </script>
+
+    
+
+    <!-- Google AdSense -->
+    <script data-ad-client="ca-pub-6487568398225121" async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">RANDOM LINEAR SPACE</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div id="huxblog_navbar">
+                <div class="navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                        
+                        
+                        <li>
+                            <a href="/archive/">Archive</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li class="search-icon">
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <script>
+        // Drop Bootstarp low-performance Navbar
+        // Use customize navbar with high-quality material design animation
+        // in high-perf jank-free CSS3 implementation
+        var $body = document.body;
+        var $toggle = document.querySelector('.navbar-toggle');
+        var $navbar = document.querySelector('#huxblog_navbar');
+        var $collapse = document.querySelector('.navbar-collapse');
+
+        var __HuxNav__ = {
+            close: function () {
+                $navbar.className = " ";
+                // wait until animation end.
+                setTimeout(function () {
+                    // prevent frequently toggle
+                    if ($navbar.className.indexOf('in') < 0) {
+                        $collapse.style.height = "0px"
+                    }
+                }, 400)
+            },
+            open: function () {
+                $collapse.style.height = "auto"
+                $navbar.className += " in";
+            }
+        }
+
+        // Bind Event
+        $toggle.addEventListener('click', function (e) {
+            if ($navbar.className.indexOf('in') > 0) {
+                __HuxNav__.close()
+            } else {
+                __HuxNav__.open()
+            }
+        })
+
+        /**
+         * Since Fastclick is used to delegate 'touchstart' globally
+         * to hack 300ms delay in iOS by performing a fake 'click',
+         * Using 'e.stopPropagation' to stop 'touchstart' event from 
+         * $toggle/$collapse will break global delegation.
+         * 
+         * Instead, we use a 'e.target' filter to prevent handler
+         * added to document close HuxNav.  
+         *
+         * Also, we use 'click' instead of 'touchstart' as compromise
+         */
+        document.addEventListener('click', function (e) {
+            if (e.target == $toggle) return;
+            if (e.target.className == 'icon-bar') return;
+            __HuxNav__.close();
+        })
+    </script>
+    <!-- Search -->
+<div class="search-page">
+  <div class="search-icon-close-container">
+    <span class="search-icon-close">
+      <i class="fa fa-chevron-down"></i>
+    </span>
+  </div>
+  <div class="search-main container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <form></form>
+        <input type="text" id="search-input" placeholder="$ grep...">
+        </form>
+        <div id="search-results" class="mini-post-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/post-bg-prolog.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+
+
+
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/post-bg-prolog.jpg');
+        background: ;
+    }
+
+    
+</style>
+
+<header class="intro-header" >
+
+    <div class="header-mask"></div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/archive/?tag=2021" title="2021">2021</a>
+                        
+                        <a class="tag" href="/archive/?tag=%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0" title="课程笔记">课程笔记</a>
+                        
+                        <a class="tag" href="/archive/?tag=COMP24011" title="COMP24011">COMP24011</a>
+                        
+                    </div>
+                    <h1>人工智能导论 知识表示</h1>
+                    
+                    <h2 class="subheading">Knowledge Representation</h2>
+                    <span class="meta">Posted by R1NG on December 25, 2021</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <!-- Multi-Lingual -->
+                
+
+				<h1 id="知识表示">知识表示</h1>
+
+<p>本章中我们将说明如何使用一阶逻辑表示现实世界中的知识. 在介绍 <strong>通用本体论</strong> 后, 我们将介绍如何表示 <strong>对象</strong>, <strong>物质</strong>, <strong>量度</strong>, <strong>事件</strong> 和 <strong>信念</strong>, 然后讨论对应用在 <strong>高效类别推理</strong> 中的推理系统的设计.</p>
+
+<h2 id="51-本体论">5.1 本体论</h2>
+
+<p>我们使用 <strong>本体论</strong> 表示现实世界中的客观事物, 知识和通用概念. 在各种不同的情况下, 我们可能需要在 <strong>上位本体论</strong> 的框架下进行扩展, 使用一些特化的本体论表示具体的情形:</p>
+
+<p>比如在对电路建模时, 我们可能需要忽略时间的概念, 假定信号是固定且不传播的; 或者, 我们在对模拟电路建模时可能需要考虑特定时刻的信号, 还要将电路中的导线长度和信号传播的延迟考虑在内.</p>
+
+<p>对任何上述用于描述特殊情况的 <strong>特化的本体论</strong> 而言,它们是 <strong>有可能</strong> 收敛到一种通用的本体论的. 我们可以指出两个能够将 <strong>通用本体论</strong> 与 <strong>特化本体论</strong> 区分开来的特征:</p>
+
+<ol>
+  <li>通用本体论应该或多或少地具备应用于任何特殊领域的能力.</li>
+  <li>在任何足够特殊化的问题中, 通用本体论必须能够将来自不同领域的知识统一化.</li>
+</ol>
+
+<h3 id="类别和对象">类别和对象</h3>
+
+<p>由于 <code class="language-plaintext highlighter-rouge">Agent</code> 在与世界的交互发生在 <strong>个体对象</strong> 层面, 而推理发生在 <strong>类别</strong> 层面上, 因此在知识表示中, 将对象组织成类别是很重要的.</p>
+
+<p>在确定了对象的分类后, 类别信息就可以用于对对象进行预测: 我们可以从 <strong>感知</strong> 推断出 <strong>某种对象的存在</strong>, 从 <strong>感知到的对象属性</strong> 进一步推断它的 <strong>类别归属</strong>, 然后用推断得到的类别信息对这些对象进行预测.</p>
+
+<p>举例而言, 给定某台笔记本电脑, 从厚重的机身, 丑陋的缺口显示屏, 被涂黑的键盘区域和机身上意义不明的专用磁吸充电口, 我们就可以推断出这个对象是 $2021$ 年推出的最新款 <code class="language-plaintext highlighter-rouge">MacBook Pro</code>, 由此推断出这样的产品比较适合拿来垫桌脚.</p>
+
+<p>在使用一阶逻辑表示类别时, 我们可以使用谓词表示某个对象的类别, 也可以将某个类别物化 (<code class="language-plaintext highlighter-rouge">reify</code>) 为一个对象.</p>
+
+<p>我们通过在不同的类别之间构造 <strong>继承</strong> (<code class="language-plaintext highlighter-rouge">Inheritance</code>) 关系来组织和简化知识库. 子类关系将类别组织成 <strong>分类系统</strong> (<code class="language-plaintext highlighter-rouge">Taxonomy</code>) 或 <strong>分类层次</strong> (<code class="language-plaintext highlighter-rouge">Taxonomic Hierarchy</code>), 比如生物学上的物种分类系统和图书馆的书籍分类系统.</p>
+
+<p>一阶逻辑通过 <strong>在对象和类别之间建立联系</strong> 或 <strong>在类别的成员上量化</strong>, 从而描述 <strong>关于类别的事实</strong>. 举例而言, 它可以表示:</p>
+<ol>
+  <li>某个对象是某个类别的成员.</li>
+  <li>某个类别是另一个类别的子类.</li>
+  <li>某个类别中的所有成员均拥有某种属性.</li>
+  <li>一个类别的成员可以通过某些属性识别.</li>
+  <li>一个类别作为整体拥有某些属性.</li>
+</ol>
+
+<p>我们接下来给出关于划分的一些概念:</p>
+
+<p><strong>定义 5.1.1</strong> (不相交的)</p>
+<blockquote>
+  <p>称两个或以上的类别为 <strong>不相交的</strong>, 若他们没有公共成员.</p>
+</blockquote>
+
+<p><strong>定义 5.1.2</strong> (完全分解)</p>
+<blockquote>
+  <p>若两个或以上的类别完全包括了父类中的所有成员, 称它们为一个 <strong>完全分解</strong>.</p>
+</blockquote>
+
+<p><strong>定义 5.1.3</strong> (划分)</p>
+<blockquote>
+  <p>我们称不相交的完全分解为 <strong>划分</strong>.</p>
+</blockquote>
+
+<p>对划分的表示语法如下:</p>
+
+<pre><code class="language-Python"># 可以使用谓词描述某个物体属于某个类别 (Cetegory):
+Basketball(b)
+
+# 可以通过将抽象的类别物化的方法标示某个物体的类别从属:
+
+# 比如我们将 “篮球” 类物化为谓词 `Basketball`:
+Member(b, Basketballs)
+# 或者
+b ∈ Basketballs
+
+# 同时物化方法也可用来表示子类:
+Subset(Basketballs, Balls)
+# 或者
+Basketballs ⊂ Balls
+
+# 我们也可以通过描述物体的属性表示它在类别意义上的从属:
+(b ∈ Basketballs) ⟹ Spherical(b)
+
+Orange(b) ∧ Round(b) ∧ Diameter(b) = 9.5inches ∧ b∈ Balls ⟹ b ∈ Basketballs
+</code></pre>
+
+<h3 id="物理构成">物理构成</h3>
+
+<p>自然地, 某个对象可以是另一个对象的一部分, 这一关系用谓词 <code class="language-plaintext highlighter-rouge">PartOf</code> 表示. 需要注意, <code class="language-plaintext highlighter-rouge">PartOf</code> 关系是 <strong>传递的</strong> 和 <strong>自反的</strong>.</p>
+
+<p><strong>复合对象</strong> 的类别通常通过各部分之间的结构关系刻画. 我们可以定义类似于类别 <code class="language-plaintext highlighter-rouge">Partition</code> 关系的 <code class="language-plaintext highlighter-rouge">PartPartition</code> 关系: 一个对象由它的 <code class="language-plaintext highlighter-rouge">PartPartition</code> 中的各个部分组成, 则可看作这个对象从这些组成部分中得到了某些属性.</p>
+
+<p>我们还可以定义 <strong>具有确定部分但没有特定结构</strong> 的复合对象. 举例而言, “这箱 <code class="language-plaintext highlighter-rouge">MacBook Pro 2021</code> 价值 $4000$ 美元”, 我们会倾向于认为这个价值归于箱子里包装盒而非盒子里的笔记本电脑的价值, 而非箱子本身的价值, 因为 <strong>集合</strong> 是抽象的数学概念, 它由元素组成但不具备 “价值” 这个属性.</p>
+
+<p>对应的, 我们需要构造一个新概念: 束 (<code class="language-plaintext highlighter-rouge">Bunch</code>): 它描述了由一系列对象作为 <strong>部分</strong> 而组成的复合对象.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c1"># 表示 “一部分”:
+</span><span class="n">PartOf</span><span class="p">(</span><span class="n">Bucharest</span><span class="p">,</span> <span class="n">Romania</span><span class="p">)</span> 
+<span class="n">PartOf</span><span class="p">(</span><span class="n">Romania</span><span class="p">,</span> <span class="n">EasternEurope</span><span class="p">)</span> 
+<span class="n">PartOf</span><span class="p">(</span><span class="n">EasternEurope</span><span class="p">,</span> <span class="n">Europe</span><span class="p">)</span> 
+<span class="n">PartOf</span><span class="p">(</span><span class="n">Europe</span><span class="p">,</span> <span class="n">Earth</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="量度">量度</h3>
+
+<p>显然在关于世界的科学理论和常识中, 对象具备 <strong>高度</strong>, <strong>质量</strong>, <strong>价值</strong>, <strong>成本</strong> 等不同的属性, 我们赋予这些属性的值就被称为 <strong>量度</strong> (<code class="language-plaintext highlighter-rouge">Measures</code>). 我们用 <strong>单位函数</strong> (<code class="language-plaintext highlighter-rouge">Units Function</code>) 和数字作为参数来表示量度.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="c1"># 描述物体的量度属性:
+</span><span class="n">Length</span><span class="p">(</span><span class="n">l</span><span class="p">)</span> <span class="o">=</span> <span class="n">Inches</span><span class="p">(</span><span class="mf">1.5</span><span class="p">)</span> <span class="o">=</span> <span class="n">Centimeters</span><span class="p">(</span><span class="mf">3.81</span><span class="p">)</span>
+<span class="n">Diameter</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">=</span> <span class="n">Inches</span><span class="p">(</span><span class="mf">9.5</span><span class="p">)</span>
+<span class="n">IQ</span><span class="p">(</span><span class="n">Axton</span><span class="p">)</span> <span class="o">=</span> <span class="mi">114514</span>
+
+<span class="c1"># 描述对量度值之间的比较:
+</span><span class="n">Difficulty</span><span class="p">(</span><span class="n">comp24011</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">Difficulty</span><span class="p">(</span><span class="n">comp22111</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="物体和物质">物体和物质</h3>
+
+<p>现实世界可以看作是由不可再分的基元对象 (如微粒子) 和由它们构成的复合对象组成的. 但在现实中存在一部分无法被简单地划分, 无法给出明确数量的对象, 例如水和气体, 我们称这类不服从明显的个体化 (<code class="language-plaintext highlighter-rouge">Individuation</code>) 的对象为 <strong>物质</strong> (<code class="language-plaintext highlighter-rouge">Stuff</code>).</p>
+
+<p>需要注意的是, 对象的一些属性是 <strong>固有的</strong> (<code class="language-plaintext highlighter-rouge">Intrinsic</code>), 它们属于对象的每个实体而非整体: 当我们将物质切成两半时, 新得到的两半物质共享同样的固有属性集, 如密度, 沸点, 燃点, 颜色, 所有权等, 而类似重量, 长度, 形状等在划分时 <strong>无法保持不变</strong> 的 <strong>非固有属性</strong> (<code class="language-plaintext highlighter-rouge">Extrinsic</code>) 属性就不同.</p>
+
+<p>在定义中, 只包括固有属性的对象类就是 <strong>物质</strong> 或 <strong>物质名词</strong>, 而在定义中包含了任何非固有属性的类就是 <strong>可数名词</strong>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="c1"># 描述不可数的物质:
+</span>
+<span class="n">b</span> <span class="err">∈</span> <span class="n">Butter</span> <span class="err">∧</span> <span class="n">PartOf</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="err">⟹</span> <span class="n">p</span> <span class="err">∈</span> <span class="n">Butter</span>
+<span class="n">b</span> <span class="err">∈</span> <span class="n">Butter</span> <span class="err">⟹</span> <span class="n">MeltingPoint</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">Centigrade</span><span class="p">(</span><span class="mi">30</span><span class="p">)))</span>
+
+<span class="c1"># 注意: 描述物质时使用下列语法:
+</span><span class="n">变量</span> <span class="err">∈</span> <span class="n">物质名</span> <span class="err">⟹</span> <span class="n">这一物质的属性</span> 
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="事件">事件</h3>
+
+<p>我们可以使用 <strong>情景演算</strong> 表示 <strong>离散的, 瞬间的</strong> 动作. 考虑连续动作, 如无害化处理一台 <code class="language-plaintext highlighter-rouge">MacBook Pro 2021</code>, 情景演算可以告诉我们, 在这个动作之前我们有一台电子垃圾, 在这个动作之后我们得到了一系列可以被回收利用的电子元器件, 但它不能描述在这个动作期间发生了什么, 它也无法描述 <strong>在同一时间发生两个动作的情形</strong>: 如在等拆卸 <code class="language-plaintext highlighter-rouge">MacBook Pro</code> 完成的时候同时碾碎存有 <code class="language-plaintext highlighter-rouge">Windows 11</code> 源码的硬盘.</p>
+
+<p>为了处理这种情况, 我们引入基于 <strong>时间点</strong> 而非 <strong>情景</strong> 的,称为 <strong>事件演算</strong> (<code class="language-plaintext highlighter-rouge">Event Calculus</code>) 的形式体系.</p>
+
+<p><strong>流</strong> 和 <strong>事件</strong> 在事件演算中是被物化的. 在事件演算中, 流是一个描述了某种事实的对象, 但它并不会提供更详细的信息, 诸如 “这个事实是否成立”. 我们需要使用额外的谓词声称一个流实际上在某些时间点成立.</p>
+
+<p>举例而言, 考虑流 <code class="language-plaintext highlighter-rouge">StudyIn(Axton, UoM)</code>, 我们使用谓词 <code class="language-plaintext highlighter-rouge">T(flow, timePoint)</code> 说明这个流在某个时间点 <code class="language-plaintext highlighter-rouge">t</code> 上成立: <code class="language-plaintext highlighter-rouge">T(StudyIn(Axton, UoM), t)</code>.</p>
+
+<p>事件被描述为 <strong>事件类别的实例</strong>. 如 “<code class="language-plaintext highlighter-rouge">Axton</code> 从 <code class="language-plaintext highlighter-rouge">Manchester</code> 飞到 <code class="language-plaintext highlighter-rouge">Paris</code> 的事件 <code class="language-plaintext highlighter-rouge">E1</code>” 表示为:</p>
+
+\[E_1 \in \text{Flyings} \wedge \text{Flyer}(E_1, \text{Axton}) \wedge \text{Origin}(E_1, \text{Manchester}) \wedge \text{Destination}(E_1, \text{Paris}).\]
+
+<p>随后, 我们使用 $\text{Happens}(E_1, i)$ 表示 <strong>事件 $E_1$</strong> 发生在事件区间 $i$. 一个事件演算版本的完整谓词集如下图所示:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220102095836.png" alt="20220102095836" /></p>
+
+<p>构造一个特别事件 <code class="language-plaintext highlighter-rouge">Start</code>, 这一事件描述 <strong>初始状态</strong>, 指出在起始时刻那些流被启动 (<code class="language-plaintext highlighter-rouge">Initiate</code>), 哪些流被终结 (<code class="language-plaintext highlighter-rouge">Terminate</code>).</p>
+
+<p>同时定义谓词 <code class="language-plaintext highlighter-rouge">T(event, t)</code>: 若某个流被 <strong>过去某个时间的某个时间启动且没有被任何干扰事件终止 (<code class="language-plaintext highlighter-rouge">Clipped</code>)</strong>, 则这个流在当前的时间点为真. 反之, 若这个流 <strong>被某个事件终结且尚未被任何事件所恢复 (<code class="language-plaintext highlighter-rouge">Restored</code>)</strong> 则这个流在当前时间点不成立. 形式上的公理为:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220102100250.png" alt="20220102100250" /></p>
+
+<p>其中 <code class="language-plaintext highlighter-rouge">Clipped</code> 和 <code class="language-plaintext highlighter-rouge">Restored</code> 定义为:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220102100318.png" alt="20220102100318" /></p>
+
+<p>还可以将 <code class="language-plaintext highlighter-rouge">T</code> 扩展到事件区间中: 一个流在某个时间区间上成立, 当且仅当它在 <strong>这个时间区间内的每个点上</strong> 都成立.</p>
+
+\[T(f, (t_1, t_2)) \Leftrightarrow [\forall t (t_1\leqslant t &lt; t_2) \Rightarrow T(f, t)].\]
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td><td class="rouge-code"><pre><span class="c1"># any process e that happens over an interval happens over any subinterval
+</span>
+<span class="p">(</span><span class="n">e</span> <span class="err">∈</span> <span class="n">Processes</span><span class="p">)</span> <span class="err">∧</span> <span class="n">Happens</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">t4</span><span class="p">))</span> <span class="err">∧</span> <span class="p">(</span><span class="n">t1</span> <span class="o">&lt;</span> <span class="n">t2</span> <span class="o">&lt;</span> <span class="n">t3</span> <span class="o">&lt;</span> <span class="n">t4</span><span class="p">)</span> <span class="err">⟹</span> <span class="n">Happens</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="p">(</span><span class="n">t2</span><span class="p">,</span> <span class="n">t3</span><span class="p">))</span>
+ 
+<span class="c1"># 注意: 描述事件时遵循下列语法:
+</span><span class="n">变量</span> <span class="err">∈</span> <span class="n">事件具备的一系列性质的合取</span>
+
+<span class="c1"># 如: b ∈ Buyings ∧ Buyer(b, Mary) ∧ Seller(b, John) ∧ Price(b, GBP(400)) ∧ Item(b, bike) 
+</span>
+<span class="c1"># 或者:
+</span>
+<span class="n">变量</span> <span class="err">∈</span> <span class="n">事件名</span><span class="p">(</span><span class="n">事件中涉及的实体1</span><span class="p">,</span> <span class="n">事件中涉及的实体2</span><span class="p">,</span> <span class="p">...,</span> <span class="n">事件中涉及的物体1</span><span class="p">,</span> <span class="p">...)</span>
+
+<span class="c1"># 如: b ∈ Buyings(Mary, John, GBP(400), bike)
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>而在谓词 <code class="language-plaintext highlighter-rouge">T</code> 中, 流和动作使用专门领域公理定义.</p>
+
+<p>通过物化事件, 我们可以给它们增加 <strong>任何数量</strong> 的 <strong>任意信息</strong>. 通过扩展事件演算, 我们就可以表示 <strong>同时发生的事件</strong>, <strong>外因事件</strong>, <strong>连续事件</strong> 和其他的复杂事件.</p>
+
+<h3 id="过程">过程</h3>
+
+<p>有一类事件具有 <strong>起始</strong>, <strong>中途</strong> 和 <strong>结尾</strong>, 若从中间将这一事件打断, 事件的性质就会发生变化. 同时, 这样的事件类别具有不同的属性.</p>
+
+<p>具有这种特征的事件类别被称为 <strong>过程</strong> (<code class="language-plaintext highlighter-rouge">Process</code>) 或 <strong>流事件</strong> (<code class="language-plaintext highlighter-rouge">Liquid Event</code>): 发生在一个时间区间内的任何过程 $e$ 也可以在该时间区间的任何子区间内完成.</p>
+
+<h3 id="时间区间">时间区间</h3>
+
+<p>我们考虑两种时间区间: <strong>时刻 (<code class="language-plaintext highlighter-rouge">Moment</code>)</strong> 与 <strong>时间 (<code class="language-plaintext highlighter-rouge">ExtendedIntervals</code>)</strong>. 它们的区别在于, <strong>时刻</strong> 的长度为 $0$, 也就是说它只有 <strong>零刻度</strong>.</p>
+
+\[\text{Partition}(\{\text{Moments}, \text{ExtendedIntervals}\}, \text{Intervals})\]
+
+\[i \in \text{Moments} \Leftrightarrow \text{Duration}(i) = \text{Seconds}(0)\]
+
+<p>随后我们取一个用来提供 <strong>绝对时间</strong> 的 <strong>时间标尺</strong>: 比如我们可以取格林尼治时区的 $1900$ 年 $1$ 月 $1$ 日 $00:00$ 为 $0$ 时刻, 构造函数 <code class="language-plaintext highlighter-rouge">Begin</code>, <code class="language-plaintext highlighter-rouge">End</code>, <code class="language-plaintext highlighter-rouge">Time</code>, <code class="language-plaintext highlighter-rouge">Duration</code> 分别用来: 取一个区间的最早时刻, 取一个区间的最晚时刻, 为某个时刻在给定的时间标尺上找出对应的刻度点, 以及给出开始时间和结束时间的差值.</p>
+
+<h3 id="流和对象">流和对象</h3>
+
+<p>物理对象可以被视为是 <strong>一块时空片段</strong>, 由此它也可以被视为 <strong>泛化事件</strong>.</p>
+
+<h3 id="思维事件和思维对象">思维事件和思维对象</h3>
+
+<p>到此为止, 我们已经构造出了对于现实世界中具备物理实体的事物的表示方式, 由此 <code class="language-plaintext highlighter-rouge">Agent</code> 可以对它们产生和具备 <strong>信念</strong> (或者知识), 并以此为基础演绎出新的信念. 下面, 我们需要考虑描述 <strong>思维对象</strong> 和 <strong>操控这些思维对象的思维模型</strong> 的模型.</p>
+
+<p>首先从 <strong>命题态度</strong> (<code class="language-plaintext highlighter-rouge">Propositional Attitudes</code>) 入手. <code class="language-plaintext highlighter-rouge">Agent</code> 对思维对象可以有一系列的 <strong>态度</strong>, 如 “确信“, ”了解”, “想要”, “打算”等, 我们使用 <strong>模态逻辑</strong> 表示这些态度.</p>
+
+<p>常规的逻辑关注 <strong>单模态</strong>, <strong>真值模态</strong>, 如 “命题 $P$ 为真”. 而模态逻辑包含以 <strong>语句</strong> 而非 <strong>项</strong> 作为参数的 <strong>专用模态算子</strong>, 如 “$A$ 知道 $P$” 用 $\mathbf{K}_{A}P$ 表示, 其中 $\mathbf{K}$ 就是用于知识的 <strong>模态算子</strong>. 该算子具有两个参数: 一个记为下标的 <code class="language-plaintext highlighter-rouge">Agent</code>, 和一个语句.</p>
+
+<p>补充:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220105170752.png" alt="20220105170752" /></p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220105170802.png" alt="20220105170802" /></p>
+
+<p>注意:</p>
+
+<ol>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">Equals()</code> 公式处的 <code class="language-plaintext highlighter-rouge">Before(i)</code> 应该改为 <code class="language-plaintext highlighter-rouge">Begin(i)</code>.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">During</code> 中的 <code class="language-plaintext highlighter-rouge">Begin(i), Begin(j)</code> 和 <code class="language-plaintext highlighter-rouge">End(i), End(j)</code> 是 <strong>严格不等关系</strong>.</p>
+  </li>
+</ol>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220125215607.png" alt="20220125215607" /></p>
+
+<p>Semantic Network:</p>
+<ol>
+  <li>only Binary Relations</li>
+  <li>n-ary assertions <strong>need to be break down into binary relations</strong></li>
+</ol>
+
+<p>Description Logics:</p>
+<ol>
+  <li>Subsumption: check if one category is a subset of another one by comparing definitions</li>
+  <li>Classification: Check whether an obj belongs to a category</li>
+  <li>
+    <p>Consistency: Whether the membership crteria are logically satisfiable</p>
+
+    <p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220125215806.png" alt="20220125215806" /></p>
+  </li>
+</ol>
+
+
+                <hr style="visibility: hidden;">
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2021/12/20/COMP24011-Ch4/" data-toggle="tooltip" data-placement="top" title="人工智能导论 不确定性的量化和概率推理">
+                        Previous<br>
+                        <span>人工智能导论 不确定性的量化和概率推理</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2021/12/28/COMP24011-Ch6/" data-toggle="tooltip" data-placement="top" title="人工智能导论 模糊逻辑">
+                        Next<br>
+                        <span>人工智能导论 模糊逻辑</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <hr style="visibility: hidden;">
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+                
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+
+
+<section>
+    
+        <hr class="hidden-sm hidden-xs">
+    
+    <h5><a href="/archive/">FEATURED TAGS</a></h5>
+    <div class="tags">
+        
+        
+        
+        
+        
+        
+                <a data-sort="0109" 
+                    href="/archive/?tag=COMP12111"
+                    title="COMP12111"
+                    rel="10">COMP12111</a>
+        
+                <a data-sort="0027" 
+                    href="/archive/?tag=2021"
+                    title="2021"
+                    rel="92">2021</a>
+        
+                <a data-sort="0073" 
+                    href="/archive/?tag=%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0"
+                    title="课程笔记"
+                    rel="46">课程笔记</a>
+        
+                <a data-sort="0079" 
+                    href="/archive/?tag=%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0"
+                    title="前端学习"
+                    rel="40">前端学习</a>
+        
+                <a data-sort="0079" 
+                    href="/archive/?tag=50P50D"
+                    title="50P50D"
+                    rel="40">50P50D</a>
+        
+                <a data-sort="0094" 
+                    href="/archive/?tag=2020"
+                    title="2020"
+                    rel="25">2020</a>
+        
+                <a data-sort="0104" 
+                    href="/archive/?tag=COMP24011"
+                    title="COMP24011"
+                    rel="15">COMP24011</a>
+        
+                <a data-sort="0107" 
+                    href="/archive/?tag=%E9%80%BB%E8%BE%91%E5%AD%A6"
+                    title="逻辑学"
+                    rel="12">逻辑学</a>
+        
+                <a data-sort="0109" 
+                    href="/archive/?tag=COMP15111"
+                    title="COMP15111"
+                    rel="10">COMP15111</a>
+        
+                <a data-sort="0110" 
+                    href="/archive/?tag=%E6%89%A9%E5%B1%95%E8%87%AA%E4%B9%A0"
+                    title="扩展自习"
+                    rel="9">扩展自习</a>
+        
+                <a data-sort="0110" 
+                    href="/archive/?tag=COMP21111"
+                    title="COMP21111"
+                    rel="9">COMP21111</a>
+        
+                <a data-sort="0112" 
+                    href="/archive/?tag=%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0"
+                    title="机器学习"
+                    rel="7">机器学习</a>
+        
+                <a data-sort="0112" 
+                    href="/archive/?tag=COMP11212"
+                    title="COMP11212"
+                    rel="7">COMP11212</a>
+        
+                <a data-sort="0115" 
+                    href="/archive/?tag=%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95"
+                    title="数据结构和算法"
+                    rel="4">数据结构和算法</a>
+        
+                <a data-sort="0115" 
+                    href="/archive/?tag=COMP15212"
+                    title="COMP15212"
+                    rel="4">COMP15212</a>
+        
+                <a data-sort="0115" 
+                    href="/archive/?tag=COMP23111"
+                    title="COMP23111"
+                    rel="4">COMP23111</a>
+        
+                <a data-sort="0116" 
+                    href="/archive/?tag=%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7"
+                    title="奇技淫巧"
+                    rel="3">奇技淫巧</a>
+        
+                <a data-sort="0117" 
+                    href="/archive/?tag=%E7%99%BD%E6%9E%9C%E5%9B%AD"
+                    title="白果园"
+                    rel="2">白果园</a>
+        
+                <a data-sort="0117" 
+                    href="/archive/?tag=%E7%AE%97%E6%B3%95"
+                    title="算法"
+                    rel="2">算法</a>
+        
+                <a data-sort="0117" 
+                    href="/archive/?tag=Lab"
+                    title="Lab"
+                    rel="2">Lab</a>
+    </div>
+</section>
+
+
+                <!-- Friends Blog -->
+                
+<hr>
+<h5>FRIENDS</h5>
+<ul class="list-inline">
+  
+  <li><a href="http://ryanxin.cn">Ryan Xin</a></li>
+  
+  <li><a href="https://flyhigher.top">Axton.Gay</a></li>
+  
+  <li><a href="https://graynekocafe.net">GrayNekoBean</a></li>
+  
+  <li><a href="Gnefil.github.io">Gnefil</a></li>
+  
+</ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<!-- add support for mathjax by voleking-->
+
+
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "KirisameR";
+    var disqus_identifier = "/2021/12/25/COMP24011 Ch5";
+    var disqus_url = "http://localhost:4000/2021/12/25/COMP24011-Ch5/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'right',
+          // icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <!-- SNS Link -->
+                
+
+
+<ul class="list-inline text-center">
+
+
+  
+  
+  
+  
+  
+  
+  <li>
+    <a target="_blank" href="https://github.com/KirisameR">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  
+  
+</ul>
+
+                <p class="copyright text-muted">
+                    Copyright &copy; 某一般线性空间 2022
+                    <br>
+                    Powered by <a href="http://huangxuan.me">Hux Blog</a> |
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="100px"
+                        height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=huxpro&repo=huxpro.github.io&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<!-- Currently, only navbar scroll-down effect at desktop still depends on this -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Simple Jekyll Search -->
+<script src="/js/simple-jekyll-search.min.js"></script>
+
+<!-- Service Worker -->
+
+<script src="/js/snackbar.js "></script>
+<script src="/js/sw-registration.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+        var d = document, t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+
+
+
+
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog(selector) {
+
+        // interop with multilangual 
+        if ('' == 'true') {
+            _containerSelector = 'div.post-container.active'
+        } else {
+            _containerSelector = 'div.post-container'
+        }
+
+        // init
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        // clean
+        $(selector).html('')
+
+        // appending
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+<!-- Multi-Lingual -->
+
+
+<!-- Simple Jekyll Search -->
+<script>
+    // https://stackoverflow.com/questions/1912501/unescape-html-entities-in-javascript
+    function htmlDecode(input) {
+        var e = document.createElement('textarea');
+        e.innerHTML = input;
+        // handle case of empty input
+        return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+    }
+
+    SimpleJekyllSearch({
+        searchInput: document.getElementById('search-input'),
+        resultsContainer: document.getElementById('search-results'),
+        json: '/search.json',
+        searchResultTemplate: '<div class="post-preview item"><a href="{url}"><h2 class="post-title">{title}</h2><h3 class="post-subtitle">{subtitle}</h3><hr></a></div>',
+        noResultsText: 'No results',
+        limit: 50,
+        fuzzy: false,
+        // a hack to get escaped subtitle unescaped. for some reason, 
+        // post.subtitle w/o escape filter nuke entire search.
+        templateMiddleware: function (prop, value, template) {
+            if (prop === 'subtitle' || prop === 'title') {
+                if (value.indexOf("code")) {
+                    return htmlDecode(value);
+                } else {
+                    return value;
+                }
+            }
+        }
+    });
+
+    $(document).ready(function () {
+        var $searchPage = $('.search-page');
+        var $searchOpen = $('.search-icon');
+        var $searchClose = $('.search-icon-close');
+        var $searchInput = $('#search-input');
+        var $body = $('body');
+
+        $searchOpen.on('click', function (e) {
+            e.preventDefault();
+            $searchPage.toggleClass('search-active');
+            var prevClasses = $body.attr('class') || '';
+            setTimeout(function () {
+                $body.addClass('no-scroll');
+            }, 400)
+
+            if ($searchPage.hasClass('search-active')) {
+                $searchClose.on('click', function (e) {
+                    e.preventDefault();
+                    $searchPage.removeClass('search-active');
+                    $body.attr('class', prevClasses);  // from closure 
+                });
+                $searchInput.focus();
+            }
+        });
+    });
+</script>
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

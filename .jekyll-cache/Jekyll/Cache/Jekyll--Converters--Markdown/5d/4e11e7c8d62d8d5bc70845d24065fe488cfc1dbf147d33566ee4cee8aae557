@@ -1,0 +1,26 @@
+I"z
+<h1 id="comp15111-编译原理">COMP15111 编译原理</h1>
+
+<p><code class="language-plaintext highlighter-rouge">COMP15111 Fundamentals of Computer Architecture (1st Semester) </code>为 <code class="language-plaintext highlighter-rouge">University of Manchester</code>计算机科学学院于第一学期面向全体计算机大类本科生开设的专业核心课程之一. 该课程以 <code class="language-plaintext highlighter-rouge">ARM 32位</code>指令集为基础, 介绍更为基础的汇编语言, 旨在系统性地介绍计算机处理数据和程序的基本原理, 使学生了解抽象化的高级程序设计语言和实际执行程序的计算机硬件之间的这一起到粘合与转换作用的过渡层.</p>
+
+<p>在本课程中, 我们将学习以下内容: <br /></p>
+
+<h2 id="1-arm架构-">1. <code class="language-plaintext highlighter-rouge">ARM</code>架构 <br /></h2>
+<p>计算机程序和指令, 简介 <code class="language-plaintext highlighter-rouge">ARM</code> 架构, 寄存器, 控制流</p>
+<h2 id="2-整数运算">2. 整数运算<br /></h2>
+<p>简易 <code class="language-plaintext highlighter-rouge">ARM</code> 汇编程序, 信息表示法和整数运算</p>
+<h2 id="3-arm-指令集和数据存储表示">3. <code class="language-plaintext highlighter-rouge">ARM</code> 指令集和数据存储/表示<br /></h2>
+<p>条件体执行, <code class="language-plaintext highlighter-rouge">ARM</code> 指令和内存布局, <code class="language-plaintext highlighter-rouge">ARM</code> 指令编码</p>
+<h2 id="4-if和while条件体">4. <code class="language-plaintext highlighter-rouge">if</code>和<code class="language-plaintext highlighter-rouge">while</code>条件体,</h2>
+<p>条件控制语句与循环控制语句的实现, 循环体和条件体的优化</p>
+<h2 id="5-地址与寻址">5. 地址与寻址<br /></h2>
+<p>“地址”的定义和概念, 常见寻址模式和 <code class="language-plaintext highlighter-rouge">ARM</code> 寻址, 位运算</p>
+<h2 id="6-线性数据结构和位运算">6. 线性数据结构和位运算<br /></h2>
+<p>字符串和列表等线性数据结构, 位运算的基本概念和方法</p>
+<h2 id="7-函数方法声明和调用">7. 函数/方法声明和调用<br /></h2>
+<p>用户自定义函数或方法的实现, 以及对函数或方法的调用</p>
+<h2 id="8-io-设备">8. <code class="language-plaintext highlighter-rouge">I/O</code> 设备<br /></h2>
+<p>处理器与外设的两大主要通讯方式: 轮询和中断, 以及直接内存访问</p>
+<h2 id="9-汇编器和编译器">9. 汇编器和编译器<br /></h2>
+<p>介绍汇编器和编译器的作用和基本构成, 以及其差别</p>
+:ET

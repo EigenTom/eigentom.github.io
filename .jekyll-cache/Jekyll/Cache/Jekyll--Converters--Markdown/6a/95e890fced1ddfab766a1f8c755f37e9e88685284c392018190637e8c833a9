@@ -1,0 +1,346 @@
+I"%�<h1 id="prolog-入门-递归"><code class="language-plaintext highlighter-rouge">Prolog</code> 入门: 递归</h1>
+
+<p>在本章中, 我们将介绍 <code class="language-plaintext highlighter-rouge">Prolog</code> 中的递归定义, 并举例说明一个问题: <code class="language-plaintext highlighter-rouge">Prolog</code> 程序的 <strong>声明性含义</strong> 与 <strong>过程性含义</strong> 之间可能会存在不匹配的情形.</p>
+
+<h2 id="1-递归定义">1. 递归定义</h2>
+
+<p>在 <code class="language-plaintext highlighter-rouge">Prolog</code> 中, 谓词可以被 <strong>递归地</strong> 定义. 简单来说, 如果一个谓词的定义中至少有一条规则包含了其本身, 则称它是 <strong>递归地定义</strong> 的.</p>
+
+<p>我们首先考虑下列的知识库:</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="ss">is_digesting</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Y</span><span class="p">)</span> <span class="p">:-</span> <span class="ss">just_ate</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Y</span><span class="p">).</span> 
+<span class="ss">is_digesting</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Y</span><span class="p">)</span> <span class="p">:-</span> 
+                <span class="ss">just_ate</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Z</span><span class="p">),</span> 
+                <span class="ss">is_digesting</span><span class="p">(</span><span class="nv">Z</span><span class="p">,</span> <span class="nv">Y</span><span class="p">).</span> 
+
+<span class="ss">just_ate</span><span class="p">(</span><span class="ss">mosquito</span><span class="p">,</span><span class="ss">blood</span><span class="p">(</span><span class="ss">john</span><span class="p">)).</span> 
+<span class="ss">just_ate</span><span class="p">(</span><span class="ss">frog</span><span class="p">,</span><span class="ss">mosquito</span><span class="p">).</span> 
+<span class="ss">just_ate</span><span class="p">(</span><span class="ss">stork</span><span class="p">,</span><span class="ss">frog</span><span class="p">).</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>上述的知识库中定义了 $3$ 条事实和 $2$ 条规则. 同时, 可以看出谓词 <code class="language-plaintext highlighter-rouge">is_digesting</code> 也是递归定义的, 因为在第二行对其的定义中出现了它自身. 而最重要的是, 由于 (并不是递归定义的) 第一条规则的存在, 我们可以从从第二条规则所构造的无限递归 (循环) 中挣脱出来. 下面我们分别对我们构造的知识库的 <strong>声明式含义</strong> 和 <strong>过程式含义</strong> 进行讨论.</p>
+
+<p>“声明” (<code class="language-plaintext highlighter-rouge">declarative</code>), 即指给定 <code class="language-plaintext highlighter-rouge">Prolog</code> 知识库的逻辑含义. 也就是说, <code class="language-plaintext highlighter-rouge">Prolog</code> 知识库的 <strong>声明式含义</strong> 所描述的就是 “这个知识库说了什么”, 或者 “从逻辑的角度上看, 这个知识库告诉了我们什么”.</p>
+
+<p>我们在知识库中所定义的两条规则从声明式含义的角度理解就是:</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="c1">% If X has just eaten Y, then X is now digesting Y.</span>
+<span class="ss">is_digesting</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Y</span><span class="p">)</span> <span class="p">:-</span> <span class="ss">just_ate</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span><span class="nv">Y</span><span class="p">).</span> 
+
+<span class="c1">% If X has just eaten Z and Z is digesting Y, then X is digesting Y, too.</span>
+<span class="ss">is_digesting</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Y</span><span class="p">)</span> <span class="p">:-</span> 
+                <span class="ss">just_ate</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Z</span><span class="p">),</span> 
+                <span class="ss">is_digesting</span><span class="p">(</span><span class="nv">Z</span><span class="p">,</span> <span class="nv">Y</span><span class="p">).</span> 
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>这两条规则显然在声明式含义的解释下都是符合逻辑的.</p>
+
+<p>下面我们需要考虑这条递归定义的规则在 <strong>过程式含义</strong> 的解释下的真实含义, 也就是说, 当我们的某条查询指令用到了或者涉及到它时, 这条递归定义究竟会做什么.</p>
+
+<p>对于常规的非递归规则而言, 它在过程式含义的解释下意义非常显然. 而对于本例提及的第二条递归定义而言, 这样的定义使 <code class="language-plaintext highlighter-rouge">Prolog</code> 可以使用这样的策略判断 <code class="language-plaintext highlighter-rouge">is_digesting(X, Y)</code>: 尝试找到某个 <code class="language-plaintext highlighter-rouge">Z</code>, 并且它满足: 1. <code class="language-plaintext highlighter-rouge">just_ate(X, Z)</code> 为真; 2. <code class="language-plaintext highlighter-rouge">is_digesting(Z, Y)</code> 为真. 换句话说, 该条规则的定义使 <code class="language-plaintext highlighter-rouge">Prolog</code> 将执行证明搜索寻找可行解的任务切分为两个子任务. 理想状态下, 通过检索知识库, 两个子任务都能够得到解决, 从而原任务相应地也得到了解决.</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20211015225123.png" alt="20211015225123" /></p>
+
+<p>我们下面考虑查询语句 <code class="language-plaintext highlighter-rouge">is_digesting(stork,mosquito).</code>.</p>
+
+<p>基于上一章所介绍的证明搜索流程, 我们知道 <code class="language-plaintext highlighter-rouge">Prolog</code> 首先会尝试联合知识库中的第一条规则. 通过对变量 <code class="language-plaintext highlighter-rouge">X</code> 和 <code class="language-plaintext highlighter-rouge">Y</code> 进行实例化 (与规则中的项联合), 我们可以得到一条并不存在于知识库中的规则</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="ss">just_ate</span><span class="p">(</span><span class="ss">stork</span><span class="p">,</span> <span class="ss">mosquito</span><span class="p">).</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>第一条解路径并不能满足目标, 因此 <code class="language-plaintext highlighter-rouge">Prolog</code> 回溯至原点尝试第二条规则. 经过联合后程序需要满足的目标变为:</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="ss">just_ate</span><span class="p">(</span><span class="ss">stork</span><span class="p">,</span> <span class="nv">Z</span><span class="p">),</span> 
+<span class="ss">is_digesting</span><span class="p">(</span><span class="nv">Z</span><span class="p">,</span> <span class="ss">mosquito</span><span class="p">).</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>也就是说, <code class="language-plaintext highlighter-rouge">Prolog</code> 需要找到一个同时满足两条目标的值为变量 <code class="language-plaintext highlighter-rouge">Z</code> 赋值.</p>
+
+<p>经过对知识库的检索, <code class="language-plaintext highlighter-rouge">Prolog</code> 可以找到一个满足第一条目标的值 <code class="language-plaintext highlighter-rouge">frog</code>. 并且在尝试满足第二个目标时, 由于 <strong>第一条规则的存在</strong>, 我们可以通过推导 <code class="language-plaintext highlighter-rouge">is_digesting(frog,mosquito).</code> 得到位于知识库中的事实 <code class="language-plaintext highlighter-rouge">just_ate(frog,mosquito).</code>, 最终完成证明搜索.</p>
+
+<p>从这个例子中不难看出, 形如第一条规则一般, 允许 <code class="language-plaintext highlighter-rouge">Prolog</code> 在执行对递归定义的证明搜索中最终跳出递归的规则是至关重要的 我们一般称其为
+<strong>基本子句</strong> (<code class="language-plaintext highlighter-rouge">Escape Clause, or Base Clause</code>). 倘若我们的知识库中不存在这样的基本子句, <code class="language-plaintext highlighter-rouge">Prolog</code> 就会重复执行无意义的计算而无法自拔.</p>
+
+<p>我们再来看一个将递归应用于 <code class="language-plaintext highlighter-rouge">Prolog</code> 程序设计中的例子, 体会通过应用递归的概念, 我们是如何轻松愉快地定义 <code class="language-plaintext highlighter-rouge">后代</code> (<code class="language-plaintext highlighter-rouge">descendent</code>) 的概念的.</p>
+
+<p>首先给定一个记录了关系 <code class="language-plaintext highlighter-rouge">child(X, Y)</code> 的知识库:</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="ss">child</span><span class="p">(</span><span class="ss">bridget</span><span class="p">,</span> <span class="ss">caroline</span><span class="p">).</span> 
+<span class="ss">child</span><span class="p">(</span><span class="ss">caroline</span><span class="p">,</span> <span class="ss">donna</span><span class="p">).</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>可见 <code class="language-plaintext highlighter-rouge">Caroline</code> 是 <code class="language-plaintext highlighter-rouge">Bridget</code> 的孩子, 而 <code class="language-plaintext highlighter-rouge">Donna</code> 又是 <code class="language-plaintext highlighter-rouge">Caroline</code> 的孩子. 我们下面首先尝试使用 <strong>非递归定义</strong> 对 <code class="language-plaintext highlighter-rouge">后代</code> 这一概念建模. 我们可以给出如下定义:</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="ss">descend</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Y</span><span class="p">)</span> <span class="p">:-</span> <span class="ss">child</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Y</span><span class="p">).</span> 
+<span class="ss">descend</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Y</span><span class="p">)</span> <span class="p">:-</span> <span class="ss">child</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Z</span><span class="p">),</span> 
+                <span class="ss">child</span><span class="p">(</span><span class="nv">Z</span><span class="p">,</span> <span class="nv">Y</span><span class="p">).</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>如此我们就定义了深度为 <code class="language-plaintext highlighter-rouge">2</code> 的 <code class="language-plaintext highlighter-rouge">后代</code> 关系. 但是不难看出, 使用这种方式进行的定义不具备任何可扩展性, 当我们需要考虑深度更高的 <code class="language-plaintext highlighter-rouge">后代</code> 关系时, 它就不再适用了. 随着深度愈发递增, 我们需要为每一层 <code class="language-plaintext highlighter-rouge">后代</code> 关系单独定义, 此时我们的知识库大小就要被迫膨胀到不可描述的级别.</p>
+
+<p>实际上, 我们不难观察到 <code class="language-plaintext highlighter-rouge">后代</code> 这一待建模的概念具有传递性. 基于传递性, 首先显然有:</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="c1">%Y is a child of X, if...</span>
+<span class="ss">descend</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Y</span><span class="p">)</span> <span class="p">:-</span> <span class="ss">child</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Z</span><span class="p">),</span>     <span class="c1">% 1. Z is a child of X</span>
+                 <span class="ss">descend</span><span class="p">(</span><span class="nv">Z</span><span class="p">,</span> <span class="nv">Y</span><span class="p">).</span>   <span class="c1">% 2. Y is a descendant of Z</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>不难看出上述的递归子句具有高度的可扩展性. 并且在深度为 $1$ 时, <code class="language-plaintext highlighter-rouge">后代</code> 和 <code class="language-plaintext highlighter-rouge">孩子</code> 的定义具有等价性:</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="ss">descend</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Y</span><span class="p">)</span> <span class="p">:-</span> <span class="ss">child</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Y</span><span class="p">).</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>将两条规则拼接即可得到由一条 <strong>基本子句</strong> 和一条 <strong>递归子句</strong> 组成的 <strong>完整的</strong> 递归定义. 在使用结合了递归定义的规则的知识库进行查询时, <code class="language-plaintext highlighter-rouge">Prolog</code> 在每一次搜索证明中都会首先尝试联合基本子句以尝试满足当前目标, 而若不满足的话就联合第二条递归子句将问题进一步变换. 最终, 我们可以得到一条形如下图的搜索树.</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20211015232432.png" alt="20211015232432" /></p>
+
+<p>得益于递归子句的结构性和定义本身的可扩展性, 我们可以使用简单的递归子句实现定义, 并在需要的情形下轻松地通过递归将定义的深度扩展到需要的级别而无需让定义本身复杂化.</p>
+
+<p>我们再来看一个利用递归定义在 <code class="language-plaintext highlighter-rouge">Prolog</code> 中实现 <strong>计数</strong> 的例子.</p>
+
+<p>我们使用一种递归定义进行数字表示:</p>
+<ol>
+  <li>定义 $0$ 为数字.</li>
+  <li>若 $X$ 为一个数字, 它的后继数字 (<code class="language-plaintext highlighter-rouge">Successor</code>) $\text{succ}(X)$ 也是一个数字.</li>
+</ol>
+
+<p>显然, 上述的定义也是递归的, 并且性质 “数字” 同样具有传递性. 定义知识库</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="ss">numeral</span><span class="p">(</span><span class="m">0</span><span class="p">).</span>
+<span class="ss">numeral</span><span class="p">(</span><span class="ss">succ</span><span class="p">(</span><span class="nv">X</span><span class="p">))</span> <span class="p">:-</span> <span class="ss">numeral</span><span class="p">(</span><span class="nv">X</span><span class="p">).</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>则我们在执行查询 <code class="language-plaintext highlighter-rouge">numeral(X).</code> 时, 可以在每一次证明搜索得出结果后使用预置谓词 <code class="language-plaintext highlighter-rouge">;</code> 强制 <code class="language-plaintext highlighter-rouge">Prolog</code> 回溯, 而在这一过程中, 我们实际上通过回溯后的新的联合得到了新的数字:</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="nv">X</span>  <span class="o">=</span>  <span class="m">0</span>  <span class="p">;</span> 
+<span class="nv">X</span>  <span class="o">=</span>  <span class="ss">succ</span><span class="p">(</span><span class="m">0</span><span class="p">)</span>  <span class="p">;</span> 
+<span class="nv">X</span>  <span class="o">=</span>  <span class="ss">succ</span><span class="p">(</span><span class="ss">succ</span><span class="p">(</span><span class="m">0</span><span class="p">))</span>  <span class="p">;</span> 
+<span class="nv">X</span>  <span class="o">=</span>  <span class="ss">succ</span><span class="p">(</span><span class="ss">succ</span><span class="p">(</span><span class="ss">succ</span><span class="p">(</span><span class="m">0</span><span class="p">)))</span>  <span class="p">;</span> 
+<span class="nv">X</span>  <span class="o">=</span>  <span class="ss">succ</span><span class="p">(</span><span class="ss">succ</span><span class="p">(</span><span class="ss">succ</span><span class="p">(</span><span class="ss">succ</span><span class="p">(</span><span class="m">0</span><span class="p">))))</span>  <span class="p">;</span> 
+<span class="nv">X</span>  <span class="o">=</span>  <span class="ss">succ</span><span class="p">(</span><span class="ss">succ</span><span class="p">(</span><span class="ss">succ</span><span class="p">(</span><span class="ss">succ</span><span class="p">(</span><span class="ss">succ</span><span class="p">(</span><span class="m">0</span><span class="p">)))))</span>  <span class="p">;</span> 
+<span class="nv">X</span>  <span class="o">=</span>  <span class="ss">succ</span><span class="p">(</span><span class="ss">succ</span><span class="p">(</span><span class="ss">succ</span><span class="p">(</span><span class="ss">succ</span><span class="p">(</span><span class="ss">succ</span><span class="p">(</span><span class="ss">succ</span><span class="p">(</span><span class="m">0</span><span class="p">))))))</span>  <span class="p">;</span> 
+<span class="nv">X</span>  <span class="o">=</span>  <span class="ss">succ</span><span class="p">(</span><span class="ss">succ</span><span class="p">(</span><span class="ss">succ</span><span class="p">(</span><span class="ss">succ</span><span class="p">(</span><span class="ss">succ</span><span class="p">(</span><span class="ss">succ</span><span class="p">(</span><span class="ss">succ</span><span class="p">(</span><span class="m">0</span><span class="p">)))))))</span>  <span class="p">;</span> 
+<span class="nv">X</span>  <span class="o">=</span>  <span class="ss">succ</span><span class="p">(</span><span class="ss">succ</span><span class="p">(</span><span class="ss">succ</span><span class="p">(</span><span class="ss">succ</span><span class="p">(</span><span class="ss">succ</span><span class="p">(</span><span class="ss">succ</span><span class="p">(</span><span class="ss">succ</span><span class="p">(</span><span class="ss">succ</span><span class="p">(</span><span class="m">0</span><span class="p">))))))))</span> 
+<span class="ss">yes</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>在此基础上, 我们以介绍一个递归定义的加法来结束本章.</p>
+
+<p>利用在上一个例子中定义的, 递归的数字表示法, 我们来尝试递归地定义加法. 考虑一个三元谓词 <code class="language-plaintext highlighter-rouge">add(X, Y, Z)</code>: 给定三个变量, 它的功能是将 <code class="language-plaintext highlighter-rouge">X+Y</code> 赋值给 <code class="language-plaintext highlighter-rouge">Z</code>, 如下列的代码片段所示:</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="o">?-</span>  <span class="ss">add</span><span class="p">(</span><span class="ss">succ</span><span class="p">(</span><span class="ss">succ</span><span class="p">(</span><span class="m">0</span><span class="p">)),</span> <span class="ss">succ</span><span class="p">(</span><span class="ss">succ</span><span class="p">(</span><span class="m">0</span><span class="p">)),</span> 
+        <span class="ss">succ</span><span class="p">(</span><span class="ss">succ</span><span class="p">(</span><span class="ss">succ</span><span class="p">(</span><span class="ss">succ</span><span class="p">(</span><span class="m">0</span><span class="p">))))).</span> 
+<span class="ss">yes</span> 
+<span class="o">?-</span>  <span class="ss">add</span><span class="p">(</span><span class="ss">succ</span><span class="p">(</span><span class="ss">succ</span><span class="p">(</span><span class="m">0</span><span class="p">)),</span> <span class="ss">succ</span><span class="p">(</span><span class="m">0</span><span class="p">),</span><span class="nv">Y</span><span class="p">).</span> 
+<span class="nv">Y</span>  <span class="o">=</span>  <span class="ss">succ</span><span class="p">(</span><span class="ss">succ</span><span class="p">(</span><span class="ss">succ</span><span class="p">(</span><span class="m">0</span><span class="p">)))</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>对加法中可能出现的情形进行分别考虑, 我们有:</p>
+<ol>
+  <li>若给定的首个参数 <code class="language-plaintext highlighter-rouge">X</code> 为 $0$, 则返回参数 <code class="language-plaintext highlighter-rouge">Z</code> 的值恒等于 <code class="language-plaintext highlighter-rouge">Y</code>:
+    <div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre> <span class="ss">add</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="nv">Y</span><span class="p">,</span> <span class="nv">Y</span><span class="p">).</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>
+    <p>若给定的前两个被加数均不为 $0$, 设 $X$ 为某个已知的数 $X_1$ 的后继数字, 则不难从 $X_1 + Y$ 计算出 $X + Y$: 后者自然也是前者的后继数字, 在形式上只是相差一个函子而已. 由于我们希望从较大的后继数字反推它的前继, 从而利用 <code class="language-plaintext highlighter-rouge">succ()</code> 谓词的计数特性计算累加结果, 故我们定义递归子句如下:</p>
+
+    <div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre> <span class="ss">add</span><span class="p">(</span><span class="ss">succ</span><span class="p">(</span><span class="nv">X</span><span class="p">),</span> <span class="nv">Y</span><span class="p">,</span> <span class="ss">succ</span><span class="p">(</span><span class="nv">Z</span><span class="p">))</span> <span class="p">:-</span> <span class="ss">add</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Y</span><span class="p">,</span> <span class="nv">Z</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+</ol>
+
+<p>下面以 <code class="language-plaintext highlighter-rouge">add(succ(succ(succ(0))), succ(succ(0)), R).</code> 为例说明 <code class="language-plaintext highlighter-rouge">Prolog</code> 在执行 <code class="language-plaintext highlighter-rouge">add()/3</code> 语句时的证明搜索过程.</p>
+
+<p>由于首位变量非 $0$, <code class="language-plaintext highlighter-rouge">Prolog</code> 会跳过无法执行联合的第一条规则, 也就是我们定义的基本子句, 而尝试将查询语句与第二条递归子句联合. 在联合时, 首位 <code class="language-plaintext highlighter-rouge">succ(succ(succ(0)))</code> 最外层的函子 <code class="language-plaintext highlighter-rouge">succ()</code> 被剥离, 第二位维持不变,  然后分别作为递归查询语句 <code class="language-plaintext highlighter-rouge">add(X, Y, Z)</code> 的前两个参数. 而查询语句的末位参数被赋予为一个尚未实例化的临时值 (这是显然的, 因为此刻我们并不知道该给它赋什么值才能满足目标), 不妨记其为 <code class="language-plaintext highlighter-rouge">_G648</code>. 需要注意的是, 此时我们已经可以确定 <code class="language-plaintext highlighter-rouge">_G648</code> 和原语句中 <code class="language-plaintext highlighter-rouge">R</code> 的关系, 因为当这个查询语句和递归子句的谓词左侧的项 <code class="language-plaintext highlighter-rouge">add(succ(X), Y, succ(Z))</code> 联合时, <code class="language-plaintext highlighter-rouge">R</code> 显然会被实例化为 <code class="language-plaintext highlighter-rouge">succ(_G648)</code>. 也就是说, 此时 <code class="language-plaintext highlighter-rouge">R</code> 实际上是一个以某个值未知的变量 <code class="language-plaintext highlighter-rouge">_G648</code> 为参数的复合项 <code class="language-plaintext highlighter-rouge">succ(_G648)</code>.</p>
+
+<p>随后, <code class="language-plaintext highlighter-rouge">Prolog</code> 会尝试对这个通过联合递归子句得到的递归查询语句执行证明搜索, 从而在得到新的递归查询语句的同时, 一层层地剥离 <code class="language-plaintext highlighter-rouge">succ()</code> 函子直到剥出最内层的 <code class="language-plaintext highlighter-rouge">0</code>. 该过程的搜索树如下图所示:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20211016113735.png" alt="20211016113735" /></p>
+
+<p>此时, 要满足当前目标, 我们只需要将语句与知识库中的第一条基本子句联合, 这样就得到了计算加法的结果: <code class="language-plaintext highlighter-rouge">succ(succ(0))</code>.</p>
+
+<h2 id="2-规则顺序-目标顺序与程序可终止性">2. 规则顺序, 目标顺序与程序可终止性</h2>
+
+<p>在典型的 “逻辑程序设计语言” 中, 程序设计者不需要具体地告知计算机需要执行的指令是什么, 而应该只向计算机展示对 <strong>问题本身的描述</strong>, 并让计算机 (中运行的逻辑程序设计环境) 基于某种规则自行求解.</p>
+
+<p>然而需要注意的是, <code class="language-plaintext highlighter-rouge">Prolog</code> 并不是完全和这样的 “逻辑程序设计语言” 划等号的: 我们在讨论递归定义时就已经了解到, 在一些特定情形下对某些 <code class="language-plaintext highlighter-rouge">Prolog</code> 程序进行 <strong>描述性解释</strong> 和 <strong>过程性解释</strong> 所得到的含义是截然不同的. 本质上而言, <code class="language-plaintext highlighter-rouge">Prolog</code> 处理用户查询的过程实际上是在执行对给定知识库的, 自上而下, 自左而右的检索. 下面我们再用一个简单的例子说明一个事实: 知识库中规则和目标语句的顺序会影响程序的执行情况, 求解速度, 甚至程序的可终止性.</p>
+
+<p>首先考虑如下的知识库:</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="ss">child</span><span class="p">(</span><span class="ss">anne</span><span class="p">,</span> <span class="ss">bridget</span><span class="p">).</span> 
+<span class="ss">child</span><span class="p">(</span><span class="ss">bridget</span><span class="p">,</span> <span class="ss">caroline</span><span class="p">).</span> 
+<span class="ss">child</span><span class="p">(</span><span class="ss">caroline</span><span class="p">,</span> <span class="ss">donna</span><span class="p">).</span> 
+<span class="ss">child</span><span class="p">(</span><span class="ss">donna</span><span class="p">,</span> <span class="ss">emily</span><span class="p">).</span> 
+
+<span class="ss">descend</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Y</span><span class="p">)</span> <span class="p">:-</span> <span class="ss">child</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Y</span><span class="p">).</span> 
+
+<span class="ss">descend</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Y</span><span class="p">)</span> <span class="p">:-</span> <span class="ss">child</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Z</span><span class="p">),</span> 
+                 <span class="ss">descend</span><span class="p">(</span><span class="nv">Z</span><span class="p">,</span> <span class="nv">Y</span><span class="p">).</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>随后将两条规则的顺序对换. 这样就得到了:</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="ss">child</span><span class="p">(</span><span class="ss">anne</span><span class="p">,</span> <span class="ss">bridget</span><span class="p">).</span> 
+<span class="ss">child</span><span class="p">(</span><span class="ss">bridget</span><span class="p">,</span> <span class="ss">caroline</span><span class="p">).</span> 
+<span class="ss">child</span><span class="p">(</span><span class="ss">caroline</span><span class="p">,</span> <span class="ss">donna</span><span class="p">).</span> 
+<span class="ss">child</span><span class="p">(</span><span class="ss">donna</span><span class="p">,</span> <span class="ss">emily</span><span class="p">).</span> 
+
+<span class="ss">descend</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Y</span><span class="p">)</span> <span class="p">:-</span> <span class="ss">child</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Z</span><span class="p">),</span> 
+                 <span class="ss">descend</span><span class="p">(</span><span class="nv">Z</span><span class="p">,</span> <span class="nv">Y</span><span class="p">).</span>
+
+<span class="ss">descend</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Y</span><span class="p">)</span> <span class="p">:-</span> <span class="ss">child</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Y</span><span class="p">).</span> 
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>从逻辑上看, 对规则顺序的更改没有对程序的含义造成任何影响. 但这样的对换从过程上 (略微地) 改变了程序本身: <code class="language-plaintext highlighter-rouge">Prolog</code> 基于两个知识库进行同一个查询语句的证明搜索后, 得到的第一个解很可能是不同的. 也就是说, <strong>对规则顺序的更改往往会导致程序求解过程行为的变更</strong>.</p>
+
+<p>我们下面再考虑对规则内部目标顺序的变更. 我们对换规则</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="ss">descend</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Y</span><span class="p">)</span> <span class="p">:-</span> <span class="ss">child</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Z</span><span class="p">),</span> 
+                 <span class="ss">descend</span><span class="p">(</span><span class="nv">Z</span><span class="p">,</span> <span class="nv">Y</span><span class="p">).</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>中目标 <code class="language-plaintext highlighter-rouge">child(X, Z)</code> 和 <code class="language-plaintext highlighter-rouge">descend(Z, Y)</code> 的顺序, 就得到了</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="ss">child</span><span class="p">(</span><span class="ss">anne</span><span class="p">,</span> <span class="ss">bridget</span><span class="p">).</span> 
+<span class="ss">child</span><span class="p">(</span><span class="ss">bridget</span><span class="p">,</span> <span class="ss">caroline</span><span class="p">).</span> 
+<span class="ss">child</span><span class="p">(</span><span class="ss">caroline</span><span class="p">,</span> <span class="ss">donna</span><span class="p">).</span> 
+<span class="ss">child</span><span class="p">(</span><span class="ss">donna</span><span class="p">,</span> <span class="ss">emily</span><span class="p">).</span> 
+
+<span class="ss">descend</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Y</span><span class="p">)</span> <span class="p">:-</span> <span class="ss">descend</span><span class="p">(</span><span class="nv">Z</span><span class="p">,</span> <span class="nv">Y</span><span class="p">),</span> 
+                 <span class="ss">child</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Z</span><span class="p">).</span> 
+
+<span class="ss">descend</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Y</span><span class="p">)</span> <span class="p">:-</span> <span class="ss">child</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Y</span><span class="p">).</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>同样, 我们所得到的新知识库从逻辑上看与原先的没有任何区别. 但是这一知识库在用作对语句</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="ss">descend</span><span class="p">(</span><span class="ss">anne</span><span class="p">,</span> <span class="ss">emily</span><span class="p">).</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>查询的参考时就会出现明显的问题:</p>
+
+<p>根据 <code class="language-plaintext highlighter-rouge">Prolog</code> 证明搜索的顺序, 它总是会优先尝试位置靠前的规则. 因此, 在尝试将语句和</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="ss">descend</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Y</span><span class="p">)</span> <span class="p">:-</span> <span class="ss">descend</span><span class="p">(</span><span class="nv">Z</span><span class="p">,</span> <span class="nv">Y</span><span class="p">),</span> <span class="ss">child</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Z</span><span class="p">).</span> 
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>联合时, 它需要找到一个变量 $W_1$ 使目标 <code class="language-plaintext highlighter-rouge">descend(W1, emily)</code> 成立. 而为了满足这一目标, 由于 <code class="language-plaintext highlighter-rouge">Prolog</code> 总会优先尝试联合第一个子目标, 问题就被转换为本质上毫无变化的: “找到变量 $W_2$ 满足目标 <code class="language-plaintext highlighter-rouge">descend(W2, emily)</code>”. 由于在一次次的转换中问题没有得到任何变化和求解的进展, 程序会无休止地运行下去直到超出内存限制.</p>
+
+<p>我们最后考虑如下的知识库:</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="ss">child</span><span class="p">(</span><span class="ss">anne</span><span class="p">,</span> <span class="ss">bridget</span><span class="p">).</span> 
+<span class="ss">child</span><span class="p">(</span><span class="ss">bridget</span><span class="p">,</span> <span class="ss">caroline</span><span class="p">).</span> 
+<span class="ss">child</span><span class="p">(</span><span class="ss">caroline</span><span class="p">,</span> <span class="ss">donna</span><span class="p">).</span> 
+<span class="ss">child</span><span class="p">(</span><span class="ss">donna</span><span class="p">,</span> <span class="ss">emily</span><span class="p">).</span> 
+
+<span class="ss">descend</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Y</span><span class="p">)</span> <span class="p">:-</span> <span class="ss">child</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Y</span><span class="p">).</span> 
+
+<span class="ss">descend</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Y</span><span class="p">)</span> <span class="p">:-</span> <span class="ss">descend</span><span class="p">(</span><span class="nv">Z</span><span class="p">,</span> <span class="nv">Y</span><span class="p">),</span> 
+                 <span class="ss">child</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Z</span><span class="p">).</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>它和上一个知识库的差别仅在于两条规则的顺序, 因此在逻辑上它们仍然是完全相同的. 由于它仍然包含一条以递归定义作为第一个子目标的规则, 对某些查询语句而言它仍然是不可终止的, 比如</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre> <span class="ss">descend</span><span class="p">(</span><span class="ss">anne</span><span class="p">,</span> <span class="ss">emily</span><span class="p">).</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>但是和上一个知识库不同的是, 对于某些无法在上一个知识库中求解的查询语句, 它却可以找出可行解:</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="ss">descend</span><span class="p">(</span><span class="ss">anne</span><span class="p">,</span> <span class="ss">bridget</span><span class="p">).</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>这告诉我们, 对于某些不具备可终止性的 <code class="language-plaintext highlighter-rouge">Prolog</code> 程序而言, 改变知识库中规则的顺序可能会让我们找到额外的可行解. 同时我们也不难看到, 规则语句中子目标的顺序具备 <strong>过程重要性</strong>, 正是它决定了程序是否具备可终止性.</p>
+
+<p>总的来说, 对 <code class="language-plaintext highlighter-rouge">Prolog</code> 程序知识库中规则顺序的对换往往会影响程序求解的流程, 对规则内部子目标顺序的对换会影响该程序的可终止性. 对于不具备可终止性的程序而言, 对换知识库中规则的顺序有可能让我们得到本无法求得的额外可行解.</p>
+
+<p>从程序设计的角度来看, 这意味着我们在设计 <code class="language-plaintext highlighter-rouge">Prolog</code> 程序时不仅要考虑到知识库在逻辑角度上的含义, 同时需要额外关注知识库中规则的形态和顺序编排会如何对 <code class="language-plaintext highlighter-rouge">Prolog</code> 在该知识库上进行查询时的行为造成影响. 同时, 在设计递归定义时我们还需要额外注意它的可终止性: 我们需要满足的最基本要求就是, 确保存在合理的基础语句, 并且尽可能地将具有递归特性的子目标顺序排在不具有递归特性的子目标之后.</p>
+
+:ET

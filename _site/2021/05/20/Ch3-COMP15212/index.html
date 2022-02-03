@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="description" content="由于相关法律法规规定, 该内容无法显示.">
+    <meta name="keywords" content="菜">
+    <meta name="theme-color" content="#333">
+
+    <!-- Open Graph -->
+    <meta property="og:title"
+        content="Ch3 File Management - 某一般线性空间 | Ramdom Linear Space">
+    
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Ch3 File Management
+">
+    
+    <meta property="article:published_time" content=" 2021-05-20T00:00:00Z">
+    
+    
+    <meta property="article:author" content="R1NG">
+    
+    
+    <meta property="article:tag" content="COMP15212">
+    
+    <meta property="article:tag" content="课程笔记">
+    
+    <meta property="article:tag" content="2021">
+    
+    
+    <meta property="og:image" content="http://localhost:4000https://github.com/KirisameR.png">
+    <meta property="og:url" content="http://localhost:4000/2021/05/20/Ch3-COMP15212/">
+    <meta property="og:site_name" content="某一般线性空间 | Ramdom Linear Space">
+
+    <title>Ch3 File Management - 某一般线性空间 | Ramdom Linear Space</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4000/2021/05/20/Ch3-COMP15212/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href=" /css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href=" /css/hux-blog.min.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"type="text/css">
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+
+    <!-- 数学公式 -->
+    <script type="text/javascript" async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+            showProcessingMessages: true, //关闭js加载过程信息
+            messageStyle: "none", //不显示信息
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code','a'], //避开某些标签
+                ignoreClass:"comment-content" //避开含该Class的标签
+            },
+            "HTML-CSS": {
+                availableFonts: ["STIX","TeX"], //可选字体
+                showMathMenu: false //关闭右击菜单显示
+            }
+        });
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+    </script>
+
+    
+
+    <!-- Google AdSense -->
+    <script data-ad-client="ca-pub-6487568398225121" async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">RANDOM LINEAR SPACE</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div id="huxblog_navbar">
+                <div class="navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                        
+                        
+                        <li>
+                            <a href="/archive/">Archive</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li class="search-icon">
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <script>
+        // Drop Bootstarp low-performance Navbar
+        // Use customize navbar with high-quality material design animation
+        // in high-perf jank-free CSS3 implementation
+        var $body = document.body;
+        var $toggle = document.querySelector('.navbar-toggle');
+        var $navbar = document.querySelector('#huxblog_navbar');
+        var $collapse = document.querySelector('.navbar-collapse');
+
+        var __HuxNav__ = {
+            close: function () {
+                $navbar.className = " ";
+                // wait until animation end.
+                setTimeout(function () {
+                    // prevent frequently toggle
+                    if ($navbar.className.indexOf('in') < 0) {
+                        $collapse.style.height = "0px"
+                    }
+                }, 400)
+            },
+            open: function () {
+                $collapse.style.height = "auto"
+                $navbar.className += " in";
+            }
+        }
+
+        // Bind Event
+        $toggle.addEventListener('click', function (e) {
+            if ($navbar.className.indexOf('in') > 0) {
+                __HuxNav__.close()
+            } else {
+                __HuxNav__.open()
+            }
+        })
+
+        /**
+         * Since Fastclick is used to delegate 'touchstart' globally
+         * to hack 300ms delay in iOS by performing a fake 'click',
+         * Using 'e.stopPropagation' to stop 'touchstart' event from 
+         * $toggle/$collapse will break global delegation.
+         * 
+         * Instead, we use a 'e.target' filter to prevent handler
+         * added to document close HuxNav.  
+         *
+         * Also, we use 'click' instead of 'touchstart' as compromise
+         */
+        document.addEventListener('click', function (e) {
+            if (e.target == $toggle) return;
+            if (e.target.className == 'icon-bar') return;
+            __HuxNav__.close();
+        })
+    </script>
+    <!-- Search -->
+<div class="search-page">
+  <div class="search-icon-close-container">
+    <span class="search-icon-close">
+      <i class="fa fa-chevron-down"></i>
+    </span>
+  </div>
+  <div class="search-main container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <form></form>
+        <input type="text" id="search-input" placeholder="$ grep...">
+        </form>
+        <div id="search-results" class="mini-post-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/post-bg-os.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+
+
+
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/post-bg-os.jpg');
+        background: ;
+    }
+
+    
+</style>
+
+<header class="intro-header" >
+
+    <div class="header-mask"></div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/archive/?tag=COMP15212" title="COMP15212">COMP15212</a>
+                        
+                        <a class="tag" href="/archive/?tag=%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0" title="课程笔记">课程笔记</a>
+                        
+                        <a class="tag" href="/archive/?tag=2021" title="2021">2021</a>
+                        
+                    </div>
+                    <h1>Ch3 File Management</h1>
+                    
+                    <h2 class="subheading">Introduction of File Management</h2>
+                    <span class="meta">Posted by R1NG on May 20, 2021</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <!-- Multi-Lingual -->
+                
+
+				<h1 id="ch3-file-management">Ch3 File Management</h1>
+
+<p>A typical computer might have a number of ‘levels’ of storage. The machine’s hardware view is usually something like:</p>
+
+<ul>
+  <li>Processor registers</li>
+  <li>Primary memory – chiefly <code class="language-plaintext highlighter-rouge">RAM</code></li>
+  <li>Secondary storage – typically <code class="language-plaintext highlighter-rouge">disks</code></li>
+  <li>Network – not really part of the computer but a source of data nevertheless</li>
+</ul>
+
+<p>File-store is provided to supply the following requirements:</p>
+
+<ul>
+  <li>Large storage capacity</li>
+  <li>Data persistence</li>
+  <li>Inter-process communication</li>
+</ul>
+
+<h2 id="1-filing-system">1. Filing System</h2>
+
+<h3 id="11-filing-system">1.1 Filing System</h3>
+<p><strong>Definition: Filing System</strong></p>
+<blockquote>
+  <p>The <strong>filing system</strong> lives between the user applications – which want to <strong>handle files</strong> and the disk (or other) <strong>device drivers</strong> which move blocks of data to and from.</p>
+</blockquote>
+
+<p>The Filing System is clearly a part of the OS, since all processes should see the same files. In a <code class="language-plaintext highlighter-rouge">layered</code> model the filing system is quite a <strong>high-level OS layer</strong>. In a <code class="language-plaintext highlighter-rouge">microkernel</code> it may well be run (by the OS) in <strong>user mode</strong>.</p>
+
+<p><img src="https://wiki.cs.manchester.ac.uk/COMP15212/images/d/d3/File_system.png" alt="" /></p>
+
+<p>The simplest file-stores are ‘flat’: i.e. there is one place where all the files are kept.</p>
+
+<p>Another mechanism is to identify separate devices, such as “A:” or “C:” In modern systems these may be virtual rather than physically separate devices. (Think about Windows’s disk partitioning!)</p>
+
+<p>A modern file-store is most likely to be <strong>hierarchical</strong> with a <strong>tree-like</strong> structure of <strong>arbitrary depth</strong>. Each tree has a single ‘root’ which branches repeatedly. Windows systems still retain separate “roots” for each (virtual) device though.</p>
+
+<p><img src="https://wiki.cs.manchester.ac.uk/COMP15212/images/e/ef/File_tree_Windows.png" alt="" /></p>
+
+<p>Unix (on the other hand) file-store <strong>mounts devices in a single ‘tree’</strong>, so different disks (and other stuff) appear as branches.</p>
+
+<p><img src="https://wiki.cs.manchester.ac.uk/COMP15212/images/6/61/File_tree_Unix.png" alt="" /></p>
+
+<ul>
+  <li>Branching points are directories – sometimes now called “folders” but we shall stick to “directories” which is more usual in the O.S. context.</li>
+  <li>A directory can branch zero (empty) or more ways; there is no particular logical limit.
+Terminal points on the tree are files, containing data.</li>
+</ul>
+
+<p>Every Unix directory contains at least <strong>two files</strong>: these are “.” and “..”. Thus the <strong>parent directory is explicitly specified</strong>.</p>
+
+<p><img src="https://wiki.cs.manchester.ac.uk/COMP15212/images/7/7e/Unix_directories.png" alt="" /></p>
+
+<p>Filing Systems have the following typical common characteristics:</p>
+
+<ul>
+  <li>Allocation is done in blocks; a file <strong>occupies a set of whole blocks</strong> (although the last one may not be completely full).
+    <ul>
+      <li>Reflects the way data is stored on disks (and other media).</li>
+      <li>Will hold $2N$ bytes: somewhere around the $1 \text{KiB}$ size.</li>
+      <li>Reduces the number of items to ‘address’.</li>
+      <li><strong>Not</strong> a completely efficient use of space.</li>
+    </ul>
+  </li>
+  <li>There will be some blocks used for data and some for the system organisation.</li>
+</ul>
+
+<p>files can <strong>vary in number and length</strong>. If files are laid out on a disk as <strong>contiguous blocks</strong>, it will suffers particularly if/when an existing file is <strong>extended in length</strong>. Most systems will therefore allow the file block placement <strong>to be fragmented rather than contiguous</strong>, with some way of indexing the blocks so that each file specifies its own blocks <strong>in the correct order</strong>.</p>
+
+<p>Despite the ability to lay out blocks at ‘random’, file systems <strong>still assume</strong> that they will be using magnetic disks (or similar) which are <strong>not truly</strong> random access devices: it is faster to read successive blocks than scattered ones. Hence the fragmentation of files will cause some slowing down.</p>
+
+<p>Sometimes a disk will be <strong>deliberately partitioned</strong> to assist with this. Various utility binary files may be kept in a <strong>separate partition from the user files</strong> which change and are reorganised frequently. It is changing a partition’s contents which leads to <strong>fragmentation</strong>, so this means often-wanted files can be kept tidy and not suffer a slow-down.</p>
+
+<p><br /></p>
+
+<h3 id="12-links">1.2 Links</h3>
+
+<p><strong>Definition: Link</strong></p>
+<blockquote>
+  <p>A <strong>Link</strong> is <strong>an alias for a file</strong>. it is added for having a file in more than one place while not copying it.</p>
+</blockquote>
+
+<p>Adding links can cause complications. The structure ceases to be a simple tree and becomes a <strong>directed graph</strong>.</p>
+
+<p>Particularly, it is undesirable to form cycles in this graph: recursive searches would <strong>never reach the ‘bottom’ of the structure</strong>(since it loop inside the cycle forever). A particular system way therefore <strong>not allow</strong> such links to be created.</p>
+
+<p>In Unix, at least, there is more than one way of building a link:</p>
+
+<ol>
+  <li>Symbolic links
+A symbolic (or ‘soft’) link is <strong>a special form of file</strong> which is simply a form of <strong>pointer to another file</strong>. The other file could be a directory.<br />
+A symbolic link, being an alias for an object, does not have to link to anything real.</li>
+  <li>Hard links
+When a hard link is created it is a <strong>directory entry</strong> which links to the i-node – to the file itself, not another name. <strong>The link is the file</strong>.</li>
+</ol>
+
+<p>Note:</p>
+<ul>
+  <li>“Deleting a file” which has multiple links will <strong>not actually delete</strong> the data.</li>
+  <li>Deleting a file when that is the <strong>only link</strong> would l<strong>eave the i-node isolated</strong>, at this point it becomes available for reuse.</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="2-file">2. File</h2>
+
+<h3 id="21-file">2.1 File</h3>
+<p><strong>Definition: File</strong></p>
+<blockquote>
+  <p>A <strong>file</strong> is the <strong>basic storage unit</strong> in a filing system. They are <strong>large but slow</strong> to access (relative to main memory structures), possibly <strong>accessible by many users and processes</strong>, and <strong>permanent</strong>.</p>
+</blockquote>
+
+<p><img src="https://wiki.cs.manchester.ac.uk/COMP15212/images/0/04/Files.png" alt="" /></p>
+
+<p>Each file comprises <strong>a standard set of file attributes</strong> (e.g. the file size) and a <strong>variable number of blocks/“clusters” which contain the data</strong>. It is normal (but not compulsory) to <strong>keep only one type of data in each file</strong>.</p>
+
+<p>The data may be structured into records, either by the filing system itself or through user preference.</p>
+
+<p>Most modern file systems leave any structuring to the user and regard the body of the file as <strong>a large array of (usually) bytes</strong>.</p>
+
+<p>Some operating systems may allow the <strong>virtual mapping of a file into the address space</strong> for added convenience.</p>
+
+<p>When reading (or writing) a file there is <strong>an associated position</strong>, this is not part of the file though but is maintained by the access process. It is <strong>possible to have multiple processes</strong> reading the same file at different places simultaneously.</p>
+
+<p>A file will typically have <strong>some type part</strong> of which may be <strong>maintained by the file system</strong> and some from the user’s knowledge. Each file has some <strong>unique identifier</strong> but the user will usually have a <strong>human-readable name</strong> by which it can be identified. This “file name” <strong>may or may not be part of the file’s attributes.</strong></p>
+
+<h3 id="22-file-types">2.2 File Types</h3>
+<p>The file-store holds a large number of files which <strong>represent numerous different things</strong>. There are various ways in which the <strong>file type can be classified</strong>.</p>
+
+<p>Unix, Windows etc. show various filenames in a directory (“folder”) which are <strong>not necessarily immediately distinguishable</strong> to the user as ‘regular’ files or subdirectories. This is an <strong>important distinction</strong> for the filing system itself and the <strong>information is kept within the file attributes</strong>.</p>
+
+<p>File browsers and similar tools use the following ways to deduce what a file actually contains:</p>
+
+<ul>
+  <li>
+    <p>Filesystem tests use the <strong>attribute information</strong> available.</p>
+  </li>
+  <li>
+    <p>“Magic” tests <strong>look for a “magic number” at a known place</strong> in  the file. (e.g. how to distinguish between jpg and png?)<br />
+This is a useful way to guess what a file type is – it is, of course, not 100% reliable.</p>
+  </li>
+  <li>
+    <p>Language tests are applied <strong>if a file has not been determined</strong> yet to see if it looks like text (which bytes are used, which are not) and then some keywords may be tried to see if it seems to be the source code for a particular compiler (for example). This, too, is not 100% reliable.</p>
+  </li>
+</ul>
+
+<p>It is common for users to <strong>imply the type of a file with its name</strong>, often with <strong>a suffix extension .</strong> For example, a ‘text’ file may have a name like file.txt. <br />
+In some systems this extension was <strong>logically separate</strong> from the file-name and <strong>formed part of the metadata</strong>. <br />
+On common modern systems (Unix, Windows) this is not the case and it is there <strong>purely for human convenience</strong>.</p>
+
+<p><br /></p>
+
+<h3 id="23-file-attributes--permissions">2.3 File Attributes &amp; Permissions</h3>
+
+<h4 id="231-file-attributes--descriptor">2.3.1 File Attributes &amp; Descriptor</h4>
+<p><strong>Definition: File Attributes</strong></p>
+<blockquote>
+  <p>The associated <strong>metadata</strong> of a file containing <strong>information</strong> about it is called <strong>file attribute</strong>.</p>
+</blockquote>
+
+<p>Note:</p>
+<ol>
+  <li>
+    <p>this is <strong>‘permanent’</strong> information about the file; it is not the same as the <strong>file descriptor</strong> which is the information <strong>about a file in use by a particular process</strong>.</p>
+  </li>
+  <li>
+    <p>file attributes often contain <strong>file permissions</strong>. File permission <strong>limit the operation of certain user groups</strong> to the file, which provides some <strong>simple protections</strong>.</p>
+  </li>
+  <li>
+    <p>In a multi-user system it is useful to know <strong>who ‘owns’ which file</strong>. An associated, <strong>unique identifier</strong> can provide this information. (The user’s name can be looked-up from this if necessary.)</p>
+  </li>
+</ol>
+
+<p><br /></p>
+
+<p><strong>Definition: File Descriptor</strong></p>
+<blockquote>
+  <p>The descriptor will be created when <strong>a file is opened</strong> and <strong>is associated with a particular file within a particular process</strong>. It is used for <strong>immediate file access</strong>. <br />
+It will hold information such as:</p>
+  <ul>
+    <li>the access permissions.</li>
+    <li>the current position (index) in the file.</li>
+    <li>the error status.</li>
+    <li>control flags.</li>
+  </ul>
+</blockquote>
+
+<p>Like the file attributes, a file descriptor holds some metadata about a file. However these are not the same thing:</p>
+
+<ul>
+  <li>The <strong>file attributes are ‘permanent’</strong>, in that they exist with the file; the <strong>file descriptor only exists whilst the file is in use</strong>.</li>
+  <li>There is <strong>exactly one set of file attributes per file</strong>; there can be <strong>several file descriptors for the same file</strong> if it has been <strong>opened multiple times concurrently</strong>. Each descriptor will have (for example) its own file position.</li>
+</ul>
+
+<p><br /></p>
+
+<h4 id="232-file-permissions">2.3.2 File Permissions</h4>
+<p><strong>Definition: File Permissions</strong></p>
+<blockquote>
+  <p><strong>File Permission</strong> is a form of access control for protecting files from unwanted access or modifications, which provides some simple protections. Most file systems include some form of access control.</p>
+</blockquote>
+
+<p>In the simple case, this could support multiple users of a system so that <strong>each user’s files were private</strong>. On its own, this would be rather primitive because it would imply that every user needed a separate copy of every application program etc.</p>
+
+<p>Unix-like systems typically have <strong>three classes of file access permission</strong> which, combined with other information, provide reasonably <strong>flexible access control</strong>. These are part of a file’s attributes. The relevant information is:</p>
+
+<ul>
+  <li>The file’s owner (<code class="language-plaintext highlighter-rouge">UID</code>).</li>
+  <li>The file’s group (<code class="language-plaintext highlighter-rouge">GID</code>).</li>
+  <li>The <strong>access permissions</strong> in terms of permitted {read, write, execute} for
+    <ul>
+      <li>the owner</li>
+      <li>members of the group</li>
+      <li>any system user</li>
+    </ul>
+  </li>
+</ul>
+
+<p>For a regular file:</p>
+
+<ul>
+  <li>read (<code class="language-plaintext highlighter-rouge">R</code>) permission allows the appropriate clients to <strong>see the content</strong> of the file.</li>
+  <li>write (<code class="language-plaintext highlighter-rouge">W</code>) permission allows the appropriate clients to <strong>change the content</strong> of the file.</li>
+  <li>execute (<code class="language-plaintext highlighter-rouge">X</code>) permission allows the appropriate clients <strong>run the file as code</strong>.
+    <ul>
+      <li>This includes <strong>execution of a binary file and a text file</strong> in the case of a shell script.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Permissions for a directory are similar although:</p>
+
+<ul>
+  <li>execute permission allows the user to <strong>follow the links in a directory</strong> – e.g. to sub directories.</li>
+</ul>
+
+<p>It is possible to follow through an ‘executable’ directory even if it is <strong>not readable</strong>.</p>
+
+<p>Groups are defined in a system file, which itself should <strong>only be writeable by ‘root’ to keep the system secure</strong>.</p>
+
+<p>They allow a <strong>group of users</strong> access to <strong>particular space so they can work together whilst excluding the ‘general public’</strong>.</p>
+
+<p><strong>File permissions</strong> have a <strong>similar</strong> function to <strong>memory access permissions</strong>, providing not only <strong>security against intrusion</strong> but also <strong>safety against accident</strong>. The usual general applications binaries will probably be owned by root – or some other non-usual UID – and <strong>not be writeable by anyone else</strong>, thus they can be read and executed but <strong>not deleted</strong>.</p>
+
+<p><strong>Write-protecting files</strong> is often a good safety strategy. Similarly, files such as photographs can be set so no one will (successfully) attempt to execute them!</p>
+
+<h4 id="233-umask--acl">2.3.3 UMask &amp; ACL</h4>
+<p><strong>Definition: UMask</strong></p>
+<blockquote>
+  <p>In Unix(-like) file systems there is a <strong>default set of file permissions for files created by each process</strong>. This is called <strong>umask</strong>.</p>
+</blockquote>
+
+<p><strong>Definition: Access Control Lists (ACL)</strong></p>
+<blockquote>
+  <p>A more sophisticated means of controlling file (and other) permissions is an <strong>Access Control List (ACL)</strong>. Such a list contains <strong>entries which specify the permissions of file access for each file for each user</strong>, allowing <strong>more selective permission control than single groups</strong>. The list is <strong>referenced by the filing system</strong> to allow or deny access to that file.</p>
+</blockquote>
+
+<p>Access control may offer other features, such as <strong>logging access to a file</strong> for audit and security purposes. It can then be possible to <strong>track everyone looked at or changed a file and when</strong>. This is usually only important when <strong>dealing with sensitive data</strong>.</p>
+
+<p><br /></p>
+
+<h3 id="24-file-access">2.4 File Access</h3>
+
+<p>Users usually identify files with <strong>filenames</strong> or <strong>a path to a file</strong>. The name is a string which is an inconvenient item for the OS to handle. It is therefore usual to associate an <strong>abstract handle leading to a file descriptor</strong> of a file which is in use.</p>
+
+<p>Exactly what the handle is does not usually matter to a user. It is just <code class="language-plaintext highlighter-rouge">something</code> <strong>with which the user can identify</strong> a particular file.</p>
+
+<p>This gives access to the file descriptor via various ‘method’ calls:</p>
+
+<p><img src="https://wiki.cs.manchester.ac.uk/COMP15212/images/1/1a/File_access.png" alt="" /></p>
+
+<p>The first thing to do is open a file. This will then <strong>fetch a block of the file into a buffer</strong> which prevents a disk access on every Read call to save resources(Caching again!).</p>
+
+<p>Reads are then <strong>made from the buffer</strong>, which is refilled when necessary. Read operations can <strong>continue until the End Of File (EOF)</strong>, a point which prevents further reading. The file <strong>can be closed at any time</strong>.</p>
+
+<p>Other things may be mapped to ‘look like’ files and the same, device independent interface. These include:</p>
+<ul>
+  <li>Streams</li>
+  <li>Pipes</li>
+  <li>Devices
+among other things.</li>
+</ul>
+
+<p>The description below covers the ‘classic’ access operations:</p>
+
+<ol>
+  <li>
+    <p><strong>Open</strong><br />
+ It’s necessary to “open” a file in order to obtain a file handle.<br /> 
+ This system call will <strong>assign a handle to the required filename/path</strong> for the relevant process (the last time this string is needed), <strong>check and set up the appropriate permissions</strong> and <strong>reset the file’s (internal position) pointer</strong> to the start (or end, if “appending”). It can fail and thus signal various errors.</p>
+  </li>
+  <li>
+    <p><strong>Close</strong><br />
+ When a file is finished with it should be “closed”. This may – for example – be needed before another process can write to that file.</p>
+
+    <p>Closing the file will also <strong>flush any remaining buffered data to the file</strong> itself.</p>
+
+    <p>The O.S. may <strong>close any remaining open files a process owns</strong> when <strong>the process terminates</strong>, but it is good practice to tidy up as a matter of course.</p>
+  </li>
+  <li>
+    <p><strong>Reading and Writing</strong><br />
+ For efficiently <strong>reducing the number of system calls</strong> needed it is usual to read or write <strong>blocks of data</strong>.</p>
+
+    <p>Typical read or write operations <strong>move a contiguous number of bytes or words from the current position in a file to a specified memory buffer</strong>, or vice versa. The position in the file is <strong>advanced by the same distance</strong> because file operations are, mostly <strong>assumed to be serial</strong>.</p>
+  </li>
+  <li>
+    <p><strong>Seeking</strong><br />
+ It is possible to apply some ‘random access’ to files in the same way as the computer can to its memory, although the process is somewhat more expensive.</p>
+
+    <p>Rather than simply using an address, <strong>system calls</strong> are used to <strong>read or write the position index</strong> (which typically post-increments after each data read/write operation, for convenience).</p>
+
+    <p>This treats the file <strong>as a (large) array</strong>. There is a question as to what the elements of the array actually are. Sometimes files <strong>may have inherent record structures</strong>. More usually they are <strong>regarded as bytes</strong> and it is <strong>up to the application</strong> to <strong>apply the organisation</strong>. Unix files are bytes.</p>
+
+    <p>An alternative approach in some operating systems is the ability to <strong>map a file (or part of a file) into (virtual) address space</strong>. It can then be treated as (for example) an array. This can be convenient if <strong>a lot of ‘random’ access is required</strong>.</p>
+  </li>
+  <li>
+    <p><strong>EOF</strong><br />
+ Unlike an array in memory – which has a <strong>predetermined size</strong> – a file can be <strong>of (effectively) any length</strong>. When treated as a stream it is rather useful to know if/when the end has been reached. This can <strong>be indicated with an End Of File marker</strong>.</p>
+
+    <p>One approach is to <strong>reserve a particular control character</strong> for this (^Z a.k.a. SUB has been used in MS-DOS, Windows and other systems). This is fine for printable text; the problem is, of course, there needs to be a way of sending any value in a binary file.</p>
+
+    <p>Unix systems have an <strong>EOF status</strong> which can be read by <strong>a feof() call from C</strong>, for example; if characters are read beyond the end of a file then the value EOF is returned; this is an <strong>‘out of band’ character</strong> (usually -1) whereas characters are actually returned as integers, so 257 different return values are possible.</p>
+
+    <p>EOF status could also be <strong>tracked from the file size</strong>.</p>
+  </li>
+</ol>
+
+<p><strong>Definition: Stream</strong></p>
+<blockquote>
+  <p>A <strong>Stream</strong> is a <strong>serial flow</strong> of data. It is not the same as a file: files can be addressed in a ‘random’ manner. However, files are not <strong>infrequently read or written</strong> as serial streams.</p>
+</blockquote>
+
+<p>In this case, the stream is an <strong>unstructured, serial succession of bytes</strong>. Input from the stream will <strong>give the next byte</strong> – if and when there is one – and the byte is <strong>removed from the input sequence</strong> in the process. Output to a stream will output – assuming no ‘back-pressure’ from something (such as writing a file) being slow further downstream; again the byte is then ‘gone’.</p>
+
+<p>I/O devices can also be treated as streams, such as keyboards.</p>
+
+<p>All Unix processes are provided with <strong>three standard streams</strong>:</p>
+
+<ul>
+  <li>Standard input (<code class="language-plaintext highlighter-rouge">stdin</code>) – usually <strong>defaults to keyboard</strong>.</li>
+  <li>Standard output (<code class="language-plaintext highlighter-rouge">stdout</code>) – usually <strong>defaults to display</strong>.</li>
+  <li>Standard error (<code class="language-plaintext highlighter-rouge">stderr</code>) – usually <strong>also defaults to display</strong>.</li>
+</ul>
+
+<p>Processes can ‘get’ and ‘put’ characters to these streams in various ways. They are <strong>typically the default source/sink of input/output</strong> in system applications.</p>
+
+<p><strong>Definition: Pipes</strong></p>
+<blockquote>
+  <p>In Unix (and similar operating systems) a ‘pipe’ is a <strong>means</strong> of <strong>passing a serial stream of data from one process to another</strong>.</p>
+</blockquote>
+
+<p>A pipe is a <strong>FIFO queue</strong> with two interfaces – one for <strong>inserting</strong> data and one for <strong>removing</strong> them.</p>
+
+<p>Pipes can be created to <strong>link processes</strong>. A typical use for pipes is as a <strong>redirection of standard I/O streams</strong>, often invoked from a shell.</p>
+
+<p><br /></p>
+
+<h3 id="25-i-nodes">2.5 I-nodes</h3>
+
+<p><strong>Definition: I-nodes</strong></p>
+<blockquote>
+  <p>Used in Unix systems, an <strong>i-node</strong> is a structure <strong>containing some file attributes and an array of pointers to blocks</strong> used by a particular file.</p>
+</blockquote>
+
+<p>an i-node is quite small (and a <strong>fixed size</strong>) thus it can o<strong>nly point to a limited number of blocks</strong>. This could limit the maximum file size rather seriously.</p>
+
+<p>However, <strong>not all the blocks need to contain data</strong>. A block can, instead, be filled with pointers to other blocks. This allows <strong>considerable expansion</strong>. If that is not sufficient <strong>the ‘other blocks’ can also be pointers themselves</strong>. Some known convention can be used to determine the meaning of each item.</p>
+
+<p><img src="https://wiki.cs.manchester.ac.uk/COMP15212/images/2/2f/Inode_array.png" alt="" /></p>
+
+
+
+                <hr style="visibility: hidden;">
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2021/05/20/Ch2-COMP15212/" data-toggle="tooltip" data-placement="top" title="Ch2 Process Management">
+                        Previous<br>
+                        <span>Ch2 Process Management</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2021/08/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%AD%E7%9A%84%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95/" data-toggle="tooltip" data-placement="top" title="机器学习中的核心算法 分类器算法">
+                        Next<br>
+                        <span>机器学习中的核心算法 分类器算法</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <hr style="visibility: hidden;">
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+                
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+
+
+<section>
+    
+        <hr class="hidden-sm hidden-xs">
+    
+    <h5><a href="/archive/">FEATURED TAGS</a></h5>
+    <div class="tags">
+        
+        
+        
+        
+        
+        
+                <a data-sort="0109" 
+                    href="/archive/?tag=COMP12111"
+                    title="COMP12111"
+                    rel="10">COMP12111</a>
+        
+                <a data-sort="0027" 
+                    href="/archive/?tag=2021"
+                    title="2021"
+                    rel="92">2021</a>
+        
+                <a data-sort="0073" 
+                    href="/archive/?tag=%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0"
+                    title="课程笔记"
+                    rel="46">课程笔记</a>
+        
+                <a data-sort="0079" 
+                    href="/archive/?tag=%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0"
+                    title="前端学习"
+                    rel="40">前端学习</a>
+        
+                <a data-sort="0079" 
+                    href="/archive/?tag=50P50D"
+                    title="50P50D"
+                    rel="40">50P50D</a>
+        
+                <a data-sort="0094" 
+                    href="/archive/?tag=2020"
+                    title="2020"
+                    rel="25">2020</a>
+        
+                <a data-sort="0104" 
+                    href="/archive/?tag=COMP24011"
+                    title="COMP24011"
+                    rel="15">COMP24011</a>
+        
+                <a data-sort="0107" 
+                    href="/archive/?tag=%E9%80%BB%E8%BE%91%E5%AD%A6"
+                    title="逻辑学"
+                    rel="12">逻辑学</a>
+        
+                <a data-sort="0109" 
+                    href="/archive/?tag=COMP15111"
+                    title="COMP15111"
+                    rel="10">COMP15111</a>
+        
+                <a data-sort="0110" 
+                    href="/archive/?tag=%E6%89%A9%E5%B1%95%E8%87%AA%E4%B9%A0"
+                    title="扩展自习"
+                    rel="9">扩展自习</a>
+        
+                <a data-sort="0110" 
+                    href="/archive/?tag=COMP21111"
+                    title="COMP21111"
+                    rel="9">COMP21111</a>
+        
+                <a data-sort="0112" 
+                    href="/archive/?tag=%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0"
+                    title="机器学习"
+                    rel="7">机器学习</a>
+        
+                <a data-sort="0112" 
+                    href="/archive/?tag=COMP11212"
+                    title="COMP11212"
+                    rel="7">COMP11212</a>
+        
+                <a data-sort="0115" 
+                    href="/archive/?tag=%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95"
+                    title="数据结构和算法"
+                    rel="4">数据结构和算法</a>
+        
+                <a data-sort="0115" 
+                    href="/archive/?tag=COMP15212"
+                    title="COMP15212"
+                    rel="4">COMP15212</a>
+        
+                <a data-sort="0115" 
+                    href="/archive/?tag=COMP23111"
+                    title="COMP23111"
+                    rel="4">COMP23111</a>
+        
+                <a data-sort="0116" 
+                    href="/archive/?tag=%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7"
+                    title="奇技淫巧"
+                    rel="3">奇技淫巧</a>
+        
+                <a data-sort="0117" 
+                    href="/archive/?tag=%E7%99%BD%E6%9E%9C%E5%9B%AD"
+                    title="白果园"
+                    rel="2">白果园</a>
+        
+                <a data-sort="0117" 
+                    href="/archive/?tag=%E7%AE%97%E6%B3%95"
+                    title="算法"
+                    rel="2">算法</a>
+        
+                <a data-sort="0117" 
+                    href="/archive/?tag=Lab"
+                    title="Lab"
+                    rel="2">Lab</a>
+    </div>
+</section>
+
+
+                <!-- Friends Blog -->
+                
+<hr>
+<h5>FRIENDS</h5>
+<ul class="list-inline">
+  
+  <li><a href="http://ryanxin.cn">Ryan Xin</a></li>
+  
+  <li><a href="https://flyhigher.top">Axton.Gay</a></li>
+  
+  <li><a href="https://graynekocafe.net">GrayNekoBean</a></li>
+  
+  <li><a href="Gnefil.github.io">Gnefil</a></li>
+  
+</ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<!-- add support for mathjax by voleking-->
+
+
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "KirisameR";
+    var disqus_identifier = "/2021/05/20/Ch3 COMP15212";
+    var disqus_url = "http://localhost:4000/2021/05/20/Ch3-COMP15212/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'right',
+          // icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <!-- SNS Link -->
+                
+
+
+<ul class="list-inline text-center">
+
+
+  
+  
+  
+  
+  
+  
+  <li>
+    <a target="_blank" href="https://github.com/KirisameR">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  
+  
+</ul>
+
+                <p class="copyright text-muted">
+                    Copyright &copy; 某一般线性空间 2022
+                    <br>
+                    Powered by <a href="http://huangxuan.me">Hux Blog</a> |
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="100px"
+                        height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=huxpro&repo=huxpro.github.io&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<!-- Currently, only navbar scroll-down effect at desktop still depends on this -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Simple Jekyll Search -->
+<script src="/js/simple-jekyll-search.min.js"></script>
+
+<!-- Service Worker -->
+
+<script src="/js/snackbar.js "></script>
+<script src="/js/sw-registration.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+        var d = document, t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+
+
+
+
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog(selector) {
+
+        // interop with multilangual 
+        if ('' == 'true') {
+            _containerSelector = 'div.post-container.active'
+        } else {
+            _containerSelector = 'div.post-container'
+        }
+
+        // init
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        // clean
+        $(selector).html('')
+
+        // appending
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+<!-- Multi-Lingual -->
+
+
+<!-- Simple Jekyll Search -->
+<script>
+    // https://stackoverflow.com/questions/1912501/unescape-html-entities-in-javascript
+    function htmlDecode(input) {
+        var e = document.createElement('textarea');
+        e.innerHTML = input;
+        // handle case of empty input
+        return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+    }
+
+    SimpleJekyllSearch({
+        searchInput: document.getElementById('search-input'),
+        resultsContainer: document.getElementById('search-results'),
+        json: '/search.json',
+        searchResultTemplate: '<div class="post-preview item"><a href="{url}"><h2 class="post-title">{title}</h2><h3 class="post-subtitle">{subtitle}</h3><hr></a></div>',
+        noResultsText: 'No results',
+        limit: 50,
+        fuzzy: false,
+        // a hack to get escaped subtitle unescaped. for some reason, 
+        // post.subtitle w/o escape filter nuke entire search.
+        templateMiddleware: function (prop, value, template) {
+            if (prop === 'subtitle' || prop === 'title') {
+                if (value.indexOf("code")) {
+                    return htmlDecode(value);
+                } else {
+                    return value;
+                }
+            }
+        }
+    });
+
+    $(document).ready(function () {
+        var $searchPage = $('.search-page');
+        var $searchOpen = $('.search-icon');
+        var $searchClose = $('.search-icon-close');
+        var $searchInput = $('#search-input');
+        var $body = $('body');
+
+        $searchOpen.on('click', function (e) {
+            e.preventDefault();
+            $searchPage.toggleClass('search-active');
+            var prevClasses = $body.attr('class') || '';
+            setTimeout(function () {
+                $body.addClass('no-scroll');
+            }, 400)
+
+            if ($searchPage.hasClass('search-active')) {
+                $searchClose.on('click', function (e) {
+                    e.preventDefault();
+                    $searchPage.removeClass('search-active');
+                    $body.attr('class', prevClasses);  // from closure 
+                });
+                $searchInput.focus();
+            }
+        });
+    });
+</script>
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

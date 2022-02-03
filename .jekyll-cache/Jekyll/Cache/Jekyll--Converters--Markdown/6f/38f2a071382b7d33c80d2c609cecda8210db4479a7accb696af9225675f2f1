@@ -1,0 +1,121 @@
+I""<h1 id="ch2-整数运算">Ch2 整数运算</h1>
+
+<h2 id="motivation">Motivation:</h2>
+<ol>
+  <li>使用 <code class="language-plaintext highlighter-rouge">ARM</code> 指令集编写简单的汇编程序</li>
+  <li>了解信息的保存方式</li>
+</ol>
+
+<h2 id="1-编写简单的-arm-汇编程序">1. 编写简单的 <code class="language-plaintext highlighter-rouge">ARM</code> 汇编程序</h2>
+<p>我们以一个简单的程序为例:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre>A shop wishes to give a 100 pound discount to anyone who buys goods for ?2000 or more.
+
+Decision: Compare the total price to 2000 and see if the total is larger. Depending on the result take action or not.
+
+Action: Subtract 100 pounds from the total. Computers have no intelligence, so spell out details:
+
+Formalise: if total ≥ 2000 pounds then subtract 100 pounds from total
+Rewrite: if total &lt; 2000 pounds then don’t subtract 100 pounds from total   
+;remember the characteristic of insrtuction 'CMP': computer do way better determining whether the output operand is negative or not
+
+Encode: as ARM instructions
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="11-内存分配">1.1 内存分配</h3>
+<p>下面, 我们将要着手编写程序. 首先, 我们需要为变量分配存储单元 (<code class="language-plaintext highlighter-rouge">Memory Location</code>):
+通过使用 <code class="language-plaintext highlighter-rouge">DEFW</code> 命令, 编译器可以为我们做到这一点:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>label  DEFW  value
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>需要注意的是:</p>
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">DEFW</code> 是一个伪指令, 而非真正的 <code class="language-plaintext highlighter-rouge">ARM</code> 指令.</li>
+  <li>伪指令看上去很像真实的指令, 但它们并不会是要被执行的. 如果尝试令处理器执行它, 处理器并不能正确地将其识别并产生所预期的结果.</li>
+  <li>对于 <code class="language-plaintext highlighter-rouge">DEFW</code>, 编译器将被分配的值放入下一个可供使用的空存储单元, 而这一切都发生在 <strong>程序运行之前</strong>.</li>
+  <li>标签使编译器能够找到它所被分配的存储单元.</li>
+</ol>
+
+<p>程序编写如下:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameMarisaa/KirisameMarisaa.github.io/img/blogpost_images/20201105191846.png" alt="20201105191846" /></p>
+
+<p>而该程序的内存分配如下:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameMarisaa/KirisameMarisaa.github.io/img/blogpost_images/20201105191913.png" alt="20201105191913" /></p>
+
+<h3 id="12-内存映射">1.2 内存映射</h3>
+<p>在内存中, 一些存储单元所存储的是我们为程序定义的值, 但更多的内存单元都是未经定义的. 实际上, 内存映射的某些部分可能并不实际存在. 存储单元所存储值的含义 (<code class="language-plaintext highlighter-rouge">Meaning</code>) 经过转译 (<code class="language-plaintext highlighter-rouge">Interpretation</code>)后即可得到体现. 使用不同的指令, 我们可以将特定的存储单元中所存储的值映射为某个指令或映射为数据类型. 需要注意的是, <strong>程序计数器中所存储的值, 能且只能是内存地址.</strong></p>
+
+<p><br /></p>
+
+<h2 id="2-信息表示">2. 信息表示</h2>
+
+<p>我们通常使用位来表示和存储信息. 每一个位有两种状态: <code class="language-plaintext highlighter-rouge">0, 1</code>. 它们分别可以指示一种状态, 若有 $n$ 个位, 最多可以表示 $2^n$ 种状态.</p>
+
+<p>以字符编码标准: <code class="language-plaintext highlighter-rouge">ASCII</code> 标准为例, 在该标准中, 每一个字符都由 <code class="language-plaintext highlighter-rouge">7</code> 个位表示, 它共可以编码 <code class="language-plaintext highlighter-rouge">128</code> 个不同的字符, 包括全部数字, 大小写字母, 一些符号以及控制符. 为了表示更多的符号, 还制定了其他的标准.</p>
+
+<p>其余被广泛使用的进制系统还有二进制, 十六进制, 在一些特殊场合还会使用八进制. 关于进制间的转换, 此处不再赘述.</p>
+
+<p>关于二进制整数表示法与浮点数表示法, 详见 <code class="language-plaintext highlighter-rouge">COMP12111 计算机组成与结构: 逻辑门电路</code>.</p>
+
+<p><br /></p>
+
+<h2 id="3-整数运算">3. 整数运算</h2>
+
+<h3 id="31-寄存器">3.1 寄存器</h3>
+<p>如前文所述, <code class="language-plaintext highlighter-rouge">ARM</code> 架构定义了 $16$ 个寄存器: $R_0, \cdots, R_{15}$, 并且我们不能一次使用多个寄存器. 程序的高效运行需要涉及多个寄存器, 在编程时必须谨慎考虑寄存器的重复使用.</p>
+
+<p>由于 <code class="language-plaintext highlighter-rouge">32</code> 位指令集长度有限, 且受到指令集分配耗时限制和芯片大小的限制, <code class="language-plaintext highlighter-rouge">ARM</code> 架构不提供更多的寄存器.</p>
+
+<p>在进行汇编语言编程时, 我们可以优化指令或其执行顺序, 以减少寄存器的使用, 缩减程序执行时间:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameMarisaa/KirisameMarisaa.github.io/img/blogpost_images/20201105192205.png" alt="" /></p>
+
+<p>可见, 通过优化, 我们成功地将涉及三个数的加法运算所需要使用的寄存器数量减少了 $5$ 个, 并且所执行指令的数量并没有增加. 这意味着, 程序运行时间和程序寄存器占用都得到了优化.</p>
+
+<p>下面再看一个例子:
+<img src="https://cdn.jsdelivr.net/gh/KirisameMarisaa/KirisameMarisaa.github.io/img/blogpost_images/20201105192253.png" alt="20201105192253" /></p>
+
+<p>在该案例中, 经过优化后的程序运算指令数没有变化. 虽然使用的寄存器数量有所减少, 但存储操作指令的数量有所增加. 存储操作指令耗时较长, 这一般也意味着执行这一条指令需要消耗更多的电量. 因此, 从运行时间的角度考量, 这并不是一个成功的优化.</p>
+
+<p>以寄存器复用位为单一导向的程序优化是有局限的. 对于执行流程短的程序, 使用更多的存储操作指令以减少寄存器的使用对程序运行时间的影响微乎其微, 但对于规模较大的程序而言并不是这样. 在实际优化中, 我们必须综合考虑多种因素, 结合实际进行优化操作.</p>
+
+<p>在评价程序的执行效率 (性能) 时, 我们一般考虑:</p>
+<ol>
+  <li>执行指令数</li>
+  <li>寄存器利用数</li>
+  <li>存储操作指令数
+以上三者的评价标准都是越小越好.</li>
+</ol>
+
+<p>注:</p>
+<ol>
+  <li>对程序的优化不得导致运算的结果出现可能的变化. 有限的寄存器大小意味着, 能存储入寄存器的数值是有范围的. 如果我们将两个大数相加后的结果存入寄存器, 则可能出现溢出!</li>
+  <li>此外, 涉及浮点数的计算也需要特别注意顺序. 寄存器内只能存取有限位浮点数的尾数, 因此计算顺序的变化可能导致计算结果的变化.</li>
+</ol>
+
+<p><code class="language-plaintext highlighter-rouge">ARM</code> 架构为我们提供了名为 “文本” (<code class="language-plaintext highlighter-rouge">literal</code>) 的预设数值以避免数值运算中对寄存器的冗余使用. 加法, 减法和比较 (<code class="language-plaintext highlighter-rouge">ADD</code>, <code class="language-plaintext highlighter-rouge">SUB</code>, <code class="language-plaintext highlighter-rouge">CMP</code>) 的第二个输入操作数可以被 “文本” 定义:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>ADD R0, R1, #100
+;#100 is a literal: fixed value embedded in the instruction
+;it's a constant: it doesn't change during the program execution!
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>需要注意的是, <code class="language-plaintext highlighter-rouge">MUL, STR, LDR</code> 都不能使用 “文本”.</p>
+
+:ET

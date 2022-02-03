@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="description" content="由于相关法律法规规定, 该内容无法显示.">
+    <meta name="keywords" content="菜">
+    <meta name="theme-color" content="#333">
+
+    <!-- Open Graph -->
+    <meta property="og:title"
+        content="数据库导论 关系数据库建模 - 某一般线性空间 | Ramdom Linear Space">
+    
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="COMP23111 REVISION Ch2
+">
+    
+    <meta property="article:published_time" content=" 2022-01-12T00:00:00Z">
+    
+    
+    <meta property="article:author" content="R1NG">
+    
+    
+    <meta property="article:tag" content="2021">
+    
+    <meta property="article:tag" content="COMP23111">
+    
+    
+    <meta property="og:image" content="http://localhost:4000https://github.com/KirisameR.png">
+    <meta property="og:url" content="http://localhost:4000/2022/01/12/COMP23111-REV-Ch2/">
+    <meta property="og:site_name" content="某一般线性空间 | Ramdom Linear Space">
+
+    <title>数据库导论 关系数据库建模 - 某一般线性空间 | Ramdom Linear Space</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4000/2022/01/12/COMP23111-REV-Ch2/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href=" /css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href=" /css/hux-blog.min.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"type="text/css">
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+
+    <!-- 数学公式 -->
+    <script type="text/javascript" async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+            showProcessingMessages: true, //关闭js加载过程信息
+            messageStyle: "none", //不显示信息
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code','a'], //避开某些标签
+                ignoreClass:"comment-content" //避开含该Class的标签
+            },
+            "HTML-CSS": {
+                availableFonts: ["STIX","TeX"], //可选字体
+                showMathMenu: false //关闭右击菜单显示
+            }
+        });
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+    </script>
+
+    
+
+    <!-- Google AdSense -->
+    <script data-ad-client="ca-pub-6487568398225121" async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">RANDOM LINEAR SPACE</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div id="huxblog_navbar">
+                <div class="navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                        
+                        
+                        <li>
+                            <a href="/archive/">Archive</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li class="search-icon">
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <script>
+        // Drop Bootstarp low-performance Navbar
+        // Use customize navbar with high-quality material design animation
+        // in high-perf jank-free CSS3 implementation
+        var $body = document.body;
+        var $toggle = document.querySelector('.navbar-toggle');
+        var $navbar = document.querySelector('#huxblog_navbar');
+        var $collapse = document.querySelector('.navbar-collapse');
+
+        var __HuxNav__ = {
+            close: function () {
+                $navbar.className = " ";
+                // wait until animation end.
+                setTimeout(function () {
+                    // prevent frequently toggle
+                    if ($navbar.className.indexOf('in') < 0) {
+                        $collapse.style.height = "0px"
+                    }
+                }, 400)
+            },
+            open: function () {
+                $collapse.style.height = "auto"
+                $navbar.className += " in";
+            }
+        }
+
+        // Bind Event
+        $toggle.addEventListener('click', function (e) {
+            if ($navbar.className.indexOf('in') > 0) {
+                __HuxNav__.close()
+            } else {
+                __HuxNav__.open()
+            }
+        })
+
+        /**
+         * Since Fastclick is used to delegate 'touchstart' globally
+         * to hack 300ms delay in iOS by performing a fake 'click',
+         * Using 'e.stopPropagation' to stop 'touchstart' event from 
+         * $toggle/$collapse will break global delegation.
+         * 
+         * Instead, we use a 'e.target' filter to prevent handler
+         * added to document close HuxNav.  
+         *
+         * Also, we use 'click' instead of 'touchstart' as compromise
+         */
+        document.addEventListener('click', function (e) {
+            if (e.target == $toggle) return;
+            if (e.target.className == 'icon-bar') return;
+            __HuxNav__.close();
+        })
+    </script>
+    <!-- Search -->
+<div class="search-page">
+  <div class="search-icon-close-container">
+    <span class="search-icon-close">
+      <i class="fa fa-chevron-down"></i>
+    </span>
+  </div>
+  <div class="search-main container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <form></form>
+        <input type="text" id="search-input" placeholder="$ grep...">
+        </form>
+        <div id="search-results" class="mini-post-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/post-bg-comp23111.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+
+
+
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/post-bg-comp23111.jpg');
+        background: ;
+    }
+
+    
+</style>
+
+<header class="intro-header" >
+
+    <div class="header-mask"></div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/archive/?tag=2021" title="2021">2021</a>
+                        
+                        <a class="tag" href="/archive/?tag=COMP23111" title="COMP23111">COMP23111</a>
+                        
+                    </div>
+                    <h1>数据库导论 关系数据库建模</h1>
+                    
+                    <h2 class="subheading">DROP 'modeling' FROM 'dbKnowledgeBase';</h2>
+                    <span class="meta">Posted by R1NG on January 12, 2022</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <!-- Multi-Lingual -->
+                
+
+				<h1 id="comp23111-revision-ch2">COMP23111 REVISION Ch2</h1>
+
+<h2 id="2-数据库建模">2. 数据库建模</h2>
+
+<p>一般地, 我们在对某个现实需求建模时, 需要执行的流程是: 首先从现实问题中总结出现实需求 (<strong>需求的汇集和分析</strong>), 将需求提炼成某种更抽象和精确的模型, 使用高级数据模型创建数据库的 <strong>概念模式 (<code class="language-plaintext highlighter-rouge">Conceptual Schema</code>)</strong>, (<strong>概念设计, <code class="language-plaintext highlighter-rouge">Conceptual Design</code></strong>) 并最终从这个模型得到可直接在 <code class="language-plaintext highlighter-rouge">DBMS</code> 上运行的数据库实现. (这一步也称为 <strong>逻辑设计</strong> <code class="language-plaintext highlighter-rouge">Logical Design</code>) 基于这个特定的数据库实现, 再在此基础上进行其他的优化和功能补足 (<strong>物理设计</strong> <code class="language-plaintext highlighter-rouge">Physical Design</code>).</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113093435.png" alt="20220113093435" /></p>
+
+<h3 id="21-需求分析和逻辑建模">2.1 需求分析和逻辑建模</h3>
+
+<p>本课程所教授的建模方法以 <strong>对象-实体模型</strong> 为概念模式, 以 <code class="language-plaintext highlighter-rouge">SQL</code> 为逻辑模式, 建模流程可以基本简化为: 提取需求 - 基于对象-实体模型构造 <code class="language-plaintext highlighter-rouge">E-R</code> 表并规范化 - 使用 <code class="language-plaintext highlighter-rouge">SQL</code> 实现数据库设计.</p>
+
+<p>在上一节中我们已经知道, 对象-实体模型的核心思想是将现实世界的事物抽象为具备 <strong>属性</strong> 的不同 <strong>对象</strong>, 并且不同 <strong>对象</strong> 之间通过 <strong>关系</strong> 相联.</p>
+
+<p>举例来说, <strong>对象</strong> 就如同句子中的名词/主语/谓语, 而修饰它的形容词就等价于 <strong>属性</strong>. 最后, <strong>关系</strong> 又可以视为 <strong>动词</strong>, 描述对象之间的行为或交互.</p>
+
+<p>下面我们举例说明如何使用 <code class="language-plaintext highlighter-rouge">E-R</code> 模型建模:</p>
+
+<p>考虑对一个零售公司的销售业务进行建模. 我们已知的事实是:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113203610.png" alt="20220113203610" /></p>
+
+<h4 id="211-对实体建模">2.1.1 对实体建模</h4>
+
+<p>从中我们首先可以直接看出, 我们需要对 $4$ 种实体进行建模: <code class="language-plaintext highlighter-rouge">Customer</code>, <code class="language-plaintext highlighter-rouge">Product</code>, <code class="language-plaintext highlighter-rouge">Order</code> 和 <code class="language-plaintext highlighter-rouge">Employee</code>.</p>
+
+<h4 id="212-对属性建模">2.1.2 对属性建模</h4>
+
+<p>对现实问题进行建模通常需要我们结合实际情况做出主观的假设. 进一步地, 我们可以基于假设和对给定信息的推断得出不同实体所应当被建模的属性:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113204125.png" alt="20220113204125" /></p>
+
+<p>需要注意的是: <code class="language-plaintext highlighter-rouge">E-R</code> 模型要求每个实体类型都要有一个可用来唯一确定实体实例的 <strong>码</strong>. 因此, 在构建 <code class="language-plaintext highlighter-rouge">E-R</code> 模型时, 我们就用 <code class="language-plaintext highlighter-rouge">*</code> 表示不同实体类型的 <strong>码</strong>.</p>
+
+<h4 id="213-对关系建模">2.1.3 对关系建模</h4>
+
+<p>在完成对实体类型的建模后, 我们就需要考虑实体之间的关系. 一般而言, 从给定的信息中提取或推断实体类型之间的关系是很自然的事. 在本例中, 我们就可以直观地看出, <code class="language-plaintext highlighter-rouge">Customer</code> 和 <code class="language-plaintext highlighter-rouge">Order</code> 之间必存在一个关系 <code class="language-plaintext highlighter-rouge">Places</code>, 也就是 “下订单”.</p>
+
+<p>在 <code class="language-plaintext highlighter-rouge">E-R</code> 表中, 我们通过 <strong>将表示不同实体类型的表用实线相连</strong> 来标记这些实体之间存在 <strong>关系</strong>. 我们一般还会把关系名写在实线上方, 从而便于理解.</p>
+
+<p>需要注意的是, 在对关系建模时, 除了标明 <strong>关系影响或包含的对象</strong>, <strong>关系名</strong> 以外, 我们还需要明确标示关系的 <strong>基数约束</strong>, 也就是标明 <strong>某关系一侧可以出现的最大和最小实体数</strong>.</p>
+
+<p>在本课程中, 我们使用 <strong>鸦脚标记法</strong> 标记 <code class="language-plaintext highlighter-rouge">E-R</code> 表中每个关系的基数约束. 如:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113205045.png" alt="20220113205045" /></p>
+
+<p>其语法规则如下:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113205111.png" alt="20220113205111" /></p>
+
+<p>下面讨论一些在构造 <code class="language-plaintext highlighter-rouge">E-R</code>图时可能会遇到的问题和一些特殊记法.</p>
+
+<p>首先, 双向的一对一关系可能会造成死锁问题, 这样的关系在对关系进行建模时要注意避免:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113211023.png" alt="20220113211023" /></p>
+
+<p>此外, 我们可以在 <code class="language-plaintext highlighter-rouge">E-R</code> 图中表示两个实体类型之间的多个不同关系:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113211116.png" alt="20220113211116" /></p>
+
+<p>形式上, 我们还可以在构造 <code class="language-plaintext highlighter-rouge">E-R</code> 图时就提前指定每个实体类型表中的 <strong>主键</strong> 和 <strong>外键</strong>, 但在该步骤中由于我们 <strong>仍然处在概念建模阶段</strong>, 尚未开始数据库的具体实现, 因此 <strong>不能提前添加属性域和对属性的约束</strong>:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113205421.png" alt="20220113205421" /></p>
+
+<p>我们可能会需要对 <strong>本身不具备码</strong> 的 <strong>弱实体类型</strong> (见本文 <code class="language-plaintext highlighter-rouge">定义 1.2.4</code>) 建模. 由于 <strong>弱实体类型的存在依赖于某个正常的实体类型</strong> (因为只有通过某个由正常实体类型的主键和弱实体类型的属性组成的复合键才能对它的实例进行唯一确定), 因此任何弱实体类型必然与某个正常实体类型存在某种关系. 在 <code class="language-plaintext highlighter-rouge">ER</code> 表中, 弱实体类型的标记语法如下:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113210700.png" alt="20220113210700" /></p>
+
+<p>同样地, 在对某些实体类型建模时, 我们可能需要对它的一些属性的表示方式进行取舍. 具体选择什么表示方式取决于实际问题的需要.</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113210835.png" alt="20220113210835" /></p>
+
+<h3 id="22-e-r-模型到数据库模式-schema-间的转换">2.2 <code class="language-plaintext highlighter-rouge">E-R</code> 模型到数据库模式 (<code class="language-plaintext highlighter-rouge">Schema</code>) 间的转换</h3>
+
+<p>在得到 <code class="language-plaintext highlighter-rouge">E-R</code> 图后, 我们需要将其转换为数据库模式 (本质上还是关系模式中定义的规则):</p>
+
+<p>在转换过程中一般地有以下的一一对应关系:</p>
+
+<ol>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">E-R</code> 图中的每个 <strong>实体类型</strong> 被转换为数据库模式中的一个用表格 (<code class="language-plaintext highlighter-rouge">table</code>) 表示的关系, 其原因是我们的数据库基于关系模型, 而在关系模型中, 原来的 “实体” 也需要被建模成关系.</p>
+  </li>
+  <li>
+    <p>每个实体类型中的 <strong>属性</strong> 被相应地转化为对应关系 (数据库模式中被建模成关系的实体类型) 中的属性.</p>
+  </li>
+  <li>
+    <p>一般地, 用 <code class="language-plaintext highlighter-rouge">*</code> 表示的 <strong>码</strong> 被转换为对应关系的主键.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">E-R</code> 图中用实线表示的, 实体类型之间的关系现在用外键或联表表示.</p>
+  </li>
+</ol>
+
+<h4 id="221-对象类型转换">2.2.1 对象类型转换</h4>
+
+<p>具有码的强对象类型会被直接转换为关系. 需要注意的是, 在从 <code class="language-plaintext highlighter-rouge">E-R</code> 图转换到数据库模式时, 我们需要补足每个关系中每个属性的 <strong>约束</strong>, <strong>默认值</strong> 和 <strong>主键/外键标示</strong>:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113212432.png" alt="20220113212432" /></p>
+
+<p>由于弱类型本身没有码, 在转换时弱类型对应的关系中会新增一个身为外键的属性, 该属性就是它的设计中复合主键的一部分: 其父关系类型的主键.</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113212610.png" alt="20220113212610" /></p>
+
+<h4 id="222-关系转换">2.2.2 关系转换</h4>
+
+<p>下面考虑对 <strong>关系</strong> 的转换:</p>
+
+<p>若某两个实体类型之间存在 <strong>一对一关系</strong> (<code class="language-plaintext highlighter-rouge">1-to-1 relationship</code>), <strong>则在转换时要在父类型</strong> (<code class="language-plaintext highlighter-rouge">Parent Node</code>) 对应的关系中新增一个属性, 该属性作为这个关系的 <strong>非空外键</strong>, 指向子类型的主键.</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113212748.png" alt="20220113212748" /></p>
+
+<p>比如, <code class="language-plaintext highlighter-rouge">Customer</code> 和 <code class="language-plaintext highlighter-rouge">User</code> 是一一对应关系, <code class="language-plaintext highlighter-rouge">Customer</code> 是父类型, 则在表示 <code class="language-plaintext highlighter-rouge">Customer</code> 时就需要添加指向 子类型 <code class="language-plaintext highlighter-rouge">User</code> 表主键的非空外键 <code class="language-plaintext highlighter-rouge">userID</code>.</p>
+
+<p><br /></p>
+
+<p>若某两个实体类型之间存在 <strong>一对多关系</strong> (<code class="language-plaintext highlighter-rouge">one-to many relationship</code>), <strong>则在转换时要在子类型</strong> (<code class="language-plaintext highlighter-rouge">'many' side</code>) 对应的关系中新增一个属性, 该属性作为这个关系的 <strong>可空外键</strong>, 指向父类型的主键.</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113214137.png" alt="20220113214137" /></p>
+
+<p>比如, <code class="language-plaintext highlighter-rouge">Customer</code> 和 <code class="language-plaintext highlighter-rouge">Order</code> 是一对多关系, <code class="language-plaintext highlighter-rouge">Order</code> 是子类型, 则在表示 <code class="language-plaintext highlighter-rouge">Order</code> 时就需要添加指向 父类型 <code class="language-plaintext highlighter-rouge">Customer</code> 表主键的外键 <code class="language-plaintext highlighter-rouge">custID</code>.</p>
+
+<p><br /></p>
+
+<p>多对多关系不能被直接转换, 需要构造联合类型(<code class="language-plaintext highlighter-rouge">Joining Entity</code>).</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113214425.png" alt="20220113214425" /></p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113214400.png" alt="20220113214400" /></p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220113214415.png" alt="20220113214415" /></p>
+
+<p>REFERENCE:</p>
+
+<p><a href="https://www.cnblogs.com/dekevin/archive/2012/07/18/2596745.html">Powerdesigner数据库建模–概念模型–ER图</a></p>
+
+<p><a href="https://blog.csdn.net/u010429286/article/details/79022484">数据库中的Schema是什么?</a></p>
+
+<p><a href="https://beginnersbook.com/2015/04/super-key-in-dbms/">Super key in DBMS</a></p>
+
+<p><a href="https://www.techopedia.com/definition/21/candidate-key">Candidate key</a></p>
+
+<p><a href="https://blog.csdn.net/suguoliang/article/details/82844328">SQL–超键、候选键、主键、外键的认识和区分</a></p>
+
+<p><a href="https://en.wikipedia.org/wiki/Armstrong%27s_axioms">Wikipedia: Armstrong’s axioms</a></p>
+
+<p><a href="https://zhuanlan.zhihu.com/p/20028672">数据库第一二三范式到底在说什么？</a></p>
+
+<p><a href="https://blog.csdn.net/Swocky/article/details/105059674">【数据库系统】第十一讲 数据建模之思想与方法</a></p>
+
+<p><a href="https://blog.csdn.net/maxle/article/details/122006538">数据库概念（基数、关系模式的概念）</a></p>
+
+<p><a href="https://www.techopedia.com/definition/25122/one-to-many-relationship">One-to-Many Relationship</a></p>
+
+
+                <hr style="visibility: hidden;">
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2022/01/11/COMP23111-REV-Ch1/" data-toggle="tooltip" data-placement="top" title="数据库导论 关系数据库理论">
+                        Previous<br>
+                        <span>数据库导论 关系数据库理论</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2022/01/13/COMP23111-REV-Ch3/" data-toggle="tooltip" data-placement="top" title="数据库导论 关系数据库实现">
+                        Next<br>
+                        <span>数据库导论 关系数据库实现</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <hr style="visibility: hidden;">
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+                
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+
+
+<section>
+    
+        <hr class="hidden-sm hidden-xs">
+    
+    <h5><a href="/archive/">FEATURED TAGS</a></h5>
+    <div class="tags">
+        
+        
+        
+        
+        
+        
+                <a data-sort="0109" 
+                    href="/archive/?tag=COMP12111"
+                    title="COMP12111"
+                    rel="10">COMP12111</a>
+        
+                <a data-sort="0027" 
+                    href="/archive/?tag=2021"
+                    title="2021"
+                    rel="92">2021</a>
+        
+                <a data-sort="0073" 
+                    href="/archive/?tag=%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0"
+                    title="课程笔记"
+                    rel="46">课程笔记</a>
+        
+                <a data-sort="0079" 
+                    href="/archive/?tag=%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0"
+                    title="前端学习"
+                    rel="40">前端学习</a>
+        
+                <a data-sort="0079" 
+                    href="/archive/?tag=50P50D"
+                    title="50P50D"
+                    rel="40">50P50D</a>
+        
+                <a data-sort="0094" 
+                    href="/archive/?tag=2020"
+                    title="2020"
+                    rel="25">2020</a>
+        
+                <a data-sort="0104" 
+                    href="/archive/?tag=COMP24011"
+                    title="COMP24011"
+                    rel="15">COMP24011</a>
+        
+                <a data-sort="0107" 
+                    href="/archive/?tag=%E9%80%BB%E8%BE%91%E5%AD%A6"
+                    title="逻辑学"
+                    rel="12">逻辑学</a>
+        
+                <a data-sort="0109" 
+                    href="/archive/?tag=COMP15111"
+                    title="COMP15111"
+                    rel="10">COMP15111</a>
+        
+                <a data-sort="0110" 
+                    href="/archive/?tag=%E6%89%A9%E5%B1%95%E8%87%AA%E4%B9%A0"
+                    title="扩展自习"
+                    rel="9">扩展自习</a>
+        
+                <a data-sort="0110" 
+                    href="/archive/?tag=COMP21111"
+                    title="COMP21111"
+                    rel="9">COMP21111</a>
+        
+                <a data-sort="0112" 
+                    href="/archive/?tag=%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0"
+                    title="机器学习"
+                    rel="7">机器学习</a>
+        
+                <a data-sort="0112" 
+                    href="/archive/?tag=COMP11212"
+                    title="COMP11212"
+                    rel="7">COMP11212</a>
+        
+                <a data-sort="0115" 
+                    href="/archive/?tag=%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95"
+                    title="数据结构和算法"
+                    rel="4">数据结构和算法</a>
+        
+                <a data-sort="0115" 
+                    href="/archive/?tag=COMP15212"
+                    title="COMP15212"
+                    rel="4">COMP15212</a>
+        
+                <a data-sort="0115" 
+                    href="/archive/?tag=COMP23111"
+                    title="COMP23111"
+                    rel="4">COMP23111</a>
+        
+                <a data-sort="0116" 
+                    href="/archive/?tag=%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7"
+                    title="奇技淫巧"
+                    rel="3">奇技淫巧</a>
+        
+                <a data-sort="0117" 
+                    href="/archive/?tag=%E7%99%BD%E6%9E%9C%E5%9B%AD"
+                    title="白果园"
+                    rel="2">白果园</a>
+        
+                <a data-sort="0117" 
+                    href="/archive/?tag=%E7%AE%97%E6%B3%95"
+                    title="算法"
+                    rel="2">算法</a>
+        
+                <a data-sort="0117" 
+                    href="/archive/?tag=Lab"
+                    title="Lab"
+                    rel="2">Lab</a>
+    </div>
+</section>
+
+
+                <!-- Friends Blog -->
+                
+<hr>
+<h5>FRIENDS</h5>
+<ul class="list-inline">
+  
+  <li><a href="http://ryanxin.cn">Ryan Xin</a></li>
+  
+  <li><a href="https://flyhigher.top">Axton.Gay</a></li>
+  
+  <li><a href="https://graynekocafe.net">GrayNekoBean</a></li>
+  
+  <li><a href="Gnefil.github.io">Gnefil</a></li>
+  
+</ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<!-- add support for mathjax by voleking-->
+
+
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "KirisameR";
+    var disqus_identifier = "/2022/01/12/COMP23111 REV Ch2";
+    var disqus_url = "http://localhost:4000/2022/01/12/COMP23111-REV-Ch2/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'right',
+          // icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <!-- SNS Link -->
+                
+
+
+<ul class="list-inline text-center">
+
+
+  
+  
+  
+  
+  
+  
+  <li>
+    <a target="_blank" href="https://github.com/KirisameR">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  
+  
+</ul>
+
+                <p class="copyright text-muted">
+                    Copyright &copy; 某一般线性空间 2022
+                    <br>
+                    Powered by <a href="http://huangxuan.me">Hux Blog</a> |
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="100px"
+                        height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=huxpro&repo=huxpro.github.io&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<!-- Currently, only navbar scroll-down effect at desktop still depends on this -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Simple Jekyll Search -->
+<script src="/js/simple-jekyll-search.min.js"></script>
+
+<!-- Service Worker -->
+
+<script src="/js/snackbar.js "></script>
+<script src="/js/sw-registration.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+        var d = document, t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+
+
+
+
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog(selector) {
+
+        // interop with multilangual 
+        if ('' == 'true') {
+            _containerSelector = 'div.post-container.active'
+        } else {
+            _containerSelector = 'div.post-container'
+        }
+
+        // init
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        // clean
+        $(selector).html('')
+
+        // appending
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+<!-- Multi-Lingual -->
+
+
+<!-- Simple Jekyll Search -->
+<script>
+    // https://stackoverflow.com/questions/1912501/unescape-html-entities-in-javascript
+    function htmlDecode(input) {
+        var e = document.createElement('textarea');
+        e.innerHTML = input;
+        // handle case of empty input
+        return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+    }
+
+    SimpleJekyllSearch({
+        searchInput: document.getElementById('search-input'),
+        resultsContainer: document.getElementById('search-results'),
+        json: '/search.json',
+        searchResultTemplate: '<div class="post-preview item"><a href="{url}"><h2 class="post-title">{title}</h2><h3 class="post-subtitle">{subtitle}</h3><hr></a></div>',
+        noResultsText: 'No results',
+        limit: 50,
+        fuzzy: false,
+        // a hack to get escaped subtitle unescaped. for some reason, 
+        // post.subtitle w/o escape filter nuke entire search.
+        templateMiddleware: function (prop, value, template) {
+            if (prop === 'subtitle' || prop === 'title') {
+                if (value.indexOf("code")) {
+                    return htmlDecode(value);
+                } else {
+                    return value;
+                }
+            }
+        }
+    });
+
+    $(document).ready(function () {
+        var $searchPage = $('.search-page');
+        var $searchOpen = $('.search-icon');
+        var $searchClose = $('.search-icon-close');
+        var $searchInput = $('#search-input');
+        var $body = $('body');
+
+        $searchOpen.on('click', function (e) {
+            e.preventDefault();
+            $searchPage.toggleClass('search-active');
+            var prevClasses = $body.attr('class') || '';
+            setTimeout(function () {
+                $body.addClass('no-scroll');
+            }, 400)
+
+            if ($searchPage.hasClass('search-active')) {
+                $searchClose.on('click', function (e) {
+                    e.preventDefault();
+                    $searchPage.removeClass('search-active');
+                    $body.attr('class', prevClasses);  // from closure 
+                });
+                $searchInput.focus();
+            }
+        });
+    });
+</script>
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

@@ -1,0 +1,229 @@
+I"�Q<h1 id="prolog-入门-联合与证明搜索"><code class="language-plaintext highlighter-rouge">Prolog</code> 入门: 联合与证明搜索</h1>
+
+<p>在本章中, 我们将对  <code class="language-plaintext highlighter-rouge">Prolog</code> 中 <strong>联合</strong> 的定义和性质作简单介绍, 引入两个内置谓词 <code class="language-plaintext highlighter-rouge">=</code> 和 <code class="language-plaintext highlighter-rouge">unify_with_occurs_check</code>, 并区分它和常规的 <strong>联合</strong> 的差别.</p>
+
+<p>此外, 我们还将解释 <code class="language-plaintext highlighter-rouge">Prolog</code> 是如何使用 <strong>肯定前件式假言推理</strong> (<code class="language-plaintext highlighter-rouge">MP, Modus Ponens</code>) 从已知信息得到新结论的.</p>
+
+<h2 id="1-联合">1. 联合</h2>
+
+<p>我们首先给出 <strong>联合</strong> 的定义:</p>
+
+<p><strong>定义</strong> (联合)</p>
+<blockquote>
+  <p>两个项可以被联合, 当且仅当:</p>
+  <ol>
+    <li>它们或是相同的项</li>
+    <li>或这些项中包含了可以 (同时) 通过与项一并实例化使得这两个项相同的变量.</li>
+  </ol>
+</blockquote>
+
+<p>显然, 基于上述定义, 可以立即得知, <code class="language-plaintext highlighter-rouge">student(axton)</code>和 <code class="language-plaintext highlighter-rouge">student(axton)</code> 这两个项因为完全相同故可被联合, <code class="language-plaintext highlighter-rouge">rhythm_game_player(axton)</code> 和 <code class="language-plaintext highlighter-rouge">rhythm_game_player(tom)</code> 既不相同, 也不包含任何可以通过实例化而使得两个项相同, 因此它们无法被联合.</p>
+
+<p>类似地, <code class="language-plaintext highlighter-rouge">likes(axton, X)</code> 和 <code class="language-plaintext highlighter-rouge">likes(axton, cytusii)</code> 是可以被联合的, 因为我们显然可以通过对变量 <code class="language-plaintext highlighter-rouge">X</code> 进行赋值使两个项相同; 而 <code class="language-plaintext highlighter-rouge">likes(axton, cytusii)</code> 和 <code class="language-plaintext highlighter-rouge">likes(Y, arcaea)</code> 则是不可以被联合的, 因为我们永远无法通过对 <code class="language-plaintext highlighter-rouge">Y</code> 进行赋值而使这两个项相等.</p>
+
+<p>我们下面对 <code class="language-plaintext highlighter-rouge">Prolog</code> 判定 <strong>联合</strong> 的规则作更严格的定义:</p>
+
+<p><strong>定义</strong> (联合规则)</p>
+<blockquote>
+  <p>在 <code class="language-plaintext highlighter-rouge">Prolog</code> 中, 我们称两个项可被联合, 当且仅当它们同时满足下述三条规则:</p>
+  <ol>
+    <li>若两个项均为 <strong>常量</strong> (<code class="language-plaintext highlighter-rouge">Constants</code>), 当且仅当它们为同一个原子或同一个数字时, 两项联合.</li>
+    <li>若 <code class="language-plaintext highlighter-rouge">项1</code> 为变量而 <code class="language-plaintext highlighter-rouge">项2</code> 为任何类型的项, 则两项联合,且此时变量被实例化为 <code class="language-plaintext highlighter-rouge">项2</code>, 反之亦然. 若两项均为变量, 则在联合过程中被互相实例化. 称它们的值共享. (<code class="language-plaintext highlighter-rouge">share values</code>).</li>
+    <li>若两项均为复杂项, 则其联合当且仅当:<br />
+  3.1 函子和元 (<code class="language-plaintext highlighter-rouge">functor and arity</code>) 相同.<br />
+  3.2 所有对应的参数都可联合.<br />
+  3.3 变量实例化过程是无冲突的, <em>例如不存在 “必须让某个变量同时在两个不同的位置上取不同的值才能满足对应参数可联合” 的情况.</em></li>
+  </ol>
+</blockquote>
+
+<p>同样我们举几个例子说明一下上述的联合规则.</p>
+
+<p>首先, 我们可以选择下列的任一方式使用 <code class="language-plaintext highlighter-rouge">=</code> 谓词:</p>
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c1">% a rather unnatual notation</span>
+<span class="o">?-</span> <span class="o">=</span><span class="p">(</span><span class="ss">axton</span><span class="p">,</span> <span class="ss">axton</span><span class="p">).</span>
+
+<span class="c1">% the most common one: infix notation</span>
+<span class="o">?-</span> <span class="ss">axton</span> <span class="o">=</span> <span class="ss">axton</span><span class="p">.</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>其次:</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre><span class="c1">% fits clause 1</span>
+<span class="o">?-</span> <span class="ss">axton</span> <span class="o">=</span> <span class="ss">axton</span>
+<span class="ss">true</span><span class="p">.</span>
+
+<span class="c1">% fits clause 1: both terms are numbers</span>
+<span class="o">?-</span> <span class="m">114514</span> <span class="o">=</span> <span class="m">114514</span><span class="p">.</span>
+<span class="ss">true</span><span class="p">.</span>
+
+<span class="c1">% doesn't fix: atom 'axton' and 'ryan' are different</span>
+<span class="o">?-</span> <span class="ss">axton</span> <span class="o">=</span> <span class="ss">ryan</span><span class="p">.</span>
+<span class="ss">false</span><span class="p">.</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>注意此处 <code class="language-plaintext highlighter-rouge">Prolog</code> 的一个特性:</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="c1">% quirk: prolog will consider any atoms of the form </span>
+<span class="c1">% 'symbols' as the atom of form symbols.</span>
+<span class="o">?-</span> <span class="ss">'axton'</span> <span class="o">=</span> <span class="ss">axton</span><span class="p">.</span>
+<span class="ss">true</span><span class="p">.</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre></td><td class="rouge-code"><pre>
+<span class="c1">% clearly the variable can unify with the constant following clause 2.</span>
+<span class="o">?-</span> <span class="ss">axton</span> <span class="o">=</span> <span class="nv">X</span><span class="p">.</span>
+<span class="ss">true</span><span class="p">.</span>
+
+<span class="c1">% now consider complex terms.</span>
+<span class="o">?-</span> <span class="ss">k</span><span class="p">(</span><span class="ss">s</span><span class="p">(</span><span class="ss">g</span><span class="p">),</span> <span class="nv">Y</span><span class="p">)</span> <span class="o">=</span> <span class="ss">k</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="ss">t</span><span class="p">(</span><span class="ss">k</span><span class="p">)).</span>
+<span class="ss">true</span><span class="p">.</span>
+<span class="c1">% clearly it's true as long as s(g) = X, and Y = t(k), </span>
+<span class="c1">% which follows clause 3.</span>
+
+<span class="c1">% the last example</span>
+<span class="o">?-</span> <span class="ss">loves</span><span class="p">(</span><span class="ss">axton</span><span class="p">,</span> <span class="ss">phigros</span><span class="p">)</span> <span class="o">=</span> <span class="ss">loves</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">X</span><span class="p">).</span>
+<span class="ss">false</span><span class="p">.</span>
+<span class="c1">% this will not work, as it violates clause 3: the cariable instantiation is incompatible.</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>我们最后介绍 <code class="language-plaintext highlighter-rouge">Prolog</code> 处理联合时的一个可能导致问题的策略.</p>
+
+<p>考虑一个对象为某个变量 <code class="language-plaintext highlighter-rouge">X</code> 和一个包含该变量的项 <code class="language-plaintext highlighter-rouge">axton(X)</code> 的联合 <code class="language-plaintext highlighter-rouge">X = axton(X)</code>.</p>
+
+<p>若要执行关于一个变量和一个项之间的联合, 对于常规的联合算法, 它首先会检测项中是否也包含了那个变量, 这一过程就叫做 <code class="language-plaintext highlighter-rouge">Occurs Check</code>. 若确实如此, 该算法会认为该联合不可执行, 因为无论我们将变量 <code class="language-plaintext highlighter-rouge">X</code> 实例化为任何值, 由于该变量同时作为项的参数, 因此谓词 <code class="language-plaintext highlighter-rouge">=</code> 两侧永远不等, 不满足联合规则的任意一条, 因此联合无法执行.</p>
+
+<p>但对于 <code class="language-plaintext highlighter-rouge">Prolog</code> 而言, 由于联合是该语言中最基础的操作之一, 因此出于优化性能和运算速度的考量, <code class="language-plaintext highlighter-rouge">Prolog</code> 被设计为在执行联合前刻意跳过 <code class="language-plaintext highlighter-rouge">Occurs Check</code> 而直接尝试执行联合. 这一策略将导致它原则是在执行这样的联合时会陷入无限循环而无法自拔, 直到超出内存限制. 实际上, 它在递归超过固定步数后会返回类似于如下的信息:</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="o">?-</span> <span class="nv">X</span> <span class="o">=</span> <span class="ss">axton</span><span class="p">(</span><span class="nv">X</span><span class="p">).</span>
+<span class="nv">X</span>  <span class="o">=</span>  <span class="ss">axton</span><span class="p">(</span><span class="ss">axton</span><span class="p">(</span><span class="ss">axton</span><span class="p">(</span><span class="ss">axton</span><span class="p">(...))))))))</span> 
+<span class="ss">yes</span><span class="p">.</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>可以看到其输出和标准的联合算法在处理这样的联合时输出的结果是不同的.</p>
+
+<p>不过, <code class="language-plaintext highlighter-rouge">Prolog</code> 内置了一个用于以标准联合算法执行联合操作的谓词:
+<code class="language-plaintext highlighter-rouge">unify_with_occurs_check</code>. 使用这一谓词处理这样的联合, 我们就能得到正确的结果.</p>
+
+<p><br /></p>
+
+<h2 id="2-证明搜索">2. 证明搜索</h2>
+
+<p>在完成对联合的学习和了解后, 我们下面讨论 <strong>证明搜索</strong> (<code class="language-plaintext highlighter-rouge">Proof Search</code>).</p>
+
+<p>为了更清晰地明确证明搜索的过程, 我们先来看一个例子.</p>
+
+<p>首先我们定义下列的知识库:</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="rouge-code"><pre><span class="c1">% facts for f()</span>
+<span class="ss">f</span><span class="p">(</span><span class="ss">a</span><span class="p">).</span>
+<span class="ss">f</span><span class="p">(</span><span class="ss">b</span><span class="p">).</span>
+
+<span class="c1">% facts for g()</span>
+<span class="ss">g</span><span class="p">(</span><span class="ss">a</span><span class="p">).</span>
+<span class="ss">g</span><span class="p">(</span><span class="ss">b</span><span class="p">).</span>
+
+<span class="c1">% facts for h()</span>
+<span class="ss">h</span><span class="p">(</span><span class="ss">b</span><span class="p">).</span>
+
+<span class="c1">% predifine a rule</span>
+<span class="ss">k</span><span class="p">(</span><span class="nv">X</span><span class="p">)</span> <span class="p">:-</span> <span class="ss">f</span><span class="p">(</span><span class="nv">X</span><span class="p">),</span> <span class="ss">g</span><span class="p">(</span><span class="nv">X</span><span class="p">),</span> <span class="ss">h</span><span class="p">(</span><span class="nv">X</span><span class="p">).</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>编译加载后, 查询语句 <code class="language-plaintext highlighter-rouge">k(Y)</code>. 则很显然, 我们所预期的答案自然是 <code class="language-plaintext highlighter-rouge">k(b)</code>. 下面我们来考虑 <code class="language-plaintext highlighter-rouge">Prolog</code> 对该问题的求解过程.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Prolog</code> 对问题的求解流程基本上是基于给定的知识库, 自顶而下地尝试将用户的查询语句和知识库中的某条事实或定义的某个规则相联合. 显然, 在当前考虑的例子中, <code class="language-plaintext highlighter-rouge">Prolog</code> 只能将查询语句 <code class="language-plaintext highlighter-rouge">k(Y)</code> 和 规则 <code class="language-plaintext highlighter-rouge">k(X) :- f(X), g(X), h(X).</code> 联合.</p>
+
+<p>在将用户查询语句中的变量 (在这里是 <code class="language-plaintext highlighter-rouge">Y</code>) 与知识库中的某个事实中的变量或规则相联合时, <code class="language-plaintext highlighter-rouge">Prolog</code> 会生成一个随机的新变量用于指代这些在规则中共享的变量. 不妨假定:</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="ss">k</span><span class="p">(</span><span class="nv">_G34</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>则此时可知</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="ss">k</span><span class="p">(</span><span class="nv">_G34</span><span class="p">)</span>  <span class="p">:-</span>  <span class="ss">f</span><span class="p">(</span><span class="nv">_G34</span><span class="p">),</span>  <span class="ss">g</span><span class="p">(</span><span class="nv">_G34</span><span class="p">),</span>  <span class="ss">h</span><span class="p">(</span><span class="nv">_G34</span><span class="p">).</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>也就是说, 我们将意为 “我想要找到满足条件 <code class="language-plaintext highlighter-rouge">k</code> 的项” 的用户查询语句转换为了规则: “这样的项满足条件 <code class="language-plaintext highlighter-rouge">k</code>, 当且仅当它同时具备性质 <code class="language-plaintext highlighter-rouge">f</code>, <code class="language-plaintext highlighter-rouge">g</code> 和 <code class="language-plaintext highlighter-rouge">h</code>”. 也就是说, 下面的任务就是要找到同时满足这三个性质的项.</p>
+
+<p>从此处开始我们将处理用户查询的过程以抽象图形表示. 箱盒中的或为查询, 或为目标; 竖线表示某个联合过程, 而横线下方的文字为经过联合过程后我们得到的目标.</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20211015165233.png" alt="20211015165233" /></p>
+
+<p>在得到了一列 (<code class="language-plaintext highlighter-rouge">a list of</code>, 我们进一步将它们抽象为一个存储目标的列表) 要满足的目标后, <code class="language-plaintext highlighter-rouge">Prolog</code> 会顺着这个列表自左向右地依次尝试满足它们. 根据这个规则, 此处首先需要完成的目标就是 <code class="language-plaintext highlighter-rouge">f(_G34)</code>, 也就是 “我需要一个满足性质 <code class="language-plaintext highlighter-rouge">f</code> 的项”. 而基于此目标在知识库中执行自上而下的搜索, <code class="language-plaintext highlighter-rouge">Prolog</code> 首先查询到的, 可以与该目标联合的项就是 <code class="language-plaintext highlighter-rouge">f(a)</code>. 经过与 <code class="language-plaintext highlighter-rouge">f(a)</code> 的联合, 变量 <code class="language-plaintext highlighter-rouge">_G34</code> 被实例化为 <code class="language-plaintext highlighter-rouge">a</code>, 第一个目标得到满足. 因此我们有:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20211015170136.png" alt="20211015170136" /></p>
+
+<p>将目标切换为 <code class="language-plaintext highlighter-rouge">g(a)</code>, 重复上述流程可得, 知识库中事实 <code class="language-plaintext highlighter-rouge">g(a)</code> 可与目标联合. 故此时有</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20211015170237.png" alt="20211015170237" /></p>
+
+<p>但将目标再切换为 <code class="language-plaintext highlighter-rouge">h(a)</code>, 经过检索无法在知识库中找到任何可以与目标联合的项.</p>
+
+<p>此时, <code class="language-plaintext highlighter-rouge">Prolog</code> 会将该情况判定为 “选择错误”, 并且回头检查是否在上一轮对旧事实的联合中能够找到另一种解法, 这一过程也就是在求解树上的回溯 <code class="language-plaintext highlighter-rouge">Backtrack</code>. 由于 <code class="language-plaintext highlighter-rouge">Prolog</code> 在求解过程中会记录所有的决策点 (也就是记录了决策过程中需要依次满足的每一个目标, 并且记录了每一步中选择了知识库中的哪一条规则), 因此如果无法求解, <code class="language-plaintext highlighter-rouge">Prolog</code> 可以沿着决策树依次回溯直到原点. 在此处的例子中, 我们最终回溯到原点, 在此处我们需要满足下列目标:</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="ss">f</span><span class="p">(</span><span class="nv">_G34</span><span class="p">),</span><span class="ss">g</span><span class="p">(</span><span class="nv">_G34</span><span class="p">),</span><span class="ss">h</span><span class="p">(</span><span class="nv">_G34</span><span class="p">).</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>由于在上次检索中首先联合了事实 <code class="language-plaintext highlighter-rouge">f(a)</code>, 故此次换用事实 <code class="language-plaintext highlighter-rouge">f(b)</code> 与第一个目标联合. 执行上文中描述的搜索过程, 此次我们就可以最终发现, <code class="language-plaintext highlighter-rouge">h(b)</code> 可以与知识库中完全相同的事实相联合, 故目标列表中的全体都可被满足. 并且, 由于在该过程中 <code class="language-plaintext highlighter-rouge">Y</code> 被实例化为 <code class="language-plaintext highlighter-rouge">b</code>, <code class="language-plaintext highlighter-rouge">Prolog</code> 也记录下了满足目标的方法.</p>
+
+<p>此时我们输入 <code class="language-plaintext highlighter-rouge">;</code> 就可以查询是否存在其他解. 虽然在本例中显然这样的解不存在. 但是如果还有其他的事实可供尝试的话, <code class="language-plaintext highlighter-rouge">Prolog</code> 会重新执行一遍沿知识库自顶而下, 沿目标列表自左而右的检索流程.</p>
+
+<p>最后, 我们欣赏一下 <code class="language-plaintext highlighter-rouge">Prolog</code> 解决该问题时所生成的决策树:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20211015171707.png" alt="20211015171707" /></p>
+
+:ET

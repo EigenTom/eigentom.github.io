@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="description" content="由于相关法律法规规定, 该内容无法显示.">
+    <meta name="keywords" content="菜">
+    <meta name="theme-color" content="#333">
+
+    <!-- Open Graph -->
+    <meta property="og:title"
+        content="逻辑学探幽 Part9 - 某一般线性空间 | Ramdom Linear Space">
+    
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="量化布尔公式
+">
+    
+    <meta property="article:published_time" content=" 2021-11-19T00:00:00Z">
+    
+    
+    <meta property="article:author" content="R1NG">
+    
+    
+    <meta property="article:tag" content="逻辑学">
+    
+    <meta property="article:tag" content="2021">
+    
+    <meta property="article:tag" content="COMP21111">
+    
+    
+    <meta property="og:image" content="http://localhost:4000https://github.com/KirisameR.png">
+    <meta property="og:url" content="http://localhost:4000/2021/11/19/Ch9-LogicNotes/">
+    <meta property="og:site_name" content="某一般线性空间 | Ramdom Linear Space">
+
+    <title>逻辑学探幽 Part9 - 某一般线性空间 | Ramdom Linear Space</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4000/2021/11/19/Ch9-LogicNotes/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href=" /css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href=" /css/hux-blog.min.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"type="text/css">
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+
+    <!-- 数学公式 -->
+    <script type="text/javascript" async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+            showProcessingMessages: true, //关闭js加载过程信息
+            messageStyle: "none", //不显示信息
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code','a'], //避开某些标签
+                ignoreClass:"comment-content" //避开含该Class的标签
+            },
+            "HTML-CSS": {
+                availableFonts: ["STIX","TeX"], //可选字体
+                showMathMenu: false //关闭右击菜单显示
+            }
+        });
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+    </script>
+
+    
+
+    <!-- Google AdSense -->
+    <script data-ad-client="ca-pub-6487568398225121" async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">RANDOM LINEAR SPACE</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div id="huxblog_navbar">
+                <div class="navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                        
+                        
+                        <li>
+                            <a href="/archive/">Archive</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li class="search-icon">
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <script>
+        // Drop Bootstarp low-performance Navbar
+        // Use customize navbar with high-quality material design animation
+        // in high-perf jank-free CSS3 implementation
+        var $body = document.body;
+        var $toggle = document.querySelector('.navbar-toggle');
+        var $navbar = document.querySelector('#huxblog_navbar');
+        var $collapse = document.querySelector('.navbar-collapse');
+
+        var __HuxNav__ = {
+            close: function () {
+                $navbar.className = " ";
+                // wait until animation end.
+                setTimeout(function () {
+                    // prevent frequently toggle
+                    if ($navbar.className.indexOf('in') < 0) {
+                        $collapse.style.height = "0px"
+                    }
+                }, 400)
+            },
+            open: function () {
+                $collapse.style.height = "auto"
+                $navbar.className += " in";
+            }
+        }
+
+        // Bind Event
+        $toggle.addEventListener('click', function (e) {
+            if ($navbar.className.indexOf('in') > 0) {
+                __HuxNav__.close()
+            } else {
+                __HuxNav__.open()
+            }
+        })
+
+        /**
+         * Since Fastclick is used to delegate 'touchstart' globally
+         * to hack 300ms delay in iOS by performing a fake 'click',
+         * Using 'e.stopPropagation' to stop 'touchstart' event from 
+         * $toggle/$collapse will break global delegation.
+         * 
+         * Instead, we use a 'e.target' filter to prevent handler
+         * added to document close HuxNav.  
+         *
+         * Also, we use 'click' instead of 'touchstart' as compromise
+         */
+        document.addEventListener('click', function (e) {
+            if (e.target == $toggle) return;
+            if (e.target.className == 'icon-bar') return;
+            __HuxNav__.close();
+        })
+    </script>
+    <!-- Search -->
+<div class="search-page">
+  <div class="search-icon-close-container">
+    <span class="search-icon-close">
+      <i class="fa fa-chevron-down"></i>
+    </span>
+  </div>
+  <div class="search-main container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <form></form>
+        <input type="text" id="search-input" placeholder="$ grep...">
+        </form>
+        <div id="search-results" class="mini-post-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/post-bg-logicnotes.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+
+
+
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/post-bg-logicnotes.jpg');
+        background: ;
+    }
+
+    
+</style>
+
+<header class="intro-header" >
+
+    <div class="header-mask"></div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/archive/?tag=%E9%80%BB%E8%BE%91%E5%AD%A6" title="逻辑学">逻辑学</a>
+                        
+                        <a class="tag" href="/archive/?tag=2021" title="2021">2021</a>
+                        
+                        <a class="tag" href="/archive/?tag=COMP21111" title="COMP21111">COMP21111</a>
+                        
+                    </div>
+                    <h1>逻辑学探幽 Part9</h1>
+                    
+                    <h2 class="subheading">没有逻辑 只有heip</h2>
+                    <span class="meta">Posted by R1NG on November 19, 2021</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <!-- Multi-Lingual -->
+                
+
+				<h1 id="量化布尔公式">量化布尔公式</h1>
+
+<p>在本章中, 我们介绍 <strong>量化布尔公式</strong> (<code class="language-plaintext highlighter-rouge">Quantified Boolean Formula</code>). 它是基于谓词公式的基础上推广而来的产物, 相比常规的谓词公式多出了 “存在 ( $\exists$)”, “任意 ($\forall$)” 等量化谓词, 因此相比普通的谓词公式, 我们可以使用它更简明地表达相同的问题. 一般而言, 量化布尔公式常被用于表示状态有限的组合问题, 如规划问题或博弈问题.</p>
+
+<p>我们将首先介绍量化布尔公式的语法和语义, 并解释 <strong>界限变量</strong> 和 <strong>自由变量</strong> 的定义和性质. 其次, 我们将讨论量化布尔公式的可满足性定义. 在此之后, 我们还将给出量化布尔公式的单调替换定理和等价替换定理, 最后我们研究量化布尔公式的代换 (<code class="language-plaintext highlighter-rouge">Substitution</code>).</p>
+
+<p>我们随后给出量化布尔公式可成为的两种 <strong>范式</strong> (<code class="language-plaintext highlighter-rouge">Normal Form</code>): <strong>前束范式</strong> (<code class="language-plaintext highlighter-rouge">Prenex Form</code>) 与 <strong>合取范式</strong> (<code class="language-plaintext highlighter-rouge">CNF</code>).</p>
+
+<p>最后, 我们将介绍一系列检测量化布尔公式可满足性的方法.</p>
+
+<h2 id="91-量化布尔公式">9.1 量化布尔公式</h2>
+
+<p>我们首先在本节中介绍量化布尔公式的语法, 语义和它 <strong>真假性</strong>, <strong>可满足性</strong> 的定义, 进而说明对量化布尔公式而言, 检查它的某个解释的真值与检验该公式的可满足性或重言性同等困难的特征. 最后, 我们讨论量化布尔公式中的 <strong>界限变量</strong> 和 <strong>自由变量</strong>, 并由这两种新变量类型导致的, 无法在量化布尔公式上使用原本在常规谓词公式上可用的 “代换” 方法的问题, 引入对量化布尔公式的等价性和代换方法的讨论.</p>
+
+<h3 id="911-语法和语义">9.1.1 语法和语义</h3>
+
+<p>从本节开始我们将 <strong>布尔变量</strong> 简称为 <strong>变量</strong>. 量化布尔公式相比常规为此公式的推广是通过允许对公式中的变量使用量化谓词修饰而实现的.</p>
+
+<p><strong>定义 9.1.1</strong> (量化布尔公式)</p>
+<blockquote>
+  <p>对量化布尔公式的定义相比谓词公式的定义, 只多出了下面的一条:<br />
+考虑布尔变量 $p$ 和布尔公式 $F$, 则 $\forall p F$ 和 $\exists p F$ 也都是量化布尔公式.</p>
+</blockquote>
+
+<p>分别称 $\forall$ 和 $\exists$ 为 <strong>全称量词</strong> 和 <strong>存在量词</strong>.</p>
+
+<p>我们同时对量词表达式 $\forall p$, $\exists p$ 给出定义:</p>
+
+<ol>
+  <li>
+    <p>若公式 $F$ 中包含 $\forall p$, 则称在 $F$ 中, $p$ 为 <strong>全称量化</strong> (<code class="language-plaintext highlighter-rouge">Universally Quantified</code>) 的.</p>
+  </li>
+  <li>
+    <p>若公式 $F$ 中包含 $\exists p$, 则称在 $F$ 中, $p$ 为 <strong>存在量化</strong> (<code class="language-plaintext highlighter-rouge">Existentially Quantified</code>) 的.</p>
+  </li>
+</ol>
+
+<p>显然地, $\forall p F$ 和 $\exists p F$ 分别表示:</p>
+
+<ol>
+  <li>对 $p$ 的任意可能取值, $F$ 的解释均为真.</li>
+  <li>对 $p$ 的某一个可能取值, $F$ 的解释为真.</li>
+</ol>
+
+<p>下面讨论量化布尔公式的 <strong>语义</strong>.</p>
+
+<p>我们首先引入一个新的表述:</p>
+
+<p>记 $I, p, b$ 分别为某个 <strong>解释</strong>, 某个 <strong>变量</strong> 和某个 <strong>布尔值</strong>. 则定义 $I[p \leftarrow b]$ 如下:</p>
+
+\[I[p \leftarrow b](q) \overset{def}{=} \begin{cases} I(q) ~~~ p \neq q \\ b ~~~~~~~~ p = q\end{cases}\]
+
+<p>显然对 $I[p \leftarrow b]$ 而言, 该解释由 $I$ 扩充而来, 它对其他任何不同于 $p$ 的变量的定义均与 $I$ 一致.</p>
+
+<p>我们下面使用上面所定义的这个记号表述量化布尔公式的 <strong>真性</strong> (<code class="language-plaintext highlighter-rouge">Truth</code>):</p>
+
+<p><strong>定义 9.1.2</strong> (量化布尔公式的真性)</p>
+<blockquote>
+  <p>量化布尔公式的真性除了包含 <strong>谓词公式的真性的定义</strong> 外, 还包括下列两条:<br /></p>
+  <ol>
+    <li>$I(\forall p F) = 1$ 当且仅当 $I[p \Leftarrow 0] (F)=1$ 且 $I[p \Leftarrow 1] (F)=1$.</li>
+    <li>$I(\exists p F) = 1$ 当且仅当 $I[p \Leftarrow 0] (F)=1$ 或 $I[p \Leftarrow 1] (F)=1$.</li>
+  </ol>
+</blockquote>
+
+<p>和谓词公式的情形一样, 若 $F$ 在解释 $I$ 下的语义为真, 则记为 $I \vDash F$.</p>
+
+<p><strong>定义 9.1.3~9.1.5</strong> (量化布尔公式的可满足性, 重言性, 等价性)</p>
+<blockquote>
+  <p>量化布尔公式的可满足性, 重言性和等价性与常规的谓词公式的定义一致.</p>
+</blockquote>
+
+<p>需要注意的是, 对某个量化布尔公式而言, 给定它的某个解释进而检查该解释下给定量化布尔公式的值这一操作的复杂性和检验该布尔公式的可满足性等价.</p>
+
+<p>这是因为一旦量化布尔公式中的任何变量被量化谓词修饰 (限定), 我们就需要根据修饰它的量化谓词的不同而相应地考虑不同的情况. 若变量被全称量词修饰, 我们必须考虑公式在该变量取得可取的每一个值的情况下对应的解释; 而若变量被存在量词修饰, 我们则要确保至少在该变量取到某一个值的情况下公式为真, 这也被称为 <strong>构造 <code class="language-plaintext highlighter-rouge">AND-OR</code> 选择树</strong>.</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20211213080555.png" alt="20211213080555" /></p>
+
+<h3 id="912-界限变量和自由变量">9.1.2 界限变量和自由变量</h3>
+
+<p>我们知道, 对谓词公式 $F$, 它的真值取决于 $F$ 中出现的所有变量 $p$ 的值. 而从上述的例子中可以看出, 对量化布尔公式 $G$ 而言, $G$ 在解释 $I$ 下的真值不完全取决于 $I$: $G$ 中任何被量词修饰的变量都会 <strong>独立于解释 $I$</strong> 对 $G$ 的真值产生影响, 这一影响不会随着 $I$ 对这些被修饰变量的值的限定而产生改变, 也就是说 $I$ 对这些被修饰变量的值的限定本质上是无效的.</p>
+
+<p><strong>定义 9.1.6</strong> (界限变量和自由变量)</p>
+<blockquote>
+  <p>对量化布尔公式 $F$ 而言, 若在它中所出现的某个变量 $p$ 被全称量词或存在量词中的任意一个所修饰, 则称其为 <strong>界限变量</strong>. 若 $p$ 在公式中没有被任何一种量词修饰, 则称其为 <strong>自由变量</strong>.</p>
+</blockquote>
+
+<p>我们接下来对量化布尔公式的 <strong>子式</strong>, <strong>极性</strong>, 量化布尔公式中变量的 <strong>自由出现</strong> 和 <strong>受限出现</strong> 给出定义:</p>
+
+<p><strong>定义 9.1.7</strong> (量化布尔公式的子式)</p>
+<blockquote>
+  <p>对量化布尔公式的子式的定义相比谓词公式中的定义扩展了下列一条:<br />
+公式 $F_1$ 是 $\forall p F_1$ 和 $\exists p F_1$ 的子式.</p>
+</blockquote>
+
+<p><strong>定义 9.1.8</strong> (量化布尔公式的极性)</p>
+<blockquote>
+  <p>对量化布尔公式的极性的定义相比谓词公式中的定义扩展了下列一条:<br />
+记 $F\vert _{\pi} = G$, 且 $G$ 形为 $\forall p G_1$ 或 $\exists p G_1$. 则 $\pi . 1$ 为 $F$ 中的一个 <strong>位置</strong>, 且 $F \vert _{\pi.1} \overset{def}{=} G_1$ 且 $\text{pol}(F, \pi.1) \overset{def}{=} \text{pol}(F, \pi).$</p>
+</blockquote>
+
+<p>注: 在量化布尔公式中, 我们沿用 “谓词公式的极性” 定义中, “正出现” 与 “负出现” 的定义.</p>
+
+<p><strong>定义 9.1.9</strong> (量化布尔公式中变量的自由出现与受限出现)</p>
+<blockquote>
+  <p>考虑布尔变量 $p$, 且 $F\vert _{\pi} = p$ (即 $p$ 在量化布尔公式 $F$ 中), 称 “$p$ 在量化布尔公式 $F$ 的位置 $\pi$ 上的一次出现” 为 <strong>受限出现</strong>, 若这次出现所在的位置 $\pi$ 可表示为两个子位置 $\pi_1, \pi_2$ 的联结, 且 $F\vert _{\pi_1}$ 形如 $\forall p G$ 或 $\exists p G$, 反之称这次出现为 <strong>自由出现</strong>.</p>
+</blockquote>
+
+<p>上述的形式化定义用人话表示, 就是说, 若变量 $p$ 在 $F$ 的某个位置上被某种量化谓词修饰, 则称 $p$ 的这次出现为 <strong>受限出现</strong>, 反之这次出现则为 <strong>自由出现</strong>.</p>
+
+<p><strong>定义 9.1.10</strong> (自由变量与受限变量)</p>
+<blockquote>
+  <p>这个定义是 <code class="language-plaintext highlighter-rouge">定义 9.1.9</code> 的推广. 若 $F$ 中的某个变量 $p$ 在其中有至少一次受限出现 (或自由出现) , 称其为 $F$ 的受限变量 (或自由变量).</p>
+</blockquote>
+
+<p>需要注意的是, 量化布尔公式中的一个变量可以 <strong>既是自由变量, 同时也是受限变量</strong>, 如</p>
+
+\[p \rightarrow \forall q \exists p (q \leftrightarrow p) \vee r\]
+
+<p>中, 变量 $p$ 的第一次出现是自由的, 而最后一次出现就是受限的. 同时, $q$ 在该公式中只有受限出现, $r$ 只有自由出现.</p>
+
+<p>我们最后引入一个记号. 从此开始, 我们使用记号 $\exists\forall$ 表示 “任一种量词”.</p>
+
+<p><strong>定义 9.1.11</strong> (闭的量化布尔公式)</p>
+<blockquote>
+  <p>称量化布尔公式为 <strong>闭</strong> 的, 若该公式中不存在任何自由变量.</p>
+</blockquote>
+
+<h3 id="913-真性和满足性">9.1.3 真性和满足性</h3>
+
+<p>我们下面讨论如何检验量化布尔公式的真性和可满足性.</p>
+
+<p>首先基于第一小节中对量化布尔公式真性的定义, 我们不难得出下列结论: <strong>量化布尔公式的真值只取决于它自由变量的值</strong>.</p>
+
+<p><strong>引理 9.1.1</strong></p>
+<blockquote>
+  <p>记 $I_1, I_2$ 为对量化布尔公式 $F$ 上所有自由变量具有相同定义的两个解释, 则 $I_1 \vDash F$ 当且仅当 $I_2 \vDash F$.</p>
+</blockquote>
+
+<p>由上述结论, 我们可得到这个结果:</p>
+
+<p><strong>引理 9.1.2</strong></p>
+<blockquote>
+  <p>对 <strong>闭的量化布尔公式</strong> 而言, 它的 <strong>真性</strong>, <strong>重言性</strong>, <strong>可满足性</strong> 等价: <br />
+对任意解释 $I$ 和闭的量化布尔公式 $F$, 下列三个命题等价:</p>
+  <ol>
+    <li>$I \vDash F$.</li>
+    <li>$F$ 是可满足的.</li>
+    <li>$F$ 是重言式.</li>
+  </ol>
+</blockquote>
+
+<p><strong>证明</strong><br />
+首先可知, $F$ 为重言式 $\Rightarrow I \vDash F \Rightarrow F$ 为可满足的.</p>
+
+<p>其次可知, 若 $F$ 为可满足的, 则存在某个解释 $I_1$ 满足 $I_1 \vDash F$. 由 <code class="language-plaintext highlighter-rouge">引理 9.1.1</code>, 知任何与 $I_1$ 对于 $F$ 的自由变量具有相同定义的解释 $I_2$ 同样满足 $I_2 \vDash F$. 由于 $F$ 不存在自由变量, 因此对任意 $I_2$, 均满足 $I_2 \vDash F$. 因此 $F$ 为重言式. $\blacksquare$</p>
+
+<p>一般地, 我们可将量化布尔公式的可满足性和真性视为 <strong>闭的量化布尔公式的可满足性 (或真性/重言性) 的特殊情况</strong>.</p>
+
+<p><strong>引理 9.1.3</strong></p>
+<blockquote>
+  <p>记 $F$ 为量化布尔公式, 其自由变量为 $p_1, p_2, \cdots, p_n$, 则 $F$ 为可满足的 (或重言的), 当且仅当 <strong>闭的量化布尔公式</strong> $\exists p_1, \exists p_2, \cdots, \exists p_n F$ (或 $\forall p_1, \forall p_2, \cdots, \forall p_n F$) 为可满足的.</p>
+</blockquote>
+
+<h3 id="914-等价性-单调替换定理和等价替换定理">9.1.4 等价性: 单调替换定理和等价替换定理</h3>
+
+<p>我们下面考虑定义在量化布尔公式中定义谓词公式所具备的单调替换定理和等价替换定理.</p>
+
+<p><strong>定理 9.1.1</strong> (量化布尔公式的单调替换定理)</p>
+<blockquote>
+  <p>记 $F_1$ 为量化布尔公式 $G_1$ 的子式, 且 $F_1 \rightarrow F_2$ 为重言式. 将 $G_1$ 中 <strong>至少一处$F_1$ 的正出现 (或负出现)</strong> 用 $F_2$ 替代, 则公式 $G_1 \rightarrow G_2$ (或 $G_2 \rightarrow G_1$) 也是重言的.</p>
+</blockquote>
+
+<p>换言之, 量化布尔公式的真值在正出现的子公式上是单调的, 在负出现的子公式上是反单调的.</p>
+
+<p>我们进而有下述的等价替换定理:</p>
+
+<p><strong>定理 9.1.2</strong> (量化布尔公式的等价替换定理)</p>
+<blockquote>
+  <p>记 $F_1$ 为量化布尔公式 $G_1$ 的子公式, 且 $F_1 \equiv F_2$. 记 $G_2$ 为从 $G_1$ 中替换至少一处 $F_1$ 出现为 $F_2$ 得到的公式, 则 $G_1 \equiv G_2$.</p>
+</blockquote>
+
+<h3 id="915-代换">9.1.5 代换</h3>
+
+<p>值得注意的是, 由于受限变量的存在, 常规谓词公式的等价替换定理不适用于量化布尔公式. 考虑解释 $I = {p \rightarrow 1, ~ q \rightarrow 1}$, 则有 $I \vDash q \rightarrow p$. 由于 $I \vDash \forall \exists p (q)$和 $\neg I \vDash \forall \exists p (p)$, 显然 $I \vDash p \leftrightarrow q$ 成立, 而 $I \nvDash \forall p (p) \leftrightarrow \forall p (q)$.</p>
+
+<p>由于在本章将要介绍的一系列公式中都将涉及到对任意公式 (包括量化布尔公式的子公式) 的替换, 我们将在本节中讨论受限公式的替换问题.</p>
+
+<p><strong>定义 9.1.12</strong> (对某个变量自由的公式)</p>
+<blockquote>
+  <p>记量化布尔公式 $F, G$, 记 $p$ 为变量. 称 $G$ 对于 $F$ 中的 $p$ 自由, 若将 $F$ 中变量 $p$ 的全部出现用 $G$ 替换后, 对 $G$ 中任何一个自由变量而言, 它都不会在替换后, 成为 $F$ 中的一个受限变量, 换言之 $G$ 中不能出现在原先的 $F$ 中被量词限定的变量. 用更正式的语言表述: 
+称 <strong>$G$ 对于 $F$ 中的变量 $p$ 不是自由的</strong>, 若存在路径 $\pi_1, \pi_2$ 和 公式 $F_1$, 使 $F_{\pi_1. \pi_2} = p$, 且 $p$ 在位置 $\pi_1. \pi_2$ 上的出现是自由的, 且 $F_{\pi_1} = \exists \forall q F_1$, 其中 $q$ 为 $G$ 中的某个自由变量.</p>
+</blockquote>
+
+<p>显然, 在公式 $F := \exists q(\neg p \leftrightarrow q)$ 中, 公式 $q$ 关于 $F$ 中的变量 $p$ 就不是自由的. 一般地, 公式 $G$ 对于 $F$ 中的变量 $p$ 是自由的, 当且仅当变量 $q$ 不为 $G$ 中的自由变量.</p>
+
+<p>若 $F, G$ 均为量化布尔公式且 $p$ 为变量, 我们记 <strong>通过将公式 $F$ 中, 变量 $p$ 的所有自由出现替换为公式 $G$ 所得到的公式</strong> 为 $F_{p}^{G}$. 注意, 使用这一记号等同于默认 $G$ 关于 $F$ 中的变量 $p$ 为自由的.</p>
+
+<p>若我们需要将 $F$ 中的某个变量 $q$ 替换为公式 $G$, 而公式 $G$ 并不关于 $F$ 中的变量 $q$ 自由, 我们就需要 <strong>先将 $F$ 转换为公式 $F’$, 使得 $G$ 关于 $F’$ 中的变量 $q$ 自由, 然后再执行替换</strong>. 转换的实质是将 $F$ 中的某个 (或某些) 受限的, 但在 $G$ 中是自由的变量替换为其他的受限变量, 这一操作被称为 <strong>受限变量重命名</strong>. 下面我们给出一个它的, 适用于大多数情况的定义.</p>
+
+<p><strong>定义 9.1.13</strong> (受限变量重命名)</p>
+<blockquote>
+  <p>称公式 $F’$ 是通过将公式 $F$ 中的受限变量重命名而得到的, 若 $F’$ 可通过一系列步骤从 $F$ 转换而来:<br />
+设 $\exists \forall p G$ 为 $F$ 的某个子公式, $q$ 为某个 <strong>未在 $F$ 中出现过的变量</strong>, 将 $\forall \exists p G$ 替换为 $\forall \exists q (G_{p}^{q})$.</p>
+</blockquote>
+
+<p><strong>引理 9.1.4</strong></p>
+<blockquote>
+  <p>若 $F’$ 为通过重命名受限变量从 $F$ 转换而来的公式, 则 $F’ \equiv F$.</p>
+</blockquote>
+
+<p><strong>定义 9.1.14</strong> (经修正的公式)</p>
+<blockquote>
+  <p>称 $F$ 为 <strong>经过修正的</strong>, 若它满足下列几条约束:<br /></p>
+  <ol>
+    <li>$F$ 中 <strong>不存在既受限又自由</strong> 的变量.</li>
+    <li>对任意变量 $p$, $F$ 最多包涵一个限定它的量词.</li>
+  </ol>
+</blockquote>
+
+<p>举例而言, 公式 $\exists p \neg p \rightarrow \exists \neg p$ 因包含两个限定 $p$ 的量词 $\exists$ 而不是修正的, $\exists \neg p \rightarrow p$ 同样不是修正的, 因其中 $p$ 既是受限的, 也是自由的. 但显然, 这两个不同的量化布尔公式都可以通过对受限变量重命名而得到修正. 因此, 我们进一步地可以得到下列结果:</p>
+
+<p><strong>引理 9.1.5</strong></p>
+<blockquote>
+  <p>任何量化布尔公式都可通过对受限变量重命名转化为一个语义上等价的, 经修正的公式.</p>
+</blockquote>
+
+<h2 id="92-范式">9.2 范式</h2>
+
+<p>在本节中我们考虑量化布尔公式的两种范式. 在对谓词公式的学习中, 我们引入了合取范式和子句范式, 而我们即将讨论的两种范式为前束范式与合取范式.</p>
+
+<h3 id="921-前束范式">9.2.1 前束范式</h3>
+
+<p>粗略地说, 所有满足 “限定公式中任何受限变量的量词都位于公式开头” 的量化布尔公式都属于前束范式.</p>
+
+<p><strong>定义 9.2.1</strong> (前束范式)</p>
+<blockquote>
+  <p>称量化布尔公式 $F$ 为 <strong>前束范式</strong> 或 <strong>前束公式</strong>, 若它形为</p>
+
+\[\exists \forall_{1}p_1 \exists \forall_2 p_2 \cdots \exists \forall_{n} p_n G\]
+
+  <p>其中 $G$ 为不含任何量词的谓词公式.称公式 $F$ 为 $G$ 的前束范式, 若 $F$ 是前束的且 $F \equiv G$.</p>
+</blockquote>
+
+<p><strong>算法 9.2.1</strong> (量化布尔公式前束范式转换算法)</p>
+<blockquote>
+  <p>通过不断使用下列的重写规则将 <strong>经过修正的公式 $F$</strong> 进行转换, 当我们再也无法对其应用重写规则时所得到的公式则为 $F$ 的前束范式.</p>
+</blockquote>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20211218141429.png" alt="20211218141429" /></p>
+
+<p><strong>引理 9.2.1</strong></p>
+<blockquote>
+  <p>上述的全部重写规则在应用到经修正的公式上时都保持其语义.</p>
+</blockquote>
+
+<p>值得注意的是, 我们对经修正的公式应用上述任一条重写规则所得到的新公式仍是经过修正的. 此外, 需要注意到, 前束化算法的重写规则不适用于双蕴含 $\leftrightarrow$, 双蕴含必须在执行前束化算法前被等价替换掉.</p>
+
+<p><strong>定理 9.2.1</strong></p>
+<blockquote>
+  <p>记 $F$ 为不包含双蕴含谓词的, 经修正的量化布尔公式. 则将它作为前束化算法的输入时, 算法的输出为 $F$ 的前束范式.</p>
+</blockquote>
+
+<p><strong>证明</strong><br />
+由于可终结性显然恒成立, 且由 <code class="language-plaintext highlighter-rouge">引理 9.2.1</code> 可知在每一步转换中算法都保持语义, 因此上述定理显然成立. $\blacksquare$</p>
+
+<h3 id="922-合取范式">9.2.2 合取范式</h3>
+
+<p>下面我们研究量化布尔公式的合取范式.</p>
+
+<p><strong>定义 9.2.2</strong> (量化布尔公式的合取范式)</p>
+<blockquote>
+  <p>称量化布尔公式 $F$ 为 <strong>合取范式 (CNF)</strong>, 若它为下列三种形式的任一种:<br /></p>
+  <ol>
+    <li>$\perp$<br /></li>
+    <li>$\top$<br /></li>
+    <li>$\exists \forall_{1}p_1 \exists \forall_2 p_2 \cdots \exists \forall_{n} p_n F_1$<br />
+其中 $n \geqslant 0$ 且 $F_1$ 为某个为合取范式的谓词公式. <br /></li>
+  </ol>
+
+  <p>称公式 $G$ 为 $F$ 的合取范式, 若 $G \equiv F$ 且 $G$ 为合取范式.</p>
+</blockquote>
+
+<p>换言之, 量化布尔公式 $G$ 为合取范式, 若 $G$ 为前束范式且它的谓词公式部分是 (谓词公式的) 合取范式.</p>
+
+<p>结合谓词公式的合取范式转换算法与量化布尔公式的前束范式转换算法, 我们就可以构造出量化布尔公式的合取范式转换算法. 需要注意的是, 这一算法沿袭了前束范式转换算法的 <strong>全部限制</strong>.</p>
+
+<p><strong>算法 9,2.2</strong> (量化布尔公式的合取范式转换算法)</p>
+<blockquote>
+  <p>量化布尔公式的合取范式转换算法的重写规则是谓词公式的合取范式转换算法的重写规则与量化布尔公式的前束范式转换算法的重写规则相结合的产物.<br />
+在执行合取范式转换算法时, 若在任一步上得到的公式不是经过修正的, 我们需要应用受限变量重命名规则将修正后才能继续应用重写规则.</p>
+</blockquote>
+
+<p><strong>定理 9.1.3</strong></p>
+<blockquote>
+  <p>量化布尔公式的合取范式转换算法具备可终止性, 且它的输出必为输入公式的合取范式.</p>
+</blockquote>
+
+<h2 id="93-可满足性检测-分割算法和dpll算法">9.3 可满足性检测: 分割算法和DPLL算法</h2>
+
+<p>我们将在最后一节中讨论量化布尔公式的可满足性检测问题.</p>
+
+<p>在展开讨论之前, 我们首先约定对量化布尔公式的简化规则与其 “真假” 的定义:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20211218141451.png" alt="20211218141451" /></p>
+
+<p><strong>引理 9.3.1</strong></p>
+<blockquote>
+  <ol>
+    <li>称闭的量化布尔公式 $\forall p F$ 为真, 当且仅当 $F_{p}^{\perp}$ 和 $F_{p}^{\top}$ 均为真.<br /></li>
+    <li>称闭的量化布尔公式 $\exists p F$ 为真, 当且仅当 $F_{p}^{\perp}$ 和 $F_{p}^{\top}$ 至少一个为真.<br /></li>
+  </ol>
+</blockquote>
+
+<p>谓词公式的分割算法基于这个简单的原则: 将公式划分为 $F_{p}^{\perp}$ 和 $F_{p}^{\top}$, 并对包含 $\perp$ 或 $\top$ 的公式进行简化. 对量化布尔公式而言, 我们自然需要扩充简化规则, 将对量词的简化也包括进来.</p>
+
+<p>我们进一步引入一个简单的记法. 考虑量化布尔公式 (前束范式)</p>
+
+\[\exists \forall_1 p_1 \cdots \exists \forall_n p_n G,\]
+
+<p>其中 $G$ 为谓词公式. 称 <strong>$F$ 最外层的前缀</strong> 为 $\exists \forall_1 p_1 \cdots \exists \forall_i p_i$, 其中 $\exists \forall_1 = \cdots = \exists \forall_i$.</p>
+
+<p>举例而言, $\exists p \exists q (p \wedge q)$ 的最外层前缀为 $\exists p \exists q$, 而 $\forall p_1 \exists p_2 \exists p_3 G’$ 的则为 $\forall p_1$.</p>
+
+<p><strong>算法 9.3.1</strong> (量化布尔公式的分割算法)</p>
+<blockquote>
+  <p>量化布尔公式的分割算法如下图所示.</p>
+</blockquote>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20211218141507.png" alt="20211218141507" /></p>
+
+<p><strong>引理 9.3.2</strong> (纯原子)</p>
+<blockquote>
+  <p>记 $p$ 为布尔变量, $F$ 为量化布尔公式:<br /></p>
+  <ol>
+    <li>若 $F$ 的所有出现均为正, 则 $\exists p F$ 和 $F_{p}^{\top}$ 等价, 且 $\forall p F$ 和 $F_{p}^{\perp}$ 等价. <br /></li>
+    <li>若 $F$ 的所有出现均为负, 则 $\exists p F$ 和 $F_{p}^{\perp}$ 等价, 且 $\forall p F$ 和 $F_{p}^{\top}$ 等价. <br /></li>
+  </ol>
+</blockquote>
+
+<p>我们最后对量化布尔公式的 <code class="language-plaintext highlighter-rouge">DLL</code> 算法进行讨论. 它在谓词公式情况下的相应形式是结合单位传播法与合取范式得到的. 由于全称量词的存在, 我们不能直接在量化布尔公式上沿用谓词公式的单位传播法: 一个显然的例子是, 考虑公式 $\forall p (p)$, 它本身显然是不可满足的, 但若对它应用单位传播法, 得到的结果是可满足的 ${p}$.</p>
+
+<p>因此, 在量化布尔公式的单位传播法中, 我们认定任何形如 $\forall p (p \wedge F)$ 为不可满足的, 而 $\exists p (p \wedge F)$ 则与 $F_{p}^{\top}$ 等价.</p>
+
+<p><strong>定义 9.2.3</strong> (单位传播)</p>
+<blockquote>
+  <p>记 $S$ 为由一系列子句组成的集合, $Q$ 为一系列量词 $\exists \forall_1 p_1 \cdots \exists \forall_n p_n$. 称这一系列子句组成的集合 $S‘$ 是结合量词序列 $Q$, 通过 <strong>单位传播</strong> 从 $S$ 得来的, 若 $S’$ 为从 $S$ 使用一系列转换所得来:<br />
+若 $S$ 包含一个由单个文字 $L$ 组成, 形如 $p$ 或 $\neg p$ 的单位字句 (<code class="language-plaintext highlighter-rouge">Unit Clause</code>), 则<br /></p>
+  <ol>
+    <li>若 $Q$ 包含 $\forall p$, 则将 $S$ 替换为集合 ${\square}$.</li>
+    <li>否则进行下列操作:<br />
+2.1 将 $S$ 中所有形如 $L \vee C’$ 的子句移除. <br />
+2.2 将 $S$ 中所有形如 $\widetilde{L} \vee C’$ 的子句取代为 $C’$. <br /></li>
+  </ol>
+</blockquote>
+
+<p><strong>算法 9.3.2</strong> (量化布尔公式的 <code class="language-plaintext highlighter-rouge">DLL</code> 算法)</p>
+<blockquote>
+  <p>量化布尔公式的 <code class="language-plaintext highlighter-rouge">DLL</code> 算法如下图所示:</p>
+</blockquote>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20211218145211.png" alt="20211218145211" /></p>
+
+<p>其中, <code class="language-plaintext highlighter-rouge">select_literal()</code> 每次从公式中选出一个被量词修饰的谓词变量.</p>
+
+<p>我们同样可以引入纯文字法则 (<code class="language-plaintext highlighter-rouge">Pure Literal Rule</code>). 考虑量词前缀 $Q$, 引入关于量词前缀的偏序 $&gt;_{Q}$: 若在 $Q$ 中, $p$ 先于 $q$ 出现, 则记 $p &gt; q$, 如在 $Q = \forall p \exists q \forall R$ 中, 就有 $p &gt; q &gt; r$.</p>
+
+<p>进一步地, 我们可以将这样的顺序推广到文字上. 对于分别包含变量 $p_1, p_2$ 的文字 $L_1, L_2$, 若 $p_1 &gt; p_2$, 则 $L_1 &gt; L_2$.</p>
+
+<p>下面约定一个记法: 称文字 $L$ 在 $Q$ 中为 <strong>全称</strong> (存在) 的, 若 $Q$ 包含 $\forall p$ ($\exists p$) 且 $p$ 在 $L$ 中出现.</p>
+
+<p>下面看一个例子: 考虑 (显然为合取范式) 公式</p>
+
+\[\exists p \forall q \exists r ((p \vee q \vee \neg r) \wedge (p \vee \neg q \vee r) \wedge (\neg p \vee q \vee r) \wedge (\neg p \vee q \neg r))\]
+
+<p>该公式的量词前缀 $Q := \exists p \forall q \exists r$, 且$p &gt; q &gt; r$.</p>
+
+<p>同时由 $p &gt; q$ 可知 $p &gt; \neg q, ~ \neg p &gt; \neg q, ~ \neg p &gt; q$.</p>
+
+<p>在该公式中, 全称文字分别为 $p, \neg p, r, \neg r$, 而存在文字为 $q, \neg q$.</p>
+
+<p><strong>引理 9.3.3</strong> (全称文字删除规则)</p>
+<blockquote>
+  <p>令 $G = Q(C_1 \wedge \cdots \wedge C_n)$ 为一个闭合的, 修正的合取范式, 其中 $Q$ 为量词前缀. 假设某个 $C_i$ 不为重言式, 且它包含一个在 $Q$ 内全称 (<code class="language-plaintext highlighter-rouge">Universal</code>) 的文字 $L$. 若该文字在关于谓词变量的偏序 $&gt;$ 下比 $C_i$ 中任何存在文字都小, 则从 $C_i$ 中删除 $L$ 不影响 $G$ 的真值.</p>
+</blockquote>
+
+<p>举例而言, 考虑 $Q = \forall q \exists q \forall r \exists s$, 则从 $Q$ 中任何不为重言式的字句中删除任何包含 $r$ 但不包含 $s$ 的文字都不会改变 $Q$ 的真值.</p>
+
+<p>进一步地我们可以立即得到下列的结论:</p>
+
+<p>若某个子句 $C_i$ 只包含在 $Q$ 中全称的文字, 则 $G$ 是不可接受的, 因为更具上述引理, 我们可以将 $C_i$ 简化为空子句.</p>
+
+
+
+                <hr style="visibility: hidden;">
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2021/11/12/Ch8-LogicNotes/" data-toggle="tooltip" data-placement="top" title="逻辑学探幽 Part8">
+                        Previous<br>
+                        <span>逻辑学探幽 Part8</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2021/12/05/Ch10-LogicNotes/" data-toggle="tooltip" data-placement="top" title="逻辑学探幽 Part10">
+                        Next<br>
+                        <span>逻辑学探幽 Part10</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <hr style="visibility: hidden;">
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+                
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+
+
+<section>
+    
+        <hr class="hidden-sm hidden-xs">
+    
+    <h5><a href="/archive/">FEATURED TAGS</a></h5>
+    <div class="tags">
+        
+        
+        
+        
+        
+        
+                <a data-sort="0109" 
+                    href="/archive/?tag=COMP12111"
+                    title="COMP12111"
+                    rel="10">COMP12111</a>
+        
+                <a data-sort="0027" 
+                    href="/archive/?tag=2021"
+                    title="2021"
+                    rel="92">2021</a>
+        
+                <a data-sort="0073" 
+                    href="/archive/?tag=%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0"
+                    title="课程笔记"
+                    rel="46">课程笔记</a>
+        
+                <a data-sort="0079" 
+                    href="/archive/?tag=%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0"
+                    title="前端学习"
+                    rel="40">前端学习</a>
+        
+                <a data-sort="0079" 
+                    href="/archive/?tag=50P50D"
+                    title="50P50D"
+                    rel="40">50P50D</a>
+        
+                <a data-sort="0094" 
+                    href="/archive/?tag=2020"
+                    title="2020"
+                    rel="25">2020</a>
+        
+                <a data-sort="0104" 
+                    href="/archive/?tag=COMP24011"
+                    title="COMP24011"
+                    rel="15">COMP24011</a>
+        
+                <a data-sort="0107" 
+                    href="/archive/?tag=%E9%80%BB%E8%BE%91%E5%AD%A6"
+                    title="逻辑学"
+                    rel="12">逻辑学</a>
+        
+                <a data-sort="0109" 
+                    href="/archive/?tag=COMP15111"
+                    title="COMP15111"
+                    rel="10">COMP15111</a>
+        
+                <a data-sort="0110" 
+                    href="/archive/?tag=%E6%89%A9%E5%B1%95%E8%87%AA%E4%B9%A0"
+                    title="扩展自习"
+                    rel="9">扩展自习</a>
+        
+                <a data-sort="0110" 
+                    href="/archive/?tag=COMP21111"
+                    title="COMP21111"
+                    rel="9">COMP21111</a>
+        
+                <a data-sort="0112" 
+                    href="/archive/?tag=%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0"
+                    title="机器学习"
+                    rel="7">机器学习</a>
+        
+                <a data-sort="0112" 
+                    href="/archive/?tag=COMP11212"
+                    title="COMP11212"
+                    rel="7">COMP11212</a>
+        
+                <a data-sort="0115" 
+                    href="/archive/?tag=%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95"
+                    title="数据结构和算法"
+                    rel="4">数据结构和算法</a>
+        
+                <a data-sort="0115" 
+                    href="/archive/?tag=COMP15212"
+                    title="COMP15212"
+                    rel="4">COMP15212</a>
+        
+                <a data-sort="0115" 
+                    href="/archive/?tag=COMP23111"
+                    title="COMP23111"
+                    rel="4">COMP23111</a>
+        
+                <a data-sort="0116" 
+                    href="/archive/?tag=%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7"
+                    title="奇技淫巧"
+                    rel="3">奇技淫巧</a>
+        
+                <a data-sort="0117" 
+                    href="/archive/?tag=%E7%99%BD%E6%9E%9C%E5%9B%AD"
+                    title="白果园"
+                    rel="2">白果园</a>
+        
+                <a data-sort="0117" 
+                    href="/archive/?tag=%E7%AE%97%E6%B3%95"
+                    title="算法"
+                    rel="2">算法</a>
+        
+                <a data-sort="0117" 
+                    href="/archive/?tag=Lab"
+                    title="Lab"
+                    rel="2">Lab</a>
+    </div>
+</section>
+
+
+                <!-- Friends Blog -->
+                
+<hr>
+<h5>FRIENDS</h5>
+<ul class="list-inline">
+  
+  <li><a href="http://ryanxin.cn">Ryan Xin</a></li>
+  
+  <li><a href="https://flyhigher.top">Axton.Gay</a></li>
+  
+  <li><a href="https://graynekocafe.net">GrayNekoBean</a></li>
+  
+  <li><a href="Gnefil.github.io">Gnefil</a></li>
+  
+</ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<!-- add support for mathjax by voleking-->
+
+
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "KirisameR";
+    var disqus_identifier = "/2021/11/19/Ch9 LogicNotes";
+    var disqus_url = "http://localhost:4000/2021/11/19/Ch9-LogicNotes/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'right',
+          // icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <!-- SNS Link -->
+                
+
+
+<ul class="list-inline text-center">
+
+
+  
+  
+  
+  
+  
+  
+  <li>
+    <a target="_blank" href="https://github.com/KirisameR">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  
+  
+</ul>
+
+                <p class="copyright text-muted">
+                    Copyright &copy; 某一般线性空间 2022
+                    <br>
+                    Powered by <a href="http://huangxuan.me">Hux Blog</a> |
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="100px"
+                        height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=huxpro&repo=huxpro.github.io&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<!-- Currently, only navbar scroll-down effect at desktop still depends on this -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Simple Jekyll Search -->
+<script src="/js/simple-jekyll-search.min.js"></script>
+
+<!-- Service Worker -->
+
+<script src="/js/snackbar.js "></script>
+<script src="/js/sw-registration.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+        var d = document, t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+
+
+
+
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog(selector) {
+
+        // interop with multilangual 
+        if ('' == 'true') {
+            _containerSelector = 'div.post-container.active'
+        } else {
+            _containerSelector = 'div.post-container'
+        }
+
+        // init
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        // clean
+        $(selector).html('')
+
+        // appending
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+<!-- Multi-Lingual -->
+
+
+<!-- Simple Jekyll Search -->
+<script>
+    // https://stackoverflow.com/questions/1912501/unescape-html-entities-in-javascript
+    function htmlDecode(input) {
+        var e = document.createElement('textarea');
+        e.innerHTML = input;
+        // handle case of empty input
+        return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+    }
+
+    SimpleJekyllSearch({
+        searchInput: document.getElementById('search-input'),
+        resultsContainer: document.getElementById('search-results'),
+        json: '/search.json',
+        searchResultTemplate: '<div class="post-preview item"><a href="{url}"><h2 class="post-title">{title}</h2><h3 class="post-subtitle">{subtitle}</h3><hr></a></div>',
+        noResultsText: 'No results',
+        limit: 50,
+        fuzzy: false,
+        // a hack to get escaped subtitle unescaped. for some reason, 
+        // post.subtitle w/o escape filter nuke entire search.
+        templateMiddleware: function (prop, value, template) {
+            if (prop === 'subtitle' || prop === 'title') {
+                if (value.indexOf("code")) {
+                    return htmlDecode(value);
+                } else {
+                    return value;
+                }
+            }
+        }
+    });
+
+    $(document).ready(function () {
+        var $searchPage = $('.search-page');
+        var $searchOpen = $('.search-icon');
+        var $searchClose = $('.search-icon-close');
+        var $searchInput = $('#search-input');
+        var $body = $('body');
+
+        $searchOpen.on('click', function (e) {
+            e.preventDefault();
+            $searchPage.toggleClass('search-active');
+            var prevClasses = $body.attr('class') || '';
+            setTimeout(function () {
+                $body.addClass('no-scroll');
+            }, 400)
+
+            if ($searchPage.hasClass('search-active')) {
+                $searchClose.on('click', function (e) {
+                    e.preventDefault();
+                    $searchPage.removeClass('search-active');
+                    $body.attr('class', prevClasses);  // from closure 
+                });
+                $searchInput.focus();
+            }
+        });
+    });
+</script>
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

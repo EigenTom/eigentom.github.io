@@ -1,0 +1,288 @@
+I"�N<h1 id="lab2-comp12111-计算机组成与结构-16位简易alu电路设计">Lab2: COMP12111 计算机组成与结构: 16位简易ALU电路设计</h1>
+
+<p>在本文中, 我们将基于 <code class="language-plaintext highlighter-rouge">Ch1, Ch2</code> 所学知识, 搭建完成 <code class="language-plaintext highlighter-rouge">16</code> 位简易 <code class="language-plaintext highlighter-rouge">ALU</code>的电路设计, 并对其进行测试.</p>
+
+<h2 id="1-alu-设计目标">1. <code class="language-plaintext highlighter-rouge">ALU</code> 设计目标</h2>
+
+<p>在本次实验中, 我们将设计一个 <code class="language-plaintext highlighter-rouge">16</code> 位的运算逻辑单元 (<code class="language-plaintext highlighter-rouge">ALU</code>). 其电路拓扑图如下:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameMarisaa/KirisameMarisaa.github.io/img/blogpost_images/20201107080602.png" alt="20201107080602" />
+其中, 指令输入 <code class="language-plaintext highlighter-rouge">M</code> 的输入与功能定义表如下:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameMarisaa/KirisameMarisaa.github.io/img/blogpost_images/20201107080625.png" alt="20201107080625" />
+<br /></p>
+
+<h2 id="2-alu-逻辑设计">2. <code class="language-plaintext highlighter-rouge">ALU</code> 逻辑设计</h2>
+<p>在本次实验中, 由于 <code class="language-plaintext highlighter-rouge">ALU</code> 执行的运算受指令输入所控制, 我们使用阻塞赋值和 <code class="language-plaintext highlighter-rouge">case</code> 语句对该组合逻辑结构加以定义. 其主要逻辑结构如下:</p>
+
+<div class="language-verilog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre><span class="c1">// behavioural description</span>
+
+<span class="k">always</span> <span class="o">@</span> <span class="p">(</span><span class="o">*</span><span class="p">)</span>
+<span class="k">begin</span>
+    <span class="k">case</span> <span class="p">(</span><span class="n">M</span><span class="p">)</span>
+        <span class="mb">2'b00</span><span class="o">:</span> <span class="n">Q</span> <span class="o">=</span> <span class="n">Y</span><span class="p">;</span>
+        <span class="mb">2'b01</span><span class="o">:</span> <span class="n">Q</span> <span class="o">=</span> <span class="n">X</span><span class="o">+</span><span class="n">Y</span><span class="p">;</span>
+        <span class="mb">2'b10</span><span class="o">:</span> <span class="n">Q</span> <span class="o">=</span> <span class="n">X</span><span class="o">+</span><span class="mh">16'h0001</span><span class="p">;</span>     <span class="c1">//represent 1 in hexadecimal way to avoid confusions</span>
+        <span class="mb">2'b11</span><span class="o">:</span> <span class="n">Q</span> <span class="o">=</span> <span class="n">X</span><span class="o">-</span><span class="n">Y</span><span class="p">;</span>
+        <span class="nl">default:</span> <span class="n">Q</span> <span class="o">=</span> <span class="mb">'bx</span><span class="p">;</span>          <span class="c1">//default: send NULL to alert</span>
+    <span class="k">endcase</span>
+<span class="k">end</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>注意:</p>
+<ol>
+  <li>在定义 <code class="language-plaintext highlighter-rouge">case</code> 语句时, 必须注意是否合理定义 <code class="language-plaintext highlighter-rouge">default</code> 语句, 否则当 <code class="language-plaintext highlighter-rouge">case</code> 的判断信号为高阻或未定义时, 条件体的执行就会出现问题. 在本实例中, 我们列举所有可能的合理输入并对其输出进行依次定义, 并指定当接收非法输入时输出无效信号 <code class="language-plaintext highlighter-rouge">'bx</code> 以起到警告作用.</li>
+  <li>在本实例中我们需要特别注意敏感度列表的定义. <code class="language-plaintext highlighter-rouge">ALU</code> 执行的运算类型受到控制变量的影响, 那么是否意味着 <code class="language-plaintext highlighter-rouge">always</code> 程序体的执行与其他输入变量的变化值无关呢? 我们考虑这个情形: 如果我们希望多次连续地输入不同的数值, 但执行同一种运算, 那么如果敏感度列表中不包含输入数据值的话, 将会导致无法连续执行同一种运算, 并且在执行一种运算之后必须改变指令变量输入值才能进行新的运算. 因此, 合理的敏感度列表应当包含所有的输入值.</li>
+</ol>
+
+<p>阻塞赋值语句的被赋值变量必须被声明为 <code class="language-plaintext highlighter-rouge">reg</code> 数据类型. 而 <code class="language-plaintext highlighter-rouge">Verilog</code> 规定, 电路定义时, 输入变量必须被定义为 <code class="language-plaintext highlighter-rouge">wire</code>. 故电路输入/输出定义如下:</p>
+
+<div class="language-verilog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="c1">// module header</span>
+
+<span class="k">module</span> <span class="n">mu0_alu</span><span class="p">(</span><span class="kt">input</span>  <span class="kt">wire</span> <span class="p">[</span><span class="mi">15</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span>  <span class="n">X</span><span class="p">,</span> 
+               <span class="kt">input</span>  <span class="kt">wire</span> <span class="p">[</span><span class="mi">15</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span>  <span class="n">Y</span><span class="p">,</span> 
+               <span class="kt">input</span>  <span class="kt">wire</span> <span class="p">[</span><span class="mi">1</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span>   <span class="n">M</span><span class="p">,</span> 
+               <span class="kt">output</span> <span class="kt">reg</span>  <span class="p">[</span><span class="mi">15</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span>  <span class="n">Q</span><span class="p">);</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>对电路定义和设计的总结如下:</p>
+
+<div class="language-verilog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+</pre></td><td class="rouge-code"><pre><span class="c1">// MU0 ALU design </span>
+
+
+<span class="c1">// The following line is required for simulation </span>
+<span class="cp">`timescale</span> <span class="mi">1</span><span class="n">ns</span><span class="o">/</span><span class="mi">100</span><span class="n">ps</span>
+
+<span class="c1">// for simulation purposes</span>
+<span class="cp">`default_nettype</span> <span class="n">none</span>
+
+<span class="c1">// module header</span>
+
+<span class="k">module</span> <span class="n">mu0_alu</span><span class="p">(</span><span class="kt">input</span>  <span class="kt">wire</span> <span class="p">[</span><span class="mi">15</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span>  <span class="n">X</span><span class="p">,</span> 
+               <span class="kt">input</span>  <span class="kt">wire</span> <span class="p">[</span><span class="mi">15</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span>  <span class="n">Y</span><span class="p">,</span> 
+               <span class="kt">input</span>  <span class="kt">wire</span> <span class="p">[</span><span class="mi">1</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span>   <span class="n">M</span><span class="p">,</span> 
+               <span class="kt">output</span> <span class="kt">reg</span>  <span class="p">[</span><span class="mi">15</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span>  <span class="n">Q</span><span class="p">);</span>
+
+<span class="c1">// behavioural description</span>
+
+<span class="k">always</span> <span class="o">@</span> <span class="p">(</span><span class="o">*</span><span class="p">)</span>
+<span class="k">begin</span>
+    <span class="k">case</span> <span class="p">(</span><span class="n">M</span><span class="p">)</span>
+        <span class="mb">2'b00</span><span class="o">:</span> <span class="n">Q</span> <span class="o">=</span> <span class="n">Y</span><span class="p">;</span>
+        <span class="mb">2'b01</span><span class="o">:</span> <span class="n">Q</span> <span class="o">=</span> <span class="n">X</span><span class="o">+</span><span class="n">Y</span><span class="p">;</span>
+        <span class="mb">2'b10</span><span class="o">:</span> <span class="n">Q</span> <span class="o">=</span> <span class="n">X</span><span class="o">+</span><span class="mh">16'h0001</span><span class="p">;</span>   <span class="c1">//represent 1 in hexadecimal way to avoid confusions</span>
+        <span class="mb">2'b11</span><span class="o">:</span> <span class="n">Q</span> <span class="o">=</span> <span class="n">X</span><span class="o">-</span><span class="n">Y</span><span class="p">;</span>
+        <span class="nl">default:</span> <span class="n">Q</span> <span class="o">=</span> <span class="mb">'bx</span><span class="p">;</span>        <span class="c1">//default: send NULL to alert</span>
+    <span class="k">endcase</span>
+<span class="k">end</span>
+
+<span class="k">endmodule</span> 
+
+<span class="c1">// for simulation purposes</span>
+<span class="cp">`default_nettype</span> <span class="kt">wire</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="3-alu-电路测试">3. <code class="language-plaintext highlighter-rouge">ALU</code> 电路测试</h2>
+
+<p>要对电路进行测试, 我们需要先后依序定义被测试电路的输入/输出, 将被测试电路模块实例化为被测试对象, 最后指定测试内容.</p>
+
+<ol>
+  <li>
+    <p>定义被测电路的输入/输出:
+由于在实验中, 我们要依序变换输入信号的值, 因此输入信号应被定义为 <code class="language-plaintext highlighter-rouge">reg</code> 数据类型. 相应的, 我们并不关心输出信号值的变化历史, 故它可以被定义为 <code class="language-plaintext highlighter-rouge">wire</code> 数据类型.</p>
+
+    <p>在本实验中, 被测电路的输入/输出定义如下:</p>
+    <div class="language-verilog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre> <span class="c1">// Internal connections</span>
+ <span class="kt">wire</span> <span class="p">[</span><span class="mi">15</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span> <span class="n">Q</span><span class="p">;</span>  <span class="c1">//output Q</span>
+ <span class="kt">reg</span> <span class="p">[</span><span class="mi">15</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span> <span class="n">X</span><span class="p">;</span>   <span class="c1">//input X</span>
+ <span class="kt">reg</span> <span class="p">[</span><span class="mi">15</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span> <span class="n">Y</span><span class="p">;</span>   <span class="c1">//input Y</span>
+ <span class="kt">reg</span> <span class="p">[</span><span class="mi">1</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span> <span class="n">M</span><span class="p">;</span>    <span class="c1">//input M</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>将被测模块实例化被测对象:
+    <div class="language-verilog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre> <span class="c1">// Instantiate mu0_alu as dut (device under test)</span>
+ <span class="n">mu0_alu</span> <span class="n">dut</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">Q</span><span class="p">);</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>
+    <p>指定测试内容:<br />
+在本实例中, 由于变量的运算是由编译器所提供的标准运算符所执行的, 因此我们可以不去考虑运算符可能输出结果的正确与否问题, 只需要确定当我们输入特定指令变量值时是否执行了设计要求所指定的运算类型.</p>
+
+    <p>此外, 为了更好地在波形图上显示输出内容, 我们可以在最后一次测试项目后定义一个长为 <code class="language-plaintext highlighter-rouge">100ns</code> 的延迟.</p>
+
+    <p>并且, 我们还可以刻意令指令变量输入无效值, 以此测试特殊情况下 <code class="language-plaintext highlighter-rouge">ALU</code> 的稳健性. 
+测试内容整理如下:</p>
+    <div class="language-verilog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="rouge-code"><pre> <span class="c1">// Test vectors</span>
+ <span class="k">initial</span>
+ <span class="k">begin</span>
+ <span class="p">#</span><span class="mi">100</span> <span class="n">X</span> <span class="o">=</span> <span class="mh">16'h0003</span><span class="p">;</span> <span class="n">Y</span> <span class="o">=</span> <span class="mh">16'h0002</span><span class="p">;</span> <span class="n">M</span> <span class="o">=</span> <span class="mb">2'b00</span><span class="p">;</span>    <span class="c1">//initialize X=2, Y=1, M=0</span>
+ <span class="p">#</span><span class="mi">100</span> <span class="n">M</span> <span class="o">=</span> <span class="mb">2'b00</span><span class="p">;</span>         <span class="c1">//Test1: M=0, Q = Y = 2</span>
+ <span class="p">#</span><span class="mi">100</span> <span class="n">M</span> <span class="o">=</span> <span class="mb">2'b01</span><span class="p">;</span>         <span class="c1">//Test2: M=1, Q = X + Y = 5</span>
+ <span class="p">#</span><span class="mi">100</span> <span class="n">M</span> <span class="o">=</span> <span class="mb">2'b10</span><span class="p">;</span>         <span class="c1">//Test3: M=2, Q= X+1 = 4</span>
+ <span class="p">#</span><span class="mi">100</span> <span class="n">M</span> <span class="o">=</span> <span class="mb">2'b11</span><span class="p">;</span>         <span class="c1">//Test4: M=3, Q = X - Y = 1</span>
+ <span class="p">#</span><span class="mi">100</span> <span class="n">M</span> <span class="o">=</span> <span class="mb">'bx</span><span class="p">;</span>           <span class="c1">//Test5: Invalid input</span>
+ <span class="p">#</span><span class="mi">100</span>
+
+ <span class="p">$</span><span class="nb">finish</span><span class="p">;</span>   <span class="c1">// end the simulation</span>
+ <span class="k">end</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+
+    <p>对电路测试的总结如下:</p>
+    <div class="language-verilog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+</pre></td><td class="rouge-code"><pre> <span class="c1">// MU0 ALU testbench </span>
+ <span class="c1">// #1 = 1ns</span>
+ <span class="cp">`timescale</span> <span class="mi">1</span><span class="n">ns</span><span class="o">/</span><span class="mi">100</span><span class="n">ps</span> 
+
+ <span class="k">module</span> <span class="n">mu0_alu_tb</span><span class="p">();</span>
+
+ <span class="c1">// Internal connections</span>
+ <span class="kt">wire</span> <span class="p">[</span><span class="mi">15</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span> <span class="n">Q</span><span class="p">;</span>  <span class="c1">//output Q</span>
+ <span class="kt">reg</span> <span class="p">[</span><span class="mi">15</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span> <span class="n">X</span><span class="p">;</span>   <span class="c1">//input X</span>
+ <span class="kt">reg</span> <span class="p">[</span><span class="mi">15</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span> <span class="n">Y</span><span class="p">;</span>   <span class="c1">//input Y</span>
+ <span class="kt">reg</span> <span class="p">[</span><span class="mi">1</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span> <span class="n">M</span><span class="p">;</span>    <span class="c1">//input M</span>
+
+
+
+ <span class="c1">// Instantiate mu0_alu as dut (device under test)</span>
+ <span class="n">mu0_alu</span> <span class="n">dut</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">Q</span><span class="p">);</span>
+
+
+ <span class="c1">// Test vectors</span>
+ <span class="k">initial</span>
+ <span class="k">begin</span>
+ <span class="p">#</span><span class="mi">100</span> <span class="n">X</span> <span class="o">=</span> <span class="mh">16'h0003</span><span class="p">;</span> <span class="n">Y</span> <span class="o">=</span> <span class="mh">16'h0002</span><span class="p">;</span> <span class="n">M</span> <span class="o">=</span> <span class="mb">2'b00</span><span class="p">;</span>    <span class="c1">//initialize X=2, Y=1, M=0</span>
+ <span class="p">#</span><span class="mi">100</span> <span class="n">M</span> <span class="o">=</span> <span class="mb">2'b00</span><span class="p">;</span>         <span class="c1">//Test1: M=0, Q = Y = 2</span>
+ <span class="p">#</span><span class="mi">100</span> <span class="n">M</span> <span class="o">=</span> <span class="mb">2'b01</span><span class="p">;</span>         <span class="c1">//Test2: M=1, Q = X + Y = 5</span>
+ <span class="p">#</span><span class="mi">100</span> <span class="n">M</span> <span class="o">=</span> <span class="mb">2'b10</span><span class="p">;</span>         <span class="c1">//Test3: M=2, Q= X+1 = 4</span>
+ <span class="p">#</span><span class="mi">100</span> <span class="n">M</span> <span class="o">=</span> <span class="mb">2'b11</span><span class="p">;</span>         <span class="c1">//Test4: M=3, Q = X - Y = 1</span>
+ <span class="p">#</span><span class="mi">100</span> <span class="n">M</span> <span class="o">=</span> <span class="mb">'bx</span><span class="p">;</span>           <span class="c1">//Test5: Invalid input</span>
+ <span class="p">#</span><span class="mi">100</span>
+
+ <span class="p">$</span><span class="nb">finish</span><span class="p">;</span>   <span class="c1">// end the simulation</span>
+ <span class="k">end</span>
+    
+ <span class="c1">// Save results as VCD file </span>
+ <span class="k">initial</span>
+ <span class="k">begin</span>
+ <span class="p">$</span><span class="nb">dumpfile</span><span class="p">(</span><span class="s">"mu0_alu_tb_results.vcd"</span><span class="p">);</span>  <span class="c1">// Save simulation waveforms in this file</span>
+ <span class="p">$</span><span class="nb">dumpvars</span><span class="p">;</span> <span class="c1">// Capture all simulation waveforms</span>
+ <span class="k">end</span>
+
+ <span class="k">endmodule</span> 
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+</ol>
+
+:ET

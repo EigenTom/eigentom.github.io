@@ -1,0 +1,52 @@
+I"�<h1 id="用于通讯的自然语言">用于通讯的自然语言</h1>
+
+<p><strong>通讯</strong> 是一种通过 <strong>产生和感知信号</strong> 而形成的, <strong>有目的的信息交换</strong>. 在一个 <strong>部分可观察</strong> 的世界中, 通讯有助于 <code class="language-plaintext highlighter-rouge">Agent</code> 达成它的目的, 因为 <code class="language-plaintext highlighter-rouge">Agent</code> 能够通过通讯获得 <strong>由其他 <code class="language-plaintext highlighter-rouge">Agent</code> 观察到或推断出的信息</strong>.</p>
+
+<p>如果我们希望我们构造的 <code class="language-plaintext highlighter-rouge">Agent</code> 能够对人类有所帮助的话, 它们就需要具备学习和使用语言的能力. 本章我们考虑用于通讯的语言模型.</p>
+
+<h2 id="1-短语结构语法">1. 短语结构语法</h2>
+
+<p>我们在上一章中提到过 <strong>$n$ 元语言模型</strong>, 它基于单词序列, 但其最大的问题在于 <strong>数据稀疏</strong>, 即使语料库中由上万亿个单词, 也无法提供可靠的评估.</p>
+
+<p>我们下面介绍一个 <strong>基于短语结构思想</strong> 的语言模型: <strong>概率上下文无关语法</strong> (<code class="language-plaintext highlighter-rouge">Probabilistic Context-Free Grammar</code>, <code class="language-plaintext highlighter-rouge">PCFG</code>).</p>
+
+<p><strong>语法</strong> (<code class="language-plaintext highlighter-rouge">Grammar</code>) 是 <strong>一系列规则组成的集合</strong>, 它将语言定义为一个被允许的词串集合, 而 <strong>概率</strong> 意味着这个语法给每个字符串都分配了一个概率. 下面是一个 <code class="language-plaintext highlighter-rouge">PCFG</code> 规则:</p>
+
+\[\begin{aligned} VP \rightarrow &amp; ~~ \text{Verb}[0.70] \\ \vert &amp; ~~\text{VP} ~ \text{NP} [0.30]\end{aligned}\]
+
+<p>其中, $\text{VP}$ (<code class="language-plaintext highlighter-rouge">Verb Phrase</code>, 动词短语) 和 $\text{NP}$ (<code class="language-plaintext highlighter-rouge">Noun Phrase</code>, 名词短语) 是 <strong>非终结符</strong> (<code class="language-plaintext highlighter-rouge">Non-terminal Symbols</code>), 语法也会用到真正的单词, 也就是 <strong>终结符</strong> (<code class="language-plaintext highlighter-rouge">Terminal Symbols</code>).</p>
+
+<p>这条规则表示: 动词短语 <strong>单独由动词组成</strong> 的概率为 $0.70$, 而由一个 $\text{VP}$ 再连上一个 $\text{NP}$ 组成的概率为 $0.30$.</p>
+
+<p>下面我们针对一小部分英文定义语法, 我们称其为 $\epsilon_0$ 语言:</p>
+
+<h3 id="epsilon_0-的词典">$\epsilon_0$ 的词典</h3>
+
+<p>首先定义一个 <strong>词典</strong> 或 <strong>合法的词语列表</strong> (<code class="language-plaintext highlighter-rouge">Lexicon</code>): 这些词语按照一种字典使用者熟悉的 <strong>词法范畴</strong> (<code class="language-plaintext highlighter-rouge">Lexical Categories</code>)进行分类:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220105143135.png" alt="20220105143135" /></p>
+
+<p>每个以 $\cdots$ 结尾的范畴说明在该范畴内还有其他词语. 对 <strong>名词</strong>, <strong>动词</strong>, <strong>形容词</strong>, <strong>副词</strong> 和 <strong>名字</strong> 而言, 由于我们不可能将它们全部列出, 因此称这五个范畴为 <strong>开放类</strong> (<code class="language-plaintext highlighter-rouge">Open Class</code>).</p>
+
+<p>而对于 <strong>代词</strong>, <strong>关系代词</strong>, <strong>介词</strong>, <strong>冠词</strong> 和 <strong>连词</strong>, 它们是可以被全部列举出的, 因此称这些范畴为 <strong>封闭类</strong> (<code class="language-plaintext highlighter-rouge">Closed Class</code>).</p>
+
+<h3 id="epsilon_0-的语法">$\epsilon_0$ 的语法</h3>
+
+<p>在定义了 $\epsilon_0$ 的词典后, 下一步就需要给出该语言的, 用来描述如何合法地将单词组合成短语/句子的 <strong>语法</strong>:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220105143625.png" alt="20220105143625" /></p>
+
+<p>需要注意的是, 这一给定的语法是可能 <strong>生成不符合语法的语句</strong> (即 “过生成”) 的, 也可能 <strong>欠生成</strong> (认为很多实际上在英语中合法的语句为不合法的).</p>
+
+<p>我们先考虑, 运用现有语法我们可以做些什么.</p>
+
+<h2 id="2-句法分析">2. 句法分析</h2>
+
+<p><strong>句法分析</strong> (<code class="language-plaintext highlighter-rouge">Parsing</code>) 是 <strong>按照语法规则分析单词串 (句子)</strong> 从而 <strong>得到它的短语结构</strong> 的过程.</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220105143922.png" alt="20220105143922" /></p>
+
+<p>可见, 我们既可以从符号 $S$ 出发, <strong>自顶向下</strong> 地搜索并构造 <strong>以单词作为叶子结点</strong> 的树, 也可从单词出发, <strong>自底向上地</strong> 搜索并构造树, 直到顶端 $S$.</p>
+
+<p>(后面的部分你校的Slides里就没怎么介绍了, 鸽掉)</p>
+:ET

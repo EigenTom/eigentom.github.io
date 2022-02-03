@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="description" content="由于相关法律法规规定, 该内容无法显示.">
+    <meta name="keywords" content="菜">
+    <meta name="theme-color" content="#333">
+
+    <!-- Open Graph -->
+    <meta property="og:title"
+        content="Ch5 计算机组成与结构 内存模型简介 - 某一般线性空间 | Ramdom Linear Space">
+    
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Ch5 内存模型简介
+">
+    
+    <meta property="article:published_time" content=" 2020-12-04T00:00:00Z">
+    
+    
+    <meta property="article:author" content="R1NG">
+    
+    
+    <meta property="article:tag" content="COMP12111">
+    
+    <meta property="article:tag" content="课程笔记">
+    
+    <meta property="article:tag" content="2020">
+    
+    
+    <meta property="og:image" content="http://localhost:4000https://github.com/KirisameR.png">
+    <meta property="og:url" content="http://localhost:4000/2020/12/04/Ch5-COMP12111/">
+    <meta property="og:site_name" content="某一般线性空间 | Ramdom Linear Space">
+
+    <title>Ch5 计算机组成与结构 内存模型简介 - 某一般线性空间 | Ramdom Linear Space</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4000/2020/12/04/Ch5-COMP12111/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href=" /css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href=" /css/hux-blog.min.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"type="text/css">
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+
+    <!-- 数学公式 -->
+    <script type="text/javascript" async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+            showProcessingMessages: true, //关闭js加载过程信息
+            messageStyle: "none", //不显示信息
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code','a'], //避开某些标签
+                ignoreClass:"comment-content" //避开含该Class的标签
+            },
+            "HTML-CSS": {
+                availableFonts: ["STIX","TeX"], //可选字体
+                showMathMenu: false //关闭右击菜单显示
+            }
+        });
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+    </script>
+
+    
+
+    <!-- Google AdSense -->
+    <script data-ad-client="ca-pub-6487568398225121" async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">RANDOM LINEAR SPACE</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div id="huxblog_navbar">
+                <div class="navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                        
+                        
+                        <li>
+                            <a href="/archive/">Archive</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li class="search-icon">
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <script>
+        // Drop Bootstarp low-performance Navbar
+        // Use customize navbar with high-quality material design animation
+        // in high-perf jank-free CSS3 implementation
+        var $body = document.body;
+        var $toggle = document.querySelector('.navbar-toggle');
+        var $navbar = document.querySelector('#huxblog_navbar');
+        var $collapse = document.querySelector('.navbar-collapse');
+
+        var __HuxNav__ = {
+            close: function () {
+                $navbar.className = " ";
+                // wait until animation end.
+                setTimeout(function () {
+                    // prevent frequently toggle
+                    if ($navbar.className.indexOf('in') < 0) {
+                        $collapse.style.height = "0px"
+                    }
+                }, 400)
+            },
+            open: function () {
+                $collapse.style.height = "auto"
+                $navbar.className += " in";
+            }
+        }
+
+        // Bind Event
+        $toggle.addEventListener('click', function (e) {
+            if ($navbar.className.indexOf('in') > 0) {
+                __HuxNav__.close()
+            } else {
+                __HuxNav__.open()
+            }
+        })
+
+        /**
+         * Since Fastclick is used to delegate 'touchstart' globally
+         * to hack 300ms delay in iOS by performing a fake 'click',
+         * Using 'e.stopPropagation' to stop 'touchstart' event from 
+         * $toggle/$collapse will break global delegation.
+         * 
+         * Instead, we use a 'e.target' filter to prevent handler
+         * added to document close HuxNav.  
+         *
+         * Also, we use 'click' instead of 'touchstart' as compromise
+         */
+        document.addEventListener('click', function (e) {
+            if (e.target == $toggle) return;
+            if (e.target.className == 'icon-bar') return;
+            __HuxNav__.close();
+        })
+    </script>
+    <!-- Search -->
+<div class="search-page">
+  <div class="search-icon-close-container">
+    <span class="search-icon-close">
+      <i class="fa fa-chevron-down"></i>
+    </span>
+  </div>
+  <div class="search-main container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <form></form>
+        <input type="text" id="search-input" placeholder="$ grep...">
+        </form>
+        <div id="search-results" class="mini-post-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/post-bg-comp12111.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+
+
+
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/post-bg-comp12111.jpg');
+        background: ;
+    }
+
+    
+</style>
+
+<header class="intro-header" >
+
+    <div class="header-mask"></div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/archive/?tag=COMP12111" title="COMP12111">COMP12111</a>
+                        
+                        <a class="tag" href="/archive/?tag=%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0" title="课程笔记">课程笔记</a>
+                        
+                        <a class="tag" href="/archive/?tag=2020" title="2020">2020</a>
+                        
+                    </div>
+                    <h1>Ch5 计算机组成与结构 内存模型简介</h1>
+                    
+                    <h2 class="subheading">Everything about memories</h2>
+                    <span class="meta">Posted by R1NG on December 4, 2020</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <!-- Multi-Lingual -->
+                
+
+				<h1 id="ch5-内存模型简介">Ch5 内存模型简介</h1>
+
+<p>在本章中, 我们将对内存和存储进行介绍:</p>
+<ol>
+  <li>内存寻址和解码器</li>
+  <li>内存层级架构</li>
+  <li>寄存器内存</li>
+  <li>缓存</li>
+  <li><code class="language-plaintext highlighter-rouge">SRAM</code> 和 <code class="language-plaintext highlighter-rouge">DRAM</code></li>
+</ol>
+
+<p><br />
+<br /></p>
+
+<h2 id="1-内存寻址和解码器">1. 内存寻址和解码器</h2>
+
+<p>内存用于存储计算机所需要执行的程序或数据, 可以被处理器直接访问. 在不同架构的计算机中, 内存的作用各有不同:</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">von Neumann</code> 架构
+又称为 <code class="language-plaintext highlighter-rouge">Prineton</code> 架构, 是一种将程序指令存储器和数据存储器合二为一的计算机设计架构. 结构简单, 但存在性能瓶颈.</li>
+  <li><code class="language-plaintext highlighter-rouge">Harvard</code> 架构
+ 程序指令和数据被分别存储在不同的存储器中. 其优势在于数据和指令的读写可以同时进行. 并且指令和数据的数据宽度可以不一致. 但其结构更为复杂.</li>
+</ol>
+
+<h3 id="11-计算机的内存寻址空间">1.1 计算机的内存寻址空间</h3>
+
+<p>计算机的寻址空间内一般会将随机存储器 (<code class="language-plaintext highlighter-rouge">Random Access Memory, RAM</code>) 包含在内. 随机存储器中的任何位置在任何时间都可以被使用.</p>
+
+<p>以 $32$ 位 <code class="language-plaintext highlighter-rouge">ARM</code> 架构为例: 该架构定义了 $32$ 位的寻址空间, 其中使用和涉及的绝大多数数据长度均为 $4$ 个字, 即 $32$ Bits, $4$ Bytes, 因此该架构下的随机存储器往往会同时并行访问四个位 (<code class="language-plaintext highlighter-rouge">Bytes</code>). 因此我们也可以将 <code class="language-plaintext highlighter-rouge">ARM</code> 架构的寻址空间视为 $30$ 位的, 预留出来的两个位用于标记所并行访问的四个位中的其中一个.</p>
+
+<p>这样的 $30$ 位寻址空间可以访问大约为 $1Gbit$ 的数据. 在内存芯片单体容量仍然有限的时代, 要制造出能够充分利用 $32$ 位 <code class="language-plaintext highlighter-rouge">ARM</code> 架构寻址能力的内存, 就需要结合多块内存芯片. 内存访问时间和内存周期时间等参数都是刻画内存性能的重要指标.</p>
+
+<p><br /></p>
+
+<h3 id="12-内存读写和三态缓冲器">1.2 内存读写和三态缓冲器</h3>
+<p>要对内存进行读写, 处理器需要通过内存访问界面向内存提供以下信息:</p>
+<ol>
+  <li>所要求执行的操作类型 (读/写)</li>
+  <li>(若要执行写操作) 所需要被写入内存的数据</li>
+  <li>(若要执行读操作) 所将要被读取的内存地址<br /></li>
+</ol>
+
+<p>需要注意的是: 由于内存不能并行执行多个操作, 因此内存的控制信号和数据总线是被整个内存所共享的.</p>
+
+<p>三态缓冲器 (<code class="language-plaintext highlighter-rouge">Tri-state Buffer</code>) 是一隔具有两个输入信号和一个输出信号的逻辑设备. 其状态除了高电平/低电平外, 还有 <strong>高阻态</strong>.</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameMarisaa/KirisameMarisaa.github.io/img/blogpost_images/20201229085207.png" alt="20201229085207" /></p>
+
+<p>三态缓冲器本质上可被视为一个开关. 当输入 <code class="language-plaintext highlighter-rouge">En</code> 为高电平时, 开关闭合并将输入信号 <code class="language-plaintext highlighter-rouge">In</code> 直接传递至 <code class="language-plaintext highlighter-rouge">Out</code>, 此时该三态缓冲器的状态即和 <code class="language-plaintext highlighter-rouge">In</code> 一致, 而 <code class="language-plaintext highlighter-rouge">En</code> 为低电平时开关断开, 我们将此时的三态缓冲器状态视为高阻态.</p>
+
+<p>三态缓冲器可用于控制处于同一条链路上的不同设备, 并且常用于总线的控制和切换. 一个简单的例子即为: 使用三态缓冲器构造双向数据总线:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameMarisaa/KirisameMarisaa.github.io/img/blogpost_images/20201229085717.png" alt="20201229085717" /></p>
+
+<p><br /></p>
+
+<h3 id="13-内存解码器">1.3 内存解码器</h3>
+
+<p>内存需要具备能够将处理器传递的内存地址转译并识别其实际位置的能力. 在内存中, 相应的工作需要解码器来完成.</p>
+
+<p>对于一个位宽为 $n$-bit 的内存硬件而言, 其解码器需要将 $n$ 位的二进制数值解码为 $2^n$ 条输出信号中与之对应的那一条.</p>
+
+<p>解码器通常用于解码用于启用不同内存块的信号. 其中较低的地址线是所有块通用的, 但较高的地址线需要被解码以确定所需要的内存位置位于哪个内存块. 对于容量较大的内存而言, 使用单个解码器对整个地址总线进行解码由于电路复杂度的问题, 往往是不切实际的. 在这种情况下, 行之有效的解决办法是仿效多位行波进位加法器的构造, 使用层级电路解决问题.</p>
+
+<p>和三态缓冲器类似, 解码器也有一个输入信号控制其开闭. 当该信号为低电平时, 其输出恒为 $0$, 只有该信号为高电平时解码器才会工作. 这为我们使用层级电路设计思想构造复杂的内存解码器提供了便利.</p>
+
+<p>考虑使用层级电路思想设计一个 $6-64$ 解码器: 我们将使用 $8$ 个 $3-8$ 解码器. 在这一情形下, 解码较低位的 $3-8$ 解码器的三个最高输出位将作为下一个 $3-8$ 解码器的输入. 通过这样的方式构造地址链路, 我们即可搭建出所需要的解码器.</p>
+
+<p>在将内存地址解码之后, 内存需要按需访问该内存地址所映射的内存位置. 在内存中, 内存位置的排列一般有两种方式:<br /></p>
+<ol>
+  <li>一维数组: <br />
+   实际存储数据的内存位置 (块) 依序排列形成逻辑上的一维数组, 只需要一根控制信号总线即可实现对所有内存位置的访问, 但不适用于大容量内存, 因其单维度的内存位置访问方式对控制信号总线的位宽的要求极大, 所需的解码器电路也更复杂.</li>
+  <li>二位数组: <br />
+为每一个实际存储的内存位置赋予行编号和列编号, 依序排列形成逻辑上的二位数组 (矩阵), 需要两根控制信号总线, 但在内存容量较大的情况下相比一维数组排列方式有极其明显的优势, 只需要两根位宽较小的控制信号总线即可实现对所有内存的访问.</li>
+</ol>
+
+<p><br /></p>
+
+<h2 id="2-内存层级架构">2. 内存层级架构</h2>
+
+<p>自存储器诞生以来, 设计者就不得不在 <strong>容量, 读写速率和价格</strong> 上进行妥协和权衡: 同时满足高容量, 高读写速率和低价的存储设备是不存在的. 为了在这样的约束条件下实现足够优秀的性能, 我们必须引入 <strong>内存层级架构</strong> 的概念:</p>
+
+<p>若从访问速度最慢的 “主存” 中执行计算机程序, 则 “主存” 的速度就会成为程序执行速度的瓶颈. 然而, 大部分的计算机程序设计思想 (如顺序访问, 循环等) 天然地和 <strong>局部性</strong> 有着良好的相性. 通过将程序中最关键的一小部分代码放到访问速度相对最快的存储介质中运行, 就可以极大地缓解内存瓶颈问题.</p>
+
+<p>大多数的计算机拥有如下图所示的内存层级架构:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameMarisaa/KirisameMarisaa.github.io/img/blogpost_images/20201229095958.png" alt="20201229095958" /></p>
+
+<p><br /></p>
+
+<h2 id="3-寄存器池">3. 寄存器池</h2>
+<p>现代处理器中一般都内置了数十个寄存器, 它们共同组成了所谓的 <strong>寄存器池 (<code class="language-plaintext highlighter-rouge">Memory Bank</code>)</strong>. 这些寄存器用于存储程序运行所需的操作符和程序运行的 (中间) 结果.</p>
+
+<p>寄存器的寻址方式和缓存, 主存等都是不同的, 但我们还是将其视为内存层级架构的最顶端 <code class="language-plaintext highlighter-rouge">L0</code>. 需要注意的是, 寄存器的使用和释放完全是由汇编语言的编译器或程序设计者完成的, 而不是一个完全自动的过程. 关于这一点, 我们可以在 <code class="language-plaintext highlighter-rouge">COMP15111</code> 的相关章节中详细了解.</p>
+
+<p><br /></p>
+
+<h2 id="4-缓存">4. 缓存</h2>
+<p>在内存层级架构中, 位于寄存器之下的即为缓存. 通过将被执行程序本身与其所需要的数据在执行时合理分配至不同性能的存储介质中, 我们可以在付出相对低得多的代价的前提下获得足够良好的性能表现, 这也是缓存的存在意义. 基于时间局部性和空间局部性, 我们可以使用缓存进行这样的优化:</p>
+
+<blockquote>
+  <p>简单来说, 局部性指程序倾向于引用临近于其余最近引用过的数据的数据项, 抑或是最近引用过的数据本身. 这意味着, 被引用过一次的存储器位置的内容在未来可能还会被多次引用; 若一个存储器位置的内容被引用了, 其附近的位置很可能也会被引用, 这也就是所谓的 <strong>时间局部性 (<code class="language-plaintext highlighter-rouge">Temporal Locality</code>)</strong> 和 <strong>空间局部性 (<code class="language-plaintext highlighter-rouge">Spatical Locality</code>)</strong>. 利用这一特点, 通过将最常被引用的数据存储在容量更小但速度更快的存储器中, 就可以大幅降低数据的读写速度, 从而让程序运行得更快.</p>
+</blockquote>
+
+<p>在处理器执行某条指令或处理某个数据时, 它会在访问主存之前检查所需要的信息是否已经被存储在缓存中. 如果情况的确如此, 处理器就能以快得多的速度从缓存中获取所需的信息; 而如果并不是这样的话, 处理器将会把它所需要的信息和与之相关的一些信息 (基于空间局部性, 处理器会一并抓取后面几个内存地址中的信息), 并将它们存入缓存之中.</p>
+
+<p>由于缓存在提升计算机性能方面有着巨大的作用, 现代处理器都会为内建的缓存再配置缓存 (“缓存的缓存”) , 这也形成了所谓的 <strong>缓存层级</strong>. 一般而言, 一级缓存被内建在处理器核心中, 二级缓存和三级缓存则被设计在处理器晶体内, 但相对远离核心的位置.</p>
+
+<p>处理器向缓存中存储的信息不是一定会被使用的. 通过计算 <strong>缓存命中率 (<code class="language-plaintext highlighter-rouge">Cache Hit Rate</code>)</strong>, 可以评价缓存利用程度的高低. 其计算公式如下:</p>
+
+<center>
+
+$t_{\mathbf{access}} = P_{\mathbf{hit}} * t_{\mathbf{read~from~cache}} + P_{\mathbf{miss}} * t_{\mathbf{read ~from~mem}}$. 
+
+
+</center>
+
+<p><br /></p>
+
+<h2 id="5--sram-dram">5.  <code class="language-plaintext highlighter-rouge">SRAM</code>, <code class="language-plaintext highlighter-rouge">DRAM</code></h2>
+<p><code class="language-plaintext highlighter-rouge">SRAM</code> (静态随机存储器) 是由锁存器 - 寄存器一步步搭建而来的, 其逻辑电路和处理器中所使用的一致, 因此具有和处理器的处理速度所相近的数据读写速度. 合理的使用方法是嵌入处理器中, 作为高速缓存. 但其电路面积更大, 且成本更高, 因此不适用于构建大容量存储设备.</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameMarisaa/KirisameMarisaa.github.io/img/blogpost_images/20201229150328.png" alt="20201229150328" /></p>
+
+<p><code class="language-plaintext highlighter-rouge">DRAM</code> (动态随机存储器) 的核心是电容, 主控通过读取电容两端的电位值判断这个位所存储的是 $1$ 还是 $0$, 对存储器每一个位的读写都需要电容充放电, 因此虽然构成动态随机存储器的最小单元构造, 简单电路面积小, 但其读写速度远不如静态随机存储器.</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameMarisaa/KirisameMarisaa.github.io/img/blogpost_images/20201229150212.png" alt="20201229150212" /></p>
+
+<p>对 <code class="language-plaintext highlighter-rouge">DRAM</code> 的读取和写入流程如下:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">DRAM</code> 写入
+拉高 <code class="language-plaintext highlighter-rouge">Word Line</code>, 闭合晶体管将存储电容器连接到 <code class="language-plaintext highlighter-rouge">Bit Line</code> 上. 若需要向该内存单元写入 <code class="language-plaintext highlighter-rouge">1</code> 的话, 就需要拉高 <code class="language-plaintext highlighter-rouge">Bit Line</code>, 对电容器充电.</li>
+  <li><code class="language-plaintext highlighter-rouge">DRAM</code> 读取
+拉高 <code class="language-plaintext highlighter-rouge">Word Line</code>, 闭合晶体管将存储电容器连接到 <code class="language-plaintext highlighter-rouge">Bit Line</code> 上, 并使用信号放大器检测 <code class="language-plaintext highlighter-rouge">Bit Line</code> 中是否有电流流动. 若有的话说明该单元中所存储的二进制位是 $1$, 否则是 $0$.</li>
+</ul>
+
+
+                <hr style="visibility: hidden;">
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2020/12/04/Ch4-COMP12111/" data-toggle="tooltip" data-placement="top" title="Ch4 计算机组成与结构 MU0：控制部分简介">
+                        Previous<br>
+                        <span>Ch4 计算机组成与结构 MU0：控制部分简介</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2020/12/06/Ch7-COMP15111/" data-toggle="tooltip" data-placement="top" title="Ch7 编译原理 函数和方法">
+                        Next<br>
+                        <span>Ch7 编译原理 函数和方法</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <hr style="visibility: hidden;">
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+                
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+
+
+<section>
+    
+        <hr class="hidden-sm hidden-xs">
+    
+    <h5><a href="/archive/">FEATURED TAGS</a></h5>
+    <div class="tags">
+        
+        
+        
+        
+        
+        
+                <a data-sort="0109" 
+                    href="/archive/?tag=COMP12111"
+                    title="COMP12111"
+                    rel="10">COMP12111</a>
+        
+                <a data-sort="0027" 
+                    href="/archive/?tag=2021"
+                    title="2021"
+                    rel="92">2021</a>
+        
+                <a data-sort="0073" 
+                    href="/archive/?tag=%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0"
+                    title="课程笔记"
+                    rel="46">课程笔记</a>
+        
+                <a data-sort="0079" 
+                    href="/archive/?tag=%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0"
+                    title="前端学习"
+                    rel="40">前端学习</a>
+        
+                <a data-sort="0079" 
+                    href="/archive/?tag=50P50D"
+                    title="50P50D"
+                    rel="40">50P50D</a>
+        
+                <a data-sort="0094" 
+                    href="/archive/?tag=2020"
+                    title="2020"
+                    rel="25">2020</a>
+        
+                <a data-sort="0104" 
+                    href="/archive/?tag=COMP24011"
+                    title="COMP24011"
+                    rel="15">COMP24011</a>
+        
+                <a data-sort="0107" 
+                    href="/archive/?tag=%E9%80%BB%E8%BE%91%E5%AD%A6"
+                    title="逻辑学"
+                    rel="12">逻辑学</a>
+        
+                <a data-sort="0109" 
+                    href="/archive/?tag=COMP15111"
+                    title="COMP15111"
+                    rel="10">COMP15111</a>
+        
+                <a data-sort="0110" 
+                    href="/archive/?tag=%E6%89%A9%E5%B1%95%E8%87%AA%E4%B9%A0"
+                    title="扩展自习"
+                    rel="9">扩展自习</a>
+        
+                <a data-sort="0110" 
+                    href="/archive/?tag=COMP21111"
+                    title="COMP21111"
+                    rel="9">COMP21111</a>
+        
+                <a data-sort="0112" 
+                    href="/archive/?tag=%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0"
+                    title="机器学习"
+                    rel="7">机器学习</a>
+        
+                <a data-sort="0112" 
+                    href="/archive/?tag=COMP11212"
+                    title="COMP11212"
+                    rel="7">COMP11212</a>
+        
+                <a data-sort="0115" 
+                    href="/archive/?tag=%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95"
+                    title="数据结构和算法"
+                    rel="4">数据结构和算法</a>
+        
+                <a data-sort="0115" 
+                    href="/archive/?tag=COMP15212"
+                    title="COMP15212"
+                    rel="4">COMP15212</a>
+        
+                <a data-sort="0115" 
+                    href="/archive/?tag=COMP23111"
+                    title="COMP23111"
+                    rel="4">COMP23111</a>
+        
+                <a data-sort="0116" 
+                    href="/archive/?tag=%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7"
+                    title="奇技淫巧"
+                    rel="3">奇技淫巧</a>
+        
+                <a data-sort="0117" 
+                    href="/archive/?tag=%E7%99%BD%E6%9E%9C%E5%9B%AD"
+                    title="白果园"
+                    rel="2">白果园</a>
+        
+                <a data-sort="0117" 
+                    href="/archive/?tag=%E7%AE%97%E6%B3%95"
+                    title="算法"
+                    rel="2">算法</a>
+        
+                <a data-sort="0117" 
+                    href="/archive/?tag=Lab"
+                    title="Lab"
+                    rel="2">Lab</a>
+    </div>
+</section>
+
+
+                <!-- Friends Blog -->
+                
+<hr>
+<h5>FRIENDS</h5>
+<ul class="list-inline">
+  
+  <li><a href="http://ryanxin.cn">Ryan Xin</a></li>
+  
+  <li><a href="https://flyhigher.top">Axton.Gay</a></li>
+  
+  <li><a href="https://graynekocafe.net">GrayNekoBean</a></li>
+  
+  <li><a href="Gnefil.github.io">Gnefil</a></li>
+  
+</ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<!-- add support for mathjax by voleking-->
+
+
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "KirisameR";
+    var disqus_identifier = "/2020/12/04/Ch5 COMP12111";
+    var disqus_url = "http://localhost:4000/2020/12/04/Ch5-COMP12111/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'right',
+          // icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <!-- SNS Link -->
+                
+
+
+<ul class="list-inline text-center">
+
+
+  
+  
+  
+  
+  
+  
+  <li>
+    <a target="_blank" href="https://github.com/KirisameR">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  
+  
+</ul>
+
+                <p class="copyright text-muted">
+                    Copyright &copy; 某一般线性空间 2022
+                    <br>
+                    Powered by <a href="http://huangxuan.me">Hux Blog</a> |
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="100px"
+                        height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=huxpro&repo=huxpro.github.io&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<!-- Currently, only navbar scroll-down effect at desktop still depends on this -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Simple Jekyll Search -->
+<script src="/js/simple-jekyll-search.min.js"></script>
+
+<!-- Service Worker -->
+
+<script src="/js/snackbar.js "></script>
+<script src="/js/sw-registration.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+        var d = document, t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+
+
+
+
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog(selector) {
+
+        // interop with multilangual 
+        if ('' == 'true') {
+            _containerSelector = 'div.post-container.active'
+        } else {
+            _containerSelector = 'div.post-container'
+        }
+
+        // init
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        // clean
+        $(selector).html('')
+
+        // appending
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+<!-- Multi-Lingual -->
+
+
+<!-- Simple Jekyll Search -->
+<script>
+    // https://stackoverflow.com/questions/1912501/unescape-html-entities-in-javascript
+    function htmlDecode(input) {
+        var e = document.createElement('textarea');
+        e.innerHTML = input;
+        // handle case of empty input
+        return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+    }
+
+    SimpleJekyllSearch({
+        searchInput: document.getElementById('search-input'),
+        resultsContainer: document.getElementById('search-results'),
+        json: '/search.json',
+        searchResultTemplate: '<div class="post-preview item"><a href="{url}"><h2 class="post-title">{title}</h2><h3 class="post-subtitle">{subtitle}</h3><hr></a></div>',
+        noResultsText: 'No results',
+        limit: 50,
+        fuzzy: false,
+        // a hack to get escaped subtitle unescaped. for some reason, 
+        // post.subtitle w/o escape filter nuke entire search.
+        templateMiddleware: function (prop, value, template) {
+            if (prop === 'subtitle' || prop === 'title') {
+                if (value.indexOf("code")) {
+                    return htmlDecode(value);
+                } else {
+                    return value;
+                }
+            }
+        }
+    });
+
+    $(document).ready(function () {
+        var $searchPage = $('.search-page');
+        var $searchOpen = $('.search-icon');
+        var $searchClose = $('.search-icon-close');
+        var $searchInput = $('#search-input');
+        var $body = $('body');
+
+        $searchOpen.on('click', function (e) {
+            e.preventDefault();
+            $searchPage.toggleClass('search-active');
+            var prevClasses = $body.attr('class') || '';
+            setTimeout(function () {
+                $body.addClass('no-scroll');
+            }, 400)
+
+            if ($searchPage.hasClass('search-active')) {
+                $searchClose.on('click', function (e) {
+                    e.preventDefault();
+                    $searchPage.removeClass('search-active');
+                    $body.attr('class', prevClasses);  // from closure 
+                });
+                $searchInput.focus();
+            }
+        });
+    });
+</script>
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

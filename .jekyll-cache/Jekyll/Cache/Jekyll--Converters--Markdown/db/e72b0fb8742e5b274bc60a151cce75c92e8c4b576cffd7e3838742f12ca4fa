@@ -1,0 +1,205 @@
+I"�/<h1 id="ch4-mu0-处理器控制部分简介">Ch4 <code class="language-plaintext highlighter-rouge">MU0</code> 处理器控制部分简介</h1>
+
+<p>在本章中, 我们将简介MU0处理器的控制器设计:<br /></p>
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">MU0</code> 的结构和支持指令类型简介</li>
+  <li>一个简单的有限状态机</li>
+  <li>一个结合指令和当前状态进行控制信号转译的翻译器</li>
+  <li>一个统揽两者的控制模块.</li>
+  <li>上述模块的 <code class="language-plaintext highlighter-rouge">Verilog</code> 实现</li>
+</ol>
+
+<p><br />
+<br /></p>
+
+<h2 id="1-mu0-结构和指令列表">1. <code class="language-plaintext highlighter-rouge">MU0</code> 结构和指令列表</h2>
+<p><code class="language-plaintext highlighter-rouge">MU0</code> 是一个 $16$ 位处理器, 其数据传输界面包含:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Clk</code>: 处理器时钟信号输入</li>
+  <li><code class="language-plaintext highlighter-rouge">Reset</code>: 处理器复位信号输入</li>
+  <li><code class="language-plaintext highlighter-rouge">Halted</code>: 处理器停机信号输入</li>
+  <li><code class="language-plaintext highlighter-rouge">Address</code>: 地址信号输出总线, 总线位宽 $12$ 位.</li>
+  <li><code class="language-plaintext highlighter-rouge">Rd</code>: 内存读取控制信号输出</li>
+  <li><code class="language-plaintext highlighter-rouge">Wr</code>: 内存写入控制信号输出</li>
+  <li><code class="language-plaintext highlighter-rouge">Data_out</code>: 数据信号输出总线, 总线位宽 $16$ 位.</li>
+  <li><code class="language-plaintext highlighter-rouge">Data_in</code>: 数据信号输入总线, 总线位宽 $16$ 位.</li>
+</ul>
+
+<center>处理器结构拓扑图如下:</center>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameMarisaa/KirisameMarisaa.github.io/img/blogpost_images/20201205111433.png" alt="20201205111433" /></p>
+
+<p>注: <br />
+<code class="language-plaintext highlighter-rouge">MU0</code> 处理器依赖 <code class="language-plaintext highlighter-rouge">Rd</code> 和 <code class="language-plaintext highlighter-rouge">Wr</code> 信号激活和控制内存界面. 当相应的信号处于高电平时, 从处理器数据信号输出总线或地址信号输出总线输出的数据将会被传递至内存, 并依此执行读取/写入操作. 需要注意的是, 由于内存界面在同一时刻无法并行执行内存的读取/写入, 这两个信号不能同时处于高电平状态.</p>
+
+<p><br /></p>
+
+<p><code class="language-plaintext highlighter-rouge">MU0</code> 处理器为程序员提供了两个寄存器: 一个 $16$ 位的累加寄存器 <code class="language-plaintext highlighter-rouge">Acc</code>, 一个 $12$ 位的程序计数器 <code class="language-plaintext highlighter-rouge">PC</code>. <br />
+<code class="language-plaintext highlighter-rouge">MU0</code> 处理器的指令长为 $16$ 位, 其头部 $4$ 位为指令位, 剩余的 $12$ 位存储操作符.</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameMarisaa/KirisameMarisaa.github.io/img/blogpost_images/20201205111529.png" alt="20201205111529" /></p>
+
+<p><code class="language-plaintext highlighter-rouge">MU0</code> 处理器所支持的指令如下:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">二进制编码</th>
+      <th style="text-align: center">助记符</th>
+      <th style="text-align: left">功能</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">$0000$</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">LDA S</code></td>
+      <td style="text-align: left">从内存位置 <code class="language-plaintext highlighter-rouge">S</code> 处加载内容至累加寄存器中</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">$0001$</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">STA S</code></td>
+      <td style="text-align: left">将累加寄存器的内容储存至内存位置 <code class="language-plaintext highlighter-rouge">S</code> 中</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">$0010$</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">ADD S</code></td>
+      <td style="text-align: left">将内存位置 <code class="language-plaintext highlighter-rouge">S</code> 处的内容和累加寄存器中的数据相加</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">$0011$</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">SUB S</code></td>
+      <td style="text-align: left">将内存位置 <code class="language-plaintext highlighter-rouge">S</code> 处的内容和累加寄存器中的数据相减</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">$0100$</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">JMP S</code></td>
+      <td style="text-align: left">跳转到地址 <code class="language-plaintext highlighter-rouge">S</code> 处</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">$0101$</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">JGE S</code></td>
+      <td style="text-align: left">若在该指令前所执行的比较指令结果为非负, 跳转至地址 <code class="language-plaintext highlighter-rouge">S</code> 处</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">$0110$</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">JNE S</code></td>
+      <td style="text-align: left">若在该指令前所执行的比较指令结果不为零, 跳转至地址 <code class="language-plaintext highlighter-rouge">S</code> 处</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">$0111$</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">STP</code></td>
+      <td style="text-align: left">停机指令</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">$1000-1111$</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">-</code></td>
+      <td style="text-align: left">预留, 无实际作用</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><code class="language-plaintext highlighter-rouge">MU0</code> 的控制模块可以被细分为两个部分: 一个作为状态转换器的有限状态机, 和一个基于当前指令和当前状态转译数据流控制信号的翻译器.</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameMarisaa/KirisameMarisaa.github.io/img/blogpost_images/20201205113228.png" alt="20201205113228" /></p>
+
+<p><br /></p>
+
+<h2 id="2-mu0状态转换器-fsm">2. <code class="language-plaintext highlighter-rouge">MU0</code>状态转换器: <code class="language-plaintext highlighter-rouge">FSM</code></h2>
+
+<p><code class="language-plaintext highlighter-rouge">MU0</code> 中作为状态转换器的有限状态机功能较为简单, 只在 <code class="language-plaintext highlighter-rouge">取指令 - 转译/执行</code> 这两种状态之间基于时钟信号周期性地来回转换. 其状态图如下图所示:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameMarisaa/KirisameMarisaa.github.io/img/blogpost_images/20201205113514.png" alt="20201205113514" /></p>
+
+<p><br /></p>
+
+<h2 id="3-mu0-控制信号翻译器">3. <code class="language-plaintext highlighter-rouge">MU0</code> 控制信号翻译器</h2>
+<p>控制信号翻译器接受来自外界的指令输入 <code class="language-plaintext highlighter-rouge">F</code>, 并监听复位信号 <code class="language-plaintext highlighter-rouge">Reset</code> , 时钟信号 <code class="language-plaintext highlighter-rouge">Clk</code> 以及两个分支条件判断结果 <code class="language-plaintext highlighter-rouge">flag</code>: <code class="language-plaintext highlighter-rouge">N, Z</code>, 从而处理, 转译和生成控制数据流的控制信号.</p>
+
+<p>基于 <code class="language-plaintext highlighter-rouge">MU0</code> 处理器数据流的设计, <code class="language-plaintext highlighter-rouge">MU0</code> 控制信号翻译器需要同时输出 $7$ 个信号, 对一个 <code class="language-plaintext highlighter-rouge">ALU</code>, 三个分选器和三个寄存器进行控制:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>控制信号</th>
+      <th>功能</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">PC_En</code></td>
+      <td>控制程序计数器是否可写. 若设为高电平, 则在下一个时钟上升沿, 程序计数器内现存的值将被传入的数据所覆盖.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Acc_En</code></td>
+      <td>控制累加寄存器是否可写. 若设为高电平, 则在下一个时钟上升沿, 累加寄存器内现存的值将被传入的数据所覆盖.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">IR_En</code></td>
+      <td>控制指令寄存器是否可写. 若设为高电平, 则在下一个时钟上升沿, 指令寄存器内现存的值将被传入的数据所覆盖.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">X Y_sel</code></td>
+      <td>控制分选器 <code class="language-plaintext highlighter-rouge">X, Y</code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Addr_sel</code></td>
+      <td>控制地址输出分选器.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">M[1:0]</code></td>
+      <td>宽为 $2$ 的控制信号输出, 控制 <code class="language-plaintext highlighter-rouge">ALU</code> 执行的运算类型.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Halted</code></td>
+      <td>停机信号, 当且仅当处理器处于停机状态下时输出高电平.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+
+<p><code class="language-plaintext highlighter-rouge">MU0</code> 数据流中的 <code class="language-plaintext highlighter-rouge">ALU</code> 模组我们已经作为第二次 <code class="language-plaintext highlighter-rouge">Lab</code> 的实践内容完成, 因此在此不多赘述其组成结构和原理, 仅简要复述一下其可执行的运算类型和对应的控制指令:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">二进制指令</th>
+      <th style="text-align: center">运算类型</th>
+      <th style="text-align: left">-</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">$00$</td>
+      <td style="text-align: center">$Y$</td>
+      <td style="text-align: left">仅传递 $Y$ 的值</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">$01$</td>
+      <td style="text-align: center">$X+Y$</td>
+      <td style="text-align: left">执行两个操作数之间的加法</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">$10$</td>
+      <td style="text-align: center">$X+1$</td>
+      <td style="text-align: left">将操作数 $X$ 加 $1$</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">$11$</td>
+      <td style="text-align: center">$X-Y$</td>
+      <td style="text-align: left">执行两个操作数之间的减法</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+
+<h2 id="4-mu0-控制模块">4. <code class="language-plaintext highlighter-rouge">MU0</code> 控制模块</h2>
+<p><code class="language-plaintext highlighter-rouge">MU0</code> 的控制模块仅作为上述两个子模块的简单组合, 将状态转换器和控制信号翻译器之间用一根传递当前状态的内部链路相联结. 在第五部分中, 我们可以非常清晰地看到具体的实现方式.</p>
+
+<p><br /></p>
+
+<h2 id="5-mu0-控制器的-verilog-实现">5. <code class="language-plaintext highlighter-rouge">MU0</code> 控制器的 <code class="language-plaintext highlighter-rouge">Verilog</code> 实现</h2>
+
+<p>详见博文: <code class="language-plaintext highlighter-rouge">Lab3 COMP12111</code>.</p>
+:ET

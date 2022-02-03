@@ -1,0 +1,425 @@
+I"�D<h1 id="逻辑表达式的等价定义和正规化">逻辑表达式的等价定义和正规化</h1>
+
+<p>为了进一步地简化逻辑表达式, 我们需要研究它的等价定义和正规化.</p>
+
+<p><br /></p>
+
+<h2 id="1-逻辑表达式的等价">1. 逻辑表达式的等价</h2>
+
+<p>如日常生活中一样, 我们可以用不同的逻辑表达式对同一个命题进行等价描述. 下面, 我们对逻辑表达式的等价进行简要的研究.</p>
+
+<h3 id="11-语义等价-semantic-equivalence">1.1 语义等价 (<code class="language-plaintext highlighter-rouge">Semantic Equivalence</code>)</h3>
+
+<p><strong>定义1.1 语义学等价</strong></p>
+<blockquote>
+  <p>当且仅当对任何赋值 $v$, 谓词公式 $A, B$ 的解释 (<code class="language-plaintext highlighter-rouge">intepretation</code>) 一致, 称 <strong>$A, B$ 语义学等价</strong>, 记为 $A \equiv B$.</p>
+</blockquote>
+
+<p>注:</p>
+<ol>
+  <li>特别地, 在布尔语义下, 若两个谓词公式共享同一个真值表, 即可称其语义学等价.</li>
+  <li>若 $A \equiv B$, 我们也称 $A$ 和 $B$ 逻辑意义上相等.</li>
+  <li>在布尔语义下使用真值表法判断两个谓词公式语义学等价时, 真值表內必须包含组成这两个谓词公式的所有子式!</li>
+  <li>通过使用真值表法, 不难得知: $\neg A \vee B \equiv A \rightarrow B.$</li>
+</ol>
+
+<p>更进一步地, 通过使用同样的方法, 我们可以证明更为复杂的谓词公式在布尔语义下的等价性. 在构造真值表时, 下面的替代定理有助于我们的判断:</p>
+
+<p><br /></p>
+
+<h3 id="12-命题变量的替代">1.2 命题变量的替代</h3>
+
+<p><strong>定理1.1 基本语义等价定理</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">公式</th>
+      <th style="text-align: center">性质</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">$\neg \neg P \equiv P$</td>
+      <td style="text-align: center">双否定性</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">$P \wedge P \equiv P$</td>
+      <td style="text-align: center">幂等性</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">$P \vee P \equiv P$</td>
+      <td style="text-align: center">幂等性</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">$P \wedge Q \equiv Q \wedge P$</td>
+      <td style="text-align: center">交换律</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">$P \vee Q \equiv Q \vee P$</td>
+      <td style="text-align: center">交换律</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">$P \wedge (Q \wedge R) \equiv (P \wedge Q) \wedge R$</td>
+      <td style="text-align: center">结合律</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">$P \vee (Q \vee R) \equiv (P \vee Q) \vee R$</td>
+      <td style="text-align: center">结合律</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">$P \wedge (Q \vee R) \equiv (P \wedge Q)\vee(P \wedge R)$</td>
+      <td style="text-align: center">分配律</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">$P \vee (Q \wedge R) \equiv (P \vee Q)\wedge(P \vee R)$</td>
+      <td style="text-align: center">分配律</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">$P \wedge (P \vee Q) \equiv P$</td>
+      <td style="text-align: center">吸收性</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">$P \vee (P \wedge Q) \equiv P$</td>
+      <td style="text-align: center">吸收性</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">$\neg(P \wedge Q) \equiv \neg P \vee \neg Q$</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">De Morgan</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left">$\neg(P \vee Q) \equiv \neg P \wedge \neg Q$</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">De Morgan</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left">$P \rightarrow Q \equiv \neg P \vee Q$</td>
+      <td style="text-align: center">逆否性</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">$P \rightarrow Q \equiv \neg(P \wedge \neg Q)$</td>
+      <td style="text-align: center">逆否性</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">$P \rightarrow Q \equiv \neg Q \rightarrow \neg P$</td>
+      <td style="text-align: center">逆否性</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">$P \leftrightarrow Q \equiv (P \rightarrow Q) \wedge (Q \rightarrow P)$</td>
+      <td style="text-align: center">逆否性</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">$P \leftrightarrow Q \equiv (\neg P \vee Q) \wedge (P \vee \neg Q)$</td>
+      <td style="text-align: center">逆否性</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">$P \leftrightarrow Q \equiv (P \wedge Q) \vee (\neg P \wedge \neg Q)$</td>
+      <td style="text-align: center">逆否性</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+
+<p>注意: $A \equiv B$ 指语义学等价, 这是谓词公式的一个性质, 也是一个超逻辑概念, $“\equiv”$ 不是逻辑联结词; 而 $\leftrightarrow$ 属于谓词逻辑语言中的符号, 二者在定义上有着本质的区别, 切勿混淆. 下面的定理揭示了它们之间的关系:</p>
+
+<p><strong>定理1.2</strong></p>
+<blockquote>
+  <p>$A \equiv B$ 当且仅当 $A \leftrightarrow B$ 为重言式.</p>
+</blockquote>
+
+<p><br /></p>
+
+<p>语义学替换 (<code class="language-plaintext highlighter-rouge">Substitution</code>) 是一种规范化的, 作用于整个谓词公式的谓词变量替换方法:</p>
+
+<p>若我们要使用语义学替换, 将某个谓词公式中的谓词变量 $A$ 替换为与其在语义学上等价的谓词变量 $B$, 则我们要将 <strong>在谓词公式中所有出现的 $A$ 全部替换为 $B$.</strong></p>
+
+<p>更一般地,我们还可以将谓词变量替换为具有相同真值的谓词公式:</p>
+
+<p><br /></p>
+
+<p><strong>定义1.2 语义学替换定理</strong></p>
+<blockquote>
+  <p>设 $A, B$ 为任两个谓词公式. 若</p>
+  <center>
+
+$A(P_1, P_2, \cdots, P_n) \equiv B(P_1, P_2, \cdots, P_n)$
+</center>
+
+  <p>且 $C_1, C_2, \cdots, C_n$ 为 <strong>谓词公式</strong>, 则有</p>
+  <center>
+
+$A(C_1, C_2, \cdots, C_n) \equiv B(C_1, C_2, \cdots, C_n).$
+</center>
+</blockquote>
+
+<p><br /></p>
+
+<p><strong>定理1.3 一般化的基本语义等价定理</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">公式</th>
+      <th style="text-align: center">性质</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">$\neg \neg A \equiv A$</td>
+      <td style="text-align: center">双否定性</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">$A \wedge A \equiv A$</td>
+      <td style="text-align: center">幂等性</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">$A \vee A \equiv A$</td>
+      <td style="text-align: center">幂等性</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">$A \wedge B \equiv B \wedge A$</td>
+      <td style="text-align: center">交换律</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">$A \vee B \equiv B \vee A$</td>
+      <td style="text-align: center">交换律</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">$A \wedge (B \wedge R) \equiv (A \wedge B) \wedge R$</td>
+      <td style="text-align: center">结合律</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">$A \vee (B \vee R) \equiv (A \vee B) \vee R$</td>
+      <td style="text-align: center">结合律</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">$A \wedge (B \vee R) \equiv (A \wedge B)\vee(A \wedge R)$</td>
+      <td style="text-align: center">分配律</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">$A \vee (B \wedge R) \equiv (A \vee B)\wedge(A \vee R)$</td>
+      <td style="text-align: center">分配律</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">$A \wedge (A \vee B) \equiv A$</td>
+      <td style="text-align: center">吸收性</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">$A \vee (A \wedge B) \equiv A$</td>
+      <td style="text-align: center">吸收性</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">$\neg(A \wedge B) \equiv \neg A \vee \neg B$</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">De Morgan</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left">$\neg(A \vee B) \equiv \neg A \wedge \neg B$</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">De Morgan</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left">$A \rightarrow B \equiv \neg A \vee B$</td>
+      <td style="text-align: center">逆否性</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">$A \rightarrow B \equiv \neg(A \wedge \neg B)$</td>
+      <td style="text-align: center">逆否性</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">$A \rightarrow B \equiv \neg B \rightarrow \neg A$</td>
+      <td style="text-align: center">逆否性</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">$A \leftrightarrow B \equiv (A \rightarrow B) \wedge (B \rightarrow A)$</td>
+      <td style="text-align: center">逆否性</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">$A \leftrightarrow B \equiv (\neg A \vee B) \wedge (A \vee \neg B)$</td>
+      <td style="text-align: center">逆否性</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">$A \leftrightarrow B \equiv (A \wedge B) \vee (\neg A \wedge \neg B)$</td>
+      <td style="text-align: center">逆否性</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+
+<h3 id="13-命题变量的等价代换">1.3 命题变量的等价代换</h3>
+
+<p>平行于语义学替换定理, 我们还定义了命题变量的等价代换. 和替换定理不同的是, 等价代换定理的作用域非常有限, 仅仅涉及某个特定的命题变量, 只代换那一个特定的命题变量, 而对即使完全相同的其他命题变量也不予考虑.</p>
+
+<p>在下面的叙述中, 我们规定:</p>
+
+\[C(\cdots A \cdots)\]
+
+<p>指一个谓词公式, 而 $A$ 为它的一个子式.</p>
+
+<p><br /></p>
+
+<p><strong>定理1.4 等价代换定理</strong></p>
+<blockquote>
+  <p>设 $A, B$ 为两个谓词公式, 且 $A \equiv B$, 且 $A$ 为谓词公式 $C(\cdots A \cdots)$ 的一个子式. 则</p>
+  <center>
+
+$C(\cdots A \cdots) \equiv C(\cdots B \cdots)$
+
+</center>
+
+  <p>当对 $A$ 实行等价代换.</p>
+</blockquote>
+
+<p><br /></p>
+
+<h3 id="14-逻辑常量-perp-top">1.4 逻辑常量 $\perp$, $\top$</h3>
+
+<p>我们还可以通过定义 <strong>逻辑常量</strong> 的方式进一步简化逻辑表达式.</p>
+
+<p>在第一章中, 我们介绍了重言式和矛盾式. 它们在任何语义系统下的解释都是永真, 或永假. 对于这些式子, 我们使用 $\perp$ 和 $\top$ 符号分别表示它们.</p>
+
+<p>我们可以认为, 设 $P$ 为一个谓词公式, 则 $\top$ 和 $\perp$ 可分别视为 $P \vee \neg P, P\wedge \neg P$ 的缩写. 从真值表中我们可以立即得出这一结论:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">$P$</th>
+      <th style="text-align: center">$\neg P$</th>
+      <th style="text-align: center">$P \vee \neg P$</th>
+      <th style="text-align: center">$P \wedge \neg P$</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">$1$</td>
+      <td style="text-align: center">$0$</td>
+      <td style="text-align: center">$1$</td>
+      <td style="text-align: center">$0$</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">$0$</td>
+      <td style="text-align: center">$1$</td>
+      <td style="text-align: center">$0$</td>
+      <td style="text-align: center">$1$</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>定理1.5 逻辑常量定理</strong></p>
+<blockquote>
+  <p>若 $A$ 为重言式, 则 $A\equiv \top$.</p>
+
+  <p>若 $A$ 为矛盾式, 则 $A\equiv ~ \perp$.</p>
+</blockquote>
+
+<p><strong>定理1.6 含逻辑常量的一般化基本语义等价定理</strong></p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameMarisaa/KirisameMarisaa.github.io/img/blogpost_images/20201121093615.png" alt="20201121093615" /></p>
+
+<p><br /></p>
+
+<h3 id="15-其他语义系统中的语义学等价">1.5 其他语义系统中的语义学等价</h3>
+
+<p>我们以幂集语义为例. 显然, 在幂集语义下, 一个谓词公式的解释与对谓词变量的赋值和选定的参考集 $X$ 同时有关. 在幂集语义下, 要说明 $A\equiv B$, 就要证明在给定的谓词变量赋值方式和参考集下, $A$ 和 $B$ 的翻译都是 $X$ 的同一个子集.</p>
+
+<p><br /></p>
+
+<p><br /></p>
+
+<h2 id="2-正规形式和逻辑表达式的正规化">2. 正规形式和逻辑表达式的正规化</h2>
+
+<p>逻辑表达式有多种等价的表达形式, 而不同的表达形式种由于含有不同数量的联结词, 括号关系和子式, 其复杂程度也有所不同. 在构造逻辑电路和研究抽象的逻辑关系时, 我们需要对逻辑表达式进行简化, 从而降低工作的规模和难度. 对逻辑表达式在逻辑层面上进行简化的过程就是寻找和计算范式 (<code class="language-plaintext highlighter-rouge">Normal Form</code>) 的过程.</p>
+
+<p>一种最简单的逻辑表达式简化方法是基于结合律, 除去表达式內多余的括号:</p>
+
+\[P_1\wedge (P_2 \wedge (\cdots \wedge P_n)\cdots) \Rightarrow P_1\wedge P_2 \wedge \cdots \wedge P_n.\]
+
+<p>下面, 我们介绍两种更为复杂的范式生成法: 合取范式生成和析取范式生成.</p>
+
+<p><br /></p>
+
+<h3 id="21-合取范式-conjunctive-normal-form">2.1 合取范式 (<code class="language-plaintext highlighter-rouge">Conjunctive Normal Form</code>)</h3>
+<p><strong>定义2.1 合取范式</strong></p>
+<blockquote>
+  <p>称一个谓词公式为 <strong>合取范式</strong>, 当且仅当它为 $\top, \perp$, 或为多个子式的析取的合取.</p>
+</blockquote>
+
+<p>一般地, 我们使用下列的合取范式求解算法简化并求取谓词公式的合取范式:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameMarisaa/KirisameMarisaa.github.io/img/blogpost_images/20201121100450.png" alt="20201121100450" /></p>
+
+<p><br /></p>
+
+<p><strong>定理2.1 合取范式求解算法有效性定理</strong></p>
+<blockquote>
+  <ul>
+    <li>合取范式求解算法的每一步都保持语义学等价关系.</li>
+    <li>合取范式求解算法总会在有限步內终止.</li>
+    <li>合取范式求解算法的返回值恒为一个合取范式.</li>
+  </ul>
+</blockquote>
+
+<p><br /></p>
+
+<h3 id="22-析取范式-disjunctive-normal-form">2.2 析取范式 (<code class="language-plaintext highlighter-rouge">Disjunctive Normal Form</code>)</h3>
+
+<p>相应地, 我们还可以定义析取范式的概念:</p>
+
+<p><strong>定义2.2 析取范式</strong></p>
+<blockquote>
+  <p>称一个谓词公式为 <strong>析取范式</strong>, 当且仅当它为 $\top, \perp$, 或为多个子式的合取的析取.</p>
+</blockquote>
+
+<p>一般地, 我们使用下列的析取范式求解算法简化并求取谓词公式的析取范式:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameMarisaa/KirisameMarisaa.github.io/img/blogpost_images/20201121100819.png" alt="20201121100819" /></p>
+
+<p><br /></p>
+
+<p><strong>定理2.2 析取范式求解算法有效性定理</strong></p>
+<blockquote>
+  <ul>
+    <li>析取范式求解算法的每一步都保持语义学等价关系.</li>
+    <li>析取范式求解算法总会在有限步內终止.</li>
+    <li>析取范式求解算法的返回值恒为一个析取范式.</li>
+  </ul>
+</blockquote>
+
+<h3 id="23-基于真值表构造范式">2.3 基于真值表构造范式</h3>
+
+<p>基于合取范式和析取范式的概念和相关定理, 我们立即可以得出从真值表构造
+范式的方法:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameMarisaa/KirisameMarisaa.github.io/img/blogpost_images/20201121101009.png" alt="20201121101009" /></p>
+
+<p><br /></p>
+
+<h3 id="24-布尔函数">2.4 布尔函数</h3>
+
+<p>回顾布尔语义的概念和基本定义. 我们知道, 布尔语义的真值集为 $\mathbb{B} = {0, 1}$. <br />下面, 考虑一个从 $\mathbb{B}$ 的 $n$ 次笛卡尔积 $\mathbb{B^{n}}$ 映到 $\mathbb{B}$ 的一个函数 (映射). 何时这样的映射既可被视在布尔语义下对联结词的解释, 亦可视为对谓词公式的解释?</p>
+
+<p><strong>定义2.3 布尔函数 (<code class="language-plaintext highlighter-rouge">Boolean Function</code>)</strong></p>
+<blockquote>
+  <p>称从 $\mathbb{B}^{n}$ 到 $\mathbb{B}$ 的映射为 <strong>布尔函数</strong>.</p>
+</blockquote>
+
+<p>在布尔语义中, 任何一个谓词逻辑的联结词均可被视为一个布尔函数.</p>
+
+<p><br /></p>
+
+<p><strong>定理2.3 布尔函数计数定理</strong></p>
+<blockquote>
+  <p>存在 $2^{2^n}$ 个不同的 $n$ 元布尔函数.</p>
+</blockquote>
+
+<p>显然, 对于 $n$ 个不同的函数输入, 根据布尔语义定义, 每个输入都可以从真值集中取值, 故共有 $2^n$ 种输入; 同时, 对于每一种输入, 它都可以被映射到真值集的某一个元素, 故共有 $2^{2^{n}}$ 种映射方法, 而每一种映射方法对应一个唯一的布尔函数.</p>
+
+<p><br /></p>
+
+<p><strong>定理2.4 布尔函数表示定理</strong></p>
+<blockquote>
+  <p>任一个布尔函数: $f: \mathbb{B^{n}}\rightarrow \mathbb{B}$ 可被表示为含谓词变量 $x_1, x_2, \cdots, x_n$ 的谓词公式 $P(x_1, x_2, \cdots, x_n)$.</p>
+</blockquote>
+
+<p>结合真值表方法可知, 该定理结论显然.</p>
+
+:ET

@@ -1,0 +1,294 @@
+I"gH<h1 id="下拉滚动动画-scroll-animation">下拉滚动动画 Scroll-Animation</h1>
+
+<h2 id="1-概述">1. 概述</h2>
+
+<p>该项目本体展示了一个随着页面下拉, 圆角矩形框体从页面左侧和右侧依次飞入页面中央竖向排列的动画效果.</p>
+
+<p>本项目并不涉及新的知识点.</p>
+
+<p>效果:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameMarisaa/KirisameMarisaa.github.io/img/blogpost_images/20210819165654.png" alt="20210819165654" /></p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameMarisaa/KirisameMarisaa.github.io/img/blogpost_images/Screen-Recording-2021-08-19-at-16.55.12.gif" alt="Screen-Recording-2021-08-19-at-16.55.12" /></p>
+
+<p><br /></p>
+
+<h2 id="2-结构和切图">2. 结构和切图</h2>
+
+<p>网页的基本结构同样很简单, 只包含一个标题和数个 <code class="language-plaintext highlighter-rouge">div</code> 容器承载圆角矩形框体.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;h1&gt;</span>Scroll to see the animation<span class="nt">&lt;/h1&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"box"</span><span class="nt">&gt;&lt;h2&gt;</span>Content<span class="nt">&lt;/h2&gt;&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"box"</span><span class="nt">&gt;&lt;h2&gt;</span>Content<span class="nt">&lt;/h2&gt;&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"box"</span><span class="nt">&gt;&lt;h2&gt;</span>Content<span class="nt">&lt;/h2&gt;&lt;/div&gt;</span>    
+    ...
+<span class="nt">&lt;/body&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="3-编写-css-样式">3. 编写 <code class="language-plaintext highlighter-rouge">CSS</code> 样式</h2>
+
+<p>首先确保标题文字水平垂直居中:</p>
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+</pre></td><td class="rouge-code"><pre><span class="nt">body</span><span class="p">{</span>
+            
+    <span class="nl">background-color</span><span class="p">:</span><span class="m">#660099</span><span class="p">;</span>
+    <span class="nl">display</span><span class="p">:</span> <span class="n">flex</span><span class="p">;</span>
+    <span class="nl">flex-direction</span><span class="p">:</span> <span class="n">column</span><span class="p">;</span>
+    <span class="nl">align-items</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+    <span class="nl">justify-content</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+    <span class="nl">margin</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+    <span class="nl">overflow-x</span><span class="p">:</span> <span class="nb">hidden</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">h1</span><span class="p">{</span>
+    <span class="nl">color</span><span class="p">:</span><span class="no">khaki</span><span class="p">;</span>
+    <span class="nl">margin</span><span class="p">:</span><span class="m">10px</span><span class="p">;</span>
+    <span class="nl">font-family</span><span class="p">:</span> <span class="n">-apple-system</span><span class="p">,</span> <span class="n">BlinkMacSystemFont</span><span class="p">,</span> <span class="s2">'Segoe UI'</span><span class="p">,</span> <span class="n">Roboto</span><span class="p">,</span> <span class="n">Oxygen</span><span class="p">,</span> <span class="n">Ubuntu</span><span class="p">,</span> <span class="n">Cantarell</span><span class="p">,</span> <span class="s2">'Open Sans'</span><span class="p">,</span> <span class="s2">'Helvetica Neue'</span><span class="p">,</span> <span class="nb">sans-serif</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>其次控制奇数位/偶数位框体的初始样式和处于展示状态的框体样式. 注意此处的用于选择偶数位矩形框体的 <code class="language-plaintext highlighter-rouge">CSS</code> 选择器用法.</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+</pre></td><td class="rouge-code"><pre><span class="nc">.box</span><span class="p">{</span>
+    <span class="nl">background-color</span><span class="p">:</span> <span class="no">khaki</span><span class="p">;</span>
+    <span class="nl">color</span><span class="p">:</span> <span class="m">#660099</span><span class="p">;</span>
+    <span class="nl">display</span><span class="p">:</span> <span class="n">flex</span><span class="p">;</span>
+    <span class="nl">align-items</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+    <span class="nl">justify-content</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+    <span class="nl">width</span><span class="p">:</span> <span class="m">300px</span><span class="p">;</span>
+    <span class="nl">height</span><span class="p">:</span> <span class="m">100px</span><span class="p">;</span>
+    <span class="nl">margin</span><span class="p">:</span> <span class="m">10px</span><span class="p">;</span>
+    <span class="nl">border-radius</span><span class="p">:</span> <span class="m">5px</span><span class="p">;</span>
+    <span class="nl">box-shadow</span><span class="p">:</span> <span class="m">2px</span> <span class="m">4px</span> <span class="m">5px</span> <span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0.3</span><span class="p">);</span>
+    <span class="nl">transform</span><span class="p">:</span> <span class="n">translateX</span><span class="p">(</span><span class="m">400%</span><span class="p">);</span>
+    <span class="nl">transition</span><span class="p">:</span> <span class="n">transform</span> <span class="m">.4s</span> <span class="n">ease</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.box</span><span class="nd">:nth-of-type</span><span class="o">(</span><span class="nt">even</span><span class="o">)</span><span class="p">{</span>
+    <span class="nl">transform</span><span class="p">:</span> <span class="n">translateX</span><span class="p">(</span><span class="m">-400%</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nc">.box.show</span> <span class="p">{</span>
+    <span class="nl">transform</span><span class="p">:</span> <span class="n">translateX</span><span class="p">(</span><span class="m">0</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>最后控制框体内的文字样式.</p>
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="nc">.box</span> <span class="nt">h2</span> <span class="p">{</span>
+    <span class="nl">font-family</span><span class="p">:</span> <span class="n">-apple-system</span><span class="p">,</span> <span class="n">BlinkMacSystemFont</span><span class="p">,</span> <span class="s2">'Segoe UI'</span><span class="p">,</span> <span class="n">Roboto</span><span class="p">,</span> <span class="n">Oxygen</span><span class="p">,</span> <span class="n">Ubuntu</span><span class="p">,</span> <span class="n">Cantarell</span><span class="p">,</span> <span class="s2">'Open Sans'</span><span class="p">,</span> <span class="s2">'Helvetica Neue'</span><span class="p">,</span> <span class="nb">sans-serif</span><span class="p">;</span>
+    <span class="nl">font-size</span><span class="p">:</span> <span class="m">45px</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>完整的 <code class="language-plaintext highlighter-rouge">CSS</code> 样式表如下:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;style&gt;</span>
+    <span class="o">*</span> <span class="p">{</span>
+        <span class="nl">box-sizing</span><span class="p">:</span> <span class="n">border-box</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nt">body</span><span class="p">{</span>
+        
+        <span class="nl">background-color</span><span class="p">:</span><span class="m">#660099</span><span class="p">;</span>
+        <span class="nl">display</span><span class="p">:</span> <span class="n">flex</span><span class="p">;</span>
+        <span class="nl">flex-direction</span><span class="p">:</span> <span class="n">column</span><span class="p">;</span>
+        <span class="nl">align-items</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+        <span class="nl">justify-content</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+        <span class="nl">margin</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+        <span class="nl">overflow-x</span><span class="p">:</span> <span class="nb">hidden</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nt">h1</span><span class="p">{</span>
+        <span class="nl">color</span><span class="p">:</span><span class="no">khaki</span><span class="p">;</span>
+        <span class="nl">margin</span><span class="p">:</span><span class="m">10px</span><span class="p">;</span>
+        <span class="nl">font-family</span><span class="p">:</span> <span class="n">-apple-system</span><span class="p">,</span> <span class="n">BlinkMacSystemFont</span><span class="p">,</span> <span class="s2">'Segoe UI'</span><span class="p">,</span> <span class="n">Roboto</span><span class="p">,</span> <span class="n">Oxygen</span><span class="p">,</span> <span class="n">Ubuntu</span><span class="p">,</span> <span class="n">Cantarell</span><span class="p">,</span> <span class="s2">'Open Sans'</span><span class="p">,</span> <span class="s2">'Helvetica Neue'</span><span class="p">,</span> <span class="nb">sans-serif</span><span class="p">;</span>
+    <span class="p">}</span>
+     
+    <span class="nc">.box</span><span class="p">{</span>
+        <span class="nl">background-color</span><span class="p">:</span> <span class="no">khaki</span><span class="p">;</span>
+        <span class="nl">color</span><span class="p">:</span> <span class="m">#660099</span><span class="p">;</span>
+        <span class="nl">display</span><span class="p">:</span> <span class="n">flex</span><span class="p">;</span>
+        <span class="nl">align-items</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+        <span class="nl">justify-content</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+        <span class="nl">width</span><span class="p">:</span> <span class="m">300px</span><span class="p">;</span>
+        <span class="nl">height</span><span class="p">:</span> <span class="m">100px</span><span class="p">;</span>
+        <span class="nl">margin</span><span class="p">:</span> <span class="m">10px</span><span class="p">;</span>
+        <span class="nl">border-radius</span><span class="p">:</span> <span class="m">5px</span><span class="p">;</span>
+        <span class="nl">box-shadow</span><span class="p">:</span> <span class="m">2px</span> <span class="m">4px</span> <span class="m">5px</span> <span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0.3</span><span class="p">);</span>
+        <span class="nl">transform</span><span class="p">:</span> <span class="n">translateX</span><span class="p">(</span><span class="m">400%</span><span class="p">);</span>
+        <span class="nl">transition</span><span class="p">:</span> <span class="n">transform</span> <span class="m">.4s</span> <span class="n">ease</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nc">.box</span><span class="nd">:nth-of-type</span><span class="o">(</span><span class="nt">even</span><span class="o">)</span><span class="p">{</span>
+        <span class="nl">transform</span><span class="p">:</span> <span class="n">translateX</span><span class="p">(</span><span class="m">-400%</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nc">.box.show</span> <span class="p">{</span>
+        <span class="nl">transform</span><span class="p">:</span> <span class="n">translateX</span><span class="p">(</span><span class="m">0</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nc">.box</span> <span class="nt">h2</span> <span class="p">{</span>
+        <span class="nl">font-family</span><span class="p">:</span> <span class="n">-apple-system</span><span class="p">,</span> <span class="n">BlinkMacSystemFont</span><span class="p">,</span> <span class="s2">'Segoe UI'</span><span class="p">,</span> <span class="n">Roboto</span><span class="p">,</span> <span class="n">Oxygen</span><span class="p">,</span> <span class="n">Ubuntu</span><span class="p">,</span> <span class="n">Cantarell</span><span class="p">,</span> <span class="s2">'Open Sans'</span><span class="p">,</span> <span class="s2">'Helvetica Neue'</span><span class="p">,</span> <span class="nb">sans-serif</span><span class="p">;</span>
+        <span class="nl">font-size</span><span class="p">:</span> <span class="m">45px</span><span class="p">;</span>
+    <span class="p">}</span>
+
+<span class="nt">&lt;/style&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="4-javascript">4. <code class="language-plaintext highlighter-rouge">JavaScript</code></h2>
+
+<p>我们编写 <code class="language-plaintext highlighter-rouge">JavaScript</code> 设定动画触发位置和框体的 <code class="language-plaintext highlighter-rouge">className</code> 更新函数:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+</pre></td><td class="rouge-code"><pre><span class="c1">// select all boxes</span>
+<span class="kd">const</span> <span class="nx">boxes</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span><span class="dl">'</span><span class="s1">.box</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="c1">// assign the scrolling event to the funtion which is </span>
+<span class="c1">// responsible for handling the visibility of each boxes</span>
+<span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">scroll</span><span class="dl">'</span><span class="p">,</span> <span class="nx">checkBoxes</span><span class="p">)</span>
+
+<span class="c1">// call the function first to initialize the visible boxes</span>
+<span class="nx">checkBoxes</span><span class="p">()</span>
+
+<span class="kd">function</span> <span class="nx">checkBoxes</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// set the trigger</span>
+    <span class="kd">const</span> <span class="nx">triggerBottom</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">innerHeight</span> <span class="o">/</span> <span class="mi">5</span> <span class="o">*</span> <span class="mi">4</span>
+
+    <span class="c1">// set whether the box is visible depend on its location</span>
+    <span class="nx">boxes</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">box</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="kd">const</span> <span class="nx">boxTop</span> <span class="o">=</span> <span class="nx">box</span><span class="p">.</span><span class="nx">getBoundingClientRect</span><span class="p">().</span><span class="nx">top</span>
+        <span class="c1">// set the box to be visible only if </span>
+        <span class="c1">// it is above the trigger line</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">boxTop</span> <span class="o">&lt;</span> <span class="nx">triggerBottom</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">box</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="dl">'</span><span class="s1">show</span><span class="dl">'</span><span class="p">)</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nx">box</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="dl">'</span><span class="s1">show</span><span class="dl">'</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">})</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>最后, 完整的网页演示可见 <a href="../../../../../projects/50P50D/scroll-animation/index.html">此处</a></p>
+:ET

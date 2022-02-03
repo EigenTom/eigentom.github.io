@@ -1,0 +1,513 @@
+I"@�<h1 id="ch2-计算机辅助设计与-verilog">Ch2 计算机辅助设计与 <code class="language-plaintext highlighter-rouge">Verilog</code></h1>
+
+<p>在本章中, 我们将阐述计算机辅助设计的基本概念, 并介绍一门描述性计算机辅助设计语言: <code class="language-plaintext highlighter-rouge">Verilog</code>.</p>
+
+<h2 id="1-计算机辅助设计">1. 计算机辅助设计</h2>
+<p>随着科技的不断发展和对性能的持续要求, 面向数字系统的设计不可避免地变得愈发复杂, 以至于我们无法再使用传统的纸笔绘图设计极其复杂的电路, 例如包含上亿晶体管的处理器. 为了避免这一局限性, 我们必须使用计算机辅助我们进行电路设计.</p>
+
+<h3 id="11-必要性和优越性">1.1 必要性和优越性</h3>
+<ol>
+  <li>必要性: 设计复杂度的不断提升<br /></li>
+  <li>优越性: 计算机在重复执行大量简易指令方面相比人工操作具有无可比拟的优越性</li>
+</ol>
+
+<p>基于以上现实, 为了利用计算机的这一特征实现计算机辅助设计绕过人的局限性对数字系统发展的限制, 我们需要将数字电路设计划分为以下的数个步骤:</p>
+<ol>
+  <li>基本的电路设计</li>
+  <li>对电路设计的模拟</li>
+  <li>将逻辑化的电路设计进行转译和编译</li>
+  <li>将电路设计转化为实际的电路布局</li>
+  <li>对电路设计进行测试和分析</li>
+</ol>
+
+<p><br /></p>
+
+<h3 id="12-电路图和符号">1.2 电路图和符号</h3>
+<p>通过使用电路图和符号, 我们可以将硬件设计图形化. 电路图可以很好地显示部件之间的连接, 适用于更为抽象化的高级电路设计. 同时, 电路图也可以用于表示位于较底层的门电路级别的线路连接.</p>
+
+<p>抽象化的符号表示了它所包含的一切层级. 绝大多数情况下, 符号只是一些简单的图形. 符号所具有的重要功能在于, 它通常通过名称代号和所代表的基础设计相关联, 并且符号常常都具有和线路相连的针脚.</p>
+
+<p><br /></p>
+
+<h3 id="13-测试和模拟">1.3 测试和模拟</h3>
+<p>对电路的测试常常由某个指定了测试顺序, 测试方法的文件所定义. 虽然可交互性测试也是理论上可行的,但在实际测试过程中, 随着不断地在设计中发现-测试-修复问题, 这种方法的耗时将会显著增加. 因此, 静态模拟仍然是必要的.</p>
+
+<p><br /></p>
+
+<h2 id="2-硬件描述语言-verilog">2. 硬件描述语言: <code class="language-plaintext highlighter-rouge">Verilog</code></h2>
+<p>硬件描述语言旨在简化漫长而枯燥的硬件设计过程. 它具有以下的基本特点:</p>
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">HDL</code> 允许使用文字性的语言对硬件进行定义</li>
+  <li><code class="language-plaintext highlighter-rouge">HDL</code> 不需要使用者了解过多的硬件细节</li>
+  <li><code class="language-plaintext highlighter-rouge">HDL</code> 便于参数化, 易于维护</li>
+  <li><code class="language-plaintext highlighter-rouge">HDL</code> 具有更强的可读性
+在本课程中, 我们将简要学习一门被广泛应用的硬件描述语言: <code class="language-plaintext highlighter-rouge">Verilog</code>. 我们将使用 <code class="language-plaintext highlighter-rouge">Verilog</code> 进行不可合成的电路设计与模拟, 和描述可被合成入 <code class="language-plaintext highlighter-rouge">FPGA</code> 的硬件设计.</li>
+</ol>
+
+<h3 id="21-verilog-模组">2.1 <code class="language-plaintext highlighter-rouge">Verilog</code> 模组</h3>
+<p>模组是描述数字系统的基本组成单位, 它和描述某个设计的电路图或符号等价:</p>
+
+<p><img src="https://raw.githubusercontent.com/KirisameMarisaa/KirisameMarisaa.github.io/master/img/blogpost_images/20201105191758.png" alt="20201105191758" /></p>
+
+<p>在上图的设计中, 该设计具有输入和输出, 以及可以基于输入执行一些指令. 模组就是对这个设计的文字化的表述: 模组定义了它的输入和和输出, 以及它基于输入将要执行的指令内容. <code class="language-plaintext highlighter-rouge">Verilog</code> 的模组, 和面向对象程序设计原则中的 “类” 是非常相似的. <br />
+在 <code class="language-plaintext highlighter-rouge">Verilog</code> 中, 由于不同的语句可以实现同样有效的功能, 我们最好使用清晰的表示法来表示模组. <br />
+模块是一种逻辑功能，类似于上图，并且可以用相同的方式用符号表示。<br />
+因此，我们可以在原理图中使用 <code class="language-plaintext highlighter-rouge">Verilog</code> 模块，其中符号用于高级原理图中，而低级内容在<code class="language-plaintext highlighter-rouge">Verilog</code> 中进行描述。<br />
+模块以关键字 <code class="language-plaintext highlighter-rouge">module</code>开头；其后是模块的名称，该名称应反映其功能。声明输入和输出变量的方法如下:</p>
+<ol>
+  <li>模块以关键字 <code class="language-plaintext highlighter-rouge">endmodule</code> 结尾。</li>
+  <li>模块的主体由任何内部信号的声明和定义逻辑功能的语句组成。</li>
+</ol>
+
+<p>为了清晰明确地表示模组, 我们常常遵循以下的规则:</p>
+<ol>
+  <li>确保模组的功能直接明了, 并且可读性强</li>
+  <li>使用不影响编译结果的缩进与空格增强代码的可读性.</li>
+  <li>使用合适的注释语句备注代码:
+    <div class="language-verilog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre> <span class="cm">/* &lt;comment goes here &gt;*/</span>
+    
+ <span class="kt">or</span>
+
+ <span class="c1">//&lt;comments goes here&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+</ol>
+
+<p>对模组的定义一般如下:</p>
+<div class="language-verilog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="k">module</span> <span class="p">[</span><span class="k">module</span> <span class="n">name</span><span class="p">]</span> <span class="p">(</span><span class="n">i</span><span class="o">/</span><span class="n">o</span> <span class="n">definations</span><span class="p">);</span>
+
+<span class="n">main</span> <span class="n">body</span> <span class="n">of</span> <span class="n">the</span> <span class="k">module</span><span class="p">,</span> <span class="n">where</span> <span class="n">variables</span> <span class="n">are</span> <span class="n">assigned</span> <span class="k">with</span> <span class="n">values</span>
+
+<span class="k">endmodule</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>注: 我们可以使用新的代码风格: 将变量的输入和输出直接定义在模组头而非模组体中. 两种定义方式同样有效.</p>
+
+<p><br /></p>
+
+<h3 id="22-verilog-声明">2.2 <code class="language-plaintext highlighter-rouge">Verilog</code> 声明</h3>
+<p>和其他编程语言一样, 任何一个变量在被赋值前必须声明其类型.</p>
+
+<p>在 <code class="language-plaintext highlighter-rouge">Verilog</code> 中, 变量类型有且只有以下两种:</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">wire</code>: 默认类型, 声明组件之间的连接
+    <ul>
+      <li>用于声明连续赋值</li>
+      <li>输出简单的组合逻辑函数</li>
+      <li>用于更高级别的组件连接定义</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">reg</code>: 既可以用于声明组件间的连接线, 也可用于声明某个寄存器:
+    <ul>
+      <li>用于声明阻塞赋值(=)</li>
+      <li>用于复杂的组合逻辑中</li>
+      <li>也可用于声明非阻塞赋值(&lt;=)</li>
+      <li>用于顺序(锁定)输出</li>
+    </ul>
+  </li>
+</ol>
+
+<p>注:</p>
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">Verilog</code> <strong>大小写敏感</strong>!</li>
+  <li><code class="language-plaintext highlighter-rouge">Verilog</code> 的默认数字类型为 <strong>十进制</strong>. 要表示二进制, 十六进制, 我们需要在数字前分别附上标记: <code class="language-plaintext highlighter-rouge">‘b</code>和<code class="language-plaintext highlighter-rouge">’h</code>.</li>
+</ol>
+
+<p><br /></p>
+
+<h3 id="23-verilog-算符">2.3 <code class="language-plaintext highlighter-rouge">Verilog</code> 算符</h3>
+<p>和其他编程语言一样, <code class="language-plaintext highlighter-rouge">Verilog</code> 也具有多种算符:</p>
+<ol>
+  <li>算数算符:<br />
+<code class="language-plaintext highlighter-rouge">add '+'</code>, <code class="language-plaintext highlighter-rouge">subtract '-'</code>, <code class="language-plaintext highlighter-rouge">division '/'</code>, <code class="language-plaintext highlighter-rouge">modulus '%'</code></li>
+  <li>二元逻辑算符:<br />
+<code class="language-plaintext highlighter-rouge">complement '~'</code>, <code class="language-plaintext highlighter-rouge">AND '&amp;'</code>, <code class="language-plaintext highlighter-rouge">OR '|'</code>, <code class="language-plaintext highlighter-rouge">XOR '^'</code></li>
+  <li>逻辑算符:<br />
+<code class="language-plaintext highlighter-rouge">complement '!'</code>, <code class="language-plaintext highlighter-rouge">AND '&amp;&amp;'</code>, <code class="language-plaintext highlighter-rouge">OR '||'</code>, <code class="language-plaintext highlighter-rouge">NOT equal '!='</code></li>
+  <li>移位算符:<br />
+<code class="language-plaintext highlighter-rouge">shiftright ‘&gt;&gt;’</code>, <code class="language-plaintext highlighter-rouge">shiftleft '&lt;&lt;'</code>, <code class="language-plaintext highlighter-rouge">concatenation {.}</code></li>
+  <li>关系算符:<br />
+<code class="language-plaintext highlighter-rouge">greater_than '&gt;'</code> <code class="language-plaintext highlighter-rouge">less_than '&lt;'</code> <code class="language-plaintext highlighter-rouge">equal '=='</code> <code class="language-plaintext highlighter-rouge">nequal '!='</code> <code class="language-plaintext highlighter-rouge">greater_or_eq '&gt;='</code> <code class="language-plaintext highlighter-rouge">less_than_or_eq '&lt;='</code></li>
+</ol>
+
+<p><br /></p>
+
+<h3 id="24-verilog-控制语句">2.4 <code class="language-plaintext highlighter-rouge">Verilog</code> 控制语句</h3>
+<p>和其他编程语言一样, <code class="language-plaintext highlighter-rouge">Verilog</code> 也有条件控制语句, 控制代码执行流程. 和其他编程语言不同的是, 由于只有<code class="language-plaintext highlighter-rouge">if...else</code>可被简单地转化为硬件, 因而在 <code class="language-plaintext highlighter-rouge">Verilog</code> 中也只有这种控制语句最为有效. 通常我们也有限度地使用 <code class="language-plaintext highlighter-rouge">for...</code> 循环, 但主要以测试目的居多, 并非用来表示硬件设计.</p>
+
+<p>一个典型的 <code class="language-plaintext highlighter-rouge">if...else</code> 示例如下:</p>
+<div class="language-verilog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="k">if</span> <span class="p">(</span><span class="n">sig_in</span> <span class="o">==</span> <span class="mi">00000000</span><span class="p">)</span>     <span class="c1">//Test Condition</span>
+    <span class="n">is_zero</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>     <span class="c1">//if true then...</span>
+<span class="k">else</span>
+    <span class="n">is_zero</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>     <span class="c1">//id false then...</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>注:</p>
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">if ... else</code> 语句必须位于一个 <code class="language-plaintext highlighter-rouge">Initial</code> 块或 <code class="language-plaintext highlighter-rouge">Always</code>块中。</li>
+  <li>只有在少数情况下, 省略表达式中的 <code class="language-plaintext highlighter-rouge">else</code> 并不会导致意想不到的结果. 为确保万无一失, 在编写 <code class="language-plaintext highlighter-rouge">if ... else</code> 语句时, 最好包含并考虑所有的可能输入情况.</li>
+</ol>
+
+<p><br /></p>
+
+<h3 id="25-verilog-组合逻辑赋值-assignments">2.5 <code class="language-plaintext highlighter-rouge">Verilog</code> 组合逻辑赋值 (<code class="language-plaintext highlighter-rouge">Assignments</code>)</h3>
+<p>模组的功能是定义某个电路或设计的行为. 因此, 它必须根据输入信号的变化而分配输出信号的值, 或者能够决定输出的信号是什么, 这也正是 Verilog 要提供控制语句的原因所在. <code class="language-plaintext highlighter-rouge">Verilog</code> 提供了三种赋值方式:</p>
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">continuous assignment</code>    连续赋值</li>
+  <li><code class="language-plaintext highlighter-rouge">blocking assignment</code>      阻塞赋值</li>
+  <li><code class="language-plaintext highlighter-rouge">non-blocking assignment</code>  非阻塞赋值</li>
+</ol>
+
+<p>随着我们所定义的电路类型的不同和定义方式的不同, 我们使用的赋值方式也要有所变化.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Verilog</code> 编程准则:</p>
+<ol>
+  <li>使用 <strong>连续赋值 或 阻塞赋值</strong> 为组合逻辑建模.</li>
+  <li>为顺序系统, 如 <strong>寄存器, 触发器等</strong> 建模时, 使用 <strong>非阻塞赋值</strong>.</li>
+  <li>若在同一个 <code class="language-plaintext highlighter-rouge">always</code> 块中同时包含了组合逻辑和顺序系统, 使用 <strong>非阻塞赋值</strong>.</li>
+  <li><strong>切勿</strong> 将阻塞赋值和非阻塞赋值在同一个 <code class="language-plaintext highlighter-rouge">always block</code> 中混用!</li>
+  <li><strong>切勿</strong> 在多个 <code class="language-plaintext highlighter-rouge">always</code> 块中对同一个变量赋值!</li>
+</ol>
+
+<p><br /></p>
+
+<h3 id="251-continuous-assignment">2.5.1 <code class="language-plaintext highlighter-rouge">Continuous Assignment</code></h3>
+<p>连续赋值 <code class="language-plaintext highlighter-rouge">Continuous Assignment</code> 用于简洁地为组合逻辑建模. 关键词为 <code class="language-plaintext highlighter-rouge">assign</code>:</p>
+<div class="language-verilog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="k">assign</span> <span class="o">&lt;</span><span class="n">variable</span><span class="o">&gt;</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">logical</span> <span class="n">statement</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="k">assign</span> <span class="n">s</span> <span class="o">=</span> <span class="n">a</span> <span class="o">^</span> <span class="n">b</span> <span class="o">^</span> <span class="n">c_in</span><span class="p">;</span>
+<span class="k">assign</span> <span class="n">c_out</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span> <span class="o">&amp;</span> <span class="n">b</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">a</span> <span class="o">&amp;</span> <span class="n">c_in</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">b</span> <span class="o">&amp;</span> <span class="n">c_in</span><span class="p">);</span>
+
+<span class="k">assign</span> <span class="n">a</span> <span class="o">=</span> <span class="n">b</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">c</span> <span class="o">||</span> <span class="n">d</span><span class="p">);</span>   <span class="c1">//a is given by c ORed d, result ANDed with b</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>在上述代码块的第 <code class="language-plaintext highlighter-rouge">2</code> 到 <code class="language-plaintext highlighter-rouge">3</code> 行中, 我们定义了一个全加器. 它不是从半加器开始组合成全加器的, 而是使用连续赋值直接定义的, 由此可见连续赋值可以有效地简化一些组合逻辑的定义.</p>
+
+<p>在连续赋值语句中, 我们可以用轮询算符 <code class="language-plaintext highlighter-rouge">?</code> 表示选择声明:</p>
+<div class="language-verilog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="k">assign</span> <span class="n">q</span> <span class="o">=</span> <span class="p">(</span><span class="n">sel</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span><span class="o">?</span> <span class="n">x</span><span class="o">:</span><span class="n">y</span><span class="p">;</span>
+
+<span class="n">it</span> <span class="n">means</span><span class="o">:</span> 
+
+<span class="k">if</span> <span class="p">(</span><span class="n">sel</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>   <span class="k">assign</span> <span class="n">q</span> <span class="o">=</span> <span class="n">x</span>
+<span class="k">else</span>            <span class="k">assign</span> <span class="n">q</span> <span class="o">=</span> <span class="n">y</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>这是一个 <code class="language-plaintext highlighter-rouge">2:1</code> 多路复用器. 注意: <code class="language-plaintext highlighter-rouge">x</code>, <code class="language-plaintext highlighter-rouge">y</code> 既可以是连线, 也可以是总线. (但是都需要声明为 <code class="language-plaintext highlighter-rouge">wire</code> 类型).</p>
+
+<p>注:</p>
+<ol>
+  <li>连续赋值只能赋值 <code class="language-plaintext highlighter-rouge">wire</code> 数据类型. 故在上述例子中, <code class="language-plaintext highlighter-rouge">q</code> 必须被声明为 <code class="language-plaintext highlighter-rouge">wire</code>, 如此 <code class="language-plaintext highlighter-rouge">assign</code> 才是合法的.</li>
+  <li>连续赋值在模块体中被执行. 连续赋值不能在 <code class="language-plaintext highlighter-rouge">always</code> 或 <code class="language-plaintext highlighter-rouge">initial</code> 体中被执行!</li>
+</ol>
+
+<h4 id="252-blocking-assignment">2.5.2 <code class="language-plaintext highlighter-rouge">Blocking Assignment</code></h4>
+<p>阻塞赋值 <code class="language-plaintext highlighter-rouge">Blocking Assignment</code> 为一类按照顺序自顶向下执行的语句:</p>
+
+<div class="language-verilog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="n">c</span> <span class="o">||</span> <span class="n">d</span><span class="p">);</span>   <span class="c1">//1st do c+d</span>
+<span class="n">e</span> <span class="o">=</span> <span class="n">a</span> <span class="o">&amp;&amp;</span> <span class="n">b</span><span class="p">;</span>     <span class="c1">//then AND the result with b</span>
+
+<span class="c1">// can be used with if...else statements:</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">sel</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="n">q</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>    
+<span class="k">else</span>          <span class="n">q</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>阻塞赋值的应用范围在于:</p>
+<ol>
+  <li>在测试文件中, 为变量赋值. (显然需要按照顺序执行测试)</li>
+  <li>描述复杂的组合逻辑</li>
+</ol>
+
+<p>注:</p>
+<ol>
+  <li>阻塞赋值所赋值的变量 <strong>必须声明为 <code class="language-plaintext highlighter-rouge">reg</code> 类型, 无论该变量是否有保存状态的功能</strong>!</li>
+  <li>阻塞赋值语句 <strong>只能被用于 <code class="language-plaintext highlighter-rouge">initial</code> 或 <code class="language-plaintext highlighter-rouge">always</code> 块中</strong>!</li>
+</ol>
+
+<p>阻塞赋值允许一个变量在同一个代码块中被多次赋值. 需要注意的是, 所有对同一个变量进行赋值的语句必须被存放在同一个 “代码区块” 中, 当一些先决条件得到满足的时候, 这个区块就会被执行.</p>
+
+<p>在两种情况下, 这样的情形才会发生:<br /></p>
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">initial</code>
+    <ul>
+      <li>代码区块仅仅在初始, 时间0时被执行一次</li>
+      <li>通常用于初始化</li>
+      <li>一般无法被合成为硬件</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">always @ (&lt;signal list&gt;)</code>
+    <ul>
+      <li>每次 <code class="language-plaintext highlighter-rouge">&lt;signal list&gt;</code> 中的信号发生变化时代码块都会被执行</li>
+      <li>一般而言所有输入信号都应被纳入<code class="language-plaintext highlighter-rouge">&lt;signal list&gt;</code> 中以确保这个代码块是组合的</li>
+      <li>不在 <code class="language-plaintext highlighter-rouge">&lt;signal list&gt;</code> 中的信号如果发生变化不会触发代码块的执行</li>
+    </ul>
+  </li>
+</ol>
+
+<p>例: Verilog 条件语句 <code class="language-plaintext highlighter-rouge">case</code></p>
+
+<div class="language-verilog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="c1">// case statement is similar to Java's switch</span>
+<span class="c1">//sel is a 2-bit bus</span>
+<span class="k">always</span> <span class="o">@</span> <span class="p">(</span><span class="n">sel</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
+    <span class="k">case</span> <span class="p">(</span><span class="n">sel</span><span class="p">)</span>
+        <span class="mi">0</span><span class="o">:</span> <span class="n">q</span> <span class="o">=</span> <span class="n">w</span><span class="p">;</span>
+        <span class="mi">1</span><span class="o">:</span> <span class="n">q</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
+        <span class="mi">2</span><span class="o">:</span> <span class="n">q</span> <span class="o">=</span> <span class="n">y</span><span class="o">:</span>
+        <span class="mi">3</span><span class="o">:</span> <span class="n">q</span> <span class="o">=</span> <span class="n">z</span><span class="p">;</span>
+        <span class="nl">default:</span> <span class="err">'</span><span class="n">bX</span><span class="p">;</span>   <span class="c1">//Send Null signal for alert</span>
+    <span class="k">endcase</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>在 <code class="language-plaintext highlighter-rouge">Verilog</code> 中, <code class="language-plaintext highlighter-rouge">case</code> 条件体有以下特征:</p>
+<ol>
+  <li>关键词为 <code class="language-plaintext highlighter-rouge">case</code></li>
+  <li>每一个条件都以 <strong>数值</strong> 的方式定义</li>
+  <li>若需要实现更多功能, 可使用 <code class="language-plaintext highlighter-rouge">begin</code> 和 <code class="language-plaintext highlighter-rouge">end</code> 括号.</li>
+  <li><code class="language-plaintext highlighter-rouge">case</code> 声明 <strong>不可用于连续赋值!</strong></li>
+  <li><code class="language-plaintext highlighter-rouge">case</code> 声明在我们需要阻塞赋值构建电路时可能是最有效的声明.</li>
+  <li>为了避免合成器添加多余的锁存器, 我们在使用<code class="language-plaintext highlighter-rouge">case</code> 时可以定义 <code class="language-plaintext highlighter-rouge">default</code>.</li>
+</ol>
+
+<p><br /></p>
+
+<h4 id="254-always-block">2.5.4 <code class="language-plaintext highlighter-rouge">Always Block</code></h4>
+<p>我们使用 <code class="language-plaintext highlighter-rouge">always</code> 块来描述当一些事件 (一般是某些变量的变化或时钟电平的变化) 发生时将要执行的语句. 其用法如下:</p>
+
+<div class="language-verilog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="k">always</span> <span class="o">@</span> <span class="p">(</span><span class="o">&lt;</span><span class="n">condition</span><span class="o">&gt;</span><span class="p">)</span>
+<span class="k">begin</span>
+    <span class="c1">//statements to be executed</span>
+<span class="k">end</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>注:</p>
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">always</code> 关键字的行为正如其所述, <strong>它将从程序运行的一开始就总是</strong>生效并基于条件决定是否执行这些语句, 可将其视为一个无限循环, 这一特性和 <code class="language-plaintext highlighter-rouge">initial</code> 很相近, 二者都是从程序运行一开始就执行. 相较于连续赋值, 它为设计人员提供了更高的抽象程度, 便于实现更复杂的逻辑表达式.</li>
+  <li>在块中的语句的执行与否取决于 <code class="language-plaintext highlighter-rouge">&lt;condition&gt;</code>. 这将放在后文详细讨论. 一般 <code class="language-plaintext highlighter-rouge">always</code> 块都会提供一个敏感度列表 (<code class="language-plaintext highlighter-rouge">sensitivity list</code>), 用于决定什么时候这个<code class="language-plaintext highlighter-rouge">always</code> 块会被评估.</li>
+  <li>在 <code class="language-plaintext highlighter-rouge">always</code> 块中, 我们可以进行 <strong>阻塞赋值和非阻塞赋值, 而不能执行连续赋值!</strong></li>
+  <li>一个模组可以有任意多的 <code class="language-plaintext highlighter-rouge">always</code> 块, 以及 <code class="language-plaintext highlighter-rouge">initial</code> 块. 所有这两种块都会同时开始执行: 电流从物理上就是并发的. 事件不会像软件代码一样串行发生, 而是并行发生.</li>
+  <li>程序化的声明可以通过 阻塞赋值和非阻塞赋值实现.</li>
+</ol>
+
+<p><br /></p>
+
+<h4 id="255-敏感度列表">2.5.5 敏感度列表</h4>
+<p>位于 <code class="language-plaintext highlighter-rouge">always</code> 块头括号内的条件被统称为 <strong>敏感度列表</strong> (<code class="language-plaintext highlighter-rouge">sensitivity list</code>):</p>
+<div class="language-verilog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="k">always</span> <span class="o">@</span> <span class="p">(</span><span class="n">sel</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>  <span class="c1">//sensitivity list</span>
+<span class="k">begin</span>
+    <span class="c1">//operations, do sth</span>
+<span class="k">end</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>注:</p>
+<ol>
+  <li>块体内的陈述将会在任何敏感度列表中的变量发生改变的时候执行.</li>
+  <li>这样的一个 <code class="language-plaintext highlighter-rouge">always</code> 块通常会被合成入一个组合逻辑块中.</li>
+  <li>我们可以使用 <code class="language-plaintext highlighter-rouge">always @ (*)</code> 将全部输入变量一次性划入敏感度列表中.</li>
+</ol>
+
+<p>如前文所述, 我们也可以令 <code class="language-plaintext highlighter-rouge">always</code> 块对时钟信号敏感. 我们通过在敏感度列表中使用关键词实现这一点:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">posedge</code> 信号0-&gt;1时执行</li>
+  <li><code class="language-plaintext highlighter-rouge">nededge</code> 信号1-&gt;0时执行</li>
+</ul>
+
+<p>例:</p>
+<div class="language-verilog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="c1">//execute the always block when</span>
+<span class="c1">//input signal clock has a rising edge</span>
+<span class="k">always</span> <span class="o">@</span> <span class="p">(</span><span class="kt">posedge</span> <span class="n">clock</span><span class="p">)</span>
+<span class="k">begin</span>
+    <span class="c1">//operations, do sth</span>
+<span class="k">end</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="256-non-blocking-assignments">2.5.6 <code class="language-plaintext highlighter-rouge">Non-Blocking Assignments</code></h3>
+<p>非阻塞赋值 <code class="language-plaintext highlighter-rouge">Non-Blocking Assignments</code> 是 <strong>并行</strong> 的, 这意味着它们将会被同时执行!
+我们使用 <code class="language-plaintext highlighter-rouge">&lt;=</code> 符号指代非阻塞赋值:</p>
+
+<div class="language-verilog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="n">a</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="n">b</span> <span class="o">&lt;=</span> <span class="n">a</span><span class="p">;</span>
+<span class="n">c</span> <span class="o">&lt;=</span> <span class="n">b</span><span class="p">;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>在上述的示例代码中, 当该代码块执行后:</p>
+<ol>
+  <li>a = 1</li>
+  <li>b将被赋上 <strong>a原来的值</strong>!</li>
+  <li>c将被赋上 <strong>b原来的值</strong>!</li>
+</ol>
+
+<p>注意: 非阻塞赋值在每一次执行块时都会分配一次变量. 以下列代码为例:</p>
+
+<div class="language-verilog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c1">// count's init value == 8, final value == 9</span>
+<span class="c1">// count's init value == 9, final value == 10</span>
+<span class="c1">// count's init value == 10, final value CANNOT BE DEFINED</span>
+<span class="n">count</span> <span class="o">&lt;=</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">count</span> <span class="o">==</span> <span class="mi">10</span><span class="p">)</span> <span class="n">count</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>因此, 任何非阻塞赋值都应该是互斥的. 下列代码就没有问题:</p>
+
+<div class="language-verilog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="k">if</span> <span class="p">(</span><span class="n">count</span> <span class="o">==</span> <span class="mi">9</span><span class="p">)</span> <span class="n">count</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="k">else</span>            <span class="n">count</span> <span class="o">&lt;=</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>[TODO: 笔记P81, 日后再看]</p>
+
+<p><br /></p>
+
+<h3 id="27-verilog-设计分区">2.7 <code class="language-plaintext highlighter-rouge">Verilog</code> 设计分区</h3>
+<p>单个模块 <code class="language-plaintext highlighter-rouge">module</code> 中可以有多个 <code class="language-plaintext highlighter-rouge">assign</code> 和 <code class="language-plaintext highlighter-rouge">always</code> 块. 我们可以用这些块对我们的设计进行合理的分区:</p>
+<ol>
+  <li>确保每个块是简单的</li>
+  <li>只将一个函数封装在一个区域中
+并且注意:</li>
+  <li>在同一个块中只赋值一个变量</li>
+  <li>切勿在 <code class="language-plaintext highlighter-rouge">always</code> 块中错误地混用阻塞赋值和非阻塞赋值.</li>
+  <li>确保代码可读性</li>
+  <li>合理注释代码</li>
+</ol>
+
+<p><br /></p>
+
+<h3 id="28-verilog-并行">2.8 <code class="language-plaintext highlighter-rouge">Verilog</code> 并行</h3>
+<p>由于阻塞赋值和非阻塞赋值在组合意义上和时序意义上的不同, 用错误的方式应用它们会导致意料之外的结果.</p>
+
+<div class="language-verilog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+</pre></td><td class="rouge-code"><pre><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">module</span> <span class="n">demo</span> <span class="p">(</span><span class="kt">input</span> <span class="n">clk</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="kt">output</span> <span class="kt">reg</span> <span class="n">c</span><span class="p">);</span>
+<span class="kt">reg</span> <span class="n">b</span><span class="p">;</span>
+<span class="k">always</span> <span class="o">@</span> <span class="p">(</span><span class="kt">posedge</span> <span class="n">clk</span><span class="p">)</span> 
+    <span class="n">b</span> <span class="o">&lt;=</span> <span class="n">a</span><span class="p">;</span>
+<span class="k">always</span> <span class="o">@</span> <span class="p">(</span><span class="kt">posedge</span> <span class="n">clk</span><span class="p">)</span> 
+    <span class="n">c</span> <span class="o">&lt;=</span> <span class="n">b</span><span class="p">;</span>
+<span class="k">endmodule</span>
+
+<span class="p">(</span><span class="mi">2</span><span class="p">)</span>   
+<span class="k">module</span> <span class="n">demo</span> <span class="p">(</span><span class="kt">input</span> <span class="n">clk</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="kt">output</span> <span class="kt">reg</span> <span class="n">c</span><span class="p">);</span>
+<span class="kt">reg</span> <span class="n">b</span><span class="p">;</span>
+<span class="k">always</span> <span class="o">@</span> <span class="p">(</span><span class="kt">posedge</span> <span class="n">clk</span><span class="p">)</span>
+    <span class="k">begin</span>
+    <span class="n">b</span> <span class="o">&lt;=</span> <span class="n">a</span><span class="p">;</span> 
+    <span class="n">c</span> <span class="o">&lt;=</span> <span class="n">b</span><span class="p">;</span> 
+    <span class="k">end</span>
+<span class="k">endmodule</span>
+
+<span class="p">(</span><span class="mi">3</span><span class="p">)</span>   
+<span class="k">module</span> <span class="n">demo</span> <span class="p">(</span><span class="kt">input</span> <span class="n">clk</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="kt">output</span> <span class="kt">reg</span> <span class="n">c</span><span class="p">);</span>
+<span class="kt">reg</span> <span class="n">b</span><span class="p">;</span>
+<span class="k">always</span> <span class="o">@</span> <span class="p">(</span><span class="kt">posedge</span> <span class="n">clk</span><span class="p">)</span>
+    <span class="k">begin</span>
+    <span class="n">c</span> <span class="o">&lt;=</span> <span class="n">b</span><span class="p">;</span> 
+    <span class="n">b</span> <span class="o">&lt;=</span> <span class="n">a</span><span class="p">;</span> 
+    <span class="k">end</span>
+<span class="k">endmodule</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>可见, 以上四段代码都应用了非阻塞赋值, 而实际上它们的行为也是完全相同的. 然而, 若我们换用阻塞赋值, 由于此时必须考虑代码执行顺序的问题, 不同的代码段行为将会发生变化.<br /> 
+对于时序相关的电路, 最好不要使用阻塞赋值.</p>
+
+<p><br /></p>
+
+<h3 id="29-verilog-合成">2.9 <code class="language-plaintext highlighter-rouge">Verilog</code> 合成</h3>
+<p>需要注意, 不是所有的 Verilog 代码都可以被正确地合成为硬件电路设计. 实际上, 只有一部分的电路描述语句可以被很好地合成为硬件: <br />
+OK:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">always</code>, <code class="language-plaintext highlighter-rouge">assignments</code>, <code class="language-plaintext highlighter-rouge">most operators</code>, <code class="language-plaintext highlighter-rouge">if...else statement</code><br /></li>
+</ul>
+
+<p>NO:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">initial</code>, <code class="language-plaintext highlighter-rouge">#nn</code>, <code class="language-plaintext highlighter-rouge">for</code>, <code class="language-plaintext highlighter-rouge">while</code>, <code class="language-plaintext highlighter-rouge">$display</code>, <code class="language-plaintext highlighter-rouge">some operators(*,/)</code></li>
+</ul>
+
+:ET

@@ -103,3 +103,80 @@ tags:
 ![20211223154835](https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20211223154835.png)
 
 注意最后一条规则: 它说明, 实质上 $\mathcal{U}$ 可等价表示任何时态运算符.
+
+* Every Computation Tree is a binary tree -- `FALSE`
+* If an LTL formula is true on a path then its negation is false on this path. -- `TRUE`
+* If an LTL formula is true on all paths then its negation is false on all paths. -- `TRUE`
+* If a formula F does not contain temporal operators then F is true on a path s_0,s_1,..,if and only if F is true in s_0. -- `TRUE`
+* For every LTL formula there is an equivalent formula that does not contain operators [] and <>.  -- `TRUE`
+
+
+
+∃p ∀q ∃r
+~p \/ q
+~p \/ ~q \/ ~r
+~p \/ q \/ ~r
+p \/ q \/ r
+p \/ q \/ ~r
+
+==> ~p \/
+
+∀q ∃r
+~p
+~p \/ q
+~p \/ ~q \/ ~r
+~p \/ q \/ ~r
+p \/ q \/ r
+p \/ q \/ ~r
+
+--> ~p
+
+∀q ∃r
+q \/ r
+q \/ ~r
+
+==> q /\
+
+∀q ∃r
+q
+q \/ r
+q \/ ~r
+
+--> q
+
+[1]
+
+==> ~q /\
+
+∀q ∃r
+~q
+q \/ r
+q \/ ~r
+
+--> ~q, r
+
+[0]
+
+
+==> p \/
+
+∀q ∃r
+p
+~p \/ q
+~p \/ ~q \/ ~r
+~p \/ q \/ ~r
+p \/ q \/ r
+p \/ q \/ ~r
+
+--> p
+∀q ∃r
+
+q
+~q \/ ~r
+q \/ ~r
+
+--> q
+
+[0]
+
+====>> [0], UNSAT.

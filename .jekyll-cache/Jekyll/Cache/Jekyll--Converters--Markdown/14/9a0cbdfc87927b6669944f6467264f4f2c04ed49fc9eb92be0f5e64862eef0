@@ -1,0 +1,156 @@
+I"�7<h1 id="模糊逻辑">模糊逻辑</h1>
+
+<p>我们使用 <strong>模糊逻辑</strong> (<code class="language-plaintext highlighter-rouge">Fuzzy Logic</code>) 描述具有模糊性的语言形式和思维. 在应用中, 我们通过 <strong>模糊控制系统</strong> (<code class="language-plaintext highlighter-rouge">Fuzzy Control System</code>) 使 <code class="language-plaintext highlighter-rouge">Agent</code> 得以基于 <strong>模糊规则</strong> 利用具有模糊性的现实事实并以此为基准作出可靠的决策.</p>
+
+<p>标准的 <strong>模糊控制系统</strong> 架构如下图所示. 在接下来的数节中我们将详细介绍它:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220103172213.png" alt="20220103172213" /></p>
+
+<h2 id="1-隶属度-degree-of-membership">1. 隶属度 (<code class="language-plaintext highlighter-rouge">Degree of Membership</code>)</h2>
+
+<p>和此前介绍的传统逻辑 (或清晰逻辑) 不同, 在模糊逻辑中事物不是 <strong>非黑即白</strong> 的, 不能直接用 <code class="language-plaintext highlighter-rouge">True</code> 或 <code class="language-plaintext highlighter-rouge">False</code> 表达, 而需要取一个 <strong>介于 $0$ 和 $1$ 之间的值</strong> 描述这个事件 (或事物) 接近/远离 某个状态 (如 <code class="language-plaintext highlighter-rouge">False</code> 或 <code class="language-plaintext highlighter-rouge">True</code>) 的程度.</p>
+
+<p>考虑一个例子: 我们称 <strong><code class="language-plaintext highlighter-rouge">Axton</code> 很强</strong>, 但究竟什么样才算是 <strong>很强</strong>, 什么样算是 <strong>比较强</strong>, 什么样算是 <strong>不太强</strong>? 在布尔逻辑中, 我们可以直接处理 <strong>是非分明</strong> 的场景, 比如判断一个人, Ta要么强, 要么根本不强. 但在模糊逻辑中, <strong>很强</strong>, <strong>比较强</strong>, <strong>不太强</strong> 之间并没有严格界限, 换言之某个人能力的强弱不完全归属于一个类, 而是被一个称为 <strong>隶属度</strong> 的数值衡量的.</p>
+<h2 id="2-模糊化-fuzzification">2. 模糊化 (<code class="language-plaintext highlighter-rouge">Fuzzification</code>)</h2>
+
+<p><strong>模糊化</strong> 就是将逻辑的输入数值转换为各个分类集合的隶属度的过程, 输入数值和隶属度的关系被 <strong>隶属度函数</strong> 定义:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220103154812.png" alt="20220103154812" /></p>
+
+<p>如在上图的隶属度函数中可以看到, 温度被人为地划分为 <strong>寒冷</strong>, <strong>温暖</strong> 和 <strong>炎热</strong> 分类, 而这三个分类的隶属度函数分别在平面上以 <strong>蓝色</strong>, <strong>橙色</strong> 与 <strong>红色</strong> 表示.</p>
+
+<p>在该问题中, <strong>温度由三个模糊集合组成</strong>, 且 <strong>给定温度数值, 该数值对应于不同模糊集合的隶属度由这三个集合的隶属度函数确定</strong>, 比如 $21$ 度 (对应图中竖线) 被视为 <strong>寒冷</strong> 的隶属度为 $0.8$, 视为 <strong>温暖</strong> 的隶属度为 $0.2$, <strong>炎热</strong> 的隶属度为 $0$.</p>
+
+<p>值得注意的是, 一个值可以同时属于不同的模糊集合.</p>
+
+<h2 id="3-逻辑运算">3. 逻辑运算</h2>
+
+<p>模糊逻辑中的逻辑运算就是 <strong>模糊逻辑中, 分解出的各个隶属度的运算</strong>. 它们被定义为:</p>
+
+<p>给定谓词 $A$, $B$, 则有:</p>
+
+<ol>
+  <li>
+    <p>最小隶属法 (<code class="language-plaintext highlighter-rouge">Conjunction</code>):</p>
+
+\[T(A \wedge B) = \text{min}(T(A), T(B))\]
+  </li>
+  <li>
+    <p>最大隶属法 (<code class="language-plaintext highlighter-rouge">Disjunction</code>):</p>
+
+\[T(A \vee B) = \text{max}(T(A), T(B))\]
+  </li>
+  <li>
+    <p>取反 (<code class="language-plaintext highlighter-rouge">Negation</code>):</p>
+
+\[T(\neg A) = 1-T(A)\]
+  </li>
+</ol>
+
+<h2 id="4-决策规则">4. 决策规则</h2>
+
+<p>在模糊化输入后, 我们需要构造规则, 应用模糊逻辑的运算将得到的隶属度组合计算, 以作为决策的依据.</p>
+
+<p>一般地, 模糊逻辑的决策规则都为包含一系列逻辑语句的集合, 这些逻辑语句具备这样的结构:</p>
+
+\[\text{IF} ~&lt;\text{antecedents}&gt;~ \text{THEN} ~&lt;\text{consequent}&gt;~\]
+
+<p>考虑讲义中提及的 <a href="https://ww2.mathworks.cn/help/fuzzy/building-systems-with-fuzzy-logic-toolbox-software.html#brzqs45"><code class="language-plaintext highlighter-rouge">The Basic Tipping Problem</code></a>, 我们有下列规则:</p>
+
+<ol>
+  <li>给定前件规则 <code class="language-plaintext highlighter-rouge">服务水平低或食材质量差</code>, 限定结果 <code class="language-plaintext highlighter-rouge">只给很少的小费;</code></li>
+  <li>给定前件规则 <code class="language-plaintext highlighter-rouge">服务水平比较好</code>, 限定结果 <code class="language-plaintext highlighter-rouge">只给一般水平的小费;</code></li>
+  <li>给定前件规则 <code class="language-plaintext highlighter-rouge">服务水平很高或食材质量很好</code>, 限定结果 <code class="language-plaintext highlighter-rouge">慷慨解囊</code>.</li>
+</ol>
+
+<p>则我们可以将该模糊逻辑问题中如上描述的三条规则表示为:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220103171204.png" alt="20220103171204" /></p>
+
+<p>值得注意的是, 如上面三条例子所描述的一样:</p>
+
+<ol>
+  <li>决策规则中的前件条件可以是某个由多个子条件组成的复合谓词公式, 如第一条规则中的前件条件实际上由两个子条件: <code class="language-plaintext highlighter-rouge">服务水低</code> 和 <code class="language-plaintext highlighter-rouge">食材质量差</code> 组成.</li>
+  <li>决策规则中的前件条件可以是恰好由一个条件组成的复合谓词公式, 如第二条规则.</li>
+  <li>决策规则中前件条件的形式可以是某个谓词公式的取反, 如第三条规则.</li>
+</ol>
+
+<p>对某个问题而言, 在给定所有的决策规则后, 我们需要使用上一节介绍的三种基础逻辑运算将这些规则转换为逻辑公式, 从而实现将给定的模糊条件转化为对应的 <strong>规则强度</strong> (<code class="language-plaintext highlighter-rouge">Rule Strength</code>) 的功能.</p>
+
+<h2 id="5-推断和去模糊化">5. 推断和去模糊化</h2>
+
+<p>在执行 <strong>推断</strong> (<code class="language-plaintext highlighter-rouge">Inference</code>) 时, 我们的基本任务是基于 <strong>给定的模糊输入</strong> 确定 <strong>每一条规则给出的结果</strong>, 并 <strong>将这些不同的规则给出的结果综合起来</strong>.</p>
+
+<p>在执行 <strong>去模糊化</strong> (<code class="language-plaintext highlighter-rouge">Defuzzification</code>) 时, 我们的基本任务是给出一个数值作为最终的输出.</p>
+
+<p>在模糊逻辑中, 执行 <strong>推断</strong> 的常用方法包括 <code class="language-plaintext highlighter-rouge">Mamdami 模糊逻辑推理</code> 和 <code class="language-plaintext highlighter-rouge">Sugeno 模糊逻辑推理</code>.</p>
+
+<p>前者的输出仍是一个模糊集, 而后者的输出为由某个 <strong>单例隶属函数</strong> (<code class="language-plaintext highlighter-rouge">Singleton Membership Function</code>) 定义的常数或线性函数.</p>
+
+<p>单例隶属函数的特征为: 它只在其定义域上的某个点处具有非零函数值, 而在其他任何位置上的函数值均为 $0$. 我们下面详细描述两种推断方法的具体工作流程:</p>
+
+<h3 id="mamdami-模糊逻辑推理"><code class="language-plaintext highlighter-rouge">Mamdami 模糊逻辑推理</code></h3>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220103181744.png" alt="20220103181744" /></p>
+
+<p>简要地说, 使用 <code class="language-plaintext highlighter-rouge">Mamdami 模糊逻辑推理</code> 计算模糊推断系统 (<code class="language-plaintext highlighter-rouge">Fuzzy Inference System, FIS</code>) 的输出需要下列的六个步骤:</p>
+
+<ol>
+  <li>确定给定问题的所有模糊规则 (<code class="language-plaintext highlighter-rouge">Fuzzy Rules</code>)</li>
+  <li>使用隶属函数将输入值模糊化.</li>
+  <li>基于模糊规则将 <strong>已经被模糊化的输入</strong> 结合, 进而计算出该规则在给定模糊输入下对应的 <strong>规则强度</strong> (<code class="language-plaintext highlighter-rouge">Rule Strength</code>).</li>
+  <li>结合上一步中计算出的 <strong>规则强度</strong> 和 <strong>给定规则的输出隶属函数</strong>, 得出基于当前的模糊输入下该规则的 <strong>结果</strong> (<code class="language-plaintext highlighter-rouge">Consequence</code>).</li>
+  <li>将来自所有规则的结果相结合, 从而得出输出分布 (<code class="language-plaintext highlighter-rouge">Output Distribution</code>).</li>
+</ol>
+
+<p>需要注意的是:</p>
+
+<ol>
+  <li>在第四步中, <strong>结果</strong> 是通过将 <strong>给定规则的输出隶属函数</strong> 在 <strong>规则强度</strong> 的高度上 <strong>推平</strong> 得到的:</li>
+</ol>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220103180247.png" alt="20220103180247" /></p>
+
+<ol>
+  <li>在第五步中, 绝大多数情况下 <strong>输出分布在定义域上任何点的值</strong> 都是 <strong>全体规则的输出隶属函数的析取</strong> (也就是取并):</li>
+</ol>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220103180408.png" alt="20220103180408" /></p>
+
+<p>在得到输出分布后, 我们需要 <strong>去模糊化</strong>, 这一般是通过取 <strong>输出分布的函数和 $x$ 轴围成的图形的质心</strong> 得到的. 计算公式如下:</p>
+
+\[z = \frac{\sum_{i=1}^{q} Z_i \cdot u_c(Z_i)}{\sum_{i=1}^{q} u_c(Z_i)}\]
+
+<p>其中 $q$ 为人为指定的划分份数, $Z_i$ 为 $x$ 轴上的对应划分处的值, $u_c(Z_j)$ 为输出分布在 $x$ 轴上某个位置上对应的函数值.</p>
+
+<h3 id="sugeno-模糊逻辑推理"><code class="language-plaintext highlighter-rouge">Sugeno 模糊逻辑推理</code></h3>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220103181800.png" alt="20220103181800" /></p>
+
+<p><code class="language-plaintext highlighter-rouge">Sugeno 模糊逻辑推理</code> 和 <code class="language-plaintext highlighter-rouge">Mamdami 模糊逻辑推理</code> 的流程基本类似, 主要区别在前者 <strong>不以隶属函数作为输出</strong>, 其输出是通过以 <strong>每条规则的输出隶属函数取极值时对应的 $x$ 坐标</strong> 为系数, 和 <strong>每条规则在给定的模糊输入下算出的, 对应的规则强度</strong> 取 <strong>加权平均</strong> 得到的.</p>
+
+<p>如本题中, 计算 <code class="language-plaintext highlighter-rouge">Sugeno 模糊逻辑推理</code> 的算法就是:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220121213438.png" alt="20220121213438" /></p>
+
+\[\text{ans} = \frac{k_1 \cdot \lambda_1 + k_2 \cdot \lambda_2 + k_3 \cdot \lambda_3}{\lambda_1 + \lambda_2 + \lambda_3} = \frac{0.1 \cdot 20 + 0.2 \cdot 50 + 0.5 \cdot 80}{0.1 + 0.2 + 0.5} = 65.\]
+
+<p>Reference:</p>
+<ol>
+  <li>
+    <p><a href="https://www.cs.princeton.edu/courses/archive/fall07/cos436/HIDDEN/Knapp/fuzzy004.htm">4. Fuzzy inference systems</a></p>
+  </li>
+  <li>
+    <p><a href="https://ww2.mathworks.cn/help/fuzzy/types-of-fuzzy-inference-systems.html">Mamdani and Sugeno Fuzzy Inference Systems</a></p>
+  </li>
+  <li>
+    <p><a href="https://learn-eu-central-1-prod-fleet01-xythos.content.blackboardcdn.com/5f0eeec577cec/12883725?X-Blackboard-Expiration=1641232800000&amp;X-Blackboard-Signature=mHdaeaz60HCdc3E6iCzNLhwj%2Bp081LkxU5lz47Kxw6M%3D&amp;X-Blackboard-Client-Id=301771&amp;response-cache-control=private%2C%20max-age%3D21600&amp;response-content-disposition=inline%3B%20filename%2A%3DUTF-8%27%27FuzzyLogic.pdf&amp;response-content-type=application%2Fpdf&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEFMaDGV1LWNlbnRyYWwtMSJHMEUCIAZdlkcvnkCP9QJEw4SKw0HoLf1jzV3H%2FseZxSs%2FGcdNAiEAkf5Nio8F%2FDUEytVFDFYadtKL901DXky1jq5muKv8EhYqgAQIXBACGgw2MzU1Njc5MjQxODMiDHqOLapsGfV5Btx6nCrdA7hQKcgRFK7mHrRkmZ%2BJqD83dHbIoN8ixXRO2jclWLCcX%2Fol2v22MSIdytHLTDafDzPdwdglCf%2FWsZPeum8T3%2FexmmqkUUWUzs%2FpRXqfaQZV55qlqJA0t%2BhmQKzOouMPBDeC34s4Y6%2BYFBQ%2FHeSp5UuwIGXxs2tubJ73rAXWBuIGTY207Em64d%2FtTtgyiDzkPpwBCQ%2F0hGLtR57%2FwvOZFVdKq1D57LDXvliy2DfmOsCTDtvZXSxP6fcUrK3SIuAF4jewLRfrBusyPBI0Z9fCvBNHKRnvmUOawPWFl%2F8Y4Dfkzsj9eNlHx1TeoRZjPfd4qbr31%2BBG37dRfOR3rhKoExKQpVM%2FWSwP9P6QD70Qirw26irO3zj48MzH8hkcWQScXuYcYASu1O%2BRU8N3AkNxqPKONAKigH2XCvxTtf6%2BAq2G3qBROMaTo4JXKFGAXX28z3EfA969%2Bq82vLFh%2BGZCeTq%2By6dNXSvZSr8xlS9eKE%2BR27uHg6HXGvdvFR0FB6yPPbq42tMLgx9%2FzQVqa8dVbm1kmTDRbJ1arkDNo4pn5dMoXq0W1%2ByPVvFRbOTB78S1AHJYbhCh74XYkwaH41P6haeptOyqE0xAjgNlEtGUHnAy9B5wxQowt0cx14WDvjCussuOBjqlAaCkMwxgeYEvMIz%2FcI62MXKoVhiPK%2B946C%2BuKCZdmtzLEHmzcV61TVVeauvMNcuODA8Ao1DYZtqdJ4fAPvurop4IaxdGLdj8%2FuHQxzM9UZBaPmHR8Nh6PSGxeUQ9ziDNv8rf8aeEniiAU7clFS3gG71kbwKyqr1ulVkvImKOO%2FDiy67ka6f8kKt8NCRgAnONCHqCO4yo1lzYPqRtRIHGWwpaMY67bw%3D%3D&amp;X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Date=20220103T120000Z&amp;X-Amz-SignedHeaders=host&amp;X-Amz-Expires=21600&amp;X-Amz-Credential=ASIAZH6WM4PL3YVKKN7V%2F20220103%2Feu-central-1%2Fs3%2Faws4_request&amp;X-Amz-Signature=77f685b4136b02b6b4f1bfe510dfae5590200abee7c27439e7e5e7d0b6531efb">Fuzzy Logic</a></p>
+  </li>
+  <li>
+    <p><a href="https://ebookcentral.proquest.com/lib/manchester/reader.action?docID=333988&amp;ppg=268">Knowledge Representation and Reasoning, Ch 12.4</a></p>
+  </li>
+  <li>
+    <p><a href="https://ww2.mathworks.cn/help/fuzzy/fuzzy-inference-process.html">Fuzzy Inference Process</a></p>
+  </li>
+</ol>
+:ET
