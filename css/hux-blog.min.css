@@ -639,6 +639,7 @@ pre.highlight {
   padding: 16px;
   top: 0;
   right: 2px;
+  color: white;
 }
 .search-page .search-icon-close-container i {
   font-size: 20px;
@@ -671,7 +672,7 @@ pre.highlight {
 .search-icon-close {
   cursor: pointer;
   font-size: 30px;
-  color: #311e3e;
+  color: #FFFFFF;
   -webkit-transition: all 0.25s;
   transition: all 0.25s;
 }

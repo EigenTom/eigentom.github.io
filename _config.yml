@@ -16,12 +16,12 @@ future: true
 
 # SNS settings
 RSS: false
-weibo_username:     
-zhihu_username:     
+#weibo_username:     
+#zhihu_username:     
 github_username:    KirisameR
-twitter_username:   
+#twitter_username:   
 #facebook_username:  huxpro
-#linkedin_username:  firstname-lastname-idxxxx
+linkedin_username:  yi-lu-82589933
 
 
 # Build settings
@@ -81,7 +81,7 @@ netease_comment: false
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
-sidebar-about-description: ""
+sidebar-about-description: "菜"
 sidebar-avatar: https://github.com/KirisameR.png # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
