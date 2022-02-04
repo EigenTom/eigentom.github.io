@@ -71,7 +71,21 @@
 body {
   background-color: var(--bg-color);
   user-select: none;
+  margin: 0;
 }
+
+.wrapper {
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    perspective: 10px;
+}
+
+.main-container {
+  background-color: var(--bg-color);
+  padding-top: 20px;
+}
+
 
 @media (min-width: 1200px) {
   .post-container,
@@ -1195,15 +1209,41 @@ samp {
 }
 .intro-header {
   background: no-repeat center center;
-  background-color: var(--sidebar-main);
+  
   background-attachment: scroll;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
   -o-background-size: cover;
   margin-bottom: 0px;
+
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 71%;
+  transform-style: preserve-3d;
+  z-index: -1;
+
+
   /* 0 on mobile, modify by Hux */
 }
+
+.bg-image{
+  transform: translateZ(-2px) scale(1.3);
+}
+
+.bg-image {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  z-index: -1;
+  left: 0;
+  top: 0;
+  overflow-y: hidden;
+}
+
 .intro-header.style-text {
   background: none;
 }

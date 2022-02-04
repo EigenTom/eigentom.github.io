@@ -7,8 +7,8 @@
 <style type="text/css">
     header.intro-header{
         position: relative;
-        background-image: url('{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}');
-        background: {{ page.header-bg-css }};
+        /*background-image: url('{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}');
+        background: {{ page.header-bg-css }};*/
     }
 
     {% if page.header-mask %}
@@ -25,6 +25,7 @@
 {% else %}
 <header class="intro-header" >
 {% endif %}
+<img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" class="bg-image">
     <div class="header-mask"></div>
     {% if page.header-img-credit %}
     <div class="header-img-credit">
@@ -91,6 +92,7 @@
 {% endif %}
 
 {% if include.type == 'page' %}
+<!--
 <header class="intro-header" style="background-image: url('{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}')">
   <div class="container">
     <div class="row">
@@ -106,5 +108,21 @@
       </div>
     </div>
   </div>
+</header>
+-->
+
+<header class="intro-header">  
+    <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" class="bg-image">
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="site-heading">
+                
+                <h1>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</h1>
+                <span class="subheading">{{ page.description }}</span>
+            </div>
+        </div>
+    </div>
+</div>
 </header>
 {% endif %}
