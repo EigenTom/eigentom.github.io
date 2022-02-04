@@ -719,7 +719,7 @@ pre.highlight {
 .search-icon-close {
   cursor: pointer;
   font-size: 30px;
-  color: #FFFFFF;
+  color: var(--search-bar);
   -webkit-transition: all 0.25s;
   transition: all 0.25s;
 }
