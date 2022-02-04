@@ -710,6 +710,7 @@ pre.highlight {
   outline: none;
   padding: 0;
   margin: 0;
+  border-radius: 5px;
   width: 100%;
   font-size: 25px;
   font-weight: 300;
@@ -1015,7 +1016,8 @@ samp {
     position: absolute;
     right: 0;
     border: none;
-    background: white;
+    background: var(--bg-color);
+    color: var(--main-context-color);
     box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.2);
     box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.239216) 0px 1px 4px;
     border-radius: 2px;
@@ -1044,6 +1046,11 @@ samp {
     font-size: 13px;
     line-height: 28px;
   }
+
+  .navbar-default .navbar-nav li a:hover {
+    color: var(--main-color);
+  }
+
   #huxblog_navbar .navbar-collapse {
     height: 0px;
     transform: scaleY(0);
@@ -1445,7 +1452,7 @@ samp {
   }
 }
 .post-content-preview {
-  font-size: 24px;
+  font-size: 1.8rem;
   font-weight: 700;
   color: var(--sidebar-main);
 }
@@ -1548,6 +1555,7 @@ footer .copyright a:focus {
 }
 .pager li > a {
   color: var(--next-btn-text-deactivated);
+  background-color: var(--bg-color);
   border: 1px solid var(--next-btn-border-deactivated);
 }
 .pager li > a:hover,
