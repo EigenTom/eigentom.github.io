@@ -1,10 +1,26 @@
-[Hux Blog](https://huangxuan.me)
+[Hux Enhanced](kirisamer.github.io)
 ================================
 
-> I never expect this becomes popular.
+> Based on Hux Blog, Enhanced with modern features.
 
-![](http://huangxuan.me/img/blog-desktop.jpg)
+![](img/readme.img)
 
+[Enhancements]
+--------------------------------------------------
+
+1. Full $\LaTeX$ rendering support
+
+2. Parameterized CSS, free to customize main/aux theme colors
+
+3. Auto Light/Dark Mode
+
+4. Parallax effect on header images
+
+5. Open-box Busuanzi statistics (TODO)
+
+6. One-key return top floating button (TODO)
+
+7. Improved Theme style on `search`, `quote`, `tags`, `breadboard notification` and `bold text style`.
 
 [User Manual 👉](_doc/Manual.md)
 --------------------------------------------------
@@ -36,28 +52,11 @@ Critical Jekyll-related code are located in `_include/` and `_layouts/`. Most of
 This theme uses the default code syntax highlighter of jekyll, [Rouge](http://rouge.jneen.net/), which is compatible with Pygments theme so just pick any pygments theme css (e.g. from [here](http://jwarby.github.io/jekyll-pygments-themes/languages/javascript.html) and replace the content of `highlight.less`.
 
 
-### Interesting to know more? Checkout the [full user manual](_doc/Manual.md)!
-
-
-Other Resources
----------------
-
-Ports
-- [**Hexo**](https://github.com/Kaijun/hexo-theme-huxblog) by @kaijun
-- [**React-SSR**](https://github.com/LucasIcarus/huxpro.github.io/tree/ssr) by @LucasIcarus
-
-[Starter/Boilerplate](https://github.com/huxpro/huxblog-boilerplate)
-- Out of date. Helps wanted for updating it on par with the main repo
-
-Translation
-- [🇨🇳  中文文档（有点过时）](https://github.com/Huxpro/huxpro.github.io/blob/master/_doc/README.zh.md)
-
-
 License
 -------
 
 Apache License 2.0.
-Copyright (c) 2015-present Huxpro
+Copyright (c) 2022-present KirisameR
 
-Hux Blog is derived from [Clean Blog Jekyll Theme (MIT License)](https://github.com/BlackrockDigital/startbootstrap-clean-blog-jekyll/)
+Hux Enhanced is derived from [Clean Blog Jekyll Theme (MIT License)](https://github.com/BlackrockDigital/startbootstrap-clean-blog-jekyll/)
 Copyright (c) 2013-2016 Blackrock Digital LLC.

@@ -107,16 +107,16 @@ page-mathjax: true
 # Friends
 friends: [
     {
-        title: "Ryan Xin",
+        title: "琳若尘泥 十里琅居",
         href: "http://ryanxin.cn"
     },{
-        title: "Axton.Gay",
+        title: "无垠 - 飞翔的天空无限大",
         href: "https://flyhigher.top"
     },{
-        title: "GrayNekoBean",
+        title: "灰貓咖啡廳",
         href: "https://graynekocafe.net"
     },{
-        title: "Gnefil",
+        title: "GNEFIL",
         href: "Gnefil.github.io"
     }
 ]
