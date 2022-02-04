@@ -3,7 +3,7 @@
 
 > Based on Hux Blog, Enhanced with modern features.
 
-![](img/readme.img)
+![](https://github.com/KirisameR/KirisameR.github.io/blob/master/img/readme.jpg?raw=true)
 
 [Enhancements]
 --------------------------------------------------
