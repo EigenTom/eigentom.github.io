@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -54,7 +55,7 @@
     <!-- Custom Fonts -->
     <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
     <!-- Hux change font-awesome CDN to qiniu -->
-    <link href="https//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"type="text/css">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"type="text/css">
 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -98,10 +99,11 @@
 </head>
 
 
+
 <!-- hack iOS CSS :active style -->
 <body ontouchstart="">
-
-    <!-- Navigation -->
+    
+        <!-- Navigation -->
 
     <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
         
@@ -234,7 +236,7 @@
             __HuxNav__.close();
         })
     </script>
-    <!-- Search -->
+        <!-- Search -->
 <div class="search-page">
   <div class="search-icon-close-container">
     <span class="search-icon-close">
@@ -252,10 +254,11 @@
     </div>
   </div>
 </div>
-
-    <!-- Image to hack wechat -->
+<div class="wrapper">
+        <!-- Image to hack wechat -->
 <!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
 <!-- <img src="/img/post-bg-logicnotes.jpg" width="0" height="0"> -->
+
 
 <!-- Post Header -->
 
@@ -264,8 +267,8 @@
 <style type="text/css">
     header.intro-header{
         position: relative;
-        background-image: url('/img/post-bg-logicnotes.jpg');
-        background: ;
+        /*background-image: url('/img/post-bg-logicnotes.jpg');
+        background: ;*/
     }
 
     
@@ -273,6 +276,7 @@
 
 <header class="intro-header" >
 
+<img src="/img/post-bg-logicnotes.jpg" class="bg-image">
     <div class="header-mask"></div>
     
     <div class="container">
@@ -301,6 +305,7 @@
 
 
 
+<div class="main-container">
 <!-- Post Content -->
 <article>
     <div class="container">
@@ -767,6 +772,9 @@ $v: \{P_1, P_2, \cdots, P_n\} \rightarrow \mathcal{P}X$
     </div>
 </article>
 
+</div>
+
+
 <!-- add support for mathjax by voleking-->
 
 
@@ -828,7 +836,7 @@ $v: \{P_1, P_2, \cdots, P_n\} \rightarrow \mathcal{P}X$
 
 
 
-    <!-- Footer -->
+        <!-- Footer -->
 <footer>
     <div class="container">
         <div class="row">
@@ -842,7 +850,25 @@ $v: \{P_1, P_2, \cdots, P_n\} \rightarrow \mathcal{P}X$
 
   
   
+  <li>
+    <a href="https://twitter.com/eigentom">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
   
+  
+  
+  <li>
+    <a target="_blank" href="http://t.me/Kirisame_Marisa">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-telegram fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
   
   
   
@@ -880,6 +906,7 @@ $v: \{P_1, P_2, \cdots, P_n\} \rightarrow \mathcal{P}X$
         </div>
     </div>
 </footer>
+
 
 <!-- jQuery -->
 <script src="/js/jquery.min.js "></script>
@@ -1078,10 +1105,10 @@ $v: \{P_1, P_2, \cdots, P_n\} \rightarrow \mathcal{P}X$
 </script>
 
 
-<!-- Image to hack wechat -->
-<img src="/img/icon_wechat.png" width="0" height="0" />
-<!-- Migrate from head to bottom, no longer block render and still work -->
-
+        <!-- Image to hack wechat -->
+        <img src="/img/icon_wechat.png" width="0" height="0" />
+        <!-- Migrate from head to bottom, no longer block render and still work -->
+</div>
 </body>
 
 </html>

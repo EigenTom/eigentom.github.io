@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -42,7 +43,7 @@
     <!-- Custom Fonts -->
     <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
     <!-- Hux change font-awesome CDN to qiniu -->
-    <link href="https//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"type="text/css">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"type="text/css">
 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -86,10 +87,11 @@
 </head>
 
 
+
 <!-- hack iOS CSS :active style -->
 <body ontouchstart="">
-
-    <!-- Navigation -->
+    
+        <!-- Navigation -->
 
     <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
         
@@ -222,7 +224,7 @@
             __HuxNav__.close();
         })
     </script>
-    <!-- Search -->
+        <!-- Search -->
 <div class="search-page">
   <div class="search-icon-close-container">
     <span class="search-icon-close">
@@ -240,15 +242,16 @@
     </div>
   </div>
 </div>
-
-    <!-- Page Header -->
-
-
+<div class="wrapper">
+        <!-- Page Header -->
 
 
 
 
 
+
+
+<!--
 <header class="intro-header" style="background-image: url('/img/post-bg-desk.jpg')">
   <div class="container">
     <div class="row">
@@ -263,18 +266,35 @@
     </div>
   </div>
 </header>
+-->
+
+<header class="intro-header">  
+    <img src="/img/post-bg-desk.jpg" class="bg-image">
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="site-heading">
+                
+                <h1>某一般线性空间</h1>
+                <span class="subheading">高阶线性微分方程组会梦见基础解系吗?</span>
+            </div>
+        </div>
+    </div>
+</div>
+</header>
 
 
 <!-- Main Content -->
-<div class="container">
-  <div class="row">
-    
-
-    <!-- USE SIDEBAR -->
-    <!-- PostList Container -->
-    <div class="col-lg-8 col-lg-offset-1 col-md-8 col-md-offset-1 col-sm-12
-      col-xs-12 postlist-container">
+<div class="main-container">
+  <div class="container">
+    <div class="row">
       
+
+      <!-- USE SIDEBAR -->
+      <!-- PostList Container -->
+      <div class="col-lg-8 col-lg-offset-1 col-md-8 col-md-offset-1 col-sm-12
+        col-xs-12 postlist-container">
+        
 <div class="post-preview">
     <a href="/2021/01/08/Ch2-DeepLearningNotes/">
         <h2 class="post-title">
@@ -719,12 +739,12 @@ MU0 是一个 $16$ 位处理器, 其数据传输界面包含:
 </ul>
 
 
-    </div>
-    <!-- Sidebar Container -->
-    <div class="col-lg-3 col-lg-offset-0 col-md-3 col-md-offset-0 col-sm-12
-      col-xs-12 sidebar-container">
-      <!-- Featured Tags -->
-      
+      </div>
+      <!-- Sidebar Container -->
+      <div class="col-lg-3 col-lg-offset-0 col-md-3 col-md-offset-0 col-sm-12
+        col-xs-12 sidebar-container">
+        <!-- Featured Tags -->
+        
 
 
 <section>
@@ -840,8 +860,8 @@ MU0 是一个 $16$ 位处理器, 其数据传输界面包含:
 </section>
 
 
-      <!-- Short About -->
-      <section class="visible-md visible-lg">
+        <!-- Short About -->
+        <section class="visible-md visible-lg">
   <hr>
   <h5><a href="/about/">ABOUT ME</a></h5>
   <div class="short-about">
@@ -860,7 +880,25 @@ MU0 是一个 $16$ 位处理器, 其数据传输界面包含:
 
   
   
+  <li>
+    <a href="https://twitter.com/eigentom">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
   
+  
+  
+  <li>
+    <a target="_blank" href="http://t.me/Kirisame_Marisa">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-telegram fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
   
   
   
@@ -887,8 +925,8 @@ MU0 是一个 $16$ 位处理器, 其数据传输界面包含:
   </div>
 </section>
 
-      <!-- Friends Blog -->
-      
+        <!-- Friends Blog -->
+        
 <hr>
 <h5>FRIENDS</h5>
 <ul class="list-inline">
@@ -904,8 +942,8 @@ MU0 是一个 $16$ 位处理器, 其数据传输界面包含:
 </ul>
 
 
-      <!-- Ads -->
-      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <!-- Ads -->
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <!-- first shot -->
 <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6487568398225121" data-ad-slot="4814308751"
      data-ad-format="auto" data-full-width-responsive="true"></ins>
@@ -913,10 +951,14 @@ MU0 是一个 $16$ 位处理器, 其数据传输界面包含:
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
+      </div>
+      
     </div>
-    
   </div>
-</div>
+  </div>
+
+
+
 
 
 <!-- Add support for Mathjax by Voleking-->
@@ -941,7 +983,7 @@ MU0 是一个 $16$ 位处理器, 其数据传输界面包含:
 
 
 
-    <!-- Footer -->
+        <!-- Footer -->
 <footer>
     <div class="container">
         <div class="row">
@@ -955,7 +997,25 @@ MU0 是一个 $16$ 位处理器, 其数据传输界面包含:
 
   
   
+  <li>
+    <a href="https://twitter.com/eigentom">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
   
+  
+  
+  <li>
+    <a target="_blank" href="http://t.me/Kirisame_Marisa">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-telegram fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
   
   
   
@@ -993,6 +1053,7 @@ MU0 是一个 $16$ 位处理器, 其数据传输界面包含:
         </div>
     </div>
 </footer>
+
 
 <!-- jQuery -->
 <script src="/js/jquery.min.js "></script>
@@ -1191,10 +1252,10 @@ MU0 是一个 $16$ 位处理器, 其数据传输界面包含:
 </script>
 
 
-<!-- Image to hack wechat -->
-<img src="/img/icon_wechat.png" width="0" height="0" />
-<!-- Migrate from head to bottom, no longer block render and still work -->
-
+        <!-- Image to hack wechat -->
+        <img src="/img/icon_wechat.png" width="0" height="0" />
+        <!-- Migrate from head to bottom, no longer block render and still work -->
+</div>
 </body>
 
 </html>
