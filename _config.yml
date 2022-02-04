@@ -16,12 +16,13 @@ future: true
 
 # SNS settings
 RSS: false
-#weibo_username:     
-#zhihu_username:     
+telegram_username:  Kirisame_Marisa
 github_username:    KirisameR
-#twitter_username:   
-#facebook_username:  
+twitter_username:   eigentom
 linkedin_username:  yilu-82589933
+#zhihu_username:     
+#facebook_username:  
+
 
 
 # Build settings
