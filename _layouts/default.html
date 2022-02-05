@@ -7,14 +7,16 @@
 <!-- hack iOS CSS :active style -->
 <body ontouchstart="">
     {% include float-btn.html %}
+    {% include search.html %}
+
     <div class="wrapper">    
         {% include nav.html %}
+        {{ content }}    
         
-        {% include search.html %}
 
 
 
-        {{ content }}
+
 
         {% include footer.html %}
         <!-- Image to hack wechat -->
