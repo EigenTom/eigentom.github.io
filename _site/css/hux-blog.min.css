@@ -86,6 +86,27 @@ body {
   padding-top: 20px;
 }
 
+.floatbtn{
+  width: 60px;
+  height: 60px;
+  border-radius: 100px;
+  color: var(--bg-color);
+  background-color: var(--main-context-color);
+  box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.239216) 0px 1px 4px;
+  position: absolute;
+  right: 50px;
+  bottom: 50px;
+  z-index: 114514;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  transition: box-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.floatbtn:hover,active {
+background-color: var(--main-color);
+color:  var(--main-heading-color);
+}
 
 @media (min-width: 1200px) {
   .post-container,

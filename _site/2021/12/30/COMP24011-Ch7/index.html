@@ -52,6 +52,11 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href=" /css/hux-blog.min.css">
+    
+    <!-- Local Dev Debugging
+    <link rel="stylesheet" href=" /css/font-awesome.min.css"> 
+    -->
+    
 
     <!-- Custom Fonts -->
     <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
@@ -103,6 +108,19 @@
 
 <!-- hack iOS CSS :active style -->
 <body ontouchstart="">
+    
+<div class="floatbtn" onclick="document.getElementsByClassName('wrapper')[0].scrollTop = 0">
+    <i class="fas fa-arrow-up"></i>
+</div>
+
+<script>
+
+
+
+</script>
+
+
+
     <div class="wrapper">    
         <!-- Navigation -->
 
@@ -257,6 +275,8 @@
   </div>
 </div>
 
+
+
         <!-- Image to hack wechat -->
 <!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
 <!-- <img src="/img/post-bg-prolog.jpg" width="0" height="0"> -->
@@ -269,8 +289,6 @@
 <style type="text/css">
     header.intro-header{
         position: relative;
-        /*background-image: url('/img/post-bg-prolog.jpg');
-        background: ;*/
     }
 
     
@@ -298,6 +316,10 @@
                     
                     <h2 class="subheading">NLP</h2>
                     <span class="meta">Posted by R1NG on December 30, 2021</span>
+
+                    
+                    <span class="meta" id="busuanzi_container_site_pv">Viewed <b style="color: var(--sidebar-main-color); background-color: transparent !important; font-style: bold;"><i><span id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-spin"></i></span></i></b> Times</span>
+                    
                 </div>
             </div>
         </div>
@@ -896,13 +918,13 @@
 <h5>FRIENDS</h5>
 <ul class="list-inline">
   
-  <li><a href="http://ryanxin.cn">Ryan Xin</a></li>
+  <li><a href="http://ryanxin.cn">琳若尘泥 十里琅居</a></li>
   
-  <li><a href="https://flyhigher.top">Axton.Gay</a></li>
+  <li><a href="https://flyhigher.top">无垠 - 飞翔的天空无限大</a></li>
   
-  <li><a href="https://graynekocafe.net">GrayNekoBean</a></li>
+  <li><a href="https://graynekocafe.net">灰貓咖啡廳</a></li>
   
-  <li><a href="Gnefil.github.io">Gnefil</a></li>
+  <li><a href="Gnefil.github.io">GNEFIL</a></li>
   
 </ul>
 
@@ -915,6 +937,11 @@
 
 
 <!-- add support for mathjax by voleking-->
+
+
+<!-- add busuanzi statistics support-->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
 

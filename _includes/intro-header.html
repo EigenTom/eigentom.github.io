@@ -7,8 +7,6 @@
 <style type="text/css">
     header.intro-header{
         position: relative;
-        /*background-image: url('{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}');
-        background: {{ page.header-bg-css }};*/
     }
 
     {% if page.header-mask %}
@@ -45,6 +43,10 @@
                     {% comment %} always create a h2 for keeping the margin {% endcomment %}
                     <h2 class="subheading">{{ page.subtitle }}</h2>
                     <span class="meta">Posted by {% if page.author %}{{ page.author }}{% else %}{{ site.title }}{% endif %} on {{ page.date | date: "%B %-d, %Y" }}</span>
+
+                    {% if site.busuanzi-active %}
+                    <span class="meta" id="busuanzi_container_site_pv">Viewed <b style="color: var(--sidebar-main-color); background-color: transparent !important; font-style: bold;"><i><span id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-spin"></i></span></i></b> Times</span>
+                    {% endif %}
                 </div>
             </div>
         </div>

@@ -6,10 +6,13 @@
 
 <!-- hack iOS CSS :active style -->
 <body ontouchstart="">
+    {% include float-btn.html %}
     <div class="wrapper">    
         {% include nav.html %}
         
         {% include search.html %}
+
+
 
         {{ content }}
 

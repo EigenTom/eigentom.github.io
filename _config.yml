@@ -78,14 +78,16 @@ netease_comment: false
 # ga_track_id: ''            # Format: UA-xxxxxx-xx
 # ga_domain: 
 
-
+# Busuanzi Ananytics
+busuanzi-active: true
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
 sidebar-about-description: "菜"
 sidebar-avatar: https://github.com/KirisameR.png # use absolute URL, seeing it's used in both `/` and `/about/`
 
-
+# Float button settings
+float-btn-active: true
 
 # Featured Tags
 featured-tags: true                     # whether or not using Feature-Tags
