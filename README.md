@@ -16,9 +16,9 @@
 
 4. Parallax effect on header images
 
-5. Open-box Busuanzi statistics (TODO)
+5. Open-box Busuanzi statistics 
 
-6. One-key return top floating button (TODO)
+6. One-key return top floating button 
 
 7. Improved Theme style on `search`, `quote`, `tags`, `breadboard notification` and `bold text style`.
 
