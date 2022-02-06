@@ -9,7 +9,6 @@ description: 本章介绍一种基于谓词公式的推广：量化布尔公式.
 catalog: true
 tags:
     - 逻辑学
-    - 2021
     - COMP21111
 ---
 

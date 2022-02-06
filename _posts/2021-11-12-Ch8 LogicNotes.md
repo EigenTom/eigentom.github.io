@@ -9,7 +9,6 @@ description: 本章介绍一种可高效表示含连接词的复杂谓词公式�
 catalog: true
 tags:
     - 逻辑学
-    - 2021
     - COMP21111
 ---
 

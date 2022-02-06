@@ -9,7 +9,6 @@ description: 本章介绍另一种可满足性检测工具-语义树.
 catalog: true
 tags:
     - 逻辑学
-    - 2021
     - COMP21111
 ---
 

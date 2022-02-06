@@ -9,7 +9,6 @@ description: 行而上学, 不行退学
 catalog: true
 tags:
     - 扩展自习
-    - 2021
     - 机器学习
 ---
 

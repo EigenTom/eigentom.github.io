@@ -9,7 +9,6 @@ description: 感知机, 神经网络的定义, 实现与扩展
 catalog: true
 tags:
     - 扩展自习
-    - 2021
     - 机器学习
 ---
 

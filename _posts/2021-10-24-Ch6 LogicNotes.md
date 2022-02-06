@@ -9,7 +9,6 @@ description: 本章继续讨论可满足性的检验问题和随机化问题.
 catalog: true
 tags:
     - 逻辑学
-    - 2021
     - COMP21111
 ---
 

@@ -9,7 +9,6 @@ description: 本章介绍一种检验可满足性的算法-DPLL.
 catalog: true
 tags:
     - 逻辑学
-    - 2021
     - COMP21111
 ---
 

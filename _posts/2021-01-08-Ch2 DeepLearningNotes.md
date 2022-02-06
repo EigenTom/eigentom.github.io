@@ -9,7 +9,6 @@ description: 神经网络的学习-损失函数和梯度下降法
 catalog: true
 tags:
     - 扩展自习
-    - 2021
     - 机器学习
 ---
 

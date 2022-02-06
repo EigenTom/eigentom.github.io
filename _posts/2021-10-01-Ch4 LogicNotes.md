@@ -9,7 +9,6 @@ description: 本章介绍一些最基本的可满足性检验法.
 catalog: true
 tags:
     - 逻辑学
-    - 2021
     - COMP21111
 ---
 

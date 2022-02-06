@@ -9,7 +9,6 @@ description: 卷积神经网络
 catalog: true
 tags:
     - 扩展自习
-    - 2021
     - 机器学习
 ---
 

@@ -9,7 +9,6 @@ description: 本章介绍有限域下的谓词逻辑.
 catalog: true
 tags:
     - 逻辑学
-    - 2021
     - COMP21111
 ---
 

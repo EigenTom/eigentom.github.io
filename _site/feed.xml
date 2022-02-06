@@ -5,8 +5,8 @@
     <description>由于相关法律法规规定, 该内容无法显示.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 05 Feb 2022 19:06:36 +0000</pubDate>
-    <lastBuildDate>Sat, 05 Feb 2022 19:06:36 +0000</lastBuildDate>
+    <pubDate>Sun, 06 Feb 2022 01:50:02 +0000</pubDate>
+    <lastBuildDate>Sun, 06 Feb 2022 01:50:02 +0000</lastBuildDate>
     <generator>Jekyll v4.2.1</generator>
     
       <item>
@@ -394,8 +394,6 @@
         <pubDate>Sun, 23 Jan 2022 00:00:00 +0000</pubDate>
         <link>http://localhost:4000/2022/01/23/COMP23311-REV/</link>
         <guid isPermaLink="true">http://localhost:4000/2022/01/23/COMP23311-REV/</guid>
-        
-        <category>2021</category>
         
         <category>课程笔记</category>
         
@@ -822,8 +820,6 @@
         <pubDate>Fri, 14 Jan 2022 00:00:00 +0000</pubDate>
         <link>http://localhost:4000/2022/01/14/COMP23111-REV-Ch4/</link>
         <guid isPermaLink="true">http://localhost:4000/2022/01/14/COMP23111-REV-Ch4/</guid>
-        
-        <category>2021</category>
         
         <category>COMP23111</category>
         
@@ -2106,8 +2102,6 @@
         <link>http://localhost:4000/2022/01/13/COMP23111-REV-Ch3/</link>
         <guid isPermaLink="true">http://localhost:4000/2022/01/13/COMP23111-REV-Ch3/</guid>
         
-        <category>2022</category>
-        
         <category>COMP23111</category>
         
         
@@ -2271,8 +2265,6 @@
         <pubDate>Wed, 12 Jan 2022 00:00:00 +0000</pubDate>
         <link>http://localhost:4000/2022/01/12/COMP23111-REV-Ch2/</link>
         <guid isPermaLink="true">http://localhost:4000/2022/01/12/COMP23111-REV-Ch2/</guid>
-        
-        <category>2021</category>
         
         <category>COMP23111</category>
         
@@ -2684,8 +2676,6 @@
         <pubDate>Tue, 11 Jan 2022 00:00:00 +0000</pubDate>
         <link>http://localhost:4000/2022/01/11/COMP23111-REV-Ch1/</link>
         <guid isPermaLink="true">http://localhost:4000/2022/01/11/COMP23111-REV-Ch1/</guid>
-        
-        <category>2021</category>
         
         <category>COMP23111</category>
         
@@ -3593,8 +3583,6 @@
         <link>http://localhost:4000/2022/01/05/COMP26120-REV/</link>
         <guid isPermaLink="true">http://localhost:4000/2022/01/05/COMP26120-REV/</guid>
         
-        <category>2021</category>
-        
         <category>数据结构和算法</category>
         
         <category>COMP26120</category>
@@ -3659,8 +3647,6 @@
         <pubDate>Fri, 31 Dec 2021 00:00:00 +0000</pubDate>
         <link>http://localhost:4000/2021/12/31/COMP24011-Ch8/</link>
         <guid isPermaLink="true">http://localhost:4000/2021/12/31/COMP24011-Ch8/</guid>
-        
-        <category>2021</category>
         
         <category>课程笔记</category>
         
@@ -4066,8 +4052,6 @@
         <link>http://localhost:4000/2021/12/30/COMP24011-Ch7/</link>
         <guid isPermaLink="true">http://localhost:4000/2021/12/30/COMP24011-Ch7/</guid>
         
-        <category>2021</category>
-        
         <category>课程笔记</category>
         
         <category>COMP24011</category>
@@ -4236,8 +4220,6 @@
         <pubDate>Tue, 28 Dec 2021 00:00:00 +0000</pubDate>
         <link>http://localhost:4000/2021/12/28/COMP24011-Ch6/</link>
         <guid isPermaLink="true">http://localhost:4000/2021/12/28/COMP24011-Ch6/</guid>
-        
-        <category>2021</category>
         
         <category>课程笔记</category>
         
@@ -4525,8 +4507,6 @@ Orange(b) ∧ Round(b) ∧ Diameter(b) = 9.5inches ∧ b∈ Balls ⟹ b ∈ Bask
         <pubDate>Sat, 25 Dec 2021 00:00:00 +0000</pubDate>
         <link>http://localhost:4000/2021/12/25/COMP24011-Ch5/</link>
         <guid isPermaLink="true">http://localhost:4000/2021/12/25/COMP24011-Ch5/</guid>
-        
-        <category>2021</category>
         
         <category>课程笔记</category>
         

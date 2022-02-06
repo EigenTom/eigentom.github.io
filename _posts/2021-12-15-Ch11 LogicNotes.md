@@ -9,7 +9,6 @@ description: 本章介绍状态转换系统.
 catalog: true
 tags:
     - 逻辑学
-    - 2021
     - COMP21111
 ---
 
