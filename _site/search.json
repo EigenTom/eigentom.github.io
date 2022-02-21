@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "基于知识组织的人工智能",
+      "subtitle" : "Introduction to Knowledge-based AI + Chapter 1",
+      "tags"     : "课程笔记",
+      "url"      : "/2022/02/11/Ch0-COMP24412/",
+      "date"     : "2022-02-11 00:00:00 +0000"
+    } ,
+  
+    {
       "title"    : "Software Engineering 一日速成",
       "subtitle" : "REVISION",
       "tags"     : "课程笔记",

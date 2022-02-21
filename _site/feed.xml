@@ -5,9 +5,75 @@
     <description>由于相关法律法规规定, 该内容无法显示.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 06 Feb 2022 01:50:02 +0000</pubDate>
-    <lastBuildDate>Sun, 06 Feb 2022 01:50:02 +0000</lastBuildDate>
+    <pubDate>Fri, 18 Feb 2022 19:46:21 +0000</pubDate>
+    <lastBuildDate>Fri, 18 Feb 2022 19:46:21 +0000</lastBuildDate>
     <generator>Jekyll v4.2.1</generator>
+    
+      <item>
+        <title>基于知识组织的人工智能</title>
+        <description>&lt;h1 id=&quot;绪论&quot;&gt;绪论&lt;/h1&gt;
+
+&lt;p&gt;本质上我们将在本课程中所接触的内容是对智能体 (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Intelligent System&lt;/code&gt;) 表示和推理其所在世界中的知识和信息的研究. 在本课程中, 我们将接触和学习 &lt;strong&gt;知识表示&lt;/strong&gt; (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Knowledge Representation&lt;/code&gt;) 的核心概念和数种自动推理 (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Automated Reasoning&lt;/code&gt;) 方法.&lt;/p&gt;
+
+&lt;p&gt;课程内容基本分为四个板块:&lt;/p&gt;
+
+&lt;h2 id=&quot;1-一阶逻辑-first-order-logic-和自动推理&quot;&gt;1. 一阶逻辑 (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;First-Order Logic&lt;/code&gt;) 和自动推理&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;一阶逻辑的 &lt;strong&gt;语法和语义&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;一节逻辑公式和子句形式 (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Clausal Form&lt;/code&gt;) 的转换&lt;/li&gt;
+  &lt;li&gt;有序语义归结 (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ordered Resolution&lt;/code&gt;)&lt;/li&gt;
+  &lt;li&gt;基于饱和原则的证明搜索&lt;/li&gt;
+  &lt;li&gt;模型 (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Model&lt;/code&gt;) 构造&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;2-prolog&quot;&gt;2. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Prolog&lt;/code&gt;&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Prolog&lt;/code&gt; 语法和证明搜索执行规则&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Prolog&lt;/code&gt; 中基于 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Horn&lt;/code&gt; 子句的反向推理法的应用&lt;/li&gt;
+  &lt;li&gt;基于 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Prolog&lt;/code&gt; 的定理证明&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;3-知识表示&quot;&gt;3. 知识表示&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;本体论工程 (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ontological Engineering&lt;/code&gt;)&lt;/li&gt;
+  &lt;li&gt;对类型和物体的表示&lt;/li&gt;
+  &lt;li&gt;对事件的表示&lt;/li&gt;
+  &lt;li&gt;基于分类 (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Categories&lt;/code&gt;) 的推理系统&lt;/li&gt;
+  &lt;li&gt;语义网络 (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Semantic Networks&lt;/code&gt;)&lt;/li&gt;
+  &lt;li&gt;描述逻辑&lt;/li&gt;
+  &lt;li&gt;基于默认信息 (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Default Information&lt;/code&gt;) 的推理&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;4-归纳推理与回溯推理&quot;&gt;4. 归纳推理与回溯推理&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;基于逻辑问题的学习 (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Learning as a Logical Problem&lt;/code&gt;)&lt;/li&gt;
+  &lt;li&gt;基于知识的学习 (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Learning with Knowledge&lt;/code&gt;)&lt;/li&gt;
+  &lt;li&gt;归纳逻辑程序设计&lt;/li&gt;
+  &lt;li&gt;解释和诊断 (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Explaination and Diagnosis&lt;/code&gt;)&lt;/li&gt;
+  &lt;li&gt;基于解释的学习 (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Explaination-based Learning&lt;/code&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;我们下面开始对课程内容的介绍.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;一阶逻辑-first-order-logic-和自动推理&quot;&gt;一阶逻辑 (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;First-Order Logic&lt;/code&gt;) 和自动推理&lt;/h1&gt;
+
+&lt;h2 id=&quot;基于一阶逻辑的知识表示&quot;&gt;基于一阶逻辑的知识表示&lt;/h2&gt;
+
+&lt;h2 id=&quot;联合与前向推理法&quot;&gt;联合与前向推理法&lt;/h2&gt;
+
+&lt;h2 id=&quot;反向推理和语义归结&quot;&gt;反向推理和语义归结&lt;/h2&gt;
+</description>
+        <pubDate>Fri, 11 Feb 2022 00:00:00 +0000</pubDate>
+        <link>http://localhost:4000/2022/02/11/Ch0-COMP24412/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022/02/11/Ch0-COMP24412/</guid>
+        
+        <category>课程笔记</category>
+        
+        
+      </item>
     
       <item>
         <title>Software Engineering 一日速成</title>
@@ -4220,293 +4286,6 @@
         <pubDate>Tue, 28 Dec 2021 00:00:00 +0000</pubDate>
         <link>http://localhost:4000/2021/12/28/COMP24011-Ch6/</link>
         <guid isPermaLink="true">http://localhost:4000/2021/12/28/COMP24011-Ch6/</guid>
-        
-        <category>课程笔记</category>
-        
-        <category>COMP24011</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>人工智能导论 知识表示</title>
-        <description>&lt;h1 id=&quot;知识表示&quot;&gt;知识表示&lt;/h1&gt;
-
-&lt;p&gt;本章中我们将说明如何使用一阶逻辑表示现实世界中的知识. 在介绍 &lt;strong&gt;通用本体论&lt;/strong&gt; 后, 我们将介绍如何表示 &lt;strong&gt;对象&lt;/strong&gt;, &lt;strong&gt;物质&lt;/strong&gt;, &lt;strong&gt;量度&lt;/strong&gt;, &lt;strong&gt;事件&lt;/strong&gt; 和 &lt;strong&gt;信念&lt;/strong&gt;, 然后讨论对应用在 &lt;strong&gt;高效类别推理&lt;/strong&gt; 中的推理系统的设计.&lt;/p&gt;
-
-&lt;h2 id=&quot;51-本体论&quot;&gt;5.1 本体论&lt;/h2&gt;
-
-&lt;p&gt;我们使用 &lt;strong&gt;本体论&lt;/strong&gt; 表示现实世界中的客观事物, 知识和通用概念. 在各种不同的情况下, 我们可能需要在 &lt;strong&gt;上位本体论&lt;/strong&gt; 的框架下进行扩展, 使用一些特化的本体论表示具体的情形:&lt;/p&gt;
-
-&lt;p&gt;比如在对电路建模时, 我们可能需要忽略时间的概念, 假定信号是固定且不传播的; 或者, 我们在对模拟电路建模时可能需要考虑特定时刻的信号, 还要将电路中的导线长度和信号传播的延迟考虑在内.&lt;/p&gt;
-
-&lt;p&gt;对任何上述用于描述特殊情况的 &lt;strong&gt;特化的本体论&lt;/strong&gt; 而言,它们是 &lt;strong&gt;有可能&lt;/strong&gt; 收敛到一种通用的本体论的. 我们可以指出两个能够将 &lt;strong&gt;通用本体论&lt;/strong&gt; 与 &lt;strong&gt;特化本体论&lt;/strong&gt; 区分开来的特征:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;通用本体论应该或多或少地具备应用于任何特殊领域的能力.&lt;/li&gt;
-  &lt;li&gt;在任何足够特殊化的问题中, 通用本体论必须能够将来自不同领域的知识统一化.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&quot;类别和对象&quot;&gt;类别和对象&lt;/h3&gt;
-
-&lt;p&gt;由于 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Agent&lt;/code&gt; 在与世界的交互发生在 &lt;strong&gt;个体对象&lt;/strong&gt; 层面, 而推理发生在 &lt;strong&gt;类别&lt;/strong&gt; 层面上, 因此在知识表示中, 将对象组织成类别是很重要的.&lt;/p&gt;
-
-&lt;p&gt;在确定了对象的分类后, 类别信息就可以用于对对象进行预测: 我们可以从 &lt;strong&gt;感知&lt;/strong&gt; 推断出 &lt;strong&gt;某种对象的存在&lt;/strong&gt;, 从 &lt;strong&gt;感知到的对象属性&lt;/strong&gt; 进一步推断它的 &lt;strong&gt;类别归属&lt;/strong&gt;, 然后用推断得到的类别信息对这些对象进行预测.&lt;/p&gt;
-
-&lt;p&gt;举例而言, 给定某台笔记本电脑, 从厚重的机身, 丑陋的缺口显示屏, 被涂黑的键盘区域和机身上意义不明的专用磁吸充电口, 我们就可以推断出这个对象是 $2021$ 年推出的最新款 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MacBook Pro&lt;/code&gt;, 由此推断出这样的产品比较适合拿来垫桌脚.&lt;/p&gt;
-
-&lt;p&gt;在使用一阶逻辑表示类别时, 我们可以使用谓词表示某个对象的类别, 也可以将某个类别物化 (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;reify&lt;/code&gt;) 为一个对象.&lt;/p&gt;
-
-&lt;p&gt;我们通过在不同的类别之间构造 &lt;strong&gt;继承&lt;/strong&gt; (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Inheritance&lt;/code&gt;) 关系来组织和简化知识库. 子类关系将类别组织成 &lt;strong&gt;分类系统&lt;/strong&gt; (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Taxonomy&lt;/code&gt;) 或 &lt;strong&gt;分类层次&lt;/strong&gt; (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Taxonomic Hierarchy&lt;/code&gt;), 比如生物学上的物种分类系统和图书馆的书籍分类系统.&lt;/p&gt;
-
-&lt;p&gt;一阶逻辑通过 &lt;strong&gt;在对象和类别之间建立联系&lt;/strong&gt; 或 &lt;strong&gt;在类别的成员上量化&lt;/strong&gt;, 从而描述 &lt;strong&gt;关于类别的事实&lt;/strong&gt;. 举例而言, 它可以表示:&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;某个对象是某个类别的成员.&lt;/li&gt;
-  &lt;li&gt;某个类别是另一个类别的子类.&lt;/li&gt;
-  &lt;li&gt;某个类别中的所有成员均拥有某种属性.&lt;/li&gt;
-  &lt;li&gt;一个类别的成员可以通过某些属性识别.&lt;/li&gt;
-  &lt;li&gt;一个类别作为整体拥有某些属性.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;我们接下来给出关于划分的一些概念:&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;定义 5.1.1&lt;/strong&gt; (不相交的)&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;称两个或以上的类别为 &lt;strong&gt;不相交的&lt;/strong&gt;, 若他们没有公共成员.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;strong&gt;定义 5.1.2&lt;/strong&gt; (完全分解)&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;若两个或以上的类别完全包括了父类中的所有成员, 称它们为一个 &lt;strong&gt;完全分解&lt;/strong&gt;.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;strong&gt;定义 5.1.3&lt;/strong&gt; (划分)&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;我们称不相交的完全分解为 &lt;strong&gt;划分&lt;/strong&gt;.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;对划分的表示语法如下:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-Python&quot;&gt;# 可以使用谓词描述某个物体属于某个类别 (Cetegory):
-Basketball(b)
-
-# 可以通过将抽象的类别物化的方法标示某个物体的类别从属:
-
-# 比如我们将 “篮球” 类物化为谓词 `Basketball`:
-Member(b, Basketballs)
-# 或者
-b ∈ Basketballs
-
-# 同时物化方法也可用来表示子类:
-Subset(Basketballs, Balls)
-# 或者
-Basketballs ⊂ Balls
-
-# 我们也可以通过描述物体的属性表示它在类别意义上的从属:
-(b ∈ Basketballs) ⟹ Spherical(b)
-
-Orange(b) ∧ Round(b) ∧ Diameter(b) = 9.5inches ∧ b∈ Balls ⟹ b ∈ Basketballs
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&quot;物理构成&quot;&gt;物理构成&lt;/h3&gt;
-
-&lt;p&gt;自然地, 某个对象可以是另一个对象的一部分, 这一关系用谓词 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;PartOf&lt;/code&gt; 表示. 需要注意, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;PartOf&lt;/code&gt; 关系是 &lt;strong&gt;传递的&lt;/strong&gt; 和 &lt;strong&gt;自反的&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;复合对象&lt;/strong&gt; 的类别通常通过各部分之间的结构关系刻画. 我们可以定义类似于类别 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Partition&lt;/code&gt; 关系的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;PartPartition&lt;/code&gt; 关系: 一个对象由它的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;PartPartition&lt;/code&gt; 中的各个部分组成, 则可看作这个对象从这些组成部分中得到了某些属性.&lt;/p&gt;
-
-&lt;p&gt;我们还可以定义 &lt;strong&gt;具有确定部分但没有特定结构&lt;/strong&gt; 的复合对象. 举例而言, “这箱 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MacBook Pro 2021&lt;/code&gt; 价值 $4000$ 美元”, 我们会倾向于认为这个价值归于箱子里包装盒而非盒子里的笔记本电脑的价值, 而非箱子本身的价值, 因为 &lt;strong&gt;集合&lt;/strong&gt; 是抽象的数学概念, 它由元素组成但不具备 “价值” 这个属性.&lt;/p&gt;
-
-&lt;p&gt;对应的, 我们需要构造一个新概念: 束 (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Bunch&lt;/code&gt;): 它描述了由一系列对象作为 &lt;strong&gt;部分&lt;/strong&gt; 而组成的复合对象.&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-3
-4
-5
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;c1&quot;&gt;# 表示 “一部分”:
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;PartOf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Bucharest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Romania&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; 
-&lt;span class=&quot;n&quot;&gt;PartOf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Romania&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;EasternEurope&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; 
-&lt;span class=&quot;n&quot;&gt;PartOf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;EasternEurope&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Europe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; 
-&lt;span class=&quot;n&quot;&gt;PartOf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Europe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Earth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;量度&quot;&gt;量度&lt;/h3&gt;
-
-&lt;p&gt;显然在关于世界的科学理论和常识中, 对象具备 &lt;strong&gt;高度&lt;/strong&gt;, &lt;strong&gt;质量&lt;/strong&gt;, &lt;strong&gt;价值&lt;/strong&gt;, &lt;strong&gt;成本&lt;/strong&gt; 等不同的属性, 我们赋予这些属性的值就被称为 &lt;strong&gt;量度&lt;/strong&gt; (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Measures&lt;/code&gt;). 我们用 &lt;strong&gt;单位函数&lt;/strong&gt; (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Units Function&lt;/code&gt;) 和数字作为参数来表示量度.&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-3
-4
-5
-6
-7
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;c1&quot;&gt;# 描述物体的量度属性:
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Inches&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Centimeters&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;3.81&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;Diameter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Inches&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;9.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;IQ&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Axton&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;114514&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;# 描述对量度值之间的比较:
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Difficulty&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;comp24011&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Difficulty&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;comp22111&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;物体和物质&quot;&gt;物体和物质&lt;/h3&gt;
-
-&lt;p&gt;现实世界可以看作是由不可再分的基元对象 (如微粒子) 和由它们构成的复合对象组成的. 但在现实中存在一部分无法被简单地划分, 无法给出明确数量的对象, 例如水和气体, 我们称这类不服从明显的个体化 (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Individuation&lt;/code&gt;) 的对象为 &lt;strong&gt;物质&lt;/strong&gt; (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Stuff&lt;/code&gt;).&lt;/p&gt;
-
-&lt;p&gt;需要注意的是, 对象的一些属性是 &lt;strong&gt;固有的&lt;/strong&gt; (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Intrinsic&lt;/code&gt;), 它们属于对象的每个实体而非整体: 当我们将物质切成两半时, 新得到的两半物质共享同样的固有属性集, 如密度, 沸点, 燃点, 颜色, 所有权等, 而类似重量, 长度, 形状等在划分时 &lt;strong&gt;无法保持不变&lt;/strong&gt; 的 &lt;strong&gt;非固有属性&lt;/strong&gt; (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Extrinsic&lt;/code&gt;) 属性就不同.&lt;/p&gt;
-
-&lt;p&gt;在定义中, 只包括固有属性的对象类就是 &lt;strong&gt;物质&lt;/strong&gt; 或 &lt;strong&gt;物质名词&lt;/strong&gt;, 而在定义中包含了任何非固有属性的类就是 &lt;strong&gt;可数名词&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-3
-4
-5
-6
-7
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;c1&quot;&gt;# 描述不可数的物质:
-&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;∈&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Butter&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;∧&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PartOf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;⟹&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;∈&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Butter&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;∈&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Butter&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;⟹&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MeltingPoint&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Centigrade&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;# 注意: 描述物质时使用下列语法:
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;变量&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;∈&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;物质名&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;⟹&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;这一物质的属性&lt;/span&gt; 
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;事件&quot;&gt;事件&lt;/h3&gt;
-
-&lt;p&gt;我们可以使用 &lt;strong&gt;情景演算&lt;/strong&gt; 表示 &lt;strong&gt;离散的, 瞬间的&lt;/strong&gt; 动作. 考虑连续动作, 如无害化处理一台 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MacBook Pro 2021&lt;/code&gt;, 情景演算可以告诉我们, 在这个动作之前我们有一台电子垃圾, 在这个动作之后我们得到了一系列可以被回收利用的电子元器件, 但它不能描述在这个动作期间发生了什么, 它也无法描述 &lt;strong&gt;在同一时间发生两个动作的情形&lt;/strong&gt;: 如在等拆卸 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MacBook Pro&lt;/code&gt; 完成的时候同时碾碎存有 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Windows 11&lt;/code&gt; 源码的硬盘.&lt;/p&gt;
-
-&lt;p&gt;为了处理这种情况, 我们引入基于 &lt;strong&gt;时间点&lt;/strong&gt; 而非 &lt;strong&gt;情景&lt;/strong&gt; 的,称为 &lt;strong&gt;事件演算&lt;/strong&gt; (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Event Calculus&lt;/code&gt;) 的形式体系.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;流&lt;/strong&gt; 和 &lt;strong&gt;事件&lt;/strong&gt; 在事件演算中是被物化的. 在事件演算中, 流是一个描述了某种事实的对象, 但它并不会提供更详细的信息, 诸如 “这个事实是否成立”. 我们需要使用额外的谓词声称一个流实际上在某些时间点成立.&lt;/p&gt;
-
-&lt;p&gt;举例而言, 考虑流 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;StudyIn(Axton, UoM)&lt;/code&gt;, 我们使用谓词 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;T(flow, timePoint)&lt;/code&gt; 说明这个流在某个时间点 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;t&lt;/code&gt; 上成立: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;T(StudyIn(Axton, UoM), t)&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;事件被描述为 &lt;strong&gt;事件类别的实例&lt;/strong&gt;. 如 “&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Axton&lt;/code&gt; 从 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Manchester&lt;/code&gt; 飞到 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Paris&lt;/code&gt; 的事件 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;E1&lt;/code&gt;” 表示为:&lt;/p&gt;
-
-\[E_1 \in \text{Flyings} \wedge \text{Flyer}(E_1, \text{Axton}) \wedge \text{Origin}(E_1, \text{Manchester}) \wedge \text{Destination}(E_1, \text{Paris}).\]
-
-&lt;p&gt;随后, 我们使用 $\text{Happens}(E_1, i)$ 表示 &lt;strong&gt;事件 $E_1$&lt;/strong&gt; 发生在事件区间 $i$. 一个事件演算版本的完整谓词集如下图所示:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220102095836.png&quot; alt=&quot;20220102095836&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;构造一个特别事件 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Start&lt;/code&gt;, 这一事件描述 &lt;strong&gt;初始状态&lt;/strong&gt;, 指出在起始时刻那些流被启动 (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Initiate&lt;/code&gt;), 哪些流被终结 (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Terminate&lt;/code&gt;).&lt;/p&gt;
-
-&lt;p&gt;同时定义谓词 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;T(event, t)&lt;/code&gt;: 若某个流被 &lt;strong&gt;过去某个时间的某个时间启动且没有被任何干扰事件终止 (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Clipped&lt;/code&gt;)&lt;/strong&gt;, 则这个流在当前的时间点为真. 反之, 若这个流 &lt;strong&gt;被某个事件终结且尚未被任何事件所恢复 (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Restored&lt;/code&gt;)&lt;/strong&gt; 则这个流在当前时间点不成立. 形式上的公理为:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220102100250.png&quot; alt=&quot;20220102100250&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;其中 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Clipped&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Restored&lt;/code&gt; 定义为:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220102100318.png&quot; alt=&quot;20220102100318&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;还可以将 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;T&lt;/code&gt; 扩展到事件区间中: 一个流在某个时间区间上成立, 当且仅当它在 &lt;strong&gt;这个时间区间内的每个点上&lt;/strong&gt; 都成立.&lt;/p&gt;
-
-\[T(f, (t_1, t_2)) \Leftrightarrow [\forall t (t_1\leqslant t &amp;lt; t_2) \Rightarrow T(f, t)].\]
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;c1&quot;&gt;# any process e that happens over an interval happens over any subinterval
-&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;∈&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Processes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;∧&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Happens&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;∧&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;⟹&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Happens&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
- 
-&lt;span class=&quot;c1&quot;&gt;# 注意: 描述事件时遵循下列语法:
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;变量&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;∈&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;事件具备的一系列性质的合取&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;# 如: b ∈ Buyings ∧ Buyer(b, Mary) ∧ Seller(b, John) ∧ Price(b, GBP(400)) ∧ Item(b, bike) 
-&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;# 或者:
-&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;变量&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;∈&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;事件名&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;事件中涉及的实体1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;事件中涉及的实体2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;...,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;事件中涉及的物体1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;...)&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;# 如: b ∈ Buyings(Mary, John, GBP(400), bike)
-&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;而在谓词 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;T&lt;/code&gt; 中, 流和动作使用专门领域公理定义.&lt;/p&gt;
-
-&lt;p&gt;通过物化事件, 我们可以给它们增加 &lt;strong&gt;任何数量&lt;/strong&gt; 的 &lt;strong&gt;任意信息&lt;/strong&gt;. 通过扩展事件演算, 我们就可以表示 &lt;strong&gt;同时发生的事件&lt;/strong&gt;, &lt;strong&gt;外因事件&lt;/strong&gt;, &lt;strong&gt;连续事件&lt;/strong&gt; 和其他的复杂事件.&lt;/p&gt;
-
-&lt;h3 id=&quot;过程&quot;&gt;过程&lt;/h3&gt;
-
-&lt;p&gt;有一类事件具有 &lt;strong&gt;起始&lt;/strong&gt;, &lt;strong&gt;中途&lt;/strong&gt; 和 &lt;strong&gt;结尾&lt;/strong&gt;, 若从中间将这一事件打断, 事件的性质就会发生变化. 同时, 这样的事件类别具有不同的属性.&lt;/p&gt;
-
-&lt;p&gt;具有这种特征的事件类别被称为 &lt;strong&gt;过程&lt;/strong&gt; (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Process&lt;/code&gt;) 或 &lt;strong&gt;流事件&lt;/strong&gt; (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Liquid Event&lt;/code&gt;): 发生在一个时间区间内的任何过程 $e$ 也可以在该时间区间的任何子区间内完成.&lt;/p&gt;
-
-&lt;h3 id=&quot;时间区间&quot;&gt;时间区间&lt;/h3&gt;
-
-&lt;p&gt;我们考虑两种时间区间: &lt;strong&gt;时刻 (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Moment&lt;/code&gt;)&lt;/strong&gt; 与 &lt;strong&gt;时间 (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ExtendedIntervals&lt;/code&gt;)&lt;/strong&gt;. 它们的区别在于, &lt;strong&gt;时刻&lt;/strong&gt; 的长度为 $0$, 也就是说它只有 &lt;strong&gt;零刻度&lt;/strong&gt;.&lt;/p&gt;
-
-\[\text{Partition}(\{\text{Moments}, \text{ExtendedIntervals}\}, \text{Intervals})\]
-
-\[i \in \text{Moments} \Leftrightarrow \text{Duration}(i) = \text{Seconds}(0)\]
-
-&lt;p&gt;随后我们取一个用来提供 &lt;strong&gt;绝对时间&lt;/strong&gt; 的 &lt;strong&gt;时间标尺&lt;/strong&gt;: 比如我们可以取格林尼治时区的 $1900$ 年 $1$ 月 $1$ 日 $00:00$ 为 $0$ 时刻, 构造函数 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Begin&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;End&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Time&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Duration&lt;/code&gt; 分别用来: 取一个区间的最早时刻, 取一个区间的最晚时刻, 为某个时刻在给定的时间标尺上找出对应的刻度点, 以及给出开始时间和结束时间的差值.&lt;/p&gt;
-
-&lt;h3 id=&quot;流和对象&quot;&gt;流和对象&lt;/h3&gt;
-
-&lt;p&gt;物理对象可以被视为是 &lt;strong&gt;一块时空片段&lt;/strong&gt;, 由此它也可以被视为 &lt;strong&gt;泛化事件&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;思维事件和思维对象&quot;&gt;思维事件和思维对象&lt;/h3&gt;
-
-&lt;p&gt;到此为止, 我们已经构造出了对于现实世界中具备物理实体的事物的表示方式, 由此 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Agent&lt;/code&gt; 可以对它们产生和具备 &lt;strong&gt;信念&lt;/strong&gt; (或者知识), 并以此为基础演绎出新的信念. 下面, 我们需要考虑描述 &lt;strong&gt;思维对象&lt;/strong&gt; 和 &lt;strong&gt;操控这些思维对象的思维模型&lt;/strong&gt; 的模型.&lt;/p&gt;
-
-&lt;p&gt;首先从 &lt;strong&gt;命题态度&lt;/strong&gt; (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Propositional Attitudes&lt;/code&gt;) 入手. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Agent&lt;/code&gt; 对思维对象可以有一系列的 &lt;strong&gt;态度&lt;/strong&gt;, 如 “确信“, ”了解”, “想要”, “打算”等, 我们使用 &lt;strong&gt;模态逻辑&lt;/strong&gt; 表示这些态度.&lt;/p&gt;
-
-&lt;p&gt;常规的逻辑关注 &lt;strong&gt;单模态&lt;/strong&gt;, &lt;strong&gt;真值模态&lt;/strong&gt;, 如 “命题 $P$ 为真”. 而模态逻辑包含以 &lt;strong&gt;语句&lt;/strong&gt; 而非 &lt;strong&gt;项&lt;/strong&gt; 作为参数的 &lt;strong&gt;专用模态算子&lt;/strong&gt;, 如 “$A$ 知道 $P$” 用 $\mathbf{K}_{A}P$ 表示, 其中 $\mathbf{K}$ 就是用于知识的 &lt;strong&gt;模态算子&lt;/strong&gt;. 该算子具有两个参数: 一个记为下标的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Agent&lt;/code&gt;, 和一个语句.&lt;/p&gt;
-
-&lt;p&gt;补充:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220105170752.png&quot; alt=&quot;20220105170752&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220105170802.png&quot; alt=&quot;20220105170802&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;注意:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Equals()&lt;/code&gt; 公式处的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Before(i)&lt;/code&gt; 应该改为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Begin(i)&lt;/code&gt;.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;During&lt;/code&gt; 中的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Begin(i), Begin(j)&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;End(i), End(j)&lt;/code&gt; 是 &lt;strong&gt;严格不等关系&lt;/strong&gt;.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220125215607.png&quot; alt=&quot;20220125215607&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Semantic Network:&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;only Binary Relations&lt;/li&gt;
-  &lt;li&gt;n-ary assertions &lt;strong&gt;need to be break down into binary relations&lt;/strong&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Description Logics:&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;Subsumption: check if one category is a subset of another one by comparing definitions&lt;/li&gt;
-  &lt;li&gt;Classification: Check whether an obj belongs to a category&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Consistency: Whether the membership crteria are logically satisfiable&lt;/p&gt;
-
-    &lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220125215806.png&quot; alt=&quot;20220125215806&quot; /&gt;&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-</description>
-        <pubDate>Sat, 25 Dec 2021 00:00:00 +0000</pubDate>
-        <link>http://localhost:4000/2021/12/25/COMP24011-Ch5/</link>
-        <guid isPermaLink="true">http://localhost:4000/2021/12/25/COMP24011-Ch5/</guid>
         
         <category>课程笔记</category>
         

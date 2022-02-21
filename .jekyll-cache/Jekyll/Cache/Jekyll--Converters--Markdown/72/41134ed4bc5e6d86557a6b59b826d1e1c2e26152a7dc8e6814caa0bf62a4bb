@@ -1,6 +1,0 @@
-I"�<h1 id="修改-vbios-实现-hd7970-的-uefi-启动支持">修改 <code class="language-plaintext highlighter-rouge">vBIOS</code> 实现 <code class="language-plaintext highlighter-rouge">HD7970</code> 的 <code class="language-plaintext highlighter-rouge">UEFI</code> 启动支持</h1>
-
-<p>现代 <code class="language-plaintext highlighter-rouge">macOS</code> 需要在纯 <code class="language-plaintext highlighter-rouge">UEFI</code> 环境下才能够被 <code class="language-plaintext highlighter-rouge">OpenCore</code> 正确引导. <code class="language-plaintext highlighter-rouge">HD7970</code> 虽然在 <code class="language-plaintext highlighter-rouge">macOS Catalina</code> 中免驱, 但作为一张于 $2013$ 年发售的显卡, 其 <code class="language-plaintext highlighter-rouge">vBIOS</code> 由于时代所限并未加入 <code class="language-plaintext highlighter-rouge">UEFI</code> 启动支持, 必须运行在 <code class="language-plaintext highlighter-rouge">CSM</code> 模式下. 本文介绍一种在 <code class="language-plaintext highlighter-rouge">Windows</code> 下使用特定工具修改显卡 <code class="language-plaintext highlighter-rouge">vBIOS</code> 为其加入 <code class="language-plaintext highlighter-rouge">UEFI</code> 启动支持模块, 从而使该卡能够被 <code class="language-plaintext highlighter-rouge">OpenCore</code> 和 <code class="language-plaintext highlighter-rouge">macOS</code> 正确驱动的方法.</p>
-
-<h2 id="1-所需工具">1. 所需工具</h2>
-:ET

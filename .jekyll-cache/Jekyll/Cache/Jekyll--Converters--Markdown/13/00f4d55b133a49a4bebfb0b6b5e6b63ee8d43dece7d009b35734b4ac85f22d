@@ -1,0 +1,47 @@
+I"!<h1 id="绪论">绪论</h1>
+
+<p>本质上我们将在本课程中所接触的内容是对智能体 (<code class="language-plaintext highlighter-rouge">Intelligent System</code>) 表示和推理其所在世界中的知识和信息的研究. 在本课程中, 我们将接触和学习 <strong>知识表示</strong> (<code class="language-plaintext highlighter-rouge">Knowledge Representation</code>) 的核心概念和数种自动推理 (<code class="language-plaintext highlighter-rouge">Automated Reasoning</code>) 方法.</p>
+
+<p>课程内容基本分为四个板块:</p>
+
+<h2 id="1-一阶逻辑-first-order-logic-和自动推理">1. 一阶逻辑 (<code class="language-plaintext highlighter-rouge">First-Order Logic</code>) 和自动推理</h2>
+
+<ul>
+  <li>一阶逻辑的 <strong>语法和语义</strong></li>
+  <li>一节逻辑公式和子句形式 (<code class="language-plaintext highlighter-rouge">Clausal Form</code>) 的转换</li>
+  <li>有序语义归结 (<code class="language-plaintext highlighter-rouge">Ordered Resolution</code>)</li>
+  <li>基于饱和原则的证明搜索</li>
+  <li>模型 (<code class="language-plaintext highlighter-rouge">Model</code>) 构造</li>
+</ul>
+
+<h2 id="2-prolog">2. <code class="language-plaintext highlighter-rouge">Prolog</code></h2>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Prolog</code> 语法和证明搜索执行规则</li>
+  <li><code class="language-plaintext highlighter-rouge">Prolog</code> 中基于 <code class="language-plaintext highlighter-rouge">Horn</code> 子句的反向推理法的应用</li>
+  <li>基于 <code class="language-plaintext highlighter-rouge">Prolog</code> 的定理证明</li>
+</ul>
+
+<h2 id="3-知识表示">3. 知识表示</h2>
+<ul>
+  <li>本体论工程 (<code class="language-plaintext highlighter-rouge">Ontological Engineering</code>)</li>
+  <li>对类型和物体的表示</li>
+  <li>对事件的表示</li>
+  <li>基于分类 (<code class="language-plaintext highlighter-rouge">Categories</code>) 的推理系统</li>
+  <li>语义网络 (<code class="language-plaintext highlighter-rouge">Semantic Networks</code>)</li>
+  <li>描述逻辑</li>
+  <li>基于默认信息 (<code class="language-plaintext highlighter-rouge">Default Information</code>) 的推理</li>
+</ul>
+
+<h2 id="4-归纳推理与回溯推理">4. 归纳推理与回溯推理</h2>
+<ul>
+  <li>基于逻辑问题的学习 (<code class="language-plaintext highlighter-rouge">Learning as a Logical Problem</code>)</li>
+  <li>基于知识的学习 (<code class="language-plaintext highlighter-rouge">Learning with Knowledge</code>)</li>
+  <li>归纳逻辑程序设计</li>
+  <li>解释和诊断 (<code class="language-plaintext highlighter-rouge">Explaination and Diagnosis</code>)</li>
+  <li>基于解释的学习 (<code class="language-plaintext highlighter-rouge">Explaination-based Learning</code>)</li>
+</ul>
+
+<p>我们下面开始对课程内容的介绍.</p>
+
+<h1 id="一阶逻辑-first-order-logic-和自动推理">一阶逻辑 (<code class="language-plaintext highlighter-rouge">First-Order Logic</code>) 和自动推理</h1>
+:ET
