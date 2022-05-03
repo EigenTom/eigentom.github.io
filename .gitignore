@@ -2,5 +2,6 @@
 */.DS_Store 
 .DS_Store
 .DS_Store
-_site
-.jekyll-cache/*
+/_site/*
+/_site/
+/.jekyll-cache/
