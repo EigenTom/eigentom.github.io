@@ -5,8 +5,8 @@
     <description>由于相关法律法规规定, 该内容无法显示.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 03 May 2022 22:31:26 +0100</pubDate>
-    <lastBuildDate>Tue, 03 May 2022 22:31:26 +0100</lastBuildDate>
+    <pubDate>Tue, 03 May 2022 22:45:37 +0100</pubDate>
+    <lastBuildDate>Tue, 03 May 2022 22:45:37 +0100</lastBuildDate>
     <generator>Jekyll v4.2.1</generator>
     
       <item>
@@ -53,7 +53,7 @@
 
 &lt;h2 id=&quot;1-绪论&quot;&gt;1. 绪论&lt;/h2&gt;
 
-&lt;h3 id=&quot;11-定义&quot;&gt;1.1 定义&lt;/h3&gt;
+&lt;h3 id=&quot;定义&quot;&gt;定义&lt;/h3&gt;
 
 &lt;p&gt;我们首先为 &lt;strong&gt;编译器&lt;/strong&gt; 的概念给出形式化的定义.&lt;/p&gt;
 
@@ -67,7 +67,7 @@
 
 &lt;p&gt;而无需编译可被解释器直接运行的语言称为 &lt;strong&gt;解释型语言&lt;/strong&gt;, 如 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Python, PHP, JavaScript&lt;/code&gt; 等.&lt;/p&gt;
 
-&lt;h3 id=&quot;12-应用&quot;&gt;1.2 应用&lt;/h3&gt;
+&lt;h3 id=&quot;应用&quot;&gt;应用&lt;/h3&gt;
 
 &lt;p&gt;编译器作为衔接两种不同语言之间的桥梁, 其最基础的功能就是 &lt;strong&gt;在翻译过程中确保程序所含的语义 (意义) 保持不变&lt;/strong&gt;. 而在实际情况中, 编译器往往还承担了对源代码进行 (各种意义上的) 优化的功能, 如:&lt;/p&gt;
 
@@ -85,7 +85,7 @@
 
 &lt;p&gt;实际上, 编译技术的应用场景不仅局限在对程序设计语言的转换上. 它还可用于优化计算机机构, 实现自动的并行式计算, 提升软件安全性等.&lt;/p&gt;
 
-&lt;h3 id=&quot;13-基本结构&quot;&gt;1.3 基本结构&lt;/h3&gt;
+&lt;h3 id=&quot;基本结构&quot;&gt;基本结构&lt;/h3&gt;
 
 &lt;p&gt;下面我们考虑编译器的基本结构.&lt;/p&gt;
 
@@ -109,7 +109,7 @@
 
 &lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220314215002.png&quot; alt=&quot;20220314215002&quot; /&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;14-前端结构&quot;&gt;1.4 前端结构&lt;/h3&gt;
+&lt;h3 id=&quot;前端结构&quot;&gt;前端结构&lt;/h3&gt;
 
 &lt;p&gt;我们下面讨论编译器前端的基本结构.&lt;/p&gt;
 
@@ -158,7 +158,7 @@
 
 &lt;p&gt;编译器会在完成源代码的词法分析, 语法分析和语义分析后生成一个 &lt;strong&gt;明确的, 类机器语言的中间表示&lt;/strong&gt;. 本质上, 中间表示是一种对源代码的抽象, 合格的中间表示必须是便于生成且便于翻译的, 常用的中间表示形式是 &lt;strong&gt;三地址指令&lt;/strong&gt; (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Three-Address Instruction&lt;/code&gt;).&lt;/p&gt;
 
-&lt;h3 id=&quot;15-后端结构&quot;&gt;1.5 后端结构&lt;/h3&gt;
+&lt;h3 id=&quot;后端结构&quot;&gt;后端结构&lt;/h3&gt;
 
 &lt;p&gt;继续讨论编译器的后端结构.&lt;/p&gt;
 
@@ -171,6 +171,14 @@
 &lt;p&gt;而在后续的步骤中, 需要以经过优化的中间代码作为输入, 并将其映射为目标语言. 若目标语言是机器语言, 还需要在这一步中 &lt;strong&gt;选择合适的机器指令, 为每个变量分配寄存器或指定内存位置&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220314222308.png&quot; alt=&quot;20220314222308&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;相关题目解析&quot;&gt;相关题目解析&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220503223953.png&quot; alt=&quot;20220503223953&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220503224004.png&quot; alt=&quot;20220503224004&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220503224023.png&quot; alt=&quot;20220503224023&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;2-词法分析-lexical-analysis&quot;&gt;2. 词法分析 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Lexical Analysis&lt;/code&gt;&lt;/h2&gt;
 
@@ -337,6 +345,10 @@
 &lt;h4 id=&quot;总结&quot;&gt;总结&lt;/h4&gt;
 
 &lt;p&gt;词法分析器将由一系列符号组成的源码经过分析和转换, 变为一系列词素. 这一过程是完全自动化的, 遵循 “正则表达式 - 非确定性有穷状态机 - 确定性有穷状态机” 的流程. 由于正则表达式具有表达多种复杂模式的强大功能, 它常被用于自动化词法分析的流程.&lt;/p&gt;
+
+&lt;h3 id=&quot;相关题目解析-1&quot;&gt;相关题目解析&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220503224133.png&quot; alt=&quot;20220503224133&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;3-语法分析-syntax-analysis&quot;&gt;3. 语法分析 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Syntax Analysis&lt;/code&gt;&lt;/h2&gt;
 
@@ -520,6 +532,14 @@
 
 &lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220430201517.png&quot; alt=&quot;20220430201517&quot; /&gt;&lt;/p&gt;
 
+&lt;h3 id=&quot;相关题目解析-2&quot;&gt;相关题目解析&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220503224209.png&quot; alt=&quot;20220503224209&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220503224222.png&quot; alt=&quot;20220503224222&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220503224240.png&quot; alt=&quot;20220503224240&quot; /&gt;&lt;/p&gt;
+
 &lt;h2 id=&quot;4-编译器中端-middle-end&quot;&gt;4. 编译器中端 (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Middle-End&lt;/code&gt;)&lt;/h2&gt;
 
 &lt;p&gt;在上面一节中我们已知, 通过词法分析和语法分析, 编译器可以确定输入的源码是指定程序设计语言的一段合法的代码, 也就是说如果将输入的源码视为一段字符串, 则可知:&lt;/p&gt;
@@ -616,6 +636,12 @@
   &lt;li&gt;在这一步中我们同样可见, 除了正确地表示源码的含义外, 检查源码中潜在的非语法错误同样是一件极其困难的任务, 现代编译器一般使用基于哈希表实现的符号表处理这一问题.&lt;/li&gt;
   &lt;li&gt;在本节中我们同样介绍了数种与硬件无关的中间表示代码优化方法, 但为了实现极致的优化, 实际的编译器往往还要在目标代码生成时执行更复杂的, 更底层的优化手段.&lt;/li&gt;
 &lt;/ol&gt;
+
+&lt;h3 id=&quot;相关题目解析-3&quot;&gt;相关题目解析&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220503224329.png&quot; alt=&quot;20220503224329&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220503224341.png&quot; alt=&quot;20220503224341&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;5-代码生成&quot;&gt;5. 代码生成&lt;/h2&gt;
 
@@ -806,6 +832,18 @@
 &lt;p&gt;最后我们可以将编译器的完整结构总结如下:&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220501111349.png&quot; alt=&quot;20220501111349&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;相关题目解析-4&quot;&gt;相关题目解析&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220503224419.png&quot; alt=&quot;20220503224419&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220503224430.png&quot; alt=&quot;20220503224430&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 64x+16x-x)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220503224503.png&quot; alt=&quot;20220503224503&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 函数调用不视为branching)&lt;/p&gt;
 </description>
         <pubDate>Mon, 14 Mar 2022 00:00:00 +0000</pubDate>
         <link>http://localhost:4000/2022/03/14/Ch3-COMP26020/</link>
