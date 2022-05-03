@@ -191,6 +191,10 @@
                         
                         
                         
+                        
+                        
+                        
+                        
                         <li class="search-icon">
                             <a href="javascript:void(0)">
                                 <i class="fa fa-search"></i>
@@ -309,384 +313,393 @@
         col-xs-12 postlist-container">
         
 <div class="post-preview">
-    <a href="/2021/12/25/COMP24011-Ch5/">
+    <a href="/2022/02/20/Ch2-COMP26120/">
         <h2 class="post-title">
-            人工智能导论 知识表示
+            数据结构与算法： 最短路径
         </h2>
         
         <h3 class="post-subtitle">
-            Knowledge Representation
+            Shortest Path
         </h3>
         
         <!--
         <div class="post-content-preview">
             
-                知识表示
+                最短路径
 
-本章中我们将说明如何使用一阶逻辑表示现实世界中的知识. 在介绍 通用本体论 后, 我们将介绍如何表示 对象, 物质, 量度, 事件 和 信念, 然后讨论对应用在 高效类别推理 中的推理系统的设计.
+本章介引入最短路径的概念并介绍数种用于计算最短路径的算法: 深度优先和 Bellman-Ford 算法, 并讨论单源最短路径问题.
 
-5.1 本体论
+最短路径问题常用于路径规划问题. 如: 给定一个地铁或列车路线图, 设定目标站点和出发站点, 求站点之间的最短路径.
 
-我们使用 本体论 表示现实世界中的客观事物, 知识和通用概念. 在各种不同的情况下, 我们可能需要在 上位本体论 的框架下进行扩展, 使用一些特化的本体论表示具体的...
+1. 使用广度优先算法查找最短路径
+
+我们首先对 最短路径 给出形式化的定义:
+
+定义 1.1 (最短路径)
+
+  称图 $G$...
             
         </div>
         -->
         
         <div class="post-content-preview">
                 
-                    本章说明如何使用一阶逻辑对现实世界中的知识进行建模.
+                    本章引入最短路径的概念, 并介绍用于计算最短路径的数种算法.
                 
         </div>
             
     </a>
     <p class="post-meta">
-        Posted by R1NG on December 25, 2021
+        Posted by R1NG on February 20, 2022
     </p>
 </div>
 <hr>
 
 <div class="post-preview">
-    <a href="/2021/12/20/COMP24011-Ch4/">
+    <a href="/2022/02/11/Ch1-COMP26120/">
         <h2 class="post-title">
-            人工智能导论 不确定性的量化和概率推理
+            数据结构与算法： 图遍历和拓扑排序
         </h2>
         
         <h3 class="post-subtitle">
-            Uncertainty & Bayes Network
+            Graph Traversal techniques and Topological Sorting
         </h3>
         
         <!--
         <div class="post-content-preview">
             
-                不确定性的量化和概率推理
+                图遍历和拓扑排序
 
-在本章中, 我们将借助概率论考虑 Agent 在不确定环境下的行动问题, 并引入贝叶斯网络构造 Agent 在不确定性下进行推理的网络模型.
+我们将在本章中引入 图 的概念, 介绍图遍历的基本技巧和拓扑排序.
 
-4.1 不确定性
+1. 图
 
-我们首先对 不确定性问题 给出定义.
+我们首先介绍图的基本定义和记法:
 
-定义 4.1.1 (不确定性)
+定义 1.1 (图)
 
-  我们称满足下列特性的问题为 不确定性问题:
-  
-    要得到该问题的确定没有任何意外情况的规则需要列出前提和结论的完整集...
+  图 (Graph) 由 节点集 $V$ 和 边集 $E$ 组成, 并满足 $E \subseteq V \times V$, 即任何边的顶点都位于节点集中.
+
+  一般地, 我们用数字标记每个节点, 且边集中的元素相应地表示为 ...
             
         </div>
         -->
         
         <div class="post-content-preview">
                 
-                    本章将介绍Agent如何对环境中的不确定性进行量化并使用概率推理感知非确定性的环境.
+                    本章引入图的基本概念, 介绍图遍历和拓扑排序.
                 
         </div>
             
     </a>
     <p class="post-meta">
-        Posted by R1NG on December 20, 2021
+        Posted by R1NG on February 11, 2022
     </p>
 </div>
 <hr>
 
 <div class="post-preview">
-    <a href="/2021/12/16/Ch12-LogicNotes/">
+    <a href="/2022/02/11/Ch2-COMP27112/">
         <h2 class="post-title">
-            逻辑学探幽 Part12
+            计算机视觉导论：矩阵, 向量和着色器
         </h2>
         
         <h3 class="post-subtitle">
-            没有逻辑 只有heip
+            Introduction to KNN Algorithm
         </h3>
         
         <!--
         <div class="post-content-preview">
             
-                线性时态逻辑
+                
 
-12.1 计算树
-
-我们可以用 计算树 表示某个状态转换系统中所有可能的行为:
-
-定义 12.1.1 (计算树)
-
-  考虑状态转换系统
-
-\[\mathbb{S} = (S, \text{In}, T, \mathscr{X}, \text{dom}, L),\]
-
-  并记状态 $s\in S$. 状态转换系统 $\mathbb{S}$ 的, 从状态 $s$ 起始的计算树...
             
         </div>
         -->
         
         <div class="post-content-preview">
                 
-                    本章介绍线性时态逻辑.
+                    本章回顾计算机图形学中涉及的基本数学知识, 并简要介绍着色器.
                 
         </div>
             
     </a>
     <p class="post-meta">
-        Posted by R1NG on December 16, 2021
+        Posted by R1NG on February 11, 2022
     </p>
 </div>
 <hr>
 
 <div class="post-preview">
-    <a href="/2021/12/15/Ch11-LogicNotes/">
+    <a href="/2022/02/11/Ch0-COMP24412/">
         <h2 class="post-title">
-            逻辑学探幽 Part11
+            基于知识组织的人工智能：一阶逻辑和自动推理
         </h2>
         
         <h3 class="post-subtitle">
-            没有逻辑 只有heip
+            Introduction to Knowledge-based AI + Chapter 1
         </h3>
         
         <!--
         <div class="post-content-preview">
             
-                状态转换系统和时间特性
+                绪论
 
-在本章中, 我们将讨论状态变化系统 (State-Changing Systems) 以及它们的形式化: 状态转换系统 (Transition System).
+本质上我们将在本课程中所接触的内容是对智能体 (Intelligent System) 表示和推理其所在世界中的知识和信息的研究. 在本课程中, 我们将接触和学习 知识表示 (Knowledge Representation) 的核心概念和数种自动推理 (Automated Reasoning) 方法.
 
-状态变化系统指在各种动作的影响下随时间推移而运行并改变状态的系统, 而状态转换系统是状态变化系统的特殊形式化, 其中系统由一组变量表示, 状态由对这些变量的赋值组成.
+课程内容基本分为四个板块:
 
-我们将从对状态变换系统的讨论引入形...
+1. 一阶逻辑 (First-Order Log...
             
         </div>
         -->
         
         <div class="post-content-preview">
                 
-                    本章介绍状态转换系统.
+                    Logic, once again...
                 
         </div>
             
     </a>
     <p class="post-meta">
-        Posted by R1NG on December 15, 2021
+        Posted by R1NG on February 11, 2022
     </p>
 </div>
 <hr>
 
 <div class="post-preview">
-    <a href="/2021/12/05/Ch10-LogicNotes/">
+    <a href="/2022/02/11/Ch1-COMP24112/">
         <h2 class="post-title">
-            逻辑学探幽 Part10
+            机器学习
         </h2>
         
         <h3 class="post-subtitle">
-            没有逻辑 只有heip
+            Introduction to KNN Algorithm
         </h3>
         
         <!--
         <div class="post-content-preview">
             
-                有限域下的谓词逻辑
+                K-NN 算法及其应用
 
-在本章中, 我们介绍有限域下的谓词逻辑 (Propositional Logic of Finite Domains, PLFD) , 它可被用于描述那些状态可以通过指定变量的值而定义的状态转换系统的属性. 我们认知下的谓词逻辑 (Propositional Logic) 可被视为一种特殊的 PLFD: 在该系统中, 任何谓词变量的取值都是布尔值.
+1. K-NN 算法的基本思想及应用
 
-我们将首先解释 P...
+1.1 K-NN 分类
+
+1.2 K-NN 回归
+
+2. K-NN 算法的实现和性能讨论
+
+2.1 距离计算
+
+2.2 超参数对算法性能的影响
+
+2.3 训练样本对算法性能的影响
+
             
         </div>
         -->
         
         <div class="post-content-preview">
                 
-                    本章介绍有限域下的谓词逻辑.
+                    本章介绍K-近邻算法的基本概念并介绍其在分类和回归两大方向上的应用, 并进一步讨论了不同实现方式和超参数选择对算法性能的影响.
                 
         </div>
             
     </a>
     <p class="post-meta">
-        Posted by R1NG on December 5, 2021
+        Posted by R1NG on February 11, 2022
     </p>
 </div>
 <hr>
 
 <div class="post-preview">
-    <a href="/2021/11/19/Ch9-LogicNotes/">
+    <a href="/2022/02/11/Ch1-COMP27112/">
         <h2 class="post-title">
-            逻辑学探幽 Part9
+            计算机视觉导论：图像合成
         </h2>
         
         <h3 class="post-subtitle">
-            没有逻辑 只有heip
+            Introduction to Image Synthesis
         </h3>
         
         <!--
         <div class="post-content-preview">
             
-                量化布尔公式
+                计算机图形学: 导论
 
-在本章中, 我们介绍 量化布尔公式 (Quantified Boolean Formula). 它是基于谓词公式的基础上推广而来的产物, 相比常规的谓词公式多出了 “存在 ( $\exists$)”, “任意 ($\forall$)” 等量化谓词, 因此相比普通的谓词公式, 我们可以使用它更简明地表达相同的问题. 一般而言, 量化布尔公式常被用于表示状态有限的组合问题, 如规...
+本课程分为两个部分: 交互式计算机图形技术 (Interactive Computer Graphics, 图像合成) 与 图形处理技术 (Image Processing, 图像分析).
+
+我们将在下面的章节中介绍图像合成的基本原理, 描述渲染管线和图形处理的基本原理, 并讨论如何使用 Open GL 的可编程管线设计图像合成系统, 以及实现一些基础的图像处理算法....
             
         </div>
         -->
         
         <div class="post-content-preview">
                 
-                    本章介绍一种基于谓词公式的推广：量化布尔公式.
+                    本章简介图像合成及其所涉及的基本概念, 并简要介绍 OpenGL 和图形系统的一般架构.
                 
         </div>
             
     </a>
     <p class="post-meta">
-        Posted by R1NG on November 19, 2021
+        Posted by R1NG on February 11, 2022
     </p>
 </div>
 <hr>
 
 <div class="post-preview">
-    <a href="/2021/11/12/Ch8-LogicNotes/">
+    <a href="/2022/01/23/COMP23311-REV/">
         <h2 class="post-title">
-            逻辑学探幽 Part8
+            Software Engineering 一日速成
         </h2>
         
         <h3 class="post-subtitle">
-            没有逻辑 只有heip
+            REVISION
         </h3>
         
         <!--
         <div class="post-content-preview">
             
-                二元决策图
+                COMP23311 24小时速成
 
-在本章中, 我们将介绍一种可以高效表示含有逻辑连接词的, 复杂谓词公式的数据结构: 二元决策图 (BDD). 该数据结构具有以下的三个基本特征:
+Week 1: Building &amp; Testing Open Source Systems
 
-
-  能够简洁地表示谓词公式, 或由谓词公式所表示的布尔函数.
-  可以执行对谓词公式的逻辑运算 (布尔运算).
-  能够被用于检查谓词公式的基本性质, 如可满足性和等价性.
+What is software Engineering?
 
 
-下面我们首先通过引入二元决策树并, 进而对和它相似的...
+  Building software to Budget + Deadline
+  Needs to Deliver sufficient ROI (Return on Investmen...
             
         </div>
         -->
         
         <div class="post-content-preview">
                 
-                    本章介绍一种可高效表示含连接词的复杂谓词公式的数据结构-二元决策图.
+                    Exam-First Teaching
                 
         </div>
             
     </a>
     <p class="post-meta">
-        Posted by R1NG on November 12, 2021
+        Posted by R1NG on January 23, 2022
     </p>
 </div>
 <hr>
 
 <div class="post-preview">
-    <a href="/2021/11/06/COMP24011-Ch3/">
+    <a href="/2022/01/14/COMP23111-REV-Ch4/">
         <h2 class="post-title">
-            人工智能导论 经典规划
+            数据库导论 其他数据库
         </h2>
         
         <h3 class="post-subtitle">
-            Planning
+            DROP 'n1ql' FROM 'dbKnowledgeBase';
         </h3>
         
         <!--
         <div class="post-content-preview">
             
-                经典规划
+                COMP23111 REVISION Ch4
 
-在本章中, 我们考虑较复杂的规划问题. 我们将在第一节中引入一种可用于表示规划问题的语言, 在第二节中介绍 前向搜索算法 和 后向搜索算法, 在最后一节中介绍如何使用 规划图 这一数据结构高效地搜索规划.
+4. 其他数据库
 
-1. 定义经典规划
+我们将在本章中对本课程涉及的其他三种非关系数据库进行介绍. 这种介绍基于功利性质, 主要信息来源为部分 Slides 内容 + Lab 内容, 并且逻辑结构可能极其混乱.
 
-在本章中, 我们使用 要素化表示 (Factored Representation): 用变量表示规划问题的不同状态的表示方法, 对我们的规划问题进行建...
+4.1 非关系类型数据库: Couchbase
+
+Couchbase 是一种主要用于数据存储和缓存的, 分布式 非关系型 (NOSQL) 数据库.
+
+C...
             
         </div>
         -->
         
         <div class="post-content-preview">
                 
-                    本章将介绍如何使用问题的结构来构造行动的复杂规划.
+                    其他数据库
                 
         </div>
             
     </a>
     <p class="post-meta">
-        Posted by R1NG on November 6, 2021
+        Posted by R1NG on January 14, 2022
     </p>
 </div>
 <hr>
 
 <div class="post-preview">
-    <a href="/2021/11/06/COMP24011-Ch2/">
+    <a href="/2022/01/13/COMP23111-REV-Ch3/">
         <h2 class="post-title">
-            人工智能导论 约束满足问题
+            数据库导论 关系数据库实现
         </h2>
         
         <h3 class="post-subtitle">
-            Constraint Satisfation
+            DROP 'sql' FROM 'dbKnowledgeBase';
         </h3>
         
         <!--
         <div class="post-content-preview">
             
-                约束满足问题
+                COMP23111 REVISION Ch3
 
-在本章中, 我们将解释 约束满足问题 的定义和对它的建模方式, 并将其形式化为搜索问题.
+3. 数据库实现
 
-1. 对约束满足问题的定义和建模
+本节讨论 SQL 语句和部分高级功能, 并介绍 数据库事务 的概念和其处理方式.
 
-定义 1.1 (约束满足问题)
+3.1 SQL 基础
 
-  我们称 要求我们针对 给定的一组变量 以及这些变量的 需要满足的一些限制和约束条件, 找出 符合这些所有限制条件 的解的问题为 约束满足问题 (Constraint Satisfaction Problem), ...
+3.1.1 选择运算: SELECTION
+
+SELECT 语句用于从一个关系中选出 满足选择条件 的元组的一个子集, 我们可以将其视为一个 过滤器. 如果将一个关系视为一张表, 则 SELECT 操作相当于从这张表中...
             
         </div>
         -->
         
         <div class="post-content-preview">
                 
-                    本章将介绍约束满足问题及其处理方法.
+                    关系数据库实现
                 
         </div>
             
     </a>
     <p class="post-meta">
-        Posted by R1NG on November 6, 2021
+        Posted by R1NG on January 13, 2022
     </p>
 </div>
 <hr>
 
 <div class="post-preview">
-    <a href="/2021/11/05/COMP24011-Ch1/">
+    <a href="/2022/01/12/COMP23111-REV-Ch2/">
         <h2 class="post-title">
-            人工智能导论 对抗搜索算法
+            数据库导论 关系数据库建模
         </h2>
         
         <h3 class="post-subtitle">
-            Adversarial Search Algorithms
+            DROP 'modeling' FROM 'dbKnowledgeBase';
         </h3>
         
         <!--
         <div class="post-content-preview">
             
-                对抗搜索算法
+                COMP23111 REVISION Ch2
 
-在本章中, 我们将对 包含两个竞争的决策者的对抗式决策 问题建模, 并介绍数个用于为这样的问题找出可行解的算法: 对抗搜索算法 Mini-Max Search, 并进一步地介绍它的剪枝优化版本: Alpha-Beta Pruning.
+2. 数据库建模
 
-对抗搜索问题
-
-我们考虑 由两个智能体 之间, 信息透明且对等 的, 通过 竞争 实现的 零和博弈 问题. 称这样的问题为 对抗搜索问题.
-...
+一般地, 我们在对某个现实需求建模时, 需要执行的流程是: 首先从现实问题中总结出现实需求 (需求的汇集和分析), 将需求提炼成某种更抽象和精确的模型, 使用高级数据模型创建数据库的 概念模式 (Conceptual Schema), (概念设计, Conceptual Design) 并最终从这个模型得到可直接在 DBMS...
             
         </div>
         -->
         
         <div class="post-content-preview">
                 
-                    本章将介绍数种对抗搜索算法.
+                    关系数据库建模
                 
         </div>
             
     </a>
     <p class="post-meta">
-        Posted by R1NG on November 5, 2021
+        Posted by R1NG on January 12, 2022
     </p>
 </div>
 <hr>
@@ -744,7 +757,7 @@
         
         
         
-                <a data-sort="0109" 
+                <a data-sort="0126" 
                     href="/archive/?tag=COMP12111"
                     title="COMP12111"
                     rel="10">COMP12111</a>
@@ -752,79 +765,94 @@
                 <a data-sort="0072" 
                     href="/archive/?tag=%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0"
                     title="课程笔记"
-                    rel="47">课程笔记</a>
+                    rel="64">课程笔记</a>
         
-                <a data-sort="0079" 
+                <a data-sort="0096" 
                     href="/archive/?tag=%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0"
                     title="前端学习"
                     rel="40">前端学习</a>
         
-                <a data-sort="0079" 
+                <a data-sort="0096" 
                     href="/archive/?tag=50P50D"
                     title="50P50D"
                     rel="40">50P50D</a>
         
-                <a data-sort="0104" 
-                    href="/archive/?tag=COMP24011"
-                    title="COMP24011"
-                    rel="15">COMP24011</a>
+                <a data-sort="0122" 
+                    href="/archive/?tag=%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD"
+                    title="人工智能"
+                    rel="14">人工智能</a>
         
-                <a data-sort="0107" 
+                <a data-sort="0124" 
                     href="/archive/?tag=%E9%80%BB%E8%BE%91%E5%AD%A6"
                     title="逻辑学"
                     rel="12">逻辑学</a>
         
-                <a data-sort="0109" 
+                <a data-sort="0126" 
                     href="/archive/?tag=COMP15111"
                     title="COMP15111"
                     rel="10">COMP15111</a>
         
-                <a data-sort="0110" 
+                <a data-sort="0127" 
                     href="/archive/?tag=%E6%89%A9%E5%B1%95%E8%87%AA%E4%B9%A0"
                     title="扩展自习"
                     rel="9">扩展自习</a>
         
-                <a data-sort="0110" 
+                <a data-sort="0127" 
                     href="/archive/?tag=COMP21111"
                     title="COMP21111"
                     rel="9">COMP21111</a>
         
-                <a data-sort="0112" 
+                <a data-sort="0129" 
+                    href="/archive/?tag=%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95"
+                    title="数据结构与算法"
+                    rel="7">数据结构与算法</a>
+        
+                <a data-sort="0129" 
                     href="/archive/?tag=%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0"
                     title="机器学习"
                     rel="7">机器学习</a>
         
-                <a data-sort="0112" 
+                <a data-sort="0129" 
                     href="/archive/?tag=COMP11212"
                     title="COMP11212"
                     rel="7">COMP11212</a>
         
-                <a data-sort="0115" 
+                <a data-sort="0130" 
+                    href="/archive/?tag=COMP24011"
+                    title="COMP24011"
+                    rel="6">COMP24011</a>
+        
+                <a data-sort="0132" 
+                    href="/archive/?tag=%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AF%BC%E8%AE%BA"
+                    title="数据库导论"
+                    rel="4">数据库导论</a>
+        
+                <a data-sort="0132" 
                     href="/archive/?tag=%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95"
                     title="数据结构和算法"
                     rel="4">数据结构和算法</a>
         
-                <a data-sort="0115" 
+                <a data-sort="0132" 
                     href="/archive/?tag=COMP15212"
                     title="COMP15212"
                     rel="4">COMP15212</a>
         
-                <a data-sort="0115" 
-                    href="/archive/?tag=COMP23111"
-                    title="COMP23111"
-                    rel="4">COMP23111</a>
-        
-                <a data-sort="0117" 
+                <a data-sort="0134" 
                     href="/archive/?tag=%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7"
                     title="奇技淫巧"
                     rel="2">奇技淫巧</a>
         
-                <a data-sort="0117" 
+                <a data-sort="0134" 
                     href="/archive/?tag=%E7%AE%97%E6%B3%95"
                     title="算法"
                     rel="2">算法</a>
         
-                <a data-sort="0117" 
+                <a data-sort="0134" 
+                    href="/archive/?tag=%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E6%A6%82%E8%AE%BA"
+                    title="软件工程概论"
+                    rel="2">软件工程概论</a>
+        
+                <a data-sort="0134" 
                     href="/archive/?tag=Lab"
                     title="Lab"
                     rel="2">Lab</a>

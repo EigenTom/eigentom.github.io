@@ -1,17 +1,137 @@
 [
   
     {
-      "title"    : "基于知识组织的人工智能",
+      "title"    : "数据结构与算法： El Gamal加密算法",
+      "subtitle" : "Introducing El Gamal Encryption Algorithm",
+      "tags"     : "课程笔记, 数据结构与算法",
+      "url"      : "/2022/03/25/Ch7-COMP26120/",
+      "date"     : "2022-03-25 00:00:00 +0000"
+    } ,
+  
+    {
+      "title"    : "并行计算和系统资源分配",
+      "subtitle" : "Introduction to Solidity",
+      "tags"     : "课程笔记, 并行计算",
+      "url"      : "/2022/03/15/Ch4-COMP26020/",
+      "date"     : "2022-03-15 00:00:00 +0000"
+    } ,
+  
+    {
+      "title"    : "编译器引论",
+      "subtitle" : "Introduction to Compilation",
+      "tags"     : "课程笔记, 编译理论",
+      "url"      : "/2022/03/14/Ch3-COMP26020/",
+      "date"     : "2022-03-14 00:00:00 +0000"
+    } ,
+  
+    {
+      "title"    : "数据结构与算法： 单纯形法",
+      "subtitle" : "Simplex Algorithm and Linear Programming",
+      "tags"     : "课程笔记, 数据结构与算法",
+      "url"      : "/2022/03/12/Ch6-COMP26120/",
+      "date"     : "2022-03-12 00:00:00 +0000"
+    } ,
+  
+    {
+      "title"    : "数据结构与算法： 线性规划",
+      "subtitle" : "Introduction to Linear Programming",
+      "tags"     : "课程笔记, 数据结构与算法",
+      "url"      : "/2022/03/12/Ch5-COMP26120/",
+      "date"     : "2022-03-12 00:00:00 +0000"
+    } ,
+  
+    {
+      "title"    : "数据结构与算法： 最小生成树",
+      "subtitle" : "Minimum Spanning Trees",
+      "tags"     : "课程笔记, 数据结构与算法",
+      "url"      : "/2022/03/01/Ch4-COMP26120/",
+      "date"     : "2022-03-01 00:00:00 +0000"
+    } ,
+  
+    {
+      "title"    : "基于 Spring 框架的软件工程实践",
+      "subtitle" : "Web Development with Java",
+      "tags"     : "课程笔记, 软件工程概论",
+      "url"      : "/2022/03/01/COMP23412/",
+      "date"     : "2022-03-01 00:00:00 +0000"
+    } ,
+  
+    {
+      "title"    : "数据结构与算法： Dijkstra与A*",
+      "subtitle" : "Heuristics：Dijkstra and A*",
+      "tags"     : "课程笔记, 数据结构与算法",
+      "url"      : "/2022/02/25/Ch3-COMP26120/",
+      "date"     : "2022-02-25 00:00:00 +0000"
+    } ,
+  
+    {
+      "title"    : "基于知识组织的人工智能:一阶逻辑推理",
+      "subtitle" : "Chapter 3： 一阶逻辑推理",
+      "tags"     : "课程笔记, 人工智能",
+      "url"      : "/2022/02/22/Ch2-COMP24412/",
+      "date"     : "2022-02-22 00:00:00 +0000"
+    } ,
+  
+    {
+      "title"    : "基于知识组织的人工智能：Prolog 速成",
+      "subtitle" : "Chapter 2",
+      "tags"     : "课程笔记, 人工智能",
+      "url"      : "/2022/02/22/Ch1-COMP24412/",
+      "date"     : "2022-02-22 00:00:00 +0000"
+    } ,
+  
+    {
+      "title"    : "数据结构与算法： 最短路径",
+      "subtitle" : "Shortest Path",
+      "tags"     : "课程笔记, 数据结构与算法",
+      "url"      : "/2022/02/20/Ch2-COMP26120/",
+      "date"     : "2022-02-20 00:00:00 +0000"
+    } ,
+  
+    {
+      "title"    : "数据结构与算法： 图遍历和拓扑排序",
+      "subtitle" : "Graph Traversal techniques and Topological Sorting",
+      "tags"     : "课程笔记, 数据结构与算法",
+      "url"      : "/2022/02/11/Ch1-COMP26120/",
+      "date"     : "2022-02-11 00:00:00 +0000"
+    } ,
+  
+    {
+      "title"    : "计算机视觉导论：矩阵, 向量和着色器",
+      "subtitle" : "Introduction to KNN Algorithm",
+      "tags"     : "课程笔记, 人工智能",
+      "url"      : "/2022/02/11/Ch2-COMP27112/",
+      "date"     : "2022-02-11 00:00:00 +0000"
+    } ,
+  
+    {
+      "title"    : "基于知识组织的人工智能：一阶逻辑和自动推理",
       "subtitle" : "Introduction to Knowledge-based AI + Chapter 1",
-      "tags"     : "课程笔记",
+      "tags"     : "课程笔记, 人工智能",
       "url"      : "/2022/02/11/Ch0-COMP24412/",
+      "date"     : "2022-02-11 00:00:00 +0000"
+    } ,
+  
+    {
+      "title"    : "机器学习",
+      "subtitle" : "Introduction to KNN Algorithm",
+      "tags"     : "课程笔记, 人工智能",
+      "url"      : "/2022/02/11/Ch1-COMP24112/",
+      "date"     : "2022-02-11 00:00:00 +0000"
+    } ,
+  
+    {
+      "title"    : "计算机视觉导论：图像合成",
+      "subtitle" : "Introduction to Image Synthesis",
+      "tags"     : "课程笔记, 计算机图形学",
+      "url"      : "/2022/02/11/Ch1-COMP27112/",
       "date"     : "2022-02-11 00:00:00 +0000"
     } ,
   
     {
       "title"    : "Software Engineering 一日速成",
       "subtitle" : "REVISION",
-      "tags"     : "课程笔记",
+      "tags"     : "课程笔记, 软件工程概论",
       "url"      : "/2022/01/23/COMP23311-REV/",
       "date"     : "2022-01-23 00:00:00 +0000"
     } ,
@@ -19,7 +139,7 @@
     {
       "title"    : "数据库导论 其他数据库",
       "subtitle" : "DROP &#39;n1ql&#39; FROM &#39;dbKnowledgeBase&#39;;",
-      "tags"     : "COMP23111",
+      "tags"     : "数据库导论",
       "url"      : "/2022/01/14/COMP23111-REV-Ch4/",
       "date"     : "2022-01-14 00:00:00 +0000"
     } ,
@@ -27,7 +147,7 @@
     {
       "title"    : "数据库导论 关系数据库实现",
       "subtitle" : "DROP &#39;sql&#39; FROM &#39;dbKnowledgeBase&#39;;",
-      "tags"     : "COMP23111",
+      "tags"     : "数据库导论",
       "url"      : "/2022/01/13/COMP23111-REV-Ch3/",
       "date"     : "2022-01-13 00:00:00 +0000"
     } ,
@@ -35,7 +155,7 @@
     {
       "title"    : "数据库导论 关系数据库建模",
       "subtitle" : "DROP &#39;modeling&#39; FROM &#39;dbKnowledgeBase&#39;;",
-      "tags"     : "COMP23111",
+      "tags"     : "数据库导论",
       "url"      : "/2022/01/12/COMP23111-REV-Ch2/",
       "date"     : "2022-01-12 00:00:00 +0000"
     } ,
@@ -43,7 +163,7 @@
     {
       "title"    : "数据库导论 关系数据库理论",
       "subtitle" : "DROP &#39;theory&#39; FROM &#39;dbKnowledgeBase&#39;;",
-      "tags"     : "COMP23111",
+      "tags"     : "数据库导论",
       "url"      : "/2022/01/11/COMP23111-REV-Ch1/",
       "date"     : "2022-01-11 00:00:00 +0000"
     } ,
@@ -51,7 +171,7 @@
     {
       "title"    : "数据结构与算法 复习",
       "subtitle" : "REVISION",
-      "tags"     : "数据结构和算法, COMP26120",
+      "tags"     : "数据结构和算法",
       "url"      : "/2022/01/05/COMP26120-REV/",
       "date"     : "2022-01-05 00:00:00 +0000"
     } ,
@@ -59,7 +179,7 @@
     {
       "title"    : "人工智能导论 用于通讯的自然语言",
       "subtitle" : "Communication",
-      "tags"     : "课程笔记, COMP24011",
+      "tags"     : "课程笔记, 人工智能",
       "url"      : "/2021/12/31/COMP24011-Ch8/",
       "date"     : "2021-12-31 00:00:00 +0000"
     } ,
@@ -67,7 +187,7 @@
     {
       "title"    : "人工智能导论 自然语言处理",
       "subtitle" : "NLP",
-      "tags"     : "课程笔记, COMP24011",
+      "tags"     : "课程笔记, 人工智能",
       "url"      : "/2021/12/30/COMP24011-Ch7/",
       "date"     : "2021-12-30 00:00:00 +0000"
     } ,
@@ -75,7 +195,7 @@
     {
       "title"    : "人工智能导论 模糊逻辑",
       "subtitle" : "Fuzzy Logic",
-      "tags"     : "课程笔记, COMP24011",
+      "tags"     : "课程笔记, 人工智能",
       "url"      : "/2021/12/28/COMP24011-Ch6/",
       "date"     : "2021-12-28 00:00:00 +0000"
     } ,
@@ -83,7 +203,7 @@
     {
       "title"    : "人工智能导论 知识表示",
       "subtitle" : "Knowledge Representation",
-      "tags"     : "课程笔记, COMP24011",
+      "tags"     : "课程笔记, 人工智能",
       "url"      : "/2021/12/25/COMP24011-Ch5/",
       "date"     : "2021-12-25 00:00:00 +0000"
     } ,
@@ -91,7 +211,7 @@
     {
       "title"    : "人工智能导论 不确定性的量化和概率推理",
       "subtitle" : "Uncertainty &amp; Bayes Network",
-      "tags"     : "课程笔记, COMP24011",
+      "tags"     : "课程笔记, 人工智能",
       "url"      : "/2021/12/20/COMP24011-Ch4/",
       "date"     : "2021-12-20 00:00:00 +0000"
     } ,
@@ -110,6 +230,14 @@
       "tags"     : "逻辑学, COMP21111",
       "url"      : "/2021/12/15/Ch11-LogicNotes/",
       "date"     : "2021-12-15 00:00:00 +0000"
+    } ,
+  
+    {
+      "title"    : "函数式编程",
+      "subtitle" : "Introduction to Functional Programming",
+      "tags"     : "课程笔记, 函数式编程",
+      "url"      : "/2021/12/14/Ch2-COMP26020/",
+      "date"     : "2021-12-14 00:00:00 +0000"
     } ,
   
     {
@@ -137,9 +265,17 @@
     } ,
   
     {
+      "title"    : "C/C++",
+      "subtitle" : "Introduction to C/C++",
+      "tags"     : "课程笔记, C语言和C++",
+      "url"      : "/2021/11/11/Ch1-COMP26020/",
+      "date"     : "2021-11-11 00:00:00 +0000"
+    } ,
+  
+    {
       "title"    : "人工智能导论 经典规划",
       "subtitle" : "Planning",
-      "tags"     : "课程笔记, COMP24011",
+      "tags"     : "课程笔记, 人工智能",
       "url"      : "/2021/11/06/COMP24011-Ch3/",
       "date"     : "2021-11-06 00:00:00 +0000"
     } ,
@@ -147,7 +283,7 @@
     {
       "title"    : "人工智能导论 约束满足问题",
       "subtitle" : "Constraint Satisfation",
-      "tags"     : "课程笔记, COMP24011",
+      "tags"     : "课程笔记, 人工智能",
       "url"      : "/2021/11/06/COMP24011-Ch2/",
       "date"     : "2021-11-06 00:00:00 +0000"
     } ,
@@ -155,7 +291,7 @@
     {
       "title"    : "人工智能导论 对抗搜索算法",
       "subtitle" : "Adversarial Search Algorithms",
-      "tags"     : "课程笔记, COMP24011",
+      "tags"     : "课程笔记, 人工智能",
       "url"      : "/2021/11/05/COMP24011-Ch1/",
       "date"     : "2021-11-05 00:00:00 +0000"
     } ,
@@ -163,7 +299,7 @@
     {
       "title"    : "人工智能导论 基础搜索算法",
       "subtitle" : "Basic Search Algorithms",
-      "tags"     : "课程笔记, COMP24011",
+      "tags"     : "课程笔记, 人工智能",
       "url"      : "/2021/11/04/COMP24011-Ch0/",
       "date"     : "2021-11-04 00:00:00 +0000"
     } ,

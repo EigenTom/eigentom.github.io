@@ -191,6 +191,10 @@
                         
                         
                         
+                        
+                        
+                        
+                        
                         <li class="search-icon">
                             <a href="javascript:void(0)">
                                 <i class="fa fa-search"></i>
@@ -309,348 +313,157 @@
         col-xs-12 postlist-container">
         
 <div class="post-preview">
-    <a href="/2020/11/16/Ch2-LogicNotes/">
+    <a href="/2021/03/02/Ch3-COMP11212/">
         <h2 class="post-title">
-            逻辑学探幽 Part2
+            Ch3 计算理论 表述复杂语言
         </h2>
         
         <h3 class="post-subtitle">
-            没有逻辑 只有heip
+            Consider complex circumstances
         </h3>
         
         <!--
         <div class="post-content-preview">
             
-                自然演绎推理和一阶谓词逻辑
+                表述复杂语言
 
-在本章节中, 我们将简要介绍自然演绎推理和一阶谓词逻辑. 本文假定读者已基本掌握命题逻辑, 并熟悉包括 Truth 和 Falsium 等在内的语义符号, 并了解逻辑学的基本概念.
+在本章中, 我们将继续探究对复杂语言的表述方法, 介绍 上下文无关语法, 以及 巴克斯 - 诺尔范式 .
 
-1. 自然演绎推理
-在命题逻辑中, 我们除了可以使用真值表方法判断命题推论的有效性以外, 我们还可以使用自然演绎推理法.
 
-演绎的本质就是将复杂的推论分解为若干个规模较小, 较简单...
+
+1. 上下文无关语法
+我们现在考虑通过某种良好的递归定义 生成 我们所需要的文字并组成语言, 而非构造能够从 $\mathscr{L}^{\star}$ 中过滤出所需文字的正则表达式.
+
+在生成文字的过程中, 我们首先从零开始, 以某个字母作为起始点, 并依据一定的...
             
         </div>
         -->
         
         <div class="post-content-preview">
                 
-                    本章简要介绍自然演绎推理和一阶谓词逻辑.
+                    本章继续探究对复杂语言的表述方法, 介绍上下文无关语法和巴克斯-诺尔范式.
                 
         </div>
             
     </a>
     <p class="post-meta">
-        Posted by R1NG on November 16, 2020
+        Posted by R1NG on March 2, 2021
     </p>
 </div>
 <hr>
 
 <div class="post-preview">
-    <a href="/2020/11/16/Ch1-LogicNotes/">
+    <a href="/2021/03/02/Ch2-COMP11212/">
         <h2 class="post-title">
-            逻辑学探幽 Part1
+            Ch2 计算理论 自动机
         </h2>
         
         <h3 class="post-subtitle">
-            没有逻辑, 只有heip
+            Meet Automatas and related algorithms
         </h3>
         
         <!--
         <div class="post-content-preview">
             
-                逻辑表达式的等价定义和正规化
+                自动机
+本章介绍不同种类的自动机 (Automata), 并介绍多个实现在自动机和模式 (正则表达式) 之间进行转换的算法:
 
-为了进一步地简化逻辑表达式, 我们需要研究它的等价定义和正规化.
+1. 有限状态自动机 Finite State Automata
 
+在上一学期的课程中我们已经接触到了有限状态机, 以及有限状态机的状态转换图. 我们首先对有限状态机的定义进行回顾:
 
+定义2.1.1 有限状态机
 
-1. 逻辑表达式的等价
-
-如日常生活中一样, 我们可以用不同的逻辑表达式对同一个命题进行等价描述. 下面, 我们对逻辑表达式的等价进行简要的研究.
-
-1.1 语义等价 (Semantic Equivalence)
-
-定义1.1 语义学等价
-
-  当且仅当对任何赋值 $v$, 谓词公式 $A...
+  任何有限状态机均有下列元素所组成:
+  
+  ...
             
         </div>
         -->
         
         <div class="post-content-preview">
                 
-                    本章进一步探讨对逻辑表达式的简化方法, 引入逻辑表达式等价定义和正规化的概念.
+                    本章介绍不同种类的自动机, 并介绍多个实现在自动机和模式 (正则表达式) 之间进行转换的算法.
                 
         </div>
             
     </a>
     <p class="post-meta">
-        Posted by R1NG on November 16, 2020
+        Posted by R1NG on March 2, 2021
     </p>
 </div>
 <hr>
 
 <div class="post-preview">
-    <a href="/2020/11/16/Ch0-LogicNotes/">
+    <a href="/2021/03/02/Ch1-COMP11212/">
         <h2 class="post-title">
-            逻辑学探幽 Part0
+            Ch1 计算理论 语言和正则表达式
         </h2>
         
         <h3 class="post-subtitle">
-            没有逻辑, 只有heip
+            Meet Language and Regular Expressions
         </h3>
         
         <!--
         <div class="post-content-preview">
             
-                命题逻辑, 布尔语义和幂集语义
-在本章中, 我们将引入最基本的逻辑系统: 命题逻辑, 简要介绍其基本概念, 并进一步地引入两种广泛应用于计算机科学领域的命题语义: 布尔语义和幂集语义.
+                语言和正则表达式
+在本章中, 我们将概述语言和正则表达式的相关定义, 性质与其他内容.
 
-1. 命题逻辑 Propositional Logic
 
-命题逻辑是最简单的逻辑系统, 以命题 (或命题公式) 为研究对象.
 
-定义1.1 命题
+1. 基本术语和概念
+我们首先引入一系列基本概念:
 
-  用语言, 符号或式子表达的, 或真或伪的陈述语句 (S...
+定义 1.1.1 符号
+
+  符号是组成字符串的最小单位, 不可被继续分割, 在形式逻辑中亦被称为字母 (letter), 常使用 $x, y, z, \cdots$ 表示.
+
+
+
+
+定义 1.1.2 字母表
+
+  字母表是由符号组成的集合, 指...
             
         </div>
         -->
         
         <div class="post-content-preview">
                 
-                    本章简要介绍命题逻辑, 并进一步引入两种广泛应用于计算机科学领域的命题语义.
+                    本章概述语言和正则表达式的定义, 性质与其他内容.
                 
         </div>
             
     </a>
     <p class="post-meta">
-        Posted by R1NG on November 16, 2020
+        Posted by R1NG on March 2, 2021
     </p>
 </div>
 <hr>
 
 <div class="post-preview">
-    <a href="/2020/11/06/%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7-%E5%90%AF%E7%94%A8Github%E5%9B%BE%E5%BA%8A/">
+    <a href="/2021/03/01/Ch0-COMP11212/">
         <h2 class="post-title">
-            奇技淫巧 启用 GitHub 作图床
+            Ch0 计算理论 绪论
         </h2>
         
         <h3 class="post-subtitle">
-            魔高一尺, 道高一丈
+            Introducing theory of computation
         </h3>
         
         <!--
         <div class="post-content-preview">
             
-                介绍一个墙内完美使用 GitHub 作图床的办法.
+                计算理论: 绪论
+计算理论隶属于理论计算机科学和数学的研究范畴, 其研究对象是计算这一概念本身, 分析和解决什么是可计算的, 而什么不可计算; 有哪些可行的计算模式, 以及对计算的复杂度, 亦即需要耗费多少时间或存储.
 
+本课程的主要介绍内容为正则表达式, 自动机和上下文无关语法:
 
+1. 定义语言和正则表达式
+概述语言和正则表达式的相关定义, 性质与其他内容:
 
-
-  “读书人的事, 怎么能叫耍诈? 这叫魔高一尺, 道高一丈。”
-
-
-
-
-原理
-绕过 blocking 的原理很简单: 既然 raw.githubusercontext.com 被DNS 污染橄榄, 那就用 CDN 加速暗度陈仓.
-
-
-
-流程
-先简单介绍一下部署环境:
-
-  macOS 10.15.6
-  PicGo + VSCod...
-            
-        </div>
-        -->
-        
-        <div class="post-content-preview">
-                
-                    本文介绍一种介绍可在墙内完美使用 GitHub 作图床的办法.
-                
-        </div>
-            
-    </a>
-    <p class="post-meta">
-        Posted by R1NG on November 6, 2020
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2020/11/06/%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7-%E4%BD%BF%E7%94%A80D6D%E8%A1%A5%E4%B8%81%E8%A7%A3%E5%86%B3XDCI%E7%9D%A1%E7%9C%A0%E5%94%A4%E9%86%92/">
-        <h2 class="post-title">
-            奇技淫巧 使用0D-6D补丁解决XDCI睡眠唤醒
-        </h2>
-        
-        <h3 class="post-subtitle">
-            你妈的 给爷睡
-        </h3>
-        
-        <!--
-        <div class="post-content-preview">
-            
-                使用0D/6D补丁解决XDCI睡眠唤醒
-
-
-  ”sudo pmset sleepnow“
-
-
-根据 ACPI 规范, _PRW 方法定义了设备的唤醒方法。该函数的返回值是一个包含 $2$ 个或更多字节的数据包。
-
-一些机型内建的子设备 (如 USB 控制器, 内建声卡, 无线网卡等) 的 _PRW 与 macOS 冲突，一旦计算机进入睡眠状态, 就会被这些子设备立即唤醒。编写适当的 ACP...
-            
-        </div>
-        -->
-        
-        <div class="post-content-preview">
-                
-                    本文介绍一种使用0D/6D补丁解决黑果XDCI睡眠唤醒的方法.
-                
-        </div>
-            
-    </a>
-    <p class="post-meta">
-        Posted by R1NG on November 6, 2020
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2020/11/04/Ch6-COMP15111/">
-        <h2 class="post-title">
-            Ch6 编译原理 线性数据结构和位运算
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Addressing the addresses
-        </h3>
-        
-        <!--
-        <div class="post-content-preview">
-            
-                Ch6 线性数据结构和位运算
-
-Motivation:
-
-  使用合适的寻址模式访问线性数据结构
-  类 C 语言的字符串
-  位运算和旋转
-  数组
-
-
-1. 字符串和寻址模式
-
-1.1 字符串
-首先, 简介 Python 型字符串和 C 型字符串.
-
-Python 型字符串中包含字符和一些额外信息, 如字符串长度, 字符串哈希值等.
-
-C 型字符串包含字符, 每个字符长为一个字节 ($8...
-            
-        </div>
-        -->
-        
-        <div class="post-content-preview">
-                
-                    本章简介基于汇编语言的线性数据结构构造与访问, 以及位运算.
-                
-        </div>
-            
-    </a>
-    <p class="post-meta">
-        Posted by R1NG on November 4, 2020
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2020/11/04/Ch3-COMP12111/">
-        <h2 class="post-title">
-            Ch3 计算机组成与结构 RTL设计和有限状态机
-        </h2>
-        
-        <h3 class="post-subtitle">
-            United STATES
-        </h3>
-        
-        <!--
-        <div class="post-content-preview">
-            
-                Ch3 RTL 设计和有限状态机
-
-在本章中, 我们将简介寄存器传输级别逻辑设计, 以及有限状态机的相关概念:
-
-  更为深入地了解顺序系统的设计
-  介绍寄存器传输级别设计
-  介绍有限状态机, 以及设计有限状态机的两种工具
-  更为深入地了解数据路径与其控制
-
-
-
-
-
-1. 顺序系统设计: 寄存器传输级别 RTL
-
-大部分的数字电路系统都是顺序的而非组合的, 由触发器和逻辑门电路组合而成...
-            
-        </div>
-        -->
-        
-        <div class="post-content-preview">
-                
-                    在本章中, 我们将简介寄存器传输级别逻辑设计, 以及有限状态机的相关概念.
-                
-        </div>
-            
-    </a>
-    <p class="post-meta">
-        Posted by R1NG on November 4, 2020
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2020/10/27/Note0-COMP16321/">
-        <h2 class="post-title">
-            回溯算法
-        </h2>
-        
-        <h3 class="post-subtitle">
-            What‘s your decision?
-        </h3>
-        
-        <!--
-        <div class="post-content-preview">
-            
-                回溯算法: 以数独求解为例
-
-回溯问题的解决核心是遍历决策树. 在进行决策时, 实际需要考虑的问题是:
-
-  路径: 目前已经做的决策是什么?
-  选择列表: 还可以做那些选择?
-  结束条件: 何时算作 “到达决策树底端”, 问题解决?
-
-
-回溯问题的框架为:
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-result = []
-def backtrack(路径, 选择列表):
+  介绍基本术语和概念
  ...
             
         </div>
@@ -658,95 +471,232 @@ def backtrack(路径, 选择列表):
         
         <div class="post-content-preview">
                 
-                    本文以数独求解问题为例, 简述回溯算法的原理和基本框架.
+                    我们将在计算理论-绪论中概述该课程所涉及的主要内容, 并简单梳理课程的逻辑结构.
                 
         </div>
             
     </a>
     <p class="post-meta">
-        Posted by R1NG on October 27, 2020
+        Posted by R1NG on March 1, 2021
     </p>
 </div>
 <hr>
 
 <div class="post-preview">
-    <a href="/2020/10/27/Lab2-COMP12111/">
+    <a href="/2021/01/10/Ch5-DeepLearningNotes/">
         <h2 class="post-title">
-            Lab2 计算机组成与结构 16位简易ALU
+            从零开始的深度学习 Ch5
         </h2>
         
         <h3 class="post-subtitle">
-            Step by Step, Case by Case
+            Introduction to Convolutional Neural Network
         </h3>
         
         <!--
         <div class="post-content-preview">
             
-                Lab2: COMP12111 计算机组成与结构: 16位简易ALU电路设计
+                卷积神经网络
 
-在本文中, 我们将基于 Ch1, Ch2 所学知识, 搭建完成 16 位简易 ALU的电路设计, 并对其进行测试.
+卷积神经网络的结构和之前所介绍的神经网络相似, 都可以通过对不同层的组合实现网络的构建. 在卷积神经网络中, 我们新引入了 卷积 (Convolution) 层和 池化 (Pooling) 层.
 
-1. ALU 设计目标
-
-在本次实验中, 我们将设计一个 16 位的运算逻辑单元 (ALU). 其电路拓扑图如下:
-
-
-其中, 指令输入 M 的输入与功能定义表如下:
-
-
-
-
-2. ALU 逻辑设...
+在详细介绍卷积层和池化层的原理与实现之前, 我们首先简述通过组装层构建 CNN 的方法. 对于常规的神经网络而言, 连接层可以用 Affine 层实现, 而激活函数层中可以使用 R...
             
         </div>
         -->
         
         <div class="post-content-preview">
                 
-                    在本文中, 我们将基于 Ch1, Ch2 所学知识, 搭建完成 16 位简易 ALU的电路设计, 并对其进行测试.
+                    卷积神经网络
                 
         </div>
             
     </a>
     <p class="post-meta">
-        Posted by R1NG on October 27, 2020
+        Posted by R1NG on January 10, 2021
     </p>
 </div>
 <hr>
 
 <div class="post-preview">
-    <a href="/2020/10/27/Lab1-COMP12111/">
+    <a href="/2021/01/09/Ch4-DeepLearningNotes/">
         <h2 class="post-title">
-            Lab1 计算机组成与结构 加法器电路设计
+            从零开始的深度学习 Ch4
         </h2>
         
         <h3 class="post-subtitle">
-            CLA suki
+            Introducing numerous optimization methods for better neural network performance
         </h3>
         
         <!--
         <div class="post-content-preview">
             
-                Lab1: 加法器电路设计
+                神经网络优化算法技巧
+在前一章的介绍中, 我们已经明白, 神经网络学习的本质是一个优化问题: 通过多轮迭代对参数进行最优化, 从而使得损失函数的值尽可能的小. 和普通的最优化问题不同, 神经网络的最优化问题涉及的参数空间复杂, 无法使用解析的方式求得最优解, 而在深度神经网络中, 参数的规模则更加庞大.
 
-在本文中, 我们将基于 Ch1, Ch2 所学知识, 搭建完成二进制全加器的电路设计, 并以此为基础实现 $4$ 位, $16$ 位行波进位全加器的设计和电路逻辑功能测试.
-
-全加器
-我们可以使用连续赋值快速地定义一个全加器. 但是处于教学目的, 我们暂且不这么做, 而是从真值表开始进行电路分析, 并使用与门, 或门, 异或门搭建全加器:
-首先考虑包含进位的二进...
+上一章中, 我们简述了随机梯度下降法作为神经网络训练过程中的参数优化方法. 在本节中,...
             
         </div>
         -->
         
         <div class="post-content-preview">
                 
-                    在本文中, 我们将基于 Ch1, Ch2 所学知识, 搭建完成二进制全加器的电路设计, 并以此为基础实现 4 位, 16 位行波进位全加器的设计和电路逻辑功能测试.
+                    神经网络优化算法技巧
                 
         </div>
             
     </a>
     <p class="post-meta">
-        Posted by R1NG on October 27, 2020
+        Posted by R1NG on January 9, 2021
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2021/01/09/Ch3-DeepLearningNotes/">
+        <h2 class="post-title">
+            从零开始的深度学习 Ch3
+        </h2>
+        
+        <h3 class="post-subtitle">
+            Back Propagation Algorithm
+        </h3>
+        
+        <!--
+        <div class="post-content-preview">
+            
+                误差反向传播法
+1. 反向传播
+在前一章所介绍的前馈神经网络中,神经网络的输入层, 经过各个隐藏层激活函数的计算后到达输出层, 并输出结果. 在整个计算过程中, 数据始终遵循 “从前一层流动到当前层, 在当前层被处理后再流向下一层” 的流动方向, 也就是正向流动. 因此, 这样的过程也被称为 正向传播.
+
+下面我们考虑和正向传播相对的 反向传播: 由于在不同节点处数据都被经过相较于整体而言简...
+            
+        </div>
+        -->
+        
+        <div class="post-content-preview">
+                
+                    神经网络的学习-误差反向传播法
+                
+        </div>
+            
+    </a>
+    <p class="post-meta">
+        Posted by R1NG on January 9, 2021
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2021/01/08/Ch2-DeepLearningNotes/">
+        <h2 class="post-title">
+            从零开始的深度学习 Ch2
+        </h2>
+        
+        <h3 class="post-subtitle">
+            Neural Networks learn by...?
+        </h3>
+        
+        <!--
+        <div class="post-content-preview">
+            
+                损失函数和梯度下降法
+1. 基本定义和术语
+机器学习是指尽可能避免人的介入, 而令程序尝试从收集到的数据中发掘模式与规律, 从而解决问题的方法. 神经网络或深度学习相比以往人为指定特征向量并使用分类器进行学习的方法, 更能避免人为介入, 通过对图像直接学习从而解决问题. 和待处理的问题无关, 神经网络可以直接将数据作为原始数据进行  “端到端” 的学习.
+
+定义1.1: 训练数据和测试数据
+...
+            
+        </div>
+        -->
+        
+        <div class="post-content-preview">
+                
+                    神经网络的学习-损失函数和梯度下降法
+                
+        </div>
+            
+    </a>
+    <p class="post-meta">
+        Posted by R1NG on January 8, 2021
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2021/01/08/Ch1-DeepLearningNotes/">
+        <h2 class="post-title">
+            从零开始的深度学习 Ch1
+        </h2>
+        
+        <h3 class="post-subtitle">
+            Perceptron & Neural Network
+        </h3>
+        
+        <!--
+        <div class="post-content-preview">
+            
+                感知机与神经网络
+1. 感知机的定义
+动物的神经系统中最基础的组成单元为神经元 (神经细胞), 用于接受刺激, 产生兴奋并传导兴奋. 神经元有且只有激活态和非激活态两种状态, 并且只有神经元处于激活态时, 传入的兴奋才会由它传出.
+
+感知机是神经网络最基本的组成单元, 其本质是以特征向量为自变量的分段函数, 能够完整地模拟神经元的逻辑功能.
+
+一个标准的感知机包含以下三个组成部分:
+
+  输...
+            
+        </div>
+        -->
+        
+        <div class="post-content-preview">
+                
+                    感知机, 神经网络的定义, 实现与扩展
+                
+        </div>
+            
+    </a>
+    <p class="post-meta">
+        Posted by R1NG on January 8, 2021
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2021/01/07/Ch0-DeepLearningNotes/">
+        <h2 class="post-title">
+            从零开始的深度学习 Ch0
+        </h2>
+        
+        <h3 class="post-subtitle">
+            Let's dive in!
+        </h3>
+        
+        <!--
+        <div class="post-content-preview">
+            
+                从零开始的深度学习: 序
+
+本系列博文为笔者基于《深度学习入门: 基于Python的理论与实现》, 结合个人思考和扩展阅读而成的读书笔记, 内容安排上因笔者具备的背景知识范围和兴趣而与原书有一定差别.
+
+系列博文的具体结构如下:
+
+Ch1: 感知机 Perceptron 与神经网络的定义, 实现和扩展
+1. 感知机的定义
+2. 感知机的局限性和扩展的多层感知机: 以异或门电路的实现为例
+3....
+            
+        </div>
+        -->
+        
+        <div class="post-content-preview">
+                
+                    行而上学, 不行退学
+                
+        </div>
+            
+    </a>
+    <p class="post-meta">
+        Posted by R1NG on January 7, 2021
     </p>
 </div>
 <hr>
@@ -804,7 +754,7 @@ def backtrack(路径, 选择列表):
         
         
         
-                <a data-sort="0109" 
+                <a data-sort="0126" 
                     href="/archive/?tag=COMP12111"
                     title="COMP12111"
                     rel="10">COMP12111</a>
@@ -812,79 +762,94 @@ def backtrack(路径, 选择列表):
                 <a data-sort="0072" 
                     href="/archive/?tag=%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0"
                     title="课程笔记"
-                    rel="47">课程笔记</a>
+                    rel="64">课程笔记</a>
         
-                <a data-sort="0079" 
+                <a data-sort="0096" 
                     href="/archive/?tag=%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0"
                     title="前端学习"
                     rel="40">前端学习</a>
         
-                <a data-sort="0079" 
+                <a data-sort="0096" 
                     href="/archive/?tag=50P50D"
                     title="50P50D"
                     rel="40">50P50D</a>
         
-                <a data-sort="0104" 
-                    href="/archive/?tag=COMP24011"
-                    title="COMP24011"
-                    rel="15">COMP24011</a>
+                <a data-sort="0122" 
+                    href="/archive/?tag=%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD"
+                    title="人工智能"
+                    rel="14">人工智能</a>
         
-                <a data-sort="0107" 
+                <a data-sort="0124" 
                     href="/archive/?tag=%E9%80%BB%E8%BE%91%E5%AD%A6"
                     title="逻辑学"
                     rel="12">逻辑学</a>
         
-                <a data-sort="0109" 
+                <a data-sort="0126" 
                     href="/archive/?tag=COMP15111"
                     title="COMP15111"
                     rel="10">COMP15111</a>
         
-                <a data-sort="0110" 
+                <a data-sort="0127" 
                     href="/archive/?tag=%E6%89%A9%E5%B1%95%E8%87%AA%E4%B9%A0"
                     title="扩展自习"
                     rel="9">扩展自习</a>
         
-                <a data-sort="0110" 
+                <a data-sort="0127" 
                     href="/archive/?tag=COMP21111"
                     title="COMP21111"
                     rel="9">COMP21111</a>
         
-                <a data-sort="0112" 
+                <a data-sort="0129" 
+                    href="/archive/?tag=%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95"
+                    title="数据结构与算法"
+                    rel="7">数据结构与算法</a>
+        
+                <a data-sort="0129" 
                     href="/archive/?tag=%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0"
                     title="机器学习"
                     rel="7">机器学习</a>
         
-                <a data-sort="0112" 
+                <a data-sort="0129" 
                     href="/archive/?tag=COMP11212"
                     title="COMP11212"
                     rel="7">COMP11212</a>
         
-                <a data-sort="0115" 
+                <a data-sort="0130" 
+                    href="/archive/?tag=COMP24011"
+                    title="COMP24011"
+                    rel="6">COMP24011</a>
+        
+                <a data-sort="0132" 
+                    href="/archive/?tag=%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AF%BC%E8%AE%BA"
+                    title="数据库导论"
+                    rel="4">数据库导论</a>
+        
+                <a data-sort="0132" 
                     href="/archive/?tag=%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95"
                     title="数据结构和算法"
                     rel="4">数据结构和算法</a>
         
-                <a data-sort="0115" 
+                <a data-sort="0132" 
                     href="/archive/?tag=COMP15212"
                     title="COMP15212"
                     rel="4">COMP15212</a>
         
-                <a data-sort="0115" 
-                    href="/archive/?tag=COMP23111"
-                    title="COMP23111"
-                    rel="4">COMP23111</a>
-        
-                <a data-sort="0117" 
+                <a data-sort="0134" 
                     href="/archive/?tag=%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7"
                     title="奇技淫巧"
                     rel="2">奇技淫巧</a>
         
-                <a data-sort="0117" 
+                <a data-sort="0134" 
                     href="/archive/?tag=%E7%AE%97%E6%B3%95"
                     title="算法"
                     rel="2">算法</a>
         
-                <a data-sort="0117" 
+                <a data-sort="0134" 
+                    href="/archive/?tag=%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E6%A6%82%E8%AE%BA"
+                    title="软件工程概论"
+                    rel="2">软件工程概论</a>
+        
+                <a data-sort="0134" 
                     href="/archive/?tag=Lab"
                     title="Lab"
                     rel="2">Lab</a>

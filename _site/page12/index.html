@@ -191,6 +191,10 @@
                         
                         
                         
+                        
+                        
+                        
+                        
                         <li class="search-icon">
                             <a href="javascript:void(0)">
                                 <i class="fa fa-search"></i>
@@ -309,382 +313,436 @@
         col-xs-12 postlist-container">
         
 <div class="post-preview">
-    <a href="/2020/10/27/Ch5-COMP15111/">
+    <a href="/2020/12/26/Ch9-COMP15111/">
         <h2 class="post-title">
-            Ch5 编译原理 地址与寻址
+            Ch9 编译原理 汇编器和编译器
         </h2>
         
         <h3 class="post-subtitle">
-            Addressing the addresses
+            Assemble & Compile
         </h3>
         
         <!--
         <div class="post-content-preview">
             
-                Ch5 地址与寻址
+                Ch9 汇编器和编译器
 
-Motivation:
+1. 汇编器 Assembler
 
-  了解寻址模式
-    
-      直接寻址模式
-      寄存器间接寻址模式
-      基数 + 偏移量寻址模式
-    
-  
-  ARM 的间接寻址模式
+汇编器的主要作用是将程序设计者使用助记符编写的汇编程序翻译为可以被硬件直接读取和执行的二进制码.
 
+一个最简单的汇编器应该能做到:
 
-1. 寻址
-为了使计算机程序可以高效地访问由大量的存储单元所组合而成的内存 (Memory), 处理器指令集采用内存地址使涉及内存的数据传输操作简易高效.
-
-处理器需要生成一...
-            
-        </div>
-        -->
-        
-        <div class="post-content-preview">
-                
-                    本章讨论常用的计算机寻址方式, 以及 ARM 架构的寻址方式.
-                
-        </div>
-            
-    </a>
-    <p class="post-meta">
-        Posted by R1NG on October 27, 2020
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2020/10/27/Ch4-COMP15111/">
-        <h2 class="post-title">
-            Ch4 编译原理 循环体和条件体的构造与优化
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Iterate your iterations, Optimize your optimizations
-        </h3>
-        
-        <!--
-        <div class="post-content-preview">
-            
-                Ch4 循环体和条件体的构造与优化
-
-Motivation:
-
-  构建 ARM 汇编语言循环和条件体
-  优化循环体
-  嵌套条件体和寻址表
-
-
-1. 构建循环体和条件体
-
-
-  
-    if...else 条件体
-
-    我们还是从一个简单的例子开始. 我们考虑构建以下的一个条件体: 如果变量 total 大于 2000, 则将其值减小 100.
-使用高级程序设计语言 Python ...
-            
-        </div>
-        -->
-        
-        <div class="post-content-preview">
-                
-                    本章讨论汇编语言下循环体和条件体的构造与优化.
-                
-        </div>
-            
-    </a>
-    <p class="post-meta">
-        Posted by R1NG on October 27, 2020
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2020/10/27/Ch3-COMP15111/">
-        <h2 class="post-title">
-            Ch3 编译原理 ARM指令集和数据存储表示法
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Instructions & Memories
-        </h3>
-        
-        <!--
-        <div class="post-content-preview">
-            
-                Ch3 ARM指令集和数据存储表示法
-
-Motivation:
-
-  
-    ARM 设计思路: 灵活性和简便性
-
-    
-      数据如何被存储于内存中?
-      为何程序计数器每次变化都为 4?
-      ARM 指令是如何存储于内存中的?
-    
-  
-  
-    何为汇编语言
-
-    
-      指令
-      实际上并不存在的指令
-      非指令
-   ...
-            
-        </div>
-        -->
-        
-        <div class="post-content-preview">
-                
-                    本章简介 ARM 指令集和数据表示法.
-                
-        </div>
-            
-    </a>
-    <p class="post-meta">
-        Posted by R1NG on October 27, 2020
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2020/10/27/Ch2-COMP15111/">
-        <h2 class="post-title">
-            Ch2 编译原理 整数运算
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Arithmetics & Information
-        </h3>
-        
-        <!--
-        <div class="post-content-preview">
-            
-                Ch2 整数运算
-
-Motivation:
-
-  使用 ARM 指令集编写简单的汇编程序
-  了解信息的保存方式
-
-
-1. 编写简单的 ARM 汇编程序
-我们以一个简单的程序为例:
-
-1
+  识别并删去程序中的注释
+  识别标签和被定义的有名常量:
+    1
 2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-A shop wishes to give a 100 pound discount to anyone who buys goods for ?2000 or...
+         height_senpai   EQU     170     ; "height_senpai" i...
             
         </div>
         -->
         
         <div class="post-content-preview">
                 
-                    在本章中, 我们将阐述汇编程序的内存分配, 信息表示和整数运算.
+                    本章简介汇编器和编译器.
                 
         </div>
             
     </a>
     <p class="post-meta">
-        Posted by R1NG on October 27, 2020
+        Posted by R1NG on December 26, 2020
     </p>
 </div>
 <hr>
 
 <div class="post-preview">
-    <a href="/2020/10/27/Ch2-COMP12111/">
+    <a href="/2020/12/24/Ch8-COMP15111/">
         <h2 class="post-title">
-            Ch2 计算机组成与结构 计算机辅助设计与Verilog
+            Ch8 编译原理 I ⁄ O设备：汇编语言视角
         </h2>
         
         <h3 class="post-subtitle">
-            CAD： It works!
+            I ⁄ O device：from the prespective of assembly language
         </h3>
         
         <!--
         <div class="post-content-preview">
             
-                Ch2 计算机辅助设计与 Verilog
-
-在本章中, 我们将阐述计算机辅助设计的基本概念, 并介绍一门描述性计算机辅助设计语言: Verilog.
-
-1. 计算机辅助设计
-随着科技的不断发展和对性能的持续要求, 面向数字系统的设计不可避免地变得愈发复杂, 以至于我们无法再使用传统的纸笔绘图设计极其复杂的电路, 例如包含上亿晶体管的处理器. 为了避免这一局限性, 我们必须使用计算机辅助我们进...
-            
-        </div>
-        -->
-        
-        <div class="post-content-preview">
-                
-                    在本章中, 我们将阐述计算机辅助设计的基本概念, 并介绍一门描述性计算机辅助设计语言：Verilog.
-                
-        </div>
-            
-    </a>
-    <p class="post-meta">
-        Posted by R1NG on October 27, 2020
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2020/10/27/Ch1-COMP15111/">
-        <h2 class="post-title">
-            Ch1 编译原理 ARM架构
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Architecture Taster
-        </h3>
-        
-        <!--
-        <div class="post-content-preview">
-            
-                Ch1 ARM架构
+                Ch8 I/O 设备: 汇编语言视角
 
 Motivation:
 
-  了解不同的指令形式
-  了解 ARM 处理器
-  介绍一些简单的指令, 并使用简单的指令编写程序
-  了解程序在计算机中的存储方式
-  了解计算机是如何知晓下一步应执行什么指令的
-  了解计算机 “作出分支选择” 的原理
+  了解程序与外设通讯的主要方式: 轮询和中断
+  明确中断发生时程序所需要进行的操作
 
 
-1. 计算模型: Von Neumann 模型
-Von Neumann 计算机模型清晰地将计算机定义为一台 数据处理...
+1. 外设与轮询通讯方式
+1.1 内存映射
+
+一种使计算机和外设能够实现双向通讯的方式是内存映射 Memory Mapping:
+
+  将外设本身通过某种方式映射到一个不被占用的内存地址上, 而处理器从外设读取数据或传输数据到外设的行为...
             
         </div>
         -->
         
         <div class="post-content-preview">
                 
-                    本章简介计算模型和 ARM 架构.
+                    本章从ARM汇编语言的角度介绍I/O设备的控制和通讯.
                 
         </div>
             
     </a>
     <p class="post-meta">
-        Posted by R1NG on October 27, 2020
+        Posted by R1NG on December 24, 2020
     </p>
 </div>
 <hr>
 
 <div class="post-preview">
-    <a href="/2020/10/27/Ch0-COMP15111/">
+    <a href="/2020/12/12/Ch7-COMP12111/">
         <h2 class="post-title">
-            Ch0 编译原理 绪论
+            Ch7 计算机组成与结构 输入/输出设备
         </h2>
         
         <h3 class="post-subtitle">
-            The very beginning of COMP15111
+            The end of the COMP12111 journey
         </h3>
         
         <!--
         <div class="post-content-preview">
             
-                COMP15111 编译原理
+                Ch7 输入/输出设备
 
-COMP15111 Fundamentals of Computer Architecture (1st Semester) 为 University of Manchester计算机科学学院于第一学期面向全体计算机大类本科生开设的专业核心课程之一. 该课程以 ARM 32位指令集为基础, 介绍更为基础的汇编语言, 旨在系统性地介绍计算机处理数据和程序的基本原...
+在本章中，我们将对输入/输出设备和处理器之间的通讯方式进行部分的解释和介绍， 包括 I/O 内存映射，串/并口通讯和 USB 协议，以及简介使用中断和直接内存访问 （DMA）方法，通过程序控制的数据传输方法。
+
+
+  I/O 设备和处理器间的数据传输方法
+  I/O 内存映射 (MMIO)
+  串/并口通讯方式和 USB 协议
+  硬件中断方法和直接内存访问 (DM...
             
         </div>
         -->
         
         <div class="post-content-preview">
                 
-                    本章对 COMP15111 编译原理 的课程内容进行简要介绍.
+                    在本章中，我们将对输入/输出设备和处理器之间的通讯方式进行部分的解释和介绍， 包括I/O内存映射， 串/并口通讯和 USB协议， 以及简介使用中断和直接内存访问（DMA）方法，通过程序控制的数据传输方法。
                 
         </div>
             
     </a>
     <p class="post-meta">
-        Posted by R1NG on October 27, 2020
+        Posted by R1NG on December 12, 2020
     </p>
 </div>
 <hr>
 
 <div class="post-preview">
-    <a href="/2020/10/26/Ch1-COMP12111/">
+    <a href="/2020/12/12/Ch6-COMP12111/">
         <h2 class="post-title">
-            Ch1 计算机组成与结构 逻辑门电路
+            Ch6 计算机组成与结构 内存模型简介-存储设备
         </h2>
         
         <h3 class="post-subtitle">
-            Building blocks：Logic Gates
+            Take a look at storage
         </h3>
         
         <!--
         <div class="post-content-preview">
             
-                Ch1 逻辑门电路
+                Ch6 内存模型简介-存储设备
 
-在本章中, 我们将学习数字信号和基于二进制的数据表示法, 布尔代数逻辑和表达式 (具体的理论部分将在课程: COMP11120 计算机科学数学工具包中进一步阐释), 逻辑门电路, 二进制运算, 抽象和分级的设计思想, 时钟和顺序系统.
+在本章中，我们将简介ROM和闪存这一类低速存储设备， 并研究用于在闪存中储存信息的浮栅二极管。 最后， 我们将对不同类型的低速存储设备进行简要介绍， 并探讨如何在Verilog中定义存储。
 
-1. 数据表示法
-由于在二进制中, 任何一个数码有且只有两种状态, 这与电路的开闭, 电位的高低天然契合, 因此现代计算机使用二进制对...
+  只读存储器 ROM 和闪存
+  其他的低速存储设备: 磁盘和光盘
+  存储在 Verilog 中的定义方式
+
+
+
+
+
+1. 只读存储器 ROM 和闪存
+
+1.1 只...
             
         </div>
         -->
         
         <div class="post-content-preview">
                 
-                    本章简介逻辑门电路的基本概念和数据表示法.
+                    在本章中，我们将简介ROM和闪存这一类低速存储设备， 并研究用于在闪存中储存信息的浮栅二极管。 最后， 我们将对不同类型的低速存储设备进行简要介绍， 并探讨如何在Verilog中定义存储。
                 
         </div>
             
     </a>
     <p class="post-meta">
-        Posted by R1NG on October 26, 2020
+        Posted by R1NG on December 12, 2020
     </p>
 </div>
 <hr>
 
 <div class="post-preview">
-    <a href="/2020/10/26/Ch0-COMP12111/">
+    <a href="/2020/12/06/Ch7-COMP15111/">
         <h2 class="post-title">
-            Ch0 计算机组成与结构 绪论
+            Ch7 编译原理 函数和方法
         </h2>
         
         <h3 class="post-subtitle">
-            The very beginning of COMP12111
+            Branching back and forth
         </h3>
         
         <!--
         <div class="post-content-preview">
             
-                COMP12111 计算机组成与结构
+                Ch7 函数和方法
 
-COMP12111 Fundamentals of Computer Engineering (1st Semester) 为 University of Manchester计算机科学学院于第一学期面向全体计算机大类本科生开设的专业核心课程之一. 该课程以贴向实际的计算机硬件 (数字逻辑门电路) 设计为主线, 辅以适量实验课程, 旨在使学生对计算机硬...
+Motivation:
+
+  了解汇编语言实现函数调用和函数嵌套调用的基本原理
+  堆栈的实现原理和一些与堆栈相关的 ARM 汇编指令
+  使用堆栈对函数嵌套调用行为进行优化, 使用堆栈在函数和方法之间执行数据传递
+
+
+1. 使用汇编语言实现函数调用和嵌套调用
+
+要实现汇编语言中的函数调用和嵌套调用, 首先需要对函数调用的流程有足够的了解. 高级程序语言中的函数调用过程...
             
         </div>
         -->
         
         <div class="post-content-preview">
                 
-                    本章对 COMP12111 计算机组成与结构 的课程内容进行简要介绍.
+                    本章简介汇编语言下的函数调用与嵌套调用以及使用堆栈对其进行优化的方法.
                 
         </div>
             
     </a>
     <p class="post-meta">
-        Posted by R1NG on October 26, 2020
+        Posted by R1NG on December 6, 2020
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2020/12/04/Ch5-COMP12111/">
+        <h2 class="post-title">
+            Ch5 计算机组成与结构 内存模型简介
+        </h2>
+        
+        <h3 class="post-subtitle">
+            Everything about memories
+        </h3>
+        
+        <!--
+        <div class="post-content-preview">
+            
+                Ch5 内存模型简介
+
+在本章中, 我们将对内存和存储进行介绍:
+
+  内存寻址和解码器
+  内存层级架构
+  寄存器内存
+  缓存
+  SRAM 和 DRAM
+
+
+
+
+
+1. 内存寻址和解码器
+
+内存用于存储计算机所需要执行的程序或数据, 可以被处理器直接访问. 在不同架构的计算机中, 内存的作用各有不同:
+
+
+  von Neumann 架构
+又称为 Prineton 架构, 是一种将程...
+            
+        </div>
+        -->
+        
+        <div class="post-content-preview">
+                
+                    在本章中，我们将继续介绍内存部分的内容：包括寻址和解码器， 内存层级架构， 寄存器内存， 缓存和SRAM与DRAM。
+                
+        </div>
+            
+    </a>
+    <p class="post-meta">
+        Posted by R1NG on December 4, 2020
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2020/12/04/Ch4-COMP12111/">
+        <h2 class="post-title">
+            Ch4 计算机组成与结构 MU0：控制部分简介
+        </h2>
+        
+        <h3 class="post-subtitle">
+            Introducing the controllers
+        </h3>
+        
+        <!--
+        <div class="post-content-preview">
+            
+                Ch4 MU0 处理器控制部分简介
+
+在本章中, 我们将简介MU0处理器的控制器设计:
+
+  MU0 的结构和支持指令类型简介
+  一个简单的有限状态机
+  一个结合指令和当前状态进行控制信号转译的翻译器
+  一个统揽两者的控制模块.
+  上述模块的 Verilog 实现
+
+
+
+
+
+1. MU0 结构和指令列表
+MU0 是一个 $16$ 位处理器, 其数据传输界面包含:
+
+  Clk: 处理...
+            
+        </div>
+        -->
+        
+        <div class="post-content-preview">
+                
+                    在本章中，我们将简介MU0处理器的控制器设计，包括一个简单的有限状态机，一个结合指令和当前状态进行控制信号转译的翻译器，以及统揽两者的控制模块。
+                
+        </div>
+            
+    </a>
+    <p class="post-meta">
+        Posted by R1NG on December 4, 2020
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2020/11/16/Ch2-LogicNotes/">
+        <h2 class="post-title">
+            逻辑学探幽 Part2
+        </h2>
+        
+        <h3 class="post-subtitle">
+            没有逻辑 只有heip
+        </h3>
+        
+        <!--
+        <div class="post-content-preview">
+            
+                自然演绎推理和一阶谓词逻辑
+
+在本章节中, 我们将简要介绍自然演绎推理和一阶谓词逻辑. 本文假定读者已基本掌握命题逻辑, 并熟悉包括 Truth 和 Falsium 等在内的语义符号, 并了解逻辑学的基本概念.
+
+1. 自然演绎推理
+在命题逻辑中, 我们除了可以使用真值表方法判断命题推论的有效性以外, 我们还可以使用自然演绎推理法.
+
+演绎的本质就是将复杂的推论分解为若干个规模较小, 较简单...
+            
+        </div>
+        -->
+        
+        <div class="post-content-preview">
+                
+                    本章简要介绍自然演绎推理和一阶谓词逻辑.
+                
+        </div>
+            
+    </a>
+    <p class="post-meta">
+        Posted by R1NG on November 16, 2020
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2020/11/16/Ch1-LogicNotes/">
+        <h2 class="post-title">
+            逻辑学探幽 Part1
+        </h2>
+        
+        <h3 class="post-subtitle">
+            没有逻辑, 只有heip
+        </h3>
+        
+        <!--
+        <div class="post-content-preview">
+            
+                逻辑表达式的等价定义和正规化
+
+为了进一步地简化逻辑表达式, 我们需要研究它的等价定义和正规化.
+
+
+
+1. 逻辑表达式的等价
+
+如日常生活中一样, 我们可以用不同的逻辑表达式对同一个命题进行等价描述. 下面, 我们对逻辑表达式的等价进行简要的研究.
+
+1.1 语义等价 (Semantic Equivalence)
+
+定义1.1 语义学等价
+
+  当且仅当对任何赋值 $v$, 谓词公式 $A...
+            
+        </div>
+        -->
+        
+        <div class="post-content-preview">
+                
+                    本章进一步探讨对逻辑表达式的简化方法, 引入逻辑表达式等价定义和正规化的概念.
+                
+        </div>
+            
+    </a>
+    <p class="post-meta">
+        Posted by R1NG on November 16, 2020
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2020/11/16/Ch0-LogicNotes/">
+        <h2 class="post-title">
+            逻辑学探幽 Part0
+        </h2>
+        
+        <h3 class="post-subtitle">
+            没有逻辑, 只有heip
+        </h3>
+        
+        <!--
+        <div class="post-content-preview">
+            
+                命题逻辑, 布尔语义和幂集语义
+在本章中, 我们将引入最基本的逻辑系统: 命题逻辑, 简要介绍其基本概念, 并进一步地引入两种广泛应用于计算机科学领域的命题语义: 布尔语义和幂集语义.
+
+1. 命题逻辑 Propositional Logic
+
+命题逻辑是最简单的逻辑系统, 以命题 (或命题公式) 为研究对象.
+
+定义1.1 命题
+
+  用语言, 符号或式子表达的, 或真或伪的陈述语句 (S...
+            
+        </div>
+        -->
+        
+        <div class="post-content-preview">
+                
+                    本章简要介绍命题逻辑, 并进一步引入两种广泛应用于计算机科学领域的命题语义.
+                
+        </div>
+            
+    </a>
+    <p class="post-meta">
+        Posted by R1NG on November 16, 2020
     </p>
 </div>
 <hr>
@@ -698,6 +756,10 @@ COMP12111 Fundamentals of Computer Engineering (1st Semester) 为 University of 
         <a href="/page11">&larr; Newer Posts</a>
     </li>
     
+    
+    <li class="next">
+        <a href="/page13">Older Posts &rarr;</a>
+    </li>
     
 </ul>
 
@@ -738,7 +800,7 @@ COMP12111 Fundamentals of Computer Engineering (1st Semester) 为 University of 
         
         
         
-                <a data-sort="0109" 
+                <a data-sort="0126" 
                     href="/archive/?tag=COMP12111"
                     title="COMP12111"
                     rel="10">COMP12111</a>
@@ -746,79 +808,94 @@ COMP12111 Fundamentals of Computer Engineering (1st Semester) 为 University of 
                 <a data-sort="0072" 
                     href="/archive/?tag=%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0"
                     title="课程笔记"
-                    rel="47">课程笔记</a>
+                    rel="64">课程笔记</a>
         
-                <a data-sort="0079" 
+                <a data-sort="0096" 
                     href="/archive/?tag=%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0"
                     title="前端学习"
                     rel="40">前端学习</a>
         
-                <a data-sort="0079" 
+                <a data-sort="0096" 
                     href="/archive/?tag=50P50D"
                     title="50P50D"
                     rel="40">50P50D</a>
         
-                <a data-sort="0104" 
-                    href="/archive/?tag=COMP24011"
-                    title="COMP24011"
-                    rel="15">COMP24011</a>
+                <a data-sort="0122" 
+                    href="/archive/?tag=%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD"
+                    title="人工智能"
+                    rel="14">人工智能</a>
         
-                <a data-sort="0107" 
+                <a data-sort="0124" 
                     href="/archive/?tag=%E9%80%BB%E8%BE%91%E5%AD%A6"
                     title="逻辑学"
                     rel="12">逻辑学</a>
         
-                <a data-sort="0109" 
+                <a data-sort="0126" 
                     href="/archive/?tag=COMP15111"
                     title="COMP15111"
                     rel="10">COMP15111</a>
         
-                <a data-sort="0110" 
+                <a data-sort="0127" 
                     href="/archive/?tag=%E6%89%A9%E5%B1%95%E8%87%AA%E4%B9%A0"
                     title="扩展自习"
                     rel="9">扩展自习</a>
         
-                <a data-sort="0110" 
+                <a data-sort="0127" 
                     href="/archive/?tag=COMP21111"
                     title="COMP21111"
                     rel="9">COMP21111</a>
         
-                <a data-sort="0112" 
+                <a data-sort="0129" 
+                    href="/archive/?tag=%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95"
+                    title="数据结构与算法"
+                    rel="7">数据结构与算法</a>
+        
+                <a data-sort="0129" 
                     href="/archive/?tag=%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0"
                     title="机器学习"
                     rel="7">机器学习</a>
         
-                <a data-sort="0112" 
+                <a data-sort="0129" 
                     href="/archive/?tag=COMP11212"
                     title="COMP11212"
                     rel="7">COMP11212</a>
         
-                <a data-sort="0115" 
+                <a data-sort="0130" 
+                    href="/archive/?tag=COMP24011"
+                    title="COMP24011"
+                    rel="6">COMP24011</a>
+        
+                <a data-sort="0132" 
+                    href="/archive/?tag=%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AF%BC%E8%AE%BA"
+                    title="数据库导论"
+                    rel="4">数据库导论</a>
+        
+                <a data-sort="0132" 
                     href="/archive/?tag=%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95"
                     title="数据结构和算法"
                     rel="4">数据结构和算法</a>
         
-                <a data-sort="0115" 
+                <a data-sort="0132" 
                     href="/archive/?tag=COMP15212"
                     title="COMP15212"
                     rel="4">COMP15212</a>
         
-                <a data-sort="0115" 
-                    href="/archive/?tag=COMP23111"
-                    title="COMP23111"
-                    rel="4">COMP23111</a>
-        
-                <a data-sort="0117" 
+                <a data-sort="0134" 
                     href="/archive/?tag=%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7"
                     title="奇技淫巧"
                     rel="2">奇技淫巧</a>
         
-                <a data-sort="0117" 
+                <a data-sort="0134" 
                     href="/archive/?tag=%E7%AE%97%E6%B3%95"
                     title="算法"
                     rel="2">算法</a>
         
-                <a data-sort="0117" 
+                <a data-sort="0134" 
+                    href="/archive/?tag=%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E6%A6%82%E8%AE%BA"
+                    title="软件工程概论"
+                    rel="2">软件工程概论</a>
+        
+                <a data-sort="0134" 
                     href="/archive/?tag=Lab"
                     title="Lab"
                     rel="2">Lab</a>

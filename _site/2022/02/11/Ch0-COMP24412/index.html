@@ -13,7 +13,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title"
-        content="基于知识组织的人工智能 - 某一般线性空间 | Ramdom Linear Space">
+        content="基于知识组织的人工智能：一阶逻辑和自动推理 - 某一般线性空间 | Ramdom Linear Space">
     
     <meta property="og:type" content="article">
     <meta property="og:description" content="绪论
@@ -27,12 +27,14 @@
     
     <meta property="article:tag" content="课程笔记">
     
+    <meta property="article:tag" content="人工智能">
+    
     
     <meta property="og:image" content="http://localhost:4000https://github.com/KirisameR.png">
     <meta property="og:url" content="http://localhost:4000/2022/02/11/Ch0-COMP24412/">
     <meta property="og:site_name" content="某一般线性空间 | Ramdom Linear Space">
 
-    <title>基于知识组织的人工智能 - 某一般线性空间 | Ramdom Linear Space</title>
+    <title>基于知识组织的人工智能：一阶逻辑和自动推理 - 某一般线性空间 | Ramdom Linear Space</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -200,6 +202,10 @@
                         
                         
                         
+                        
+                        
+                        
+                        
                         <li class="search-icon">
                             <a href="javascript:void(0)">
                                 <i class="fa fa-search"></i>
@@ -295,8 +301,10 @@
                         
                         <a class="tag" href="/archive/?tag=%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0" title="课程笔记">课程笔记</a>
                         
+                        <a class="tag" href="/archive/?tag=%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD" title="人工智能">人工智能</a>
+                        
                     </div>
-                    <h1>基于知识组织的人工智能</h1>
+                    <h1>基于知识组织的人工智能：一阶逻辑和自动推理</h1>
                     
                     <h2 class="subheading">Introduction to Knowledge-based AI + Chapter 1</h2>
                     <span class="meta">Posted by R1NG on February 11, 2022</span>
@@ -349,7 +357,7 @@
 <h2 id="2-prolog">2. <code class="language-plaintext highlighter-rouge">Prolog</code></h2>
 <ul>
   <li><code class="language-plaintext highlighter-rouge">Prolog</code> 语法和证明搜索执行规则</li>
-  <li><code class="language-plaintext highlighter-rouge">Prolog</code> 中基于 <code class="language-plaintext highlighter-rouge">Horn</code> 子句的反向推理法的应用</li>
+  <li><code class="language-plaintext highlighter-rouge">Prolog</code> 中基于 <code class="language-plaintext highlighter-rouge">Horn</code> 子句的反向链式推理法的应用</li>
   <li>基于 <code class="language-plaintext highlighter-rouge">Prolog</code> 的定理证明</li>
 </ul>
 
@@ -379,23 +387,926 @@
 
 <h1 id="一阶逻辑-first-order-logic-和自动推理">一阶逻辑 (<code class="language-plaintext highlighter-rouge">First-Order Logic</code>) 和自动推理</h1>
 
-<h2 id="基于一阶逻辑的知识表示">基于一阶逻辑的知识表示</h2>
+<h2 id="1-基于一阶逻辑的知识表示">1. 基于一阶逻辑的知识表示</h2>
 
-<h2 id="联合与前向推理法">联合与前向推理法</h2>
+<p><strong>定义 1.1</strong> (知识表示)</p>
+<blockquote>
+  <p>称 <strong>精确</strong> (<code class="language-plaintext highlighter-rouge">Precise</code>) 和 <strong>无歧义</strong> (<code class="language-plaintext highlighter-rouge">Unambiguous</code>) 的, 表示世界中的已知信息的方式为 <strong>知识表示</strong>.</p>
+</blockquote>
 
-<h2 id="反向推理和语义归结">反向推理和语义归结</h2>
+<p><strong>定义 1.2</strong> (自动推理)</p>
+<blockquote>
+  <p>自动推理一般被定义为 <strong>自动地</strong> 基于某些已知事实推导出与之相关的声明 (<code class="language-plaintext highlighter-rouge">Statement</code>) 的行为.</p>
+</blockquote>
+
+<p>在一阶逻辑中, 推理是基于预先定义好的 <strong>推断规则</strong> (<code class="language-plaintext highlighter-rouge">Inference Rules</code>) 执行的.</p>
+
+<p>推理同样依赖于对现实世界中知识的表示以及所具有的知识的多寡. 对于一阶逻辑, 我们将知识库 (<code class="language-plaintext highlighter-rouge">Knowledge Base</code>) 视为对现实世界的 <strong>符号化抽象</strong> (<code class="language-plaintext highlighter-rouge">Symbolic Abstraction</code>): 在知识库中, 称我们所关心的, 某个形式化的, 现实世界的子集为 <strong>域</strong> (<code class="language-plaintext highlighter-rouge">Domain</code>), 而用于表示域中元素的符号为 <strong>标识</strong> (<code class="language-plaintext highlighter-rouge">Signature</code>).</p>
+
+<h3 id="11-一阶逻辑的语法">1.1 一阶逻辑的语法</h3>
+
+<p><strong>定义 1.1.1</strong> (标识, <code class="language-plaintext highlighter-rouge">Signature</code>)</p>
+<blockquote>
+  <p>称某个一阶公式的 <strong>标识</strong></p>
+
+\[\Sigma = \langle \mathcal{F}, \mathcal{P}, \text{arr}\rangle\]
+
+  <p>由两个不相交的, 分别包含 <strong>函数符号</strong> 与 <strong>谓词符号</strong> 的集合 $\mathcal{F}, \mathcal{P}$ 以及 <strong>表明每一个符号的元数</strong> (<code class="language-plaintext highlighter-rouge">Arity</code>) 的映射</p>
+
+\[\text{arr}: \mathcal{F} \cup \mathcal{P} \rightarrow \mathbb{N}_0\]
+
+  <p>组成.</p>
+</blockquote>
+
+<p><strong>定义 1.1.2</strong> (项, <code class="language-plaintext highlighter-rouge">Term</code>)</p>
+<blockquote>
+  <p>在一阶逻辑中, 下列元素均称为 <strong>项</strong>:<br /></p>
+  <ol>
+    <li>任何 <strong>变量</strong> 均为项.</li>
+    <li>任何 <strong>常量</strong> (即元数为 $0$ 的函数符号) 均为项.</li>
+    <li>
+      <p>若函数符号 $f$ 的元数为 $k$, $k &gt; 0$ 且 $t_i, i\in [k]$ 均为项, 则 
+   \(f(t_1, \cdots, t_k)\)</p>
+
+      <p>为项.</p>
+    </li>
+  </ol>
+
+</blockquote>
+
+<p><strong>定义 1.1.3</strong> (原子, <code class="language-plaintext highlighter-rouge">Atom</code>)</p>
+<blockquote>
+  <p>在一阶逻辑中, 下列元素均称为 <strong>原子</strong>:<br /></p>
+  <ol>
+    <li>任何 <strong>谓词</strong> (即元数为 $0$ 的谓词符号) 均为原子.</li>
+    <li>若 $t_1, t_2$ 均为项, 则 $t_1 = t_2$ 为原子.</li>
+    <li>
+      <p>若谓词符号 $p$ 的元数为 $k$, $k &gt; 0$ 且 $t_i, i\in [k]$ 均为项, 则 
+   \(p(t_1, \cdots, t_k)\)</p>
+
+      <p>为原子.</p>
+    </li>
+  </ol>
+
+</blockquote>
+
+<p><strong>定义 1.1.4</strong> (公式 <code class="language-plaintext highlighter-rouge">Formula</code>)</p>
+<blockquote>
+  <p>在一阶逻辑中, 我们使用如下的规则递归定义 <strong>公式</strong>:<br /></p>
+  <ol>
+    <li>任何原子均为公式.</li>
+    <li>布尔值 <code class="language-plaintext highlighter-rouge">True</code> 为公式.</li>
+    <li>
+      <p>若 $\phi_1, \phi_2$ 均为公式, 则 
+   \(\neg \phi_1, \phi_1 \wedge \phi_2, \forall x. \phi_1\)</p>
+
+      <p>为公式, 其中 $x$ 为变量.</p>
+    </li>
+  </ol>
+
+</blockquote>
+
+<p>进一步地, 我们可以定义:</p>
+
+<ol>
+  <li>$\text{False} \equiv \neg\text{True}$</li>
+  <li>$\phi_1 \vee \phi_2 \equiv \neg (\phi_1 \wedge \phi_2)$</li>
+  <li>$\phi_1 \rightarrow \phi_2 \equiv \neg \phi_1 \vee \phi_2$</li>
+  <li>$\phi_1 \leftrightarrow \phi_2 \equiv ((\phi_1 \rightarrow \phi_2) \wedge (\phi_2 \rightarrow \phi_1))$</li>
+  <li>$\exists x. \phi \equiv \neg(\forall x. \neg \phi)$.</li>
+</ol>
+
+<p>我们可以不甚严谨地理解上述的逻辑符号或量词:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220221205550.png" alt="20220221205550" /></p>
+
+<p>同时考虑如下的例子:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220221210809.png" alt="20220221210809" /></p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220221210156.png" alt="20220221210156" /></p>
+
+<p>在一阶逻辑中我们可以使用下列的两种记法表示 <strong>函数</strong>:</p>
+
+<ol>
+  <li>
+    <p>对于定义域有限的函数, 可以使用集合表示法.如:</p>
+
+\[\{(1,2), (2,1)\}\]
+
+    <p>就表示了一个定义在 ${1, 2}$ 上, 将 $1$ 映射到 $2$, $2$ 映射到 $1$ 的函数.</p>
+  </li>
+  <li>
+    <p>对于无法列举定义域中所有元素的函数, 可以使用 $\lambda-$ 抽象表示法: 使用</p>
+
+\[\lambda x. (\text{expression using} ~x)\]
+
+    <p>表示以 $x$ 为输入, 以某个表达式为输出的匿名函数.</p>
+  </li>
+</ol>
+
+<h3 id="12-一阶逻辑的语义">1.2 一阶逻辑的语义</h3>
+
+<p>我们将在直观简述一阶逻辑的语义后给出正规的形式化定义.</p>
+
+<p>首先地, <strong>项</strong> 一般用于表示某个 <strong>物体</strong> (<code class="language-plaintext highlighter-rouge">Object</code>), 并且项无需是唯一的.</p>
+
+<p><strong>公式</strong> 用来表示某个声明具有真值, 它既可以是对某个既定现实的陈述, 也可以表示某个未经证实的, 将要被检验的声明.</p>
+
+<p><strong>符号</strong> 用于在公式中表示对人而言具有特殊意义的事实, 事件, 状态等含义.</p>
+
+<p>需要注意, 逻辑系统不具备解读和分辨符号的能力, 并且往往一个公式的意义或它的真伪性完全取决于我们如何解读该公式中包含的符号.</p>
+
+<p>对应地, 若某个公式是真的, 则无论我们如何解读该公式中的符号, 都不会影响它的真伪性.</p>
+
+<p>下面考虑一阶逻辑语义的形式化定义:</p>
+
+<p><strong>定义 1.2.1</strong> (基, 受限变量, 自由变量和句子)</p>
+<blockquote>
+  <ol>
+    <li>若某个公式不含变量, 则称其为 <strong>基</strong> (<code class="language-plaintext highlighter-rouge">Ground</code>).</li>
+    <li>公式 $f$ 中任何不受任一种量词约束的变量均为 <strong>自由变量</strong>, 否则为 <strong>受限变量</strong>.</li>
+    <li>不包含 <strong>任何自由变量</strong> 的公式成为 <strong>句子</strong> (<code class="language-plaintext highlighter-rouge">Sentence</code>).</li>
+  </ol>
+</blockquote>
+
+<p>下面给出一些记法:</p>
+
+<p>若公式 $\phi$ 中含自由变量 $X$ ,则可记为 $\phi[X]$; 若将 $X$ 替换为 $V$, 则可使用记号 $\phi[V]$.</p>
+
+<p>我们下面考虑对公式的 <strong>解释</strong> (<code class="language-plaintext highlighter-rouge">Interpretation</code>):</p>
+
+<p><strong>定义 1.2.2</strong> (解释, <code class="language-plaintext highlighter-rouge">Interpretation</code>)</p>
+<blockquote>
+  <p><strong>解释</strong> 使我们可以为任何句子赋予对应的 <strong>真值</strong> (<code class="language-plaintext highlighter-rouge">Truth Value</code>):</p>
+
+  <p>形式上 <strong>解释</strong> 可被表示为下列的元组</p>
+
+\[\langle \mathcal{D}, \mathcal{I}\rangle\]
+
+  <p>其中 $\mathcal{I}$ 为基于非空域 $\mathcal{D}$ 上的解释. 一般地, 在表述解释时我们都会略去其作用域 $\mathcal{D}$.</p>
+
+  <p>解释 $\mathcal{I}$ 本质上是一个映射. 它:</p>
+  <ol>
+    <li>将任何常数符号映射到 $\mathcal{D}$ 中的某个元素</li>
+    <li>
+      <p>将任何元数为 $n$ 的函数符号映射到函数</p>
+
+\[D^{n} \rightarrow D\]
+    </li>
+    <li>将任何谓词符号映射到某个真值</li>
+    <li>
+      <p>将任何元数为 $n$ 的谓词符号映射到函数</p>
+
+\[D^{n} \rightarrow \mathbb{B}\]
+    </li>
+  </ol>
+
+</blockquote>
+
+<p>在对 <strong>不为常数</strong> 的 <strong>基</strong> 进行解释时, 我们可以递归地利用下列性质:</p>
+
+\[\mathcal{I}(f(t_1, \cdots, t_n)) = \mathcal{I}(f)(\mathcal{I}(t_1), \cdots, \mathcal{I}(t_n)).\]
+
+<p>这一性质同样可以作用在 <strong>非谓词的原子</strong> (<code class="language-plaintext highlighter-rouge">Non-Propositional Atoms</code>) 上:</p>
+
+\[\mathcal{I}(t_1 = t_2) = \mathcal{I}(t_1) = \mathcal{I}(t_2)\]
+
+<p>需要注意上式中三个等号的含义均 <strong>各不相同</strong>:</p>
+
+<p>左侧等号表示两个项 $t_1, t_2$ 在语法上相同, 中间的等号表示左右两侧的公式在定义上相同, 而右侧的第三个等号表示的含义是域元素的相等性 (注意 <strong>解释的本质</strong> )</p>
+
+\[\mathcal{I}(p(t_1, \cdots, t_n)) = \mathcal{I}(p)(\mathcal{I}(t_1), \cdots, \mathcal{I}(t_n)).\]
+
+<p>我们进一步考虑对 <strong>等价性</strong> (<code class="language-plaintext highlighter-rouge">Equality</code>) 的解释:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220221232546.png" alt="20220221232546" /></p>
+
+<p>随后考虑对公式 (<code class="language-plaintext highlighter-rouge">Formula</code>) 的解释:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220221232734.png" alt="20220221232734" /></p>
+
+<p>然后给出对模型 (<code class="language-plaintext highlighter-rouge">Model</code>) 的解释:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220221232900.png" alt="20220221232900" /></p>
+
+<p>需要注意, 在对公式中的变量重命名 (<code class="language-plaintext highlighter-rouge">Rename</code>) 时, 我们需要在重命名受限变量时注意 <strong>一致性</strong>. 在后文中, 我们一般假定所接触到的公式都是经过规范化 (<code class="language-plaintext highlighter-rouge">Rectified</code>) 的.</p>
+
+<p>最后给出对 <strong>可满足性, 一致性和重言性</strong> 的定义:</p>
+
+<p><strong>定义1.2.3</strong> (可满足性, 一致性, 重言性)</p>
+<blockquote>
+  <ol>
+    <li>若存在某个解释使某个公式在其解释下为真, 则称该解释是该公式的一个 <strong>模型</strong>.</li>
+    <li>某个解释 <strong>满足</strong> 某个公式, 若它满足该公式的 <strong>全称封闭式</strong> (<code class="language-plaintext highlighter-rouge">Universal Closure</code>, 用全称量词约束给定公式中全体自由变量所得到的封闭公式).</li>
+    <li>称某个公式为 <strong>可满足的</strong> (<code class="language-plaintext highlighter-rouge">Satisfiable</code>) 或 <strong>一致的</strong> (<code class="language-plaintext highlighter-rouge">Consistent</code>), 若该公式至少有一个模型.</li>
+    <li>称某个公式是 <strong>重言</strong> 的, 若它的任何解释都满足它.</li>
+    <li>对应地, 若某个公式不存在任何模型, 则称其为 <strong>不可满足</strong> (<code class="language-plaintext highlighter-rouge">Unsatisfiable</code>) 或 <strong>不一致</strong> (<code class="language-plaintext highlighter-rouge">Inconsistent</code>) 的.</li>
+  </ol>
+</blockquote>
+
+<p>显然, 可以得出下列结论:</p>
+
+<p>记 $\Gamma$ 为一系列公式的合取 (<code class="language-plaintext highlighter-rouge">Cunjunction</code>), $\phi$ 为一个句子 (<code class="language-plaintext highlighter-rouge">Sentence</code>), 则:</p>
+
+<ol>
+  <li>
+    <p>$\phi$ 的模型恰好是无法作为 $\neg \phi$ 的模型的那些解释.</p>
+  </li>
+  <li>
+    <p>若 $\Gamma$ 是不一致的, 则必有 $\Gamma \vDash \text{false}$.</p>
+  </li>
+  <li>
+    <p>$\Gamma \vDash \text{false}$, 当且仅当 $\Gamma \cup {\neg \phi} \vDash \text{false}$.</p>
+  </li>
+  <li>
+    <p>若 $\Gamma$ 不一致, 则它没有模型; 由于 $\text{false}$ 同样没有模型, 因此 $\Gamma$ 的任何模型都是 $\text{false}$ 的模型.</p>
+  </li>
+</ol>
+
+<p>我们下一步将讨论对象推广到 <strong>表示为合取范式</strong> 的 <strong>一系列公式</strong> 上. 由此, 我们可以讨论 <strong>知识库的一致性</strong>. 进一步地, 为了检验某个公式在给定知识库的所有解释下的含义均为真, 我们需要引入 <strong>蕴含</strong> 的概念:</p>
+
+<p><strong>定义 1.2.4</strong> (蕴含, <code class="language-plaintext highlighter-rouge">Entailment</code>)</p>
+<blockquote>
+  <p>称公式 $\phi$ 由一系列公式组成的集合 $\Gamma$ 所 <strong>蕴含</strong>, 若 $\Gamma$ 的任何模型都是 $\phi$ 的某个模型, 记为</p>
+
+\[\Gamma \vDash \phi\]
+
+  <p>该性质同样可称为: “$\phi$ 是 $\Gamma$ 的一个结果 (<code class="language-plaintext highlighter-rouge">Consequence</code>)”.</p>
+</blockquote>
+
+<p>我们以对 “处理查询” 的讨论结束本节. <strong>问题</strong> 或 <strong>查询</strong> 可被视为 <strong>某个受存在量词约束的合取式</strong> 或某个 <strong>需要被实例化的, 包含自由变量的公式</strong>.</p>
+
+<p>我们采用后者, 并在此基础上进一步假定 <strong>任何作为查询的, 含有自由变量公式</strong> 都是 <strong>被存在量词所闭合的</strong>, 如:</p>
+
+\[\phi [X] \implies \exists X. \phi[X].\]
+
+<p>由此, 给定知识库 $\Gamma$ 和查询语句 $\exists X. \phi[X].$, 我们的目标是找到替换 $\sigma$, 使</p>
+
+\[\Gamma \vDash \phi[X] \sigma.\]
+
+<p>为了达成这一目标, 我们需要将问题转换为</p>
+
+\[\Gamma \vDash \exists X. (\text{ans}(X) \wedge \phi[X]) \wedge \exists X. \neg \text{ans}(X).\]
+
+<p>并引入一个全新的谓词 <code class="language-plaintext highlighter-rouge">ans</code>.</p>
+
+<h2 id="2-联合与前向链式推理法">2. 联合与前向链式推理法</h2>
+
+<h3 id="21-替换与联合">2.1 替换与联合</h3>
+
+<p>我们首先讨论 <strong>替换</strong> 的概念:</p>
+
+<p><strong>定义 2.1.1</strong> (替换, <code class="language-plaintext highlighter-rouge">Substitution</code>)</p>
+<blockquote>
+  <p>替换 $\sigma$ 实质上是从将变量映射到项的有限函数 (<code class="language-plaintext highlighter-rouge">Finite Function</code>).</p>
+</blockquote>
+
+<p>一般我们提到的替换均为 <strong>同步替换</strong> (<code class="language-plaintext highlighter-rouge">Simultaneous Replacement</code>): 在基于替换规则对某个公式中的符号进行替换时, 对每一条规则的执行和匹配都是 <strong>同时进行</strong> 的, 如: 考虑规则</p>
+
+\[\sigma \{x \rightarrowtail a, y \rightarrowtail f(x)\}\]
+
+<p>则有</p>
+
+\[p(x, y) \sigma = p(a, f(x))\]
+
+<p>而非</p>
+
+\[p(x, y) \sigma = p(a, f(a))\]
+
+<p>同时称:</p>
+
+<p>$E\sigma$ 为 $E$ 的一个 <strong>实例</strong> (<code class="language-plaintext highlighter-rouge">Instance</code>) 而 $E$ 是 $E\sigma$ 的一个 <strong>归纳</strong> (<code class="language-plaintext highlighter-rouge">Generalisation</code>).</p>
+
+<p><strong>定义 2.1.2</strong> (联合, <code class="language-plaintext highlighter-rouge">Unification</code>)</p>
+<blockquote>
+  <p>称两个项 $t_1, t_2$ <strong>联合</strong>, 若存在某个替换/联合子 (<code class="language-plaintext highlighter-rouge">Substitution/Unifier</code>) $\sigma$, 使得</p>
+
+\[t_1 \sigma = t_2 \sigma.\]
+</blockquote>
+
+<p>进一步地, 我们称 <strong>$t_1$ 和 $t_2$ 是匹配的</strong>, 若</p>
+
+\[t_1 \sigma = t_2.\]
+
+<p>显然可知, 本质上 <strong>匹配是一种特殊的联合</strong>, 若某两个项是匹配的, 则它们 <strong>一定是联合的</strong>. 联合的目的是找到两个待联合项的 “最大公约实例” (<code class="language-plaintext highlighter-rouge">Most general common instance</code>). 注意上式中的等号所表示的是 <strong>语法上的等价</strong>, 联合不关心一阶逻辑所无法解读的语义.</p>
+
+<p>在最好的情况下, 我们希望找到的联合子 (或称匹配的替换) 是 <strong>最一般的</strong>, 也就是说它所蕴含的信息是最为简练的, 删去任何一部分都会导致它不再能够作为两个项的联合子 (或匹配的替换).</p>
+
+<p>对于任意的项 $s, t$, 我们记它们之间的 <strong>最一般的联合子</strong> 为</p>
+
+\[\text{mgu}(s, t).\]
+
+<p>我们可以参考下列的例子:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220227135223.png" alt="20220227135223" /></p>
+
+<p>我们下面考虑 <code class="language-plaintext highlighter-rouge">Occurs Check</code>. 它所描述的是对下列可能的情况进行的检查:</p>
+
+<p>在执行联合时, 将被联合的变量同时出现在等式两端且结构不同 (如: 等式一端是变量, 而另一端是某个函数谓词).</p>
+
+<p>在这一情形下我们需要执行 <code class="language-plaintext highlighter-rouge">Occurs Check</code>, 如果发现联合目标确实符合这一特征则需要终止尝试联合, 否则将会导致无限循环, 具体例子已在博文: <strong><code class="language-plaintext highlighter-rouge">Prolog</code> 入门: 联合与证明搜索</strong> 中有所介绍, 不再赘述.</p>
+
+<p>我们下面对 <code class="language-plaintext highlighter-rouge">Robinson</code> 联合算法进行简单介绍:</p>
+
+<p><code class="language-plaintext highlighter-rouge">Robinson</code> 联合算法可以视为一系列规则:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220227205516.png" alt="20220227205516" /></p>
+
+<p>我们下面给出两个例子:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220227205919.png" alt="20220227205919" /></p>
+
+<p>注意例子中每一步所使用的规则类型以及第二个例子中的最后一步. 在此处我们使用了 <code class="language-plaintext highlighter-rouge">check</code> 规则, 而该规则的实质就是执行 <code class="language-plaintext highlighter-rouge">Occurs Check</code>, $x \in \text{vars}(t)$ 的含义就是 “$x$ 在结构 $t$ 中”.</p>
+
+<p>在实际问题中, 我们往往需要解决的问题更为简单, 一般表现为 “给定事实 $f_1, f_2$ 和某个替换 $\sigma$, 检查这两个事实在替换的作用下是否匹配”. 对于这样的问题, 我们可以使用表现为下列伪代码的算法解决:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">match</span><span class="p">(</span><span class="n">f_1</span> <span class="o">=</span> <span class="n">name_1</span><span class="p">(</span><span class="n">args_1</span><span class="p">),</span> <span class="n">f_2</span> <span class="o">=</span> <span class="n">name_2</span><span class="p">(</span><span class="n">args_2</span><span class="p">),</span> <span class="n">sigma</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">different</span><span class="p">(</span><span class="n">name_1</span><span class="p">,</span> <span class="n">name_2</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">false</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="n">length</span><span class="p">(</span><span class="n">args_1</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">isVariable</span><span class="p">(</span><span class="n">args_1</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="ow">and</span> <span class="n">args_1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">sigma</span><span class="p">:</span>
+            <span class="n">sigma</span> <span class="o">=</span> <span class="n">disjunction</span><span class="p">(</span><span class="n">sigma</span><span class="p">,</span> <span class="p">{</span><span class="n">args_1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="n">args_2</span><span class="p">[</span><span class="n">i</span><span class="p">]})</span>
+        <span class="k">elif</span> <span class="p">(</span><span class="n">args_1</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="n">sigma</span> <span class="o">!=</span> <span class="n">args_2</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="n">false</span>
+    
+    <span class="k">return</span> <span class="n">sigma</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="22-可决定性问题">2.2 可决定性问题</h3>
+
+<p>我们首先回顾 <strong>可决定性问题</strong> (<code class="language-plaintext highlighter-rouge">Decidability</code>) 的概念:</p>
+
+<p><strong>定义 2.2.1</strong> (可决定性, <code class="language-plaintext highlighter-rouge">Decidability</code>)</p>
+<blockquote>
+  <p>我们称某个回答必为 “是” 或 “否” 的问题为 <strong>可决定性问题</strong>, 若存在某个以该问题的任何实例为输入并总能给出正确答复的算法.</p>
+</blockquote>
+
+<p>在实践中, 类似搜索, 图染色, 求背包问题的最优解等问题均属于具备可决定性 (<code class="language-plaintext highlighter-rouge">Decidable</code>) 的问题, 而类似停机问题等则为不具备可决定性的问题.</p>
+
+<p>由于我们可以将停机问题转化为完全等价的, 实质上是检查一阶逻辑的一致性问题, 因此由于前者是非可决定性问题, 后者也是同样不具备可决定性的. 因此, 我们无法解决检查一阶逻辑的一致性问题.</p>
+
+<p>但是, 一些一阶逻辑的真子集–如谓词逻辑则为具备可决定性的 (即使它是 <code class="language-plaintext highlighter-rouge">NP-Hard</code> 的).</p>
+
+<p>在一阶逻辑中, 具备可决定性的部分 (片段) 有:</p>
+
+<ol>
+  <li>
+    <p>单元片段 (<code class="language-plaintext highlighter-rouge">Monadic Fragment</code>)</p>
+
+    <p>在单元片段中, 任何谓词元数均不超过 $1$, 且不存在函数符号.</p>
+  </li>
+  <li>
+    <p>双变量片段 (<code class="language-plaintext highlighter-rouge">Two-variable Fragment</code>)</p>
+
+    <p>在双变量片段中, 任何公式最多由两个变量所构造.</p>
+  </li>
+  <li>
+    <p>受保护片段 (<code class="language-plaintext highlighter-rouge">Guarded Fragment</code>)</p>
+
+    <p>???</p>
+  </li>
+  <li>
+    <p>前束片段 (<code class="language-plaintext highlighter-rouge">Prenex Fragments</code>)</p>
+
+    <p>若某个公式为前束范式且可被写为</p>
+
+\[\exists * \forall * .F\]
+
+    <p>的形式, 则其属于前束片段.</p>
+  </li>
+</ol>
+
+<h3 id="23-datalog片段">2.3 <code class="language-plaintext highlighter-rouge">Datalog</code>片段</h3>
+
+<p>下面我们介绍这样的一个一阶逻辑的子集: <code class="language-plaintext highlighter-rouge">Datalog</code>.</p>
+
+<p>需要注意的是, 在下面的内容中我们将不对非逻辑元素进行介绍, 若在概念定义上和真实的 <code class="language-plaintext highlighter-rouge">Datalog</code> (实质是 <code class="language-plaintext highlighter-rouge">Prolog</code> 语言的一个真子集) 存在差异的话, 一切以本课程提供的材料为准.</p>
+
+<p>我们首先描述 <code class="language-plaintext highlighter-rouge">Datalog</code> 片段的语法:</p>
+
+<p>在 <code class="language-plaintext highlighter-rouge">Datalog</code> 片段中, 公式均具备如下所述的形式:</p>
+
+\[\forall X. ((p_1[X_1] \wedge \cdots \wedge p_{n}[X_n]) \implies p_{n+1}[X_{n+1}])\]
+
+<p>其中称蕴含符号 $\implies$ 左侧的公式为 <strong>体</strong> (<code class="language-plaintext highlighter-rouge">Body</code>), 右侧的为 <strong>首</strong> (<code class="language-plaintext highlighter-rouge">Head</code>).</p>
+
+<p>$p_{j}[X_j]$ 则为应用到 $X_j$ 中一系列常量或变量上的谓词符号, 使</p>
+
+\[X_1 \subseteq X\]
+
+<p>且</p>
+
+\[X_{n+1} \subseteq X_1 \cup \cdots \cup X_n\]
+
+<p>即:</p>
+
+<ol>
+  <li>所有变量均受全称谓词约束.</li>
+  <li>首公式中任何涉及的变量均在体公式中使用过.</li>
+</ol>
+
+<p>同时, 若某个公式的体是空的, 则称其为 <strong>事实</strong> (这也很好理解, 无需基于任何前束条件就可推导出或者自然成立的陈述显然属于事实); 若不然, 则称其为 <strong>规则</strong>. 需要注意: <strong>事实中不可包含任何变量</strong>!</p>
+
+<p>我们随后解释 <code class="language-plaintext highlighter-rouge">Datalog</code> 中的一些术语和惯例:</p>
+
+<ol>
+  <li>一般称 <strong>谓词</strong> 为 <strong>关系</strong>, 因谓词所描述的就是事物之间的关系.</li>
+  <li>称一元谓词为 <strong>属性</strong> (<code class="language-plaintext highlighter-rouge">Property</code>).</li>
+  <li>在假定命名唯一时, 称常量为 <strong>对象</strong> (<code class="language-plaintext highlighter-rouge">Objects</code>).</li>
+  <li>对谓词, 函数, 常量的命名以小写字母开头.</li>
+  <li>一般用大写字母指代变量.</li>
+  <li>由于语法限制, 我们无法表示含有 $\neg, \vee, \exists$ 的公式或函数. 但在一些特殊情况下, 我们可以通过取这些公式的合取范式的方式绕过语法规则的限制.</li>
+</ol>
+
+<p>下面考虑对 <code class="language-plaintext highlighter-rouge">Datalog</code> 知识库的解释.</p>
+
+<p>首先需要注意的是, 任何 <code class="language-plaintext highlighter-rouge">Datalog</code> 知识库必须至少有一个解释.</p>
+
+<p>同时, 我们假定 <strong>唯一命名假设</strong> (<code class="language-plaintext highlighter-rouge">Unique Names Assumption</code>) 和 <strong>域闭包假设</strong> (<code class="language-plaintext highlighter-rouge">Domain Closure Assumption</code>) 成立:</p>
+
+<p><strong>定义 2.2.2</strong> (唯一命名假设和域闭包假设)</p>
+<blockquote>
+  <p>唯一命名假设: 知识库中任何名称不同的元素都是不同的.</p>
+
+  <p>域闭包假设: 域中的所有元素都被明确提及.</p>
+</blockquote>
+
+<p>我们知道, 任何解释 $\mathcal{I}$ 都可用于表示全体在它的解读下表意为真的基式 (<code class="language-plaintext highlighter-rouge">Ground Formula</code>, 即不含变量的公式). 记由解释 $\mathcal{I}$ 所表示的这样的集合为 <strong>$\mathcal{I}$ 的闭包</strong>, 记为 $\vert \mathcal{I}\vert.$</p>
+
+<p>同时记 $R$ 为由所有 <code class="language-plaintext highlighter-rouge">Ground Rules</code> 组成的集合, 这些 <code class="language-plaintext highlighter-rouge">Ground Rules</code> 是通过 <code class="language-plaintext highlighter-rouge">grounding all rules by the constraints in the problem</code> 得到的.</p>
+
+<p>下面我们可以对唯一最小模型进行定义:</p>
+
+<p><strong>定义 2.2.3</strong> (唯一最小模型, <code class="language-plaintext highlighter-rouge">Unique Minimal Model</code>)</p>
+<blockquote>
+  <p>我们称恰好满足下列性质的解释 $\mathcal{I}$ 为 <strong>唯一最小模型</strong>:</p>
+  <ol>
+    <li>$\mathcal{I}$ 包含知识库中的全部事实.</li>
+    <li>若 $\mathcal{I}$ 包含 $R$ 中任何一条规则的体 (<code class="language-plaintext highlighter-rouge">Body</code>),则它必须同时包含该规则的头 (<code class="language-plaintext highlighter-rouge">Head</code>).</li>
+  </ol>
+</blockquote>
+
+<p>上述的两条要求是对 “$\mathcal{I}$ 能够成为知识库的一个模型” 的最小要求, 恰好满足这些要求的模型是知识库的最小模型, 它是唯一的.</p>
+
+<h3 id="24-前向链式推理">2.4 前向链式推理</h3>
+
+<p>推理的基础是知识库 (<code class="language-plaintext highlighter-rouge">Knowledge Base</code>) 和查询 (<code class="language-plaintext highlighter-rouge">Query</code>). 在执行推理时, 显然基于推理方向的不同我们有两种选择:</p>
+
+<ol>
+  <li>从知识库开始, 通过执行 <strong>前向链式推理</strong> 检查我们的知识库能否满足查询.</li>
+  <li>从查询开始, 通过执行 <strong>反向链式推理</strong> 检查我们的知识库是否支撑我们的查询.</li>
+</ol>
+
+<p>而在本节中, 我们所考虑的是 <strong>前向链式推理</strong>. 在介绍它前, 首先需要引入一些基本知识:</p>
+
+<p><strong>定义 2.3.1</strong> (结果和闭包, <code class="language-plaintext highlighter-rouge">Consequence, Closure</code>)</p>
+<blockquote>
+  <p>称知识库所蕴含的任何事实或任何在闭包中的事实均为知识库的 <strong>结果</strong>.</p>
+</blockquote>
+
+<p>回忆前一小节, 在 <code class="language-plaintext highlighter-rouge">Datalog</code> 中, 闭包定义了它的唯一最小模型. 我们如下定义闭包:</p>
+
+<p><strong>定义 2.3.2</strong> (<code class="language-plaintext highlighter-rouge">闭包</code>)</p>
+<blockquote>
+  <p>考虑知识库 $\mathcal{KB}$ 包含事实集合 $\mathcal{F_0}$ 和规则集合 $\mathcal{RU}$, 定义通过状态转换得到的下一状态下的事实集合如下:</p>
+
+\[F_i = F_{i-1} \cup \{(\text{head})\sigma \vert \text{body}\implies \text{head} \in \mathcal{RU}, \text(body)\sigma \in \mathcal{F_{i-1}}\}\]
+
+  <p>在满足 $F_{j} = F_{j-1}$ 时, 状态转换无法再产生新的效果. 称此时到达 <strong>不动点</strong> (<code class="language-plaintext highlighter-rouge">Fixed Point</code>), 此时的 $F_i$ 就是闭包.</p>
+</blockquote>
+
+<p>下面我们需要关心的问题是:</p>
+
+<ol>
+  <li>如何找到这样的匹配 $\sigma$?</li>
+  <li>如何高效地计算 $F_{i+1}$?</li>
+</ol>
+
+<p>我们首先考虑最简单的例子:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">match</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="n">F</span><span class="p">):</span>
+    <span class="n">matches</span> <span class="o">=</span> <span class="p">{</span><span class="err">∅</span><span class="p">}</span>
+    <span class="k">for</span> <span class="n">f_1</span> <span class="ow">in</span> <span class="n">body</span><span class="p">:</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="err">∅</span>
+        <span class="k">for</span> <span class="n">sigma_1</span> <span class="ow">in</span> <span class="n">matches</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">f_2</span> <span class="ow">in</span> <span class="n">F</span><span class="p">:</span>
+                <span class="n">sigma_2</span> <span class="o">=</span> <span class="n">match</span><span class="p">(</span><span class="n">f_1</span><span class="p">,</span> <span class="n">f_2</span><span class="p">,</span> <span class="n">sigma_1</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">sigma_2</span> <span class="o">!=</span> <span class="err">⊥</span><span class="p">:</span>
+                    <span class="n">new</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">sigma_2</span><span class="p">)</span>
+        <span class="n">matches</span> <span class="o">=</span> <span class="n">new</span>
+    <span class="k">return</span> <span class="n">matches</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>上述的例子存在低效的问题, 同时检查 <code class="language-plaintext highlighter-rouge">body</code> 中元素的顺序也会明显影响算法运行的时间复杂度.</p>
+
+<p>我们再讨论前向链式推理算法:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre>
+<span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">facts</span> <span class="n">F_0</span><span class="p">,</span> <span class="n">rules</span> <span class="n">RU</span><span class="p">):</span>
+    <span class="n">F</span> <span class="o">=</span> <span class="err">∅</span><span class="p">,</span> <span class="n">new</span> <span class="o">=</span> <span class="n">F_0</span><span class="p">;</span>
+    <span class="n">do</span>
+        <span class="n">F</span> <span class="o">=</span> <span class="n">F</span> <span class="err">∪</span> <span class="n">new</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="err">∅</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">body</span><span class="o">=&gt;</span><span class="n">head</span><span class="p">)</span> <span class="err">∈</span> <span class="n">RU</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">σ</span> <span class="err">∈</span> <span class="n">match</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="n">F</span><span class="p">):</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">head</span><span class="p">)</span><span class="n">σ</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">F</span><span class="p">:</span>
+                    <span class="n">new</span><span class="p">.</span><span class="n">add</span><span class="p">((</span><span class="n">head</span><span class="p">)</span><span class="n">σ</span><span class="p">)</span>
+    <span class="k">while</span> <span class="n">new</span> <span class="o">!=</span> <span class="n">σ</span>
+    <span class="k">return</span> <span class="n">F</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>我们最后讨论查询.</p>
+
+<p>在给定知识库后, 显然下一步我们希望执行的操作是对这个知识库进行 <strong>查询</strong> (<code class="language-plaintext highlighter-rouge">Queries</code>). 查询语句可以是不含变量的 (<code class="language-plaintext highlighter-rouge">Grounded</code>), 也可以包含变量.</p>
+
+<p>任何知识库 $\mathcal{KB}$ 对某个给定查询 $q$ 的回答均可表示为集合 $\text{ans}(q)$:</p>
+
+\[\text{ans}(q) = \{\sigma ~\vert~ \mathcal{KB} \vDash q \sigma\}\]
+
+<p>即: 所有在应用到查询 $q$ 时均能生成一个不含变量的事实, 且生成的事实是知识库 $\mathcal{KB}$ 中的一个结果的替换所组成的集合.</p>
+
+<p>显然我们也可以将回答定义成知识库 $\mathcal{KB}$ 的闭包:</p>
+
+\[\text{ans}(q) = \{\sigma ~\vert~ q \sigma \in \text{closure}(\mathcal{KB}).\]
+
+<p>显然知:</p>
+
+<ol>
+  <li>在查询 $q$ 不含任何变量时, 不存在任何替换满足条件, 因此在该情况下该查询的答复 $\text{ans}$ 为空集.</li>
+  <li>在任何情况下, 答复 $\text{ans}$ 必为有限集.</li>
+</ol>
+
+<p>随后, 我们解释如何使用前向链式推理生成这样的集合 (即: 生成查询的结果).</p>
+
+<p>在此我们给出一个非常简单 (低效) 的, 可用于构造答复的算法:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220302095712.png" alt="20220302095712" /></p>
+
+<h2 id="3-反向链式推理和语义归结">3. 反向链式推理和语义归结</h2>
+
+<h3 id="31-prolog-片段">3.1 <code class="language-plaintext highlighter-rouge">Prolog</code> 片段</h3>
+<p>在本节中我们将对一阶逻辑的另一个片段 (或者称子集/部分) : <strong><code class="language-plaintext highlighter-rouge">Prolog</code> 片段</strong> 进行介绍, 它同时也是我们将在本课程中使用的函数式程序设计语言: <code class="language-plaintext highlighter-rouge">Prolog</code> 的逻辑组成部分.</p>
+
+<p>我们首先说明为何需要在已有 <code class="language-plaintext highlighter-rouge">Datalog</code> 片段的前提下还需要考虑名为 <code class="language-plaintext highlighter-rouge">Prolog</code> 的新片段. 我们产生定义新片段的主要需求是 <code class="language-plaintext highlighter-rouge">Datalog</code> 存在大量限制:</p>
+<ol>
+  <li>显然, <code class="language-plaintext highlighter-rouge">Datalog</code> 不允许我们定义任何 <strong>需要 (或可以被) 无限解释的对象</strong>, 如常见的数据结构: 列表, 树和数字, 而数据结构在建模中是非常必要的.</li>
+  <li>
+    <p>我们同时需要 <strong>函数</strong> 从而对存在量词所表示的含义进行建模.</p>
+
+    <p>比如, 考虑陈述 “姚老师每一门课都考的很好”, 则要对它进行建模的话, 我们就需要一个能够从 “课程” 映射到 “结果: 考得很好” 的函数.</p>
+  </li>
+  <li>此外, <code class="language-plaintext highlighter-rouge">Datalog</code> 缺乏对 <strong>等价/相等</strong> 的定义.</li>
+  <li>最后, 我们无法使用 <code class="language-plaintext highlighter-rouge">Datalog</code> 对 <strong>否定</strong> (<code class="language-plaintext highlighter-rouge">Negation</code>) 进行建模.</li>
+</ol>
+
+<p>为了维持 <code class="language-plaintext highlighter-rouge">Datalog</code> 片段的优秀属性, 如可确定性, 同时补全它的定义所带来的诸多表意上的限制, 我们需要构造新的一阶逻辑片段, 而这就是我们将要介绍的 <code class="language-plaintext highlighter-rouge">Prolog</code> 片段.</p>
+
+<p>我们首先介绍 <code class="language-plaintext highlighter-rouge">Prolog</code> 片段的语法. 和 <code class="language-plaintext highlighter-rouge">Datalog</code> 相比, <code class="language-plaintext highlighter-rouge">Prolog</code> 片段中, <strong>公式</strong> 的结构大体相同“</p>
+
+\[\forall X. ((p_1 \wedge \cdots \wedge p_{n}) \implies p_{n+1})\]
+
+<p>但此时在公式结构中, 公式体中的任意 $p_i$ 可以为:</p>
+
+<ol>
+  <li>包含 $X$ 中的项的谓词符号</li>
+  <li>等式, 如 $x=y ~~\text{for}~ x, y \in X$</li>
+  <li>不等式, 如 $x \neq y ~~\text{for}~ x, y \in X$</li>
+</ol>
+
+<p>而公式头仍然只能为第一种.</p>
+
+<p>不难看出, 这样的语法定义放松了对变量的限制, 且使用 <strong>项</strong> 扩展了 <code class="language-plaintext highlighter-rouge">Datalog</code> 片段. 然而到此为止, 基于上述语法定义的 <code class="language-plaintext highlighter-rouge">Prolog</code> 片段 <strong>是不支持否定谓词和析取谓词的</strong>, 它仍然是 <code class="language-plaintext highlighter-rouge">Prolog</code> 语言的一个子集.</p>
+
+<p>随后我们考虑 <code class="language-plaintext highlighter-rouge">Prolog</code> 片段中的 <strong>唯一最小模型</strong>.</p>
+
+<p>我们认为 <code class="language-plaintext highlighter-rouge">Prolog</code> 中所有 <strong>语法不同</strong> 的项均不相等, 而项之间的等价性是通过联合 (<code class="language-plaintext highlighter-rouge">Unification</code>) 达成的. 这和一阶逻辑不同: 在一阶逻辑中, 我们允许</p>
+
+\[a = b ~~~\text{or}~~~f(X) = X,\]
+
+<p>这在 <code class="language-plaintext highlighter-rouge">Prolog</code> 中是完全不可能的.</p>
+
+<p>在 <code class="language-plaintext highlighter-rouge">Datalog</code> 中, 我们需要在解释中令不同的常量和域变量一一对应, 而在 <code class="language-plaintext highlighter-rouge">Prolog</code> 中我们可能需要无限多个常量才能达成这一点.</p>
+
+<p>形式上地, 对解释中常量的要求称为 <strong>有限项代数的一阶逻辑理论</strong>, 可被表示为下列的一阶逻辑:</p>
+<ol>
+  <li>域闭包:</li>
+</ol>
+
+\[\forall x. \bigvee_{f \in \Sigma}. \exists Y. ~~ (x = f(Y))\]
+
+<ol>
+  <li>差异性:</li>
+</ol>
+
+\[\bigwedge _{f, g \in \Sigma, f \neq g} \forall X, Y. ~~(f(x) \neq g(Y))\]
+
+<ol>
+  <li>单射:</li>
+</ol>
+
+\[\bigwedge_{f \in \Sigma} \forall X, Y. (f(X) = f(Y) \rightarrow X=Y)\]
+
+<ol>
+  <li>无环路 (无循环定义):</li>
+</ol>
+
+\[\bigwedge_{\text{any term} ~ t[x]} t[x] \neq x\]
+
+<h3 id="32-反向链式推理">3.2 反向链式推理</h3>
+
+<p>我们下面讨论反向链式推理. 在正式开始对反向链式推理的讨论前, 我们首先举例说明为何在 <code class="language-plaintext highlighter-rouge">Prolog</code> 中反向链式推理是必要的. 考虑下面的例子:</p>
+
+<div class="language-prolog highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="ss">even</span><span class="p">(</span><span class="ss">zero</span><span class="p">)</span>
+<span class="nv">X</span> <span class="o">=</span> <span class="ss">succ</span><span class="p">(</span><span class="ss">succ</span><span class="p">(</span><span class="nv">Y</span><span class="p">)),</span> <span class="ss">even</span><span class="p">(</span><span class="nv">Y</span><span class="p">)</span> <span class="p">:-</span> <span class="ss">even</span><span class="p">(</span><span class="nv">X</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>显然上述知识库中定义的规则刻画了所有的偶数.</p>
+
+<p>假设我们查询 <code class="language-plaintext highlighter-rouge">even(succ(succ(0)))</code>, 由于根据 <code class="language-plaintext highlighter-rouge">succ()</code> 谓词的推理规则可知 <code class="language-plaintext highlighter-rouge">succ(succ(0))</code> 为偶数, 因此在该例子中无需计算出域闭包也可解决这一问题.</p>
+
+<p>随后假设查询 <code class="language-plaintext highlighter-rouge">even(succ(0))</code>. 由于此时我们除了计算整个域闭包之外没有其他方法归结出 “<code class="language-plaintext highlighter-rouge">succ(0)</code> 不是偶数” 的结果, 而这个问题由于扩展到所有偶数上因此域闭包是无限大的, 因此产生了矛盾: 前向搜索无法遍历无限大的域闭包, 由此搜索过程永无法停止, 进而我们无法生成对这一查询的答复.</p>
+
+<p>基于上述的例子可知, 即使我们可以在 <code class="language-plaintext highlighter-rouge">Prolog</code> 中使用前向链式推理解决部分问题, 在 <strong>知识库闭包无穷大</strong> 的前提下, 我们 <strong>永无法通过前向链式推理达到不动点</strong>. 因此, 我们需要引入反向链式推理来应对知识库闭包无穷大的情况.</p>
+
+<p><strong>定义 3.2.1</strong> (反向链式推理, <code class="language-plaintext highlighter-rouge">Backward Chaining</code>)</p>
+<blockquote>
+  <p>反向链式推理的核心思想是从目标出发, 通过将联合的目标 <strong>拆解成多个子目标</strong> 并分别解决它们从而解决问题.</p>
+</blockquote>
+
+<p>考虑同一个例子. 使用反向链式推理尝试给出 <code class="language-plaintext highlighter-rouge">even(succ(succ(0)))</code> 的解答时:</p>
+
+<ol>
+  <li>首先检查查询语句本身是否已经是知识库中的某个事实.</li>
+  <li>若不是的话, 检查它是否与知识库中的任何规则的首 (<code class="language-plaintext highlighter-rouge">Head</code>) 联合.</li>
+</ol>
+
+<p>由于 <code class="language-plaintext highlighter-rouge">even(succ(succ(0)))</code> 可以和知识库中唯一一条规则的首 <code class="language-plaintext highlighter-rouge">even(X)</code> 联合, 其联合结果为</p>
+
+\[X \rightarrowtail \text{succ(succ(0))}\]
+
+<p>由此, 我们就将问题简化为: 尝试联合陈述</p>
+
+\[\text{succ(succ(0))} = \text{succ(succ(Y))} \wedge \text{even(Y)}.\]
+
+<p>而由于对上述的陈述联合的结果恰为知识库中的唯一一条事实 <code class="language-plaintext highlighter-rouge">even(0)</code>, 因此上面的陈述成立. 由此我们可知, 我们的知识库满足用户的查询.</p>
+
+<p>再考虑第二个查询 <code class="language-plaintext highlighter-rouge">even(succ(0))</code>. 将它和唯一一条规则的首联合得到的结果是</p>
+
+\[X \rightarrowtail \text{succ(0)}.\]
+
+<p>由此得到的新联合目标是</p>
+
+\[\text{succ(0)} = \text{succ(succ(Y))} \wedge \text{even(Y)}.\]
+
+<p>由于</p>
+
+\[\text{succ(0)} = \text{succ(succ(Y))}\]
+
+<p>无法联合, 因此可知该查询的答复是 <code class="language-plaintext highlighter-rouge">fail</code>.</p>
+
+<p>若我们的知识库更加复杂, 包含多条可供在尝试联合查询时作为备选的规则, 则我们在联合失败某条规则但又没有穷尽对规则的选择时就需要 <strong>回溯</strong> 到导致联合失败的前一个 <strong>选择点</strong> 处做出新的选择, 这一流程和 <code class="language-plaintext highlighter-rouge">Prolog</code> 的证明搜索规则是一致的.</p>
+
+<h3 id="33-反向链式推理算法和搜索树">3.3 反向链式推理算法和搜索树</h3>
+
+<p>本节中我们将对反向链式推理算法进行介绍并使用数个简单的例子进行说明.</p>
+
+<p>我们首先给出完整的反向链式推理算法:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220304182319.png" alt="20220304182319" /></p>
+
+<p><code class="language-plaintext highlighter-rouge">or_query</code> 实质上所执行的是将查询 $q$ 和知识库中每条规则都尝试联合了一遍 (<code class="language-plaintext highlighter-rouge">Disjunction</code>), 只要有一个规则能够和查询联合即说明知识库能够支撑这个查询.</p>
+
+<p>而 <code class="language-plaintext highlighter-rouge">and_query</code> 接受一个存储不同查询语句的列表 <code class="language-plaintext highlighter-rouge">queryList L</code> 作为参数之一, 并检查列表中的全部查询是否都能够与知识库中的事实和规则所联合.</p>
+
+<p>我们进一步解释 <code class="language-plaintext highlighter-rouge">or_query()</code> 和 <code class="language-plaintext highlighter-rouge">and_query()</code> 方法:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220304184634.jpeg" alt="20220304184634" /></p>
+
+<h3 id="34-归结">3.4 归结</h3>
+
+<p>在上面的几节中, 我们已经介绍了前向链式推理和反向链式推理的基本概念和实现, 分别介绍了 <code class="language-plaintext highlighter-rouge">Datalog</code> 片段和 <code class="language-plaintext highlighter-rouge">Prolog</code> 片段这两个一阶逻辑的子集. 下面我们从逻辑的角度总结我们所介绍的内容.</p>
+
+<p>在执行链式推理时, 我们从目标 $G$ 出发并尝试将其与闭包 $\mathcal{F}$ 匹配. 这一过程可视为</p>
+
+\[\frac{G\rightarrow \perp ~~ F}{\perp}, ~~\theta = \text{mgu}(G, F)\]
+
+<p>其中</p>
+
+\[F \in \mathcal{F}.\]
+
+<p>上式含义是: $\neg G$ 和 $\mathcal{F}$ 均为不可满足的, 因此闭包 $\mathcal{F}$ 蕴含 $G$.</p>
+
+<p>在反向链式推理中, 我们从一系列子目标</p>
+
+\[G_1\wedge G_2\wedge \cdots \wedge G_k\]
+
+<p>出发, 并在 <strong>满足了所有目标后</strong>, 即我们得到 $\perp$ 时, 终止推理. 因此, 我们可以将反向推理的目标列表视为</p>
+
+\[G_1\wedge G_2\wedge \cdots \wedge G_k \rightarrow \perp.\]
+
+<p>下面我们引入 <strong>归结</strong> 以解决 “如何基于更一般的蕴含条件进行推理” 的问题.</p>
+
+<p><strong>定义 3.4.1</strong> (归结原则, <code class="language-plaintext highlighter-rouge">Resolution</code>)</p>
+<blockquote>
+  <p>对任意子句 $l_1, \cdots, l_i$, $m_1, \cdots, m_j$, 若某一对子句 $l_p$, $m_q$ 恰为 <strong>互补的</strong> (<code class="language-plaintext highlighter-rouge">Complementary</code>), 则下列逻辑归纳原则成立:</p>
+
+\[\frac{(l_1 \vee \cdots \vee l_i) \vee (m_1 \vee \cdots \vee m_j)}{(l_1\vee\cdots\vee l_{p-1}\vee l_{p+1}\vee\cdots\vee l_{i}) \vee (m_1\vee\cdots\vee m_{q-1}\vee m_{q+1}\vee\cdots\vee m_{j})}.\]
+
+  <p>而称对互补的这一对子句 $l_p, m_q$ <strong>归结</strong>. (resolve on $l_p$ and $m_q$).</p>
+</blockquote>
+
+<p>举例而言:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/IMG_78C2043F08B2-1.jpeg" alt="IMG_78C2043F08B2-1" /></p>
+
+<p>下面说明归结原则的 <strong>正确性</strong> (<code class="language-plaintext highlighter-rouge">Soundness</code>):</p>
+
+<p><strong>定义 3.4.2</strong> (推理规则的正确性)</p>
+<blockquote>
+  <p>称任意给定的推理规则是 <strong>正确的</strong>, 若它的结论对于任何其前件条件的模型而言都是真的.</p>
+</blockquote>
+
+<p>对于上面的例子而言, 我们有以下结论:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220304231029.png" alt="20220304231029" /></p>
+
+<p>下面介绍 <strong>子句</strong> 和 <strong>文字</strong> 的概念:</p>
+
+<p><strong>定义 3.4.3</strong> (子句和文字)</p>
+<blockquote>
+  <p>称 <strong>文字</strong> 为原子或原子的取反, <strong>子句</strong> 为一系列文字的析取.</p>
+
+  <p>子句中可能包含一定量的原子以及其他原子的取反形式. 因此, 可以将子句视为:</p>
+
+\[(A_1 \wedge \cdots \wedge A_m) \rightarrow (B_1 \vee \cdots \vee B_n)\]
+</blockquote>
+
+<p>注意:</p>
+
+<ol>
+  <li>除非特别说明, 否则认为子句都是 <strong>隐含地全称量化</strong> (<code class="language-plaintext highlighter-rouge">Implicitly Universally Quantified</code>) 的.</li>
+  <li>空子句是 <strong>假的</strong> (<code class="language-plaintext highlighter-rouge">False</code>).</li>
+  <li>含肯定形式的文字数量最多为 $1$ (即 $n \leqslant 1$) 的子句称为 <strong><code class="language-plaintext highlighter-rouge">Horn</code> 子句</strong>.</li>
+  <li>恰含一个肯定形式的文字的子句是 <strong>明确的</strong> (<code class="language-plaintext highlighter-rouge">Definite</code>), 对知识库的定义应用了这样的子句.</li>
+</ol>
+
+<p>从下面开始, 我们不加说明地规定: 记$t, s$ 为项, $I$ 为文字, $C, D$ 为子句.</p>
+
+<p>归结原则同样适用于子句:</p>
+
+\[\frac{I_1 \vee C ~~~ \neg I_2 \vee D}{(C \vee D)}, ~~ \theta = \text{mgu}(I_1, I_2).\]
+
+<p>考虑下面的例子:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/IMG_2AB48B05DBCF-1.jpeg" alt="IMG_2AB48B05DBCF-1" /></p>
+
+<p>需要注意: 在联合来自两个不同的子句中的文字时, 需要 <strong>首先对变量命名以避免冲突</strong>:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220304233423.png" alt="20220304233423" /></p>
+
+<p>同时, 通过对变量命名, 我们还可以实现 “自归结”:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220304233512.png" alt="20220304233512" /></p>
+
+<p>我们接下来介绍在反向链式推理中应用的, 一种特殊的归结原则: <code class="language-plaintext highlighter-rouge">SLD-Resolution</code>.</p>
+
+<p>回顾 <code class="language-plaintext highlighter-rouge">Prolog</code> 术语, 结合此前引入的 <strong>子句</strong> 的概念, 可以看出:</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220304233935.png" alt="20220304233935" /></p>
+
+<p>在只需要考虑 <code class="language-plaintext highlighter-rouge">Horn</code> 子句的情况下, 我们可以通过引入一种特殊的归结原则, 从而提高推理的效率.</p>
+
+<p>此时, 我们有:</p>
+
+<ol>
+  <li>
+    <p>知识库中的事实和规则形如</p>
+
+\[H \vee \neg B_1 \neg \vee \cdots \vee \neg B_n\]
+  </li>
+  <li>
+    <p>目标或查询形如</p>
+
+\[\neg(G_1 \wedge \cdots \wedge G_m) = \neg G_1 \vee \cdots \vee \neg G_m\]
+  </li>
+</ol>
+
+<p>因此我们只需考虑 <strong>目标子句和某个事实/规则子句</strong> 之间的归结, 从而生成形如下面所示的子目标子句:</p>
+
+\[\frac{\underline{H} \vee \neg B_1 \neg \vee \cdots \vee \neg B_n ~~~~~~ \neg G_1 \vee \cdots \underline{\neg G_i} \vee \cdots \vee \neg G_m}{(\neg B_1 \neg \vee \cdots \vee \neg B_n \vee \neg G_1 \vee \cdots \vee \neg G_m)\theta},\]
+
+\[\theta = \text{mgu}(H, G_i).\]
+
+<p>显然, 要执行归结, 我们需要在一系列 <code class="language-plaintext highlighter-rouge">Horn</code> 子句中寻找一对自相矛盾的, 从而满足 <code class="language-plaintext highlighter-rouge">SLD-Resolution</code> 的条件.</p>
+
+<p>需要注意, <code class="language-plaintext highlighter-rouge">SLD-Resolution</code> 的执行时间复杂度是线性的, 这意味着每个目标子句都只需要被考虑一次.</p>
+
+<p><code class="language-plaintext highlighter-rouge">SLD-Resolution</code> 具备完备性, 这意味着如果某个问题有解, 我们一定可以使用这一方法找到它.</p>
+
+<p>在一些特定情况下, 在使用反向链式推理法生成某个查询的答复时, 由于反向链式推理可能无法终止, 它有可能会漏掉一些本可被找到的解答, 这是因为反向链式推理法 <strong>不是公平的</strong>:</p>
+
+<p><strong>定义 3.4.4</strong> (公平)</p>
+<blockquote>
+  <p>若某个搜索策略不会无限期地延迟推理, 则称其为 <strong>公平</strong> 的, 如广度优先搜索.</p>
+</blockquote>
+
+<p>我们最后讨论一种向基于反向链式推理的 <code class="language-plaintext highlighter-rouge">Prolog</code> 片段中引入 <strong>取反</strong> 同时不要求我们必须放弃 <code class="language-plaintext highlighter-rouge">SLD-Resolution</code> 而使用更低效的 <code class="language-plaintext highlighter-rouge">Full Resolution</code> 的方法: <strong>否定即失败</strong> <code class="language-plaintext highlighter-rouge">Negation as Failure</code>.</p>
+
+<p>一般在对问题建模时, 我们希望引入 <strong>对一些情境的否定</strong> 的定义, 如:</p>
+
+\[\neg \text{happy}(x) \rightarrow \text{sad}(x)\]
+
+<p>也就是</p>
+
+\[\text{happy}(x) \vee \text{sad}(x)\]
+
+<p>而由于这个陈述的的两种形式都 <strong>不是明确的子句</strong>, <code class="language-plaintext highlighter-rouge">Prolog</code> 知识库中的任何一条规则或事实都必须是明确的子句, 因此基于定义无法对它应用反向链式推理和 <code class="language-plaintext highlighter-rouge">SLD-Resolution</code>.</p>
+
+<p>但在特殊情况下, 我们可以归纳出一些事实的否定:</p>
+
+<p>考虑某个 <strong>基事实</strong> (<code class="language-plaintext highlighter-rouge">Ground Fact</code>, 不含变量) $f$ 并且我们无法通过反向链式推理证明它成立, 则我们可以断定它的否定, 即 $\neg f$.</p>
+
+<p>这一情形能够成立的原因是, 对 <code class="language-plaintext highlighter-rouge">Prolog</code> 知识库 $\Gamma$ 和任意基事实 $f$, 要么</p>
+
+\[\Gamma \vDash f\]
+
+<p>要么</p>
+
+\[\Gamma \vDash \neg f.\]
+
+<p>换言之, 任何解释要么是 $f$ 的模型, 要么是 $\neg f$ 的模型, 并且这一结论对于 $\Gamma$ 的模型恒成立.</p>
+
+<p>这意味着若我们在反向链式推理中以某个基式 $A$ 为条件, 而若无法通过反向链式推理证明 $A$ 被知识库满足, 则可知知识库蕴含 $\neg A$, 称这样的情形即为 <strong>否定即失败</strong>: 对 $A$ 联合的失败蕴含了 $\neg A$.</p>
+
+<p><br /></p>
+
+<p>REFERENCE:</p>
+
+<p><a href="https://www.cs.ox.ac.uk/people/james.worrell/lecture9-2015.pdf">First-Order Logic 1 Syntax of First-Order Logic</a></p>
+
+<p><a href="https://blog.csdn.net/yyl424525/article/details/95309168">人工智能 一种现代方法 第8章 一阶逻辑 - CSDN</a></p>
+
+<p><a href="https://www.jianshu.com/p/4fbcd56002b4">命题逻辑和一阶逻辑</a></p>
+
+<p><a href="https://en.wikipedia.org/wiki/Occurs_check">Occurs check - Wikipedia</a></p>
+
 
 
                 <hr style="visibility: hidden;">
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2022/01/23/COMP23311-REV/" data-toggle="tooltip" data-placement="top" title="Software Engineering 一日速成">
+                        <a href="/2022/02/11/Ch1-COMP24112/" data-toggle="tooltip" data-placement="top" title="机器学习">
                         Previous<br>
-                        <span>Software Engineering 一日速成</span>
+                        <span>机器学习</span>
                         </a>
                     </li>
                     
+                    
+                    <li class="next">
+                        <a href="/2022/02/11/Ch2-COMP27112/" data-toggle="tooltip" data-placement="top" title="计算机视觉导论：矩阵, 向量和着色器">
+                        Next<br>
+                        <span>计算机视觉导论：矩阵, 向量和着色器</span>
+                        </a>
+                    </li>
                     
                 </ul>
                 <hr style="visibility: hidden;">
@@ -450,7 +1361,7 @@
         
         
         
-                <a data-sort="0109" 
+                <a data-sort="0126" 
                     href="/archive/?tag=COMP12111"
                     title="COMP12111"
                     rel="10">COMP12111</a>
@@ -458,79 +1369,94 @@
                 <a data-sort="0072" 
                     href="/archive/?tag=%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0"
                     title="课程笔记"
-                    rel="47">课程笔记</a>
+                    rel="64">课程笔记</a>
         
-                <a data-sort="0079" 
+                <a data-sort="0096" 
                     href="/archive/?tag=%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0"
                     title="前端学习"
                     rel="40">前端学习</a>
         
-                <a data-sort="0079" 
+                <a data-sort="0096" 
                     href="/archive/?tag=50P50D"
                     title="50P50D"
                     rel="40">50P50D</a>
         
-                <a data-sort="0104" 
-                    href="/archive/?tag=COMP24011"
-                    title="COMP24011"
-                    rel="15">COMP24011</a>
+                <a data-sort="0122" 
+                    href="/archive/?tag=%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD"
+                    title="人工智能"
+                    rel="14">人工智能</a>
         
-                <a data-sort="0107" 
+                <a data-sort="0124" 
                     href="/archive/?tag=%E9%80%BB%E8%BE%91%E5%AD%A6"
                     title="逻辑学"
                     rel="12">逻辑学</a>
         
-                <a data-sort="0109" 
+                <a data-sort="0126" 
                     href="/archive/?tag=COMP15111"
                     title="COMP15111"
                     rel="10">COMP15111</a>
         
-                <a data-sort="0110" 
+                <a data-sort="0127" 
                     href="/archive/?tag=%E6%89%A9%E5%B1%95%E8%87%AA%E4%B9%A0"
                     title="扩展自习"
                     rel="9">扩展自习</a>
         
-                <a data-sort="0110" 
+                <a data-sort="0127" 
                     href="/archive/?tag=COMP21111"
                     title="COMP21111"
                     rel="9">COMP21111</a>
         
-                <a data-sort="0112" 
+                <a data-sort="0129" 
+                    href="/archive/?tag=%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95"
+                    title="数据结构与算法"
+                    rel="7">数据结构与算法</a>
+        
+                <a data-sort="0129" 
                     href="/archive/?tag=%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0"
                     title="机器学习"
                     rel="7">机器学习</a>
         
-                <a data-sort="0112" 
+                <a data-sort="0129" 
                     href="/archive/?tag=COMP11212"
                     title="COMP11212"
                     rel="7">COMP11212</a>
         
-                <a data-sort="0115" 
+                <a data-sort="0130" 
+                    href="/archive/?tag=COMP24011"
+                    title="COMP24011"
+                    rel="6">COMP24011</a>
+        
+                <a data-sort="0132" 
+                    href="/archive/?tag=%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AF%BC%E8%AE%BA"
+                    title="数据库导论"
+                    rel="4">数据库导论</a>
+        
+                <a data-sort="0132" 
                     href="/archive/?tag=%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95"
                     title="数据结构和算法"
                     rel="4">数据结构和算法</a>
         
-                <a data-sort="0115" 
+                <a data-sort="0132" 
                     href="/archive/?tag=COMP15212"
                     title="COMP15212"
                     rel="4">COMP15212</a>
         
-                <a data-sort="0115" 
-                    href="/archive/?tag=COMP23111"
-                    title="COMP23111"
-                    rel="4">COMP23111</a>
-        
-                <a data-sort="0117" 
+                <a data-sort="0134" 
                     href="/archive/?tag=%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7"
                     title="奇技淫巧"
                     rel="2">奇技淫巧</a>
         
-                <a data-sort="0117" 
+                <a data-sort="0134" 
                     href="/archive/?tag=%E7%AE%97%E6%B3%95"
                     title="算法"
                     rel="2">算法</a>
         
-                <a data-sort="0117" 
+                <a data-sort="0134" 
+                    href="/archive/?tag=%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E6%A6%82%E8%AE%BA"
+                    title="软件工程概论"
+                    rel="2">软件工程概论</a>
+        
+                <a data-sort="0134" 
                     href="/archive/?tag=Lab"
                     title="Lab"
                     rel="2">Lab</a>
