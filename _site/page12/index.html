@@ -95,14 +95,6 @@
 
 <!-- hack iOS CSS :active style -->
 <body ontouchstart="">
-    
-<div class="floatbtn" onclick="document.getElementsByClassName('wrapper')[0].scrollTop = 0">
-    <i class="fa fa-arrow-up"></i>
-</div>
-
-
-
-
     <!-- Search -->
 <div class="search-page">
   <div class="search-icon-close-container">
@@ -121,9 +113,16 @@
     </div>
   </div>
 </div>
+    
+<div class="floatbtn" onclick="document.getElementsByClassName('wrapper')[0].scrollTop = 0">
+    <i class="fa fa-arrow-up"></i>
+</div>
 
-    <div class="wrapper">    
-        <!-- Navigation -->
+
+
+
+    
+    <!-- Navigation -->
 
     <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
         
@@ -260,7 +259,7 @@
             __HuxNav__.close();
         })
     </script>
-        <!-- Page Header -->
+    <!-- Page Header -->
 
 
 
@@ -268,7 +267,7 @@
 
 
 
-<!--
+<!-- fuck css... transform and position:fixed cannot coexist..
 <header class="intro-header" style="background-image: url('/img/post-bg-desk.jpg')">
   <div class="container">
     <div class="row">
@@ -299,6 +298,7 @@
     </div>
 </div>
 </header>
+
 
 
 <!-- Main Content -->
@@ -1030,7 +1030,7 @@ MU0 是一个 $16$ 位处理器, 其数据传输界面包含:
   src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
     
-        <!-- Footer -->
+    <!-- Footer -->
 <footer>
     <div class="container">
         <div class="row">
@@ -1297,10 +1297,10 @@ MU0 是一个 $16$ 位处理器, 其数据传输界面包含:
         });
     });
 </script>
-        <!-- Image to hack wechat -->
-        <img src="/img/icon_wechat.png" width="0" height="0" />
-        <!-- Migrate from head to bottom, no longer block render and still work -->
-    </div>
+    <!-- Image to hack wechat -->
+    <img src="/img/icon_wechat.png" width="0" height="0" />
+    <!-- Migrate from head to bottom, no longer block render and still work -->
+    
 </body>
 
 </html>

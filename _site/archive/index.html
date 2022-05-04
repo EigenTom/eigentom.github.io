@@ -95,14 +95,6 @@
 
 <!-- hack iOS CSS :active style -->
 <body ontouchstart="">
-    
-<div class="floatbtn" onclick="document.getElementsByClassName('wrapper')[0].scrollTop = 0">
-    <i class="fa fa-arrow-up"></i>
-</div>
-
-
-
-
     <!-- Search -->
 <div class="search-page">
   <div class="search-icon-close-container">
@@ -121,9 +113,16 @@
     </div>
   </div>
 </div>
+    
+<div class="floatbtn" onclick="document.getElementsByClassName('wrapper')[0].scrollTop = 0">
+    <i class="fa fa-arrow-up"></i>
+</div>
 
-    <div class="wrapper">    
-        <!-- Navigation -->
+
+
+
+    
+    <!-- Navigation -->
 
     <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
         
@@ -260,7 +259,7 @@
             __HuxNav__.close();
         })
     </script>
-        <!-- 
+    <!-- 
 Credits: this page shamelessly borrowed a lot from:
 https://github.com/kitian616/jekyll-TeXt-theme
 -->
@@ -272,7 +271,7 @@ https://github.com/kitian616/jekyll-TeXt-theme
 
 
 
-<!--
+<!-- fuck css... transform and position:fixed cannot coexist..
 <header class="intro-header" style="background-image: url('/img/tag-bg.jpg')">
   <div class="container">
     <div class="row">
@@ -303,6 +302,7 @@ https://github.com/kitian616/jekyll-TeXt-theme
     </div>
 </div>
 </header>
+
 
 
 	<!-- Main Content -->
@@ -2195,7 +2195,7 @@ https://github.com/kitian616/jekyll-TeXt-theme
 		</div>
 	</div>
 </div>	    
-        <!-- Footer -->
+    <!-- Footer -->
 <footer>
     <div class="container">
         <div class="row">
@@ -2474,10 +2474,10 @@ https://github.com/kitian616/jekyll-TeXt-theme
         });
     });
 </script>
-        <!-- Image to hack wechat -->
-        <img src="/img/icon_wechat.png" width="0" height="0" />
-        <!-- Migrate from head to bottom, no longer block render and still work -->
-    </div>
+    <!-- Image to hack wechat -->
+    <img src="/img/icon_wechat.png" width="0" height="0" />
+    <!-- Migrate from head to bottom, no longer block render and still work -->
+    
 </body>
 
 </html>
