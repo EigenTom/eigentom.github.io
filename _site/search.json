@@ -9,7 +9,7 @@
     } ,
   
     {
-      "title"    : "并行计算和系统资源分配",
+      "title"    : "进阶课题：并行计算和内存安全语言",
       "subtitle" : "Introduction to Solidity",
       "tags"     : "课程笔记, 并行计算",
       "url"      : "/2022/03/15/Ch4-COMP26020/",

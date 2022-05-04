@@ -51,7 +51,7 @@
     <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"type="text/css">
     <!-- Add Parallex Effect-->
     <script src="/js/jquery.min.js "></script>
-    <script src="/js/rellax.min.js"></script>
+    <script src="/js/locomotive-scroll.min.js"></script>
 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -89,9 +89,9 @@
 
     
 
-    <!-- Google AdSense -->
+    <!-- Google AdSense 
     <script data-ad-client="ca-pub-6487568398225121" async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>-->
 </head>
 
 
@@ -289,13 +289,24 @@
 
 <header class="intro-header">  
     
-    <div class="bg-image">
-        <img src="/img/post-bg-desk.jpg" class="bg-image"> 
+    <div data-scroll-container>
+
+        <p data-scroll >
+            <img src="/img/post-bg-desk.jpg" class="bg-image"> 
+        </p>        
     </div>
 
-    
-    
-
+<!-- buggy...
+    <script src="/js/locomotive-scroll.min.js"></script>
+    <script>
+        (function () {
+            var scroll = new LocomotiveScroll({
+                            el: document.querySelector("[data-scroll-container]"),
+                            smooth: true
+                        });
+        })();
+    </script>
+-->
 
 <div class="container">
     <div class="row">
@@ -359,7 +370,7 @@
 <div class="post-preview">
     <a href="/2022/03/15/Ch4-COMP26020/">
         <h2 class="post-title">
-            并行计算和系统资源分配
+            进阶课题：并行计算和内存安全语言
         </h2>
         
         <h3 class="post-subtitle">
@@ -369,11 +380,9 @@
         <!--
         <div class="post-content-preview">
             
-                并行计算和系统资源分配
+                进阶课题：并行计算和内存安全语言
 
-1. Solidity
-
-
+本章将简介 程序语言与程序范式 课程的最后一部分: 进阶课题. 我们将在这部分中首先介绍用于构造 智能契约 (程序被部署在网络上自动运行并通过信息传递互相交互) 的 Solidity, 并以此为契机引入一系列关于 并行编程 (Concurrent Programming) 的基本概念; 随后介绍一种较新的程序设计语言: 和 C/C++ 同样接近底层性能极高...
             
         </div>
         -->

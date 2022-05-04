@@ -51,7 +51,7 @@
     <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"type="text/css">
     <!-- Add Parallex Effect-->
     <script src="/js/jquery.min.js "></script>
-    <script src="/js/rellax.min.js"></script>
+    <script src="/js/locomotive-scroll.min.js"></script>
 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -89,9 +89,9 @@
 
     
 
-    <!-- Google AdSense -->
+    <!-- Google AdSense 
     <script data-ad-client="ca-pub-6487568398225121" async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>-->
 </head>
 
 
@@ -289,13 +289,24 @@
 
 <header class="intro-header">  
     
-    <div class="bg-image">
-        <img src="/img/tag-bg.jpg" class="bg-image"> 
+    <div data-scroll-container>
+
+        <p data-scroll >
+            <img src="/img/tag-bg.jpg" class="bg-image"> 
+        </p>        
     </div>
 
-    
-    
-
+<!-- buggy...
+    <script src="/js/locomotive-scroll.min.js"></script>
+    <script>
+        (function () {
+            var scroll = new LocomotiveScroll({
+                            el: document.querySelector("[data-scroll-container]"),
+                            smooth: true
+                        });
+        })();
+    </script>
+-->
 
 <div class="container">
     <div class="row">

@@ -119,13 +119,24 @@
 
 <header class="intro-header">  
     
-    <div class="bg-image">
-        <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" class="bg-image"> 
+    <div data-scroll-container>
+
+        <p data-scroll >
+            <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img  }}{% endif %}" class="bg-image"> 
+        </p>        
     </div>
 
-    
-    
-
+<!-- buggy...
+    <script src="/js/locomotive-scroll.min.js"></script>
+    <script>
+        (function () {
+            var scroll = new LocomotiveScroll({
+                            el: document.querySelector("[data-scroll-container]"),
+                            smooth: true
+                        });
+        })();
+    </script>
+-->
 
 <div class="container">
     <div class="row">

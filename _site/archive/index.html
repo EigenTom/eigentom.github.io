@@ -51,7 +51,7 @@
     <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"type="text/css">
     <!-- Add Parallex Effect-->
     <script src="/js/jquery.min.js "></script>
-    <script src="/js/rellax.min.js"></script>
+    <script src="/js/locomotive-scroll.min.js"></script>
 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -89,9 +89,9 @@
 
     
 
-    <!-- Google AdSense -->
+    <!-- Google AdSense 
     <script data-ad-client="ca-pub-6487568398225121" async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>-->
 </head>
 
 
@@ -293,13 +293,24 @@ https://github.com/kitian616/jekyll-TeXt-theme
 
 <header class="intro-header">  
     
-    <div class="bg-image">
-        <img src="/img/tag-bg.jpg" class="bg-image"> 
+    <div data-scroll-container>
+
+        <p data-scroll >
+            <img src="/img/tag-bg.jpg" class="bg-image"> 
+        </p>        
     </div>
 
-    
-    
-
+<!-- buggy...
+    <script src="/js/locomotive-scroll.min.js"></script>
+    <script>
+        (function () {
+            var scroll = new LocomotiveScroll({
+                            el: document.querySelector("[data-scroll-container]"),
+                            smooth: true
+                        });
+        })();
+    </script>
+-->
 
 <div class="container">
     <div class="row">
@@ -577,7 +588,7 @@ https://github.com/kitian616/jekyll-TeXt-theme
 					</div><div class="post-preview item" data-tags="%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0,%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97">
 					    <a href="/2022/03/15/Ch4-COMP26020/">
 					        <h2 class="post-title">
-	                            并行计算和系统资源分配
+	                            进阶课题：并行计算和内存安全语言
 					        </h2>
 					        
 					        <h3 class="post-subtitle">
