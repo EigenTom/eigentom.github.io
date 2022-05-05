@@ -5,8 +5,8 @@
     <description>由于相关法律法规规定, 该内容无法显示.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 05 May 2022 00:22:25 +0100</pubDate>
-    <lastBuildDate>Thu, 05 May 2022 00:22:25 +0100</lastBuildDate>
+    <pubDate>Thu, 05 May 2022 21:31:38 +0100</pubDate>
+    <lastBuildDate>Thu, 05 May 2022 21:31:38 +0100</lastBuildDate>
     <generator>Jekyll v4.2.1</generator>
     
       <item>
@@ -408,15 +408,145 @@
 
 &lt;h2 id=&quot;2-rust&quot;&gt;2. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Rust&lt;/code&gt;&lt;/h2&gt;
 
+&lt;p&gt;在本节中我们将以 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Rust&lt;/code&gt; 为例进一步讨论 &lt;strong&gt;内存管理的基本方法&lt;/strong&gt;. 首先回顾其他程序设计语言中的内存管理策略.&lt;/p&gt;
+
+&lt;p&gt;在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;C/C++&lt;/code&gt; 中, &lt;strong&gt;不存在任何主动的内存管理机制&lt;/strong&gt;, 程序员需要使用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;malloc()&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;free()&lt;/code&gt; 手动进行内存管理. 而显然这一机制可能会导致幽灵访问 (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;use after free&lt;/code&gt;) 和内存泄漏 (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;forget to free&lt;/code&gt;) 问题的发生.&lt;/p&gt;
+
+&lt;p&gt;在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Java&lt;/code&gt; 中同样有对象和变量的引用 (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Reference&lt;/code&gt;) 机制, 解决内存管理问题的途径是引入 “垃圾回收机制”: 垃圾回收器 (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Garbage Collector&lt;/code&gt;) 会自动地持续监测对程序中数据的引用, 若某个数据不再被程序中任何逻辑引用, 它就会被判定为 “垃圾” 从而被垃圾回收器自动回收.&lt;/p&gt;
+
+&lt;p&gt;通过引入垃圾回收机制, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Java&lt;/code&gt; 避免了幽灵访问问题的发生, 也解决了潜在的内存溢出问题. 但由于垃圾回收器会持续检查引用, 因此这会带来性能损失, 导致程序运行效率下降.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220505110317.png&quot; alt=&quot;20220505110317&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;从 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;C/C++&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Java&lt;/code&gt; 的例子上可以看出, 程序运行效率与内存安全之间存在 &lt;strong&gt;权衡关系&lt;/strong&gt;, 在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;C&lt;/code&gt; 中程序员通过承担确保内存安全的责任换来了高效率, 而在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Java&lt;/code&gt; 中让程序设计语言本身处理内存安全问题的代价是降低了程序运行效率.&lt;/p&gt;
+
+&lt;p&gt;但实际上程序运行效率和内存安全之间的权衡并不是无法调和的. 从 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Java&lt;/code&gt; 来看, 我们注意在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Java&lt;/code&gt; 中仍然存在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;NullPointerException&lt;/code&gt;, 这意味着 &lt;strong&gt;垃圾回收机制并不能从根本上解决所有的内存安全问题&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;可以注意到, 当 &lt;strong&gt;两个变量引用了相同的数据&lt;/strong&gt; (也就是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;aliasing&lt;/code&gt;) 时, 如果其中一个变量对该内存空间中的数据进行了修改而另一个变量假设数据没有被修改, 就会出现状态上的 &lt;strong&gt;不一致性&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;注意在这里我们实际上可以把变量类比为线程.&lt;/p&gt;
+
+&lt;p&gt;考虑下面的例子:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220505111611.png&quot; alt=&quot;20220505111611&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;上述的代码看上去没有任何内存安全问题, 但编译执行的话结果如下:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220505111644.png&quot; alt=&quot;20220505111644&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;原因在于, 在执行 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;move(b, a)&lt;/code&gt; 方法时, 我们隐式地假定了 &lt;strong&gt;指针 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;b&lt;/code&gt; 引用的内存空间不同&lt;/strong&gt;, 但在下面的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;allocate_two_strings&lt;/code&gt; 定义中可以看到, 我们将 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;b&lt;/code&gt; 引用的内存空间 &lt;strong&gt;设为了同一块&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220505111543.png&quot; alt=&quot;20220505111543&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;因此, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;aliasing&lt;/code&gt; 就导致了报错提示的, 双重内存空间释放问题.&lt;/p&gt;
+
 &lt;h3 id=&quot;rust-中的内存管理&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Rust&lt;/code&gt; 中的内存管理&lt;/h3&gt;
 
-&lt;h4 id=&quot;所有权&quot;&gt;所有权&lt;/h4&gt;
+&lt;p&gt;和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;C/C++&lt;/code&gt; 与 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Java&lt;/code&gt; 不同, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Rust&lt;/code&gt; 使用一套构建在 &lt;strong&gt;编译器中&lt;/strong&gt; 的内存管理 &lt;strong&gt;规则&lt;/strong&gt; 而非机制确保诸如 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;aliasing&lt;/code&gt; 一样可能导致内存错误的问题永不发生.&lt;/p&gt;
 
-&lt;h4 id=&quot;所有权借出&quot;&gt;所有权借出&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220505114145.png&quot; alt=&quot;20220505114145&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;这套限制内存错误发生的约束系统称为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ownership System&lt;/code&gt;. 它的细节如下:&lt;/p&gt;
+
+&lt;h4 id=&quot;数据所有权&quot;&gt;数据所有权&lt;/h4&gt;
+
+&lt;p&gt;在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Rust&lt;/code&gt; 中, 任何 &lt;strong&gt;引用类型的数据值&lt;/strong&gt; 都有一个 &lt;strong&gt;类型为变量&lt;/strong&gt; 的所有者 (可以近似地认为任何数据都有一个所有者, 这个所有者是变量). 进一步地, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Rust&lt;/code&gt; 会确保:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;任何数据都同时 &lt;strong&gt;有且只有一个所属者&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;若所属者离开了作用域 / 结束了生命周期, 则它拥有的数据占用的内存空间会被 &lt;strong&gt;自动释放&lt;/strong&gt;.&lt;/p&gt;
+
+    &lt;p&gt;注意, 此处所指的, 变量的 “作用域” 是指 &lt;strong&gt;从变量被声明的那行代码到右中括号包起来的范围内&lt;/strong&gt;, 在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Rust&lt;/code&gt; 中我们可以使用中括号 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;{}&lt;/code&gt; 人为指定变量的作用域.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;数据的所有权会通过 &lt;strong&gt;变量赋值&lt;/strong&gt; 和 &lt;strong&gt;函数调用&lt;/strong&gt; 在变量之间发生 &lt;strong&gt;转换&lt;/strong&gt; (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pass&lt;/code&gt;).&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220505115210.png&quot; alt=&quot;20220505115210&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;数据所有权租赁&quot;&gt;数据所有权租赁&lt;/h4&gt;
+
+&lt;p&gt;进一步地, 为了避免频繁的在变量之间迁移数据的所属权, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Rust&lt;/code&gt; 引入了 &lt;strong&gt;所属权租赁&lt;/strong&gt; 机制.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220505115804.png&quot; alt=&quot;20220505115804&quot; /&gt;&lt;/p&gt;
 
 &lt;h4 id=&quot;基本数据类型和数据可变性-mutability&quot;&gt;基本数据类型和数据可变性 (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Mutability&lt;/code&gt;)&lt;/h4&gt;
 
-&lt;h3 id=&quot;rust-中的生命周期&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Rust&lt;/code&gt; 中的生命周期&lt;/h3&gt;
+&lt;p&gt;在上面的小节中我们提到过, 在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Rust&lt;/code&gt; 中只需关注 &lt;strong&gt;引用类型&lt;/strong&gt; 数据的所属权问题. 对形如 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;u32&lt;/code&gt; ($32$ 位无符号整数) 一类的 &lt;strong&gt;基本数据类型&lt;/strong&gt;, 我们无须关注它们数据的所属权, 因为这些基础数据类型在变量赋值时是被直接 &lt;strong&gt;复制而非引用&lt;/strong&gt; 的, 因此无需关心 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;aliasing&lt;/code&gt; 问题.&lt;/p&gt;
+
+&lt;p&gt;但是需要注意的是: 在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Rust&lt;/code&gt; 中, &lt;strong&gt;除非我们明确地声明它是可变的&lt;/strong&gt; (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Mutable&lt;/code&gt;), 任何变量都是默认 &lt;strong&gt;不可变&lt;/strong&gt; (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Immutable&lt;/code&gt;) 的. 这一规则不同于 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ownership System&lt;/code&gt; 作用域仅限于引用数据类型, 它的应用范围是 &lt;strong&gt;全体数据类型&lt;/strong&gt; (引用数据类型和基本数据类型).&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220505154152.png&quot; alt=&quot;20220505154152&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;如下面的例子所示: 由于 $10$ 是基础数据类型, 因此第 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;3&lt;/code&gt; 行的操作不会导致 $10$ 的所属权从 $i$ 变为 $j$ 导致 $i$ 无法被输出; 而由于我们在定义变量时 &lt;strong&gt;没有明确说明它们是否可变&lt;/strong&gt;, 编译器就默认声明的变量 $i$, $j$ 都是 &lt;strong&gt;不可变&lt;/strong&gt; 的, 因此尝试修改 $i$ 的值时报错.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220505153950.png&quot; alt=&quot;20220505153950&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;与数据可变性和数据所有权租赁相关的问题&quot;&gt;与数据可变性和数据所有权租赁相关的问题&lt;/h4&gt;
+
+&lt;p&gt;由于声明变量类型为 &lt;strong&gt;可变&lt;/strong&gt; (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mutable&lt;/code&gt;) 会导致变量数据可以发生变化 (换言之, 变量数据可以被修改), 而租赁变量的所属权又可能允许同一个变量的数据被多个访问对象访问和修改.&lt;/p&gt;
+
+&lt;p&gt;因此考虑多个变量同时租赁同一个可变的数值数据的情况, &lt;strong&gt;将可变数据的所属权租赁&lt;/strong&gt; 看上去可能会带来和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;aliasing&lt;/code&gt; 类似的问题.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Rust&lt;/code&gt; 对这一潜在问题的解决方法是: &lt;strong&gt;任何情况下&lt;/strong&gt;, 在租赁某个数据值的所有权时都需要 &lt;strong&gt;明确声明以可变 (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Mutable&lt;/code&gt;) 还是不可变 (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Immutable&lt;/code&gt;) 的方式租赁所有权&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;随后, 若声明了将以 &lt;strong&gt;可变形式租赁所有权&lt;/strong&gt;, 则 &lt;strong&gt;该对象只能租赁数据所有权一次&lt;/strong&gt;, 否则将被允许以 &lt;strong&gt;不可变形式租赁所有权无数次&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220505154920.png&quot; alt=&quot;20220505154920&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;注意此处的 “租赁一次” 并不是严格意义上的, 只要在租赁开始和租赁的数据最后一次被使用之间的时间段中, 对租赁的数据进行的任何使用都被视为 “同一次”.&lt;/p&gt;
+
+&lt;p&gt;考虑下面的例子, 说明 &lt;strong&gt;在一个可变租赁内部进行对同一个数据的不可变租赁是不可行的&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220505204556.png&quot; alt=&quot;20220505204556&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;由于字符串 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;s&lt;/code&gt; 被声明为可变, 因此我们可以对该变量所有的数据进行修改, 程序编译运行正常.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220505205232.png&quot; alt=&quot;20220505205232&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;我们定义一个 &lt;strong&gt;可变的变量 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;t&lt;/code&gt;&lt;/strong&gt;, 并让它以 &lt;strong&gt;可变的方式租赁变量 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;s&lt;/code&gt; 所拥有的数据的所有权&lt;/strong&gt;. 根据 “同一次” 的定义, 在第 $6$ 行对这个租赁的声明开始, 到第 $13$ 行租赁的数据内容最后一次被使用为止这个租赁都是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;active&lt;/code&gt; 的, 而 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;active&lt;/code&gt; 的可变形式租赁所借用的内容则不能被其他任何对象所访问, 因此第 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;12&lt;/code&gt; 行提示报错.&lt;/p&gt;
+
+&lt;p&gt;下面尝试在一个不可变租赁内部对同一个数据进行可变租赁:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220505205556.png&quot; alt=&quot;20220505205556&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;此时我们在第 $6$ 行声明了一个对变量 $s$ 的数据的 &lt;strong&gt;不可变租赁&lt;/strong&gt;: 这意味着暂时借到了数据所有权的变量 $x$ 只具有对数据的 &lt;strong&gt;访问权限&lt;/strong&gt; 而 &lt;strong&gt;不具备修改权限&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;基于租赁 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;active&lt;/code&gt; 的定义可知, 上图中高亮段恰为这个不可变租赁的激活范围, 而右侧报错指明, 无法在这个不可变租赁内部对同一个数据进行可变租赁 (第 $10$ 行).&lt;/p&gt;
+
+&lt;p&gt;由此可知, 在执行可变租赁时, 我们可以安全地确保 &lt;strong&gt;只要此次租赁仍在激活范围内&lt;/strong&gt;, 租赁数据所有权的变量就 &lt;strong&gt;恰为唯一具备对该数据修改权限的变量&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;rust-中租赁的生命周期&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Rust&lt;/code&gt; 中租赁的生命周期&lt;/h3&gt;
+
+&lt;p&gt;在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Rust&lt;/code&gt; 中, 租赁的生命周期恰为它的 &lt;strong&gt;激活范围&lt;/strong&gt;. 考虑下面的例子:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220505211550.png&quot; alt=&quot;20220505211550&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;注意在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Rust&lt;/code&gt; 中, 我们使用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;'&lt;/code&gt; + &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;字母&lt;/code&gt; 的方式表示生命周期. 在上图所示的例子中, 对 $s$ 的不可变租赁的生命周期为&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;'m&lt;/code&gt;, 而对 $s$ 的可变租赁的生命周期为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;'n&lt;/code&gt;, 由于在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Rust&lt;/code&gt; 中, 可变租赁的生命周期 &lt;strong&gt;不能和其他任何租赁的生命周期重合&lt;/strong&gt;: &lt;a href=&quot;https://stackoverflow.com/questions/60611296/why-can-i-use-a-mutable-variable-such-that-its-lifetime-overlaps-with-an-immutab&quot;&gt;“Mutable borrows are exclusive, though – a variable that is mutably borrowed can’t be used in any other way during the lifetime of the borrow.”&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;以及&lt;a href=&quot;https://stackoverflow.com/questions/57620041/how-does-lifetime-rule-stops-multiple-mutable-borrow&quot;&gt;另一个 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Stack Overflow&lt;/code&gt; 上的例子&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;解决方法是避免可变租赁的生命周期和其他租赁的生命周期重合:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220505212158.png&quot; alt=&quot;20220505212158&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;下面考虑更复杂的例子:&lt;/p&gt;
+
+&lt;p&gt;回忆在介绍变量的生命周期时我们提到过, 在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Rust&lt;/code&gt; 中我们可以使用中括号 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;{}&lt;/code&gt; 人为地构造代码段的域 (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Scope&lt;/code&gt;).&lt;/p&gt;
+
+&lt;p&gt;考虑下面的例子:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220505212529.png&quot; alt=&quot;20220505212529&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;在上图中, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt; 被定义为一个长为 $2$ 的数组, 并且定义了 &lt;strong&gt;类型为对某个数组类型数据的引用的变量 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x&lt;/code&gt;&lt;/strong&gt;, 注意 &lt;strong&gt;$x$ 是且只能是引用&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;不同之处在于, 从第 $6$ 行到第 $11$ 行之间的代码段被中括号 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;{}&lt;/code&gt; 隔离在了一个 &lt;strong&gt;单独的作用域中&lt;/strong&gt;, 在作用域中我们额外定义了长为 $3$ 的数组 $b$, 以及另一个数组引用类型的变量 $y$, 并在第 $9$ 行应用了语法糖让 $x, y$ 分别 &lt;strong&gt;不可变地&lt;/strong&gt; 借用了变量 $a$, $b$ 数据的所有权.&lt;/p&gt;
+
+&lt;p&gt;需要注意, 由于变量在脱离作用域后就会被回收, 因此在第 $12$ 行及以后的范围内 $y$ 和 $b$ 的内存空间都是被回收的, 但在域内执行的赋值操作仍然有效, 因此我们可以正常地在第 $13$ 行执行输出, 因为 $x$ 所引用的数据仍然在作用域内.&lt;/p&gt;
+
+&lt;p&gt;而若我们让 $x$ 借用数组 $b$ 的数据, 则会出现问题, 因为在 $13$ 行执行 $x$ 借用数据的输出时, $x$ 所借用的数据已经脱离了它的作用域而被回收.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220505213108.png&quot; alt=&quot;20220505213108&quot; /&gt;、&lt;/p&gt;
 
 </description>
         <pubDate>Tue, 15 Mar 2022 00:00:00 +0000</pubDate>
