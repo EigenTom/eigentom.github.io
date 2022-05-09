@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "数据结构与算法： 素数查找问题",
+      "subtitle" : "Primality Testing",
+      "tags"     : "课程笔记, 数据结构与算法",
+      "url"      : "/2022/04/02/Ch8-COMP26120/",
+      "date"     : "2022-04-02 00:00:00 +0100"
+    } ,
+  
+    {
       "title"    : "数据结构与算法： El Gamal加密算法",
       "subtitle" : "Introducing El Gamal Encryption Algorithm",
       "tags"     : "课程笔记, 数据结构与算法",
