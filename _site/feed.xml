@@ -5,8 +5,8 @@
     <description>由于相关法律法规规定, 该内容无法显示.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 09 May 2022 22:54:45 +0100</pubDate>
-    <lastBuildDate>Mon, 09 May 2022 22:54:45 +0100</lastBuildDate>
+    <pubDate>Mon, 09 May 2022 23:24:51 +0100</pubDate>
+    <lastBuildDate>Mon, 09 May 2022 23:24:51 +0100</lastBuildDate>
     <generator>Jekyll v4.2.1</generator>
     
       <item>
@@ -35,15 +35,46 @@
 
 &lt;p&gt;素数定理告诉我们, 寻找素数问题等价于 &lt;strong&gt;检测某个范围内的随机数是否为素数&lt;/strong&gt; 的问题.&lt;/p&gt;
 
-&lt;h2 id=&quot;素数检测的最基本方法与核心思想&quot;&gt;素数检测的最基本方法与核心思想&lt;/h2&gt;
+&lt;h2 id=&quot;素数检测的基本方法与核心思想&quot;&gt;素数检测的基本方法与核心思想&lt;/h2&gt;
+
+&lt;p&gt;下面讨论检测素数的核心思想与基本方法: &lt;strong&gt;暴力测试&lt;/strong&gt; 和 &lt;strong&gt;费马小定理&lt;/strong&gt;, 并进一步解释为何 &lt;strong&gt;伪素数的存在决定我们无法直接使用费马小定理检测素数&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;从定义出发, 素数是只被自身和 $1$ 整除的数. 并且我们知道, 考虑数 $n$, 由于检查大于 $\sqrt{n}$ 且小于 $n$ 的数是否整除 $n$ 实际上就是在检查位于 $1$ 到 $\sqrt{n}$ 之间的数能否整除 $n$, 因此有:&lt;/p&gt;
 
 &lt;h3 id=&quot;暴力测试&quot;&gt;暴力测试&lt;/h3&gt;
 
+&lt;p&gt;最基本的 &lt;strong&gt;暴力测试&lt;/strong&gt; (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Trial Division&lt;/code&gt;) 就是在 $1$ 到 $\sqrt{n}$ 之间的数字中挨个检查它们能否整除 $n$ (当然, 除了 $1$ 以外). 如果它们中只要有一个能整除 (当然, $1$ 例外), 就说明被测数 $n$ &lt;strong&gt;不为素数&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220509231912.png&quot; alt=&quot;20220509231912&quot; /&gt;&lt;/p&gt;
+
 &lt;h3 id=&quot;费马小定理和伪素数-carmichael-number&quot;&gt;费马小定理和伪素数 (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Carmichael Number&lt;/code&gt;)&lt;/h3&gt;
+
+&lt;p&gt;进一步地, 我们还知道 &lt;strong&gt;费马小定理&lt;/strong&gt; 的结论:&lt;/p&gt;
+
+&lt;p&gt;对任意整数 $x$ 和素数 $p$, 若 $x ~\text{mod}~p \neq 0$, 则均满足&lt;/p&gt;
+
+\[x^{p-1} ~\equiv~ 1 ~ (\text{mod} ~ p)\]
+
+&lt;p&gt;因此看上去, 利用时间复杂度为 &lt;strong&gt;线性&lt;/strong&gt; 的 &lt;strong&gt;快速模幂算法&lt;/strong&gt; 随机挑选满足条件的整数 $x$, 测试 $x^{n-1}$ 即可检测被测数 $n$ 是否为素数.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220509232159.png&quot; alt=&quot;20220509232159&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;然而不幸的是, 满足费马小定理只是一个数 $n$ 为素数的 &lt;strong&gt;必要条件&lt;/strong&gt;, 一类被称为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Carmichael Numbers&lt;/code&gt; (伪素数) 的合数 (非素数) 同样满足费马小定理:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220509232313.png&quot; alt=&quot;20220509232313&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;因此, 由于伪素数的存在, 我们无法直接应用费马小定理检测某个数 $n$ 是否为素数.&lt;/p&gt;
 
 &lt;h2 id=&quot;随机素数判定法&quot;&gt;随机素数判定法&lt;/h2&gt;
 
-&lt;h2 id=&quot;miller-rabin-素数判定法&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Miller-Rabin&lt;/code&gt; 素数判定法&lt;/h2&gt;
+&lt;p&gt;下面介绍 &lt;strong&gt;随机素数判定法&lt;/strong&gt; (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Randomized Primality Testing&lt;/code&gt;):&lt;/p&gt;
+
+&lt;h2 id=&quot;rabin-miller-素数判定法&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Rabin-Miller&lt;/code&gt; 素数判定法&lt;/h2&gt;
+
+&lt;p&gt;最后介绍 &lt;strong&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Rabin-Miller&lt;/code&gt; 素数判定法&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;h2 id=&quot;相关习题解析&quot;&gt;相关习题解析&lt;/h2&gt;
+
 </description>
         <pubDate>Sat, 02 Apr 2022 00:00:00 +0100</pubDate>
         <link>http://localhost:4000/2022/04/02/Ch8-COMP26120/</link>
