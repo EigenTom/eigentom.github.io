@@ -1,6 +1,30 @@
 [
   
     {
+      "title"    : "数据结构与算法： 复习",
+      "subtitle" : "REVISION",
+      "tags"     : "课程笔记, 数据结构与算法, 大二下期末总复习",
+      "url"      : "/2022/05/22/REV-COMP26120/",
+      "date"     : "2022-05-22 00:00:00 +0100"
+    } ,
+  
+    {
+      "title"    : "计算机图形学导论：相关题目解析",
+      "subtitle" : "Revision",
+      "tags"     : "课程笔记, 计算机图形学, 大二下期末总复习",
+      "url"      : "/2022/05/21/REV-COMP27112/",
+      "date"     : "2022-05-21 00:00:00 +0100"
+    } ,
+  
+    {
+      "title"    : "数据结构与算法： 可计算性问题",
+      "subtitle" : "(In)Tractability Problem",
+      "tags"     : "课程笔记, 数据结构与算法",
+      "url"      : "/2022/05/01/Ch9-COMP26120/",
+      "date"     : "2022-05-01 00:00:00 +0100"
+    } ,
+  
+    {
       "title"    : "数据结构与算法： 素数查找问题",
       "subtitle" : "Primality Testing",
       "tags"     : "课程笔记, 数据结构与算法",
@@ -14,6 +38,14 @@
       "tags"     : "课程笔记, 数据结构与算法",
       "url"      : "/2022/03/25/Ch7-COMP26120/",
       "date"     : "2022-03-25 00:00:00 +0000"
+    } ,
+  
+    {
+      "title"    : "计算机图形学导论：渲染",
+      "subtitle" : "Rendering",
+      "tags"     : "课程笔记, 计算机图形学",
+      "url"      : "/2022/03/15/Ch6-COMP27112/",
+      "date"     : "2022-03-15 00:00:00 +0000"
     } ,
   
     {
@@ -44,8 +76,16 @@
       "title"    : "数据结构与算法： 线性规划",
       "subtitle" : "Introduction to Linear Programming",
       "tags"     : "课程笔记, 数据结构与算法",
-      "url"      : "/2022/03/12/Ch5-COMP26120/",
-      "date"     : "2022-03-12 00:00:00 +0000"
+      "url"      : "/2022/03/10/Ch5-COMP26120/",
+      "date"     : "2022-03-10 00:00:00 +0000"
+    } ,
+  
+    {
+      "title"    : "计算机图形学导论：投影",
+      "subtitle" : "Projection",
+      "tags"     : "课程笔记, 计算机图形学",
+      "url"      : "/2022/03/06/Ch5-COMP27112/",
+      "date"     : "2022-03-06 00:00:00 +0000"
     } ,
   
     {
@@ -59,9 +99,17 @@
     {
       "title"    : "基于 Spring 框架的软件工程实践",
       "subtitle" : "Web Development with Java",
-      "tags"     : "课程笔记, 软件工程概论",
+      "tags"     : "课程笔记, 软件工程概论, 大二下期末总复习",
       "url"      : "/2022/03/01/COMP23412/",
       "date"     : "2022-03-01 00:00:00 +0000"
+    } ,
+  
+    {
+      "title"    : "计算机图形学导论：视角",
+      "subtitle" : "Viewing",
+      "tags"     : "课程笔记, 计算机图形学",
+      "url"      : "/2022/02/28/Ch4-COMP27112/",
+      "date"     : "2022-02-28 00:00:00 +0000"
     } ,
   
     {
@@ -70,6 +118,14 @@
       "tags"     : "课程笔记, 数据结构与算法",
       "url"      : "/2022/02/25/Ch3-COMP26120/",
       "date"     : "2022-02-25 00:00:00 +0000"
+    } ,
+  
+    {
+      "title"    : "计算机图形学导论：渲染多边形",
+      "subtitle" : "Polygons",
+      "tags"     : "课程笔记, 计算机图形学",
+      "url"      : "/2022/02/23/Ch3-COMP27112/",
+      "date"     : "2022-02-23 00:00:00 +0000"
     } ,
   
     {
@@ -106,7 +162,7 @@
   
     {
       "title"    : "计算机图形学导论：矩阵, 向量和着色器",
-      "subtitle" : "Introduction to KNN Algorithm",
+      "subtitle" : "Matrices, Vectors and Shaders",
       "tags"     : "课程笔记, 计算机图形学",
       "url"      : "/2022/02/11/Ch2-COMP27112/",
       "date"     : "2022-02-11 00:00:00 +0000"
@@ -117,14 +173,6 @@
       "subtitle" : "Introduction to Knowledge-based AI + Chapter 1",
       "tags"     : "课程笔记, 人工智能",
       "url"      : "/2022/02/11/Ch0-COMP24412/",
-      "date"     : "2022-02-11 00:00:00 +0000"
-    } ,
-  
-    {
-      "title"    : "机器学习",
-      "subtitle" : "Introduction to KNN Algorithm",
-      "tags"     : "课程笔记, 人工智能",
-      "url"      : "/2022/02/11/Ch1-COMP24112/",
       "date"     : "2022-02-11 00:00:00 +0000"
     } ,
   
@@ -179,7 +227,7 @@
     {
       "title"    : "数据结构与算法 复习",
       "subtitle" : "REVISION",
-      "tags"     : "数据结构和算法",
+      "tags"     : "数据结构与算法",
       "url"      : "/2022/01/05/COMP26120-REV/",
       "date"     : "2022-01-05 00:00:00 +0000"
     } ,
@@ -315,7 +363,7 @@
     {
       "title"    : "Prolog 学习 Ch6",
       "subtitle" : "Cut and Negation",
-      "tags"     : "课程笔记, COMP24011",
+      "tags"     : "课程笔记, Prolog",
       "url"      : "/2021/10/31/COMP24011-Prolog-Ch6/",
       "date"     : "2021-10-31 00:00:00 +0100"
     } ,
@@ -347,7 +395,7 @@
     {
       "title"    : "Prolog 学习 Ch5",
       "subtitle" : "Arithmetics",
-      "tags"     : "课程笔记, COMP24011",
+      "tags"     : "课程笔记, Prolog",
       "url"      : "/2021/10/16/COMP24011-Prolog-Ch5/",
       "date"     : "2021-10-16 00:00:00 +0100"
     } ,
@@ -355,7 +403,7 @@
     {
       "title"    : "Prolog 学习 Ch4",
       "subtitle" : "Lists",
-      "tags"     : "课程笔记, COMP24011",
+      "tags"     : "课程笔记, Prolog",
       "url"      : "/2021/10/15/COMP24011-Prolog-Ch4/",
       "date"     : "2021-10-15 00:00:00 +0100"
     } ,
@@ -363,7 +411,7 @@
     {
       "title"    : "Prolog 学习 Ch3",
       "subtitle" : "Recursion",
-      "tags"     : "课程笔记, COMP24011",
+      "tags"     : "课程笔记, Prolog",
       "url"      : "/2021/10/13/COMP24011-Prolog-Ch3/",
       "date"     : "2021-10-13 00:00:00 +0100"
     } ,
@@ -371,7 +419,7 @@
     {
       "title"    : "Prolog 学习 Ch2",
       "subtitle" : "Unification &amp; Proof Search",
-      "tags"     : "课程笔记, COMP24011",
+      "tags"     : "课程笔记, Prolog",
       "url"      : "/2021/10/12/COMP24011-Prolog-Ch2/",
       "date"     : "2021-10-12 00:00:00 +0100"
     } ,
@@ -379,7 +427,7 @@
     {
       "title"    : "Prolog 学习 Ch1",
       "subtitle" : "Facts,Rules and Queries",
-      "tags"     : "课程笔记, COMP24011",
+      "tags"     : "课程笔记, Prolog",
       "url"      : "/2021/10/10/COMP24011-Prolog-Ch1/",
       "date"     : "2021-10-10 00:00:00 +0100"
     } ,

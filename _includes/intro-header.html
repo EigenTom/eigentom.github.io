@@ -48,8 +48,15 @@
                     <h2 class="subheading">{{ page.subtitle }}</h2>
                     <span class="meta">Posted by {% if page.author %}{{ page.author }}{% else %}{{ site.title }}{% endif %} on {{ page.date | date: "%B %-d, %Y" }}</span>
 
+
                     {% if site.busuanzi-active %}
-                    <span class="meta" id="busuanzi_container_site_pv">Viewed <b style="color: var(--sidebar-main-color); background-color: transparent !important; font-style: bold;"><i><span id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-spin"></i></span></i></b> Times</span>
+                    
+                    <!--
+                    <span class="meta" id="busuanzi_container_site_pv">Viewed <b style="color: var(--sidebar-main-color); background-color: transparent !important; font-style: bold;"><i><span id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-spin"></i></span></i></b> Times</span>-->
+
+                    <span class="meta" id="busuanzi_container_page_pv">Viewed <b style="color: var(--sidebar-main-color); background-color: transparent !important; font-style: bold;"><i><span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span></i></b> Times<br></span>
+
+                    
                     {% endif %}
                 </div>
             </div>
