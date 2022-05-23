@@ -4,7 +4,7 @@ engtitle: RANDOM LINEAR SPACE
 SEOTitle: 某一般线性空间 | Ramdom Linear Space
 header-img: img/post-bg-desk.jpg
 email: Luyi1720839132@Gmail.com
-description: "由于相关法律法规规定, 该内容无法显示."
+description: "由于作者太菜, 博客内容无法显示."
 keyword: "菜"
 url: "https://kirisamer.github.io"          # your host, for absolute URL
 baseurl: ""      # for example, '/blog' if your blog hosted on 'host/blog'
@@ -99,7 +99,8 @@ featured-condition-size: 1              # A tag will be featured if the size of 
 chrome-tab-theme-color: "#333"
 service-worker: true
 
-
+# Control Google AD
+allowAds: false
 
 # MathJax rendering for layout:page (e.g. post preview)
 page-mathjax: true
@@ -120,5 +121,8 @@ friends: [
     },{
         title: "GNEFIL",
         href: "Gnefil.github.io"
+    },{
+        title: "NEKO ASAKURA",
+        href: "https://www.asakura.jp.net/release/"
     }
 ]

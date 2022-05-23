@@ -50,7 +50,9 @@ layout: default
         {% include friends.html %}
 
         <!-- Ads -->
-        <!--{% include ads.html %}-->
+        {% if site.allowAds == true %}
+          {% include ads.html %} 
+        {% endif %}    
       </div>
       {% endif %}
     </div>
