@@ -45,19 +45,32 @@ header-img: "img/post-bg-desk.jpg"
     {% if paginator.previous_page %}
     <li class="previous">
         <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">&larr; Newer Posts</a>
-    </li>
+    </li>    
+    {% endif %}
     
     {% if site.dispCurrPage == true %}
+
+
+    {% if paginator.previous_page != null and paginator.next_page == null %}
     <li>
-        <a class="pageIndicator">{{paginator.page}} / {{paginator.total_pages}}</a>
+        <a class="pageIndicator" style="margin-left: -110px">{{paginator.page}} / {{paginator.total_pages}}</a>
     </li>    
     {% endif %}
 
+    {% if paginator.next_page != null and paginator.previous_page == null %}
+    <li>
+        <a class="pageIndicator" style="margin-left: 110px">{{paginator.page}} / {{paginator.total_pages}}</a>
+    </li>    
+    {% endif %}    
+
+    {% if paginator.next_page and paginator.previous_page %}
+    <li>
+        <a class="pageIndicator">{{paginator.page}} / {{paginator.total_pages}}</a>
+    </li>
+    {% endif %}
+
     {% endif %}
     
-    
-    
-
     {% if paginator.next_page %}
     <li class="next">
         <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">Older Posts &rarr;</a>
