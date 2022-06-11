@@ -53,13 +53,13 @@ header-img: "img/post-bg-desk.jpg"
 
     {% if paginator.previous_page != null and paginator.next_page == null %}
     <li>
-        <a class="pageIndicator" style="margin-left: -110px">{{paginator.page}} / {{paginator.total_pages}}</a>
+        <a class="pageIndicator" style="margin-left: -120px">{{paginator.page}} / {{paginator.total_pages}}</a>
     </li>    
     {% endif %}
 
     {% if paginator.next_page != null and paginator.previous_page == null %}
     <li>
-        <a class="pageIndicator" style="margin-left: 110px">{{paginator.page}} / {{paginator.total_pages}}</a>
+        <a class="pageIndicator" style="margin-left: 120px">{{paginator.page}} / {{paginator.total_pages}}</a>
     </li>    
     {% endif %}    
 
