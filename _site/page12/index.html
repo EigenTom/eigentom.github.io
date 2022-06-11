@@ -337,6 +337,51 @@
         col-xs-12 postlist-container">
         
 <div class="post-preview">
+    <a href="/2021/03/02/Ch1-COMP11212/">
+        <h2 class="post-title">
+            Ch1 计算理论 语言和正则表达式
+        </h2>
+        
+        <h3 class="post-subtitle">
+            Meet Language and Regular Expressions
+        </h3>
+        
+        <!--
+        <div class="post-content-preview">
+            
+                # 语言和正则表达式
+在本章中, 我们将概述语言和正则表达式的相关定义, 性质与其他内容. 
+
+
+
+## 1. 基本术语和概念
+我们首先引入一系列基本概念:
+
+**定义 1.1.1** 符号
+>符号是组成字符串的最小单位, 不可被继续分割, 在形式逻辑中亦被称为字母 (`letter`), 常使用 $x, y, z, \cdots$ 表示.  
+
+
+
+**定义 1.1.2** 字母表
+>字母...
+            
+        </div>
+        -->
+        
+        <div class="post-content-preview">
+                
+                    本章概述语言和正则表达式的定义, 性质与其他内容.
+                
+        </div>
+            
+    </a>
+    <p class="post-meta">
+        Posted by R1NG on March 2, 2021
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2021/03/01/Ch0-COMP11212/">
         <h2 class="post-title">
             Ch0 计算理论 绪论
@@ -349,16 +394,14 @@
         <!--
         <div class="post-content-preview">
             
-                计算理论: 绪论
-计算理论隶属于理论计算机科学和数学的研究范畴, 其研究对象是计算这一概念本身, 分析和解决什么是可计算的, 而什么不可计算; 有哪些可行的计算模式, 以及对计算的复杂度, 亦即需要耗费多少时间或存储.
+                # 计算理论: 绪论
+计算理论隶属于理论计算机科学和数学的研究范畴, 其研究对象是计算这一概念本身, 分析和解决什么是可计算的, 而什么不可计算; 有哪些可行的计算模式, 以及对计算的复杂度, 亦即需要耗费多少时间或存储. 
 
 本课程的主要介绍内容为正则表达式, 自动机和上下文无关语法:
 
-1. 定义语言和正则表达式
+## 1. 定义语言和正则表达式
 概述语言和正则表达式的相关定义, 性质与其他内容:
-
-  介绍基本术语和概念
- ...
+* 介绍基本术语...
             
         </div>
         -->
@@ -389,11 +432,11 @@
         <!--
         <div class="post-content-preview">
             
-                卷积神经网络
+                # 卷积神经网络
 
-卷积神经网络的结构和之前所介绍的神经网络相似, 都可以通过对不同层的组合实现网络的构建. 在卷积神经网络中, 我们新引入了 卷积 (Convolution) 层和 池化 (Pooling) 层.
+卷积神经网络的结构和之前所介绍的神经网络相似, 都可以通过对不同层的组合实现网络的构建. 在卷积神经网络中, 我们新引入了 **卷积 (`Convolution`)** 层和 **池化 (`Pooling`)** 层. 
 
-在详细介绍卷积层和池化层的原理与实现之前, 我们首先简述通过组装层构建 CNN 的方法. 对于常规的神经网络而言, 连接层可以用 Affine 层实现, 而激活函数层中可以使用 R...
+在详细介绍卷积层和池化层的原理与实现之前, 我们首先简述通过组装层构建 `CNN` 的方法. 对于常规的神经网络而言, 连接层可以用 `Affine`...
             
         </div>
         -->
@@ -424,10 +467,10 @@
         <!--
         <div class="post-content-preview">
             
-                神经网络优化算法技巧
-在前一章的介绍中, 我们已经明白, 神经网络学习的本质是一个优化问题: 通过多轮迭代对参数进行最优化, 从而使得损失函数的值尽可能的小. 和普通的最优化问题不同, 神经网络的最优化问题涉及的参数空间复杂, 无法使用解析的方式求得最优解, 而在深度神经网络中, 参数的规模则更加庞大.
+                # 神经网络优化算法技巧
+在前一章的介绍中, 我们已经明白, 神经网络学习的本质是一个优化问题: 通过多轮迭代对参数进行最优化, 从而使得损失函数的值尽可能的小. 和普通的最优化问题不同, 神经网络的最优化问题涉及的参数空间复杂, 无法使用解析的方式求得最优解, 而在深度神经网络中, 参数的规模则更加庞大. 
 
-上一章中, 我们简述了随机梯度下降法作为神经网络训练过程中的参数优化方法. 在本节中,...
+上一章中, 我们简述了随机梯度下降法作为神经网络训练过程中的参数优化方法. 在本...
             
         </div>
         -->
@@ -458,11 +501,11 @@
         <!--
         <div class="post-content-preview">
             
-                误差反向传播法
-1. 反向传播
-在前一章所介绍的前馈神经网络中,神经网络的输入层, 经过各个隐藏层激活函数的计算后到达输出层, 并输出结果. 在整个计算过程中, 数据始终遵循 “从前一层流动到当前层, 在当前层被处理后再流向下一层” 的流动方向, 也就是正向流动. 因此, 这样的过程也被称为 正向传播.
+                # 误差反向传播法
+## 1. 反向传播
+在前一章所介绍的前馈神经网络中,神经网络的输入层, 经过各个隐藏层激活函数的计算后到达输出层, 并输出结果. 在整个计算过程中, 数据始终遵循 “从前一层流动到当前层, 在当前层被处理后再流向下一层” 的流动方向, 也就是正向流动. 因此, 这样的过程也被称为 **正向传播**. 
 
-下面我们考虑和正向传播相对的 反向传播: 由于在不同节点处数据都被经过相较于整体而言简...
+下面我们考虑和正向传播相对的 **反向传播**: 由于在不同节点处...
             
         </div>
         -->
@@ -493,12 +536,11 @@
         <!--
         <div class="post-content-preview">
             
-                损失函数和梯度下降法
-1. 基本定义和术语
-机器学习是指尽可能避免人的介入, 而令程序尝试从收集到的数据中发掘模式与规律, 从而解决问题的方法. 神经网络或深度学习相比以往人为指定特征向量并使用分类器进行学习的方法, 更能避免人为介入, 通过对图像直接学习从而解决问题. 和待处理的问题无关, 神经网络可以直接将数据作为原始数据进行  “端到端” 的学习.
+                # 损失函数和梯度下降法
+## 1. 基本定义和术语
+机器学习是指尽可能避免人的介入, 而令程序尝试从收集到的数据中发掘模式与规律, 从而解决问题的方法. 神经网络或深度学习相比以往人为指定特征向量并使用分类器进行学习的方法, 更能避免人为介入, 通过对图像直接学习从而解决问题. 和待处理的问题无关, 神经网络可以直接将数据作为原始数据进行  “端到端” 的学习. 
 
-定义1.1: 训练数据和测试数据
-...
+**定义1.1**: ...
             
         </div>
         -->
@@ -529,15 +571,13 @@
         <!--
         <div class="post-content-preview">
             
-                感知机与神经网络
-1. 感知机的定义
-动物的神经系统中最基础的组成单元为神经元 (神经细胞), 用于接受刺激, 产生兴奋并传导兴奋. 神经元有且只有激活态和非激活态两种状态, 并且只有神经元处于激活态时, 传入的兴奋才会由它传出.
+                # 感知机与神经网络
+## 1. 感知机的定义
+动物的神经系统中最基础的组成单元为神经元 (神经细胞), 用于接受刺激, 产生兴奋并传导兴奋. 神经元有且只有激活态和非激活态两种状态, 并且只有神经元处于激活态时, 传入的兴奋才会由它传出. 
 
-感知机是神经网络最基本的组成单元, 其本质是以特征向量为自变量的分段函数, 能够完整地模拟神经元的逻辑功能.
+感知机是神经网络最基本的组成单元, 其本质是以特征向量为自变量的分段函数, 能够完整地模拟神经元的逻辑功能. 
 
-一个标准的感知机包含以下三个组成部分:
-
-  输...
+一个标准的感知机包含以下三个组成部...
             
         </div>
         -->
@@ -568,16 +608,15 @@
         <!--
         <div class="post-content-preview">
             
-                从零开始的深度学习: 序
+                # 从零开始的深度学习: 序
 
-本系列博文为笔者基于《深度学习入门: 基于Python的理论与实现》, 结合个人思考和扩展阅读而成的读书笔记, 内容安排上因笔者具备的背景知识范围和兴趣而与原书有一定差别.
+本系列博文为笔者基于《深度学习入门: 基于Python的理论与实现》, 结合个人思考和扩展阅读而成的读书笔记, 内容安排上因笔者具备的背景知识范围和兴趣而与原书有一定差别. 
 
 系列博文的具体结构如下:
 
-Ch1: 感知机 Perceptron 与神经网络的定义, 实现和扩展
-1. 感知机的定义
-2. 感知机的局限性和扩展的多层感知机: 以异或门电路的实现为例
-3....
+## `Ch1`: 感知机 `Perceptron` 与神经网络的定义, 实现和扩展
+### 1. 感知机的定义
+### 2. 感知机的局限性和扩展的多层感...
             
         </div>
         -->
@@ -608,19 +647,17 @@ Ch1: 感知机 Perceptron 与神经网络的定义, 实现和扩展
         <!--
         <div class="post-content-preview">
             
-                Ch9 汇编器和编译器
+                # Ch9 汇编器和编译器
 
-1. 汇编器 Assembler
+## 1. 汇编器 `Assembler`
 
-汇编器的主要作用是将程序设计者使用助记符编写的汇编程序翻译为可以被硬件直接读取和执行的二进制码.
+汇编器的主要作用是将程序设计者使用助记符编写的汇编程序翻译为可以被硬件直接读取和执行的二进制码. 
 
 一个最简单的汇编器应该能做到:
-
-  识别并删去程序中的注释
-  识别标签和被定义的有名常量:
-    1
-2
-         height_senpai   EQU     170     ; "height_senpai" i...
+1. 识别并删去程序中的注释
+2. 识别标签和被定义的有名常量:
+   ~~~
+            height_senpai   EQU     170     ; "heigh...
             
         </div>
         -->
@@ -651,20 +688,18 @@ Ch1: 感知机 Perceptron 与神经网络的定义, 实现和扩展
         <!--
         <div class="post-content-preview">
             
-                Ch8 I/O 设备: 汇编语言视角
+                # Ch8 `I/O` 设备: 汇编语言视角
 
 Motivation:
+1. 了解程序与外设通讯的主要方式: 轮询和中断
+2. 明确中断发生时程序所需要进行的操作
 
-  了解程序与外设通讯的主要方式: 轮询和中断
-  明确中断发生时程序所需要进行的操作
 
+## 1. 外设与轮询通讯方式
+### 1.1 内存映射
 
-1. 外设与轮询通讯方式
-1.1 内存映射
-
-一种使计算机和外设能够实现双向通讯的方式是内存映射 Memory Mapping:
-
-  将外设本身通过某种方式映射到一个不被占用的内存地址上, 而处理器从外设读取数据或传输数据到外设的行为...
+一种使计算机和外设能够实现双向通讯的方式是内存映射 `Memory Mapping`:
+1. 将外设本身通过某种方式映射到一个不被占用的内存地址上, 而处理器从外设读...
             
         </div>
         -->
@@ -682,45 +717,6 @@ Motivation:
 </div>
 <hr>
 
-<div class="post-preview">
-    <a href="/2020/12/12/Ch7-COMP12111/">
-        <h2 class="post-title">
-            Ch7 计算机组成与结构 输入/输出设备
-        </h2>
-        
-        <h3 class="post-subtitle">
-            The end of the COMP12111 journey
-        </h3>
-        
-        <!--
-        <div class="post-content-preview">
-            
-                Ch7 输入/输出设备
-
-在本章中，我们将对输入/输出设备和处理器之间的通讯方式进行部分的解释和介绍， 包括 I/O 内存映射，串/并口通讯和 USB 协议，以及简介使用中断和直接内存访问 （DMA）方法，通过程序控制的数据传输方法。
-
-
-  I/O 设备和处理器间的数据传输方法
-  I/O 内存映射 (MMIO)
-  串/并口通讯方式和 USB 协议
-  硬件中断方法和直接内存访问 (DM...
-            
-        </div>
-        -->
-        
-        <div class="post-content-preview">
-                
-                    在本章中，我们将对输入/输出设备和处理器之间的通讯方式进行部分的解释和介绍， 包括I/O内存映射， 串/并口通讯和 USB协议， 以及简介使用中断和直接内存访问（DMA）方法，通过程序控制的数据传输方法。
-                
-        </div>
-            
-    </a>
-    <p class="post-meta">
-        Posted by R1NG on December 12, 2020
-    </p>
-</div>
-<hr>
-
 
 <!-- Pager -->
 
@@ -730,6 +726,17 @@ Motivation:
         <a href="/page11">&larr; Newer Posts</a>
     </li>
     
+    
+    <li>
+        <a class="pageIndicator">12 / 15</a>
+    </li>    
+    
+
+    
+    
+    
+    
+
     
     <li class="next">
         <a href="/page13">Older Posts &rarr;</a>
@@ -777,7 +784,7 @@ Motivation:
         
         
         
-                <a data-sort="0133" 
+                <a data-sort="0134" 
                     href="/archive/?tag=COMP12111"
                     title="COMP12111"
                     rel="10">COMP12111</a>
@@ -785,14 +792,14 @@ Motivation:
                 <a data-sort="0072" 
                     href="/archive/?tag=%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0"
                     title="课程笔记"
-                    rel="71">课程笔记</a>
+                    rel="72">课程笔记</a>
         
-                <a data-sort="0103" 
+                <a data-sort="0104" 
                     href="/archive/?tag=%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0"
                     title="前端学习"
                     rel="40">前端学习</a>
         
-                <a data-sort="0103" 
+                <a data-sort="0104" 
                     href="/archive/?tag=50P50D"
                     title="50P50D"
                     rel="40">50P50D</a>
@@ -800,29 +807,29 @@ Motivation:
                 <a data-sort="0131" 
                     href="/archive/?tag=%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD"
                     title="人工智能"
-                    rel="12">人工智能</a>
+                    rel="13">人工智能</a>
         
-                <a data-sort="0131" 
+                <a data-sort="0132" 
                     href="/archive/?tag=%E9%80%BB%E8%BE%91%E5%AD%A6"
                     title="逻辑学"
                     rel="12">逻辑学</a>
         
-                <a data-sort="0132" 
+                <a data-sort="0133" 
                     href="/archive/?tag=%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95"
                     title="数据结构与算法"
                     rel="11">数据结构与算法</a>
         
-                <a data-sort="0133" 
+                <a data-sort="0134" 
                     href="/archive/?tag=COMP15111"
                     title="COMP15111"
                     rel="10">COMP15111</a>
         
-                <a data-sort="0134" 
+                <a data-sort="0135" 
                     href="/archive/?tag=%E6%89%A9%E5%B1%95%E8%87%AA%E4%B9%A0"
                     title="扩展自习"
                     rel="9">扩展自习</a>
         
-                <a data-sort="0134" 
+                <a data-sort="0135" 
                     href="/archive/?tag=COMP21111"
                     title="COMP21111"
                     rel="9">COMP21111</a>
@@ -830,59 +837,59 @@ Motivation:
                 <a data-sort="0136" 
                     href="/archive/?tag=%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0"
                     title="机器学习"
-                    rel="7">机器学习</a>
+                    rel="8">机器学习</a>
         
-                <a data-sort="0136" 
+                <a data-sort="0137" 
                     href="/archive/?tag=%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6"
                     title="计算机图形学"
                     rel="7">计算机图形学</a>
         
-                <a data-sort="0136" 
+                <a data-sort="0137" 
                     href="/archive/?tag=COMP11212"
                     title="COMP11212"
                     rel="7">COMP11212</a>
         
-                <a data-sort="0137" 
+                <a data-sort="0138" 
                     href="/archive/?tag=Prolog"
                     title="Prolog"
                     rel="6">Prolog</a>
         
-                <a data-sort="0139" 
+                <a data-sort="0140" 
+                    href="/archive/?tag=%E5%A4%A7%E4%BA%8C%E4%B8%8B%E6%9C%9F%E6%9C%AB%E6%80%BB%E5%A4%8D%E4%B9%A0"
+                    title="大二下期末总复习"
+                    rel="4">大二下期末总复习</a>
+        
+                <a data-sort="0140" 
                     href="/archive/?tag=%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AF%BC%E8%AE%BA"
                     title="数据库导论"
                     rel="4">数据库导论</a>
         
-                <a data-sort="0139" 
+                <a data-sort="0140" 
                     href="/archive/?tag=COMP15212"
                     title="COMP15212"
                     rel="4">COMP15212</a>
         
-                <a data-sort="0140" 
-                    href="/archive/?tag=%E5%A4%A7%E4%BA%8C%E4%B8%8B%E6%9C%9F%E6%9C%AB%E6%80%BB%E5%A4%8D%E4%B9%A0"
-                    title="大二下期末总复习"
-                    rel="3">大二下期末总复习</a>
-        
-                <a data-sort="0140" 
+                <a data-sort="0141" 
                     href="/archive/?tag=%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95"
                     title="数据结构和算法"
                     rel="3">数据结构和算法</a>
         
-                <a data-sort="0141" 
+                <a data-sort="0142" 
                     href="/archive/?tag=%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7"
                     title="奇技淫巧"
                     rel="2">奇技淫巧</a>
         
-                <a data-sort="0141" 
+                <a data-sort="0142" 
                     href="/archive/?tag=%E7%AE%97%E6%B3%95"
                     title="算法"
                     rel="2">算法</a>
         
-                <a data-sort="0141" 
+                <a data-sort="0142" 
                     href="/archive/?tag=%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E6%A6%82%E8%AE%BA"
                     title="软件工程概论"
                     rel="2">软件工程概论</a>
         
-                <a data-sort="0141" 
+                <a data-sort="0142" 
                     href="/archive/?tag=Lab"
                     title="Lab"
                     rel="2">Lab</a>
@@ -975,15 +982,6 @@ Motivation:
 
 
         <!-- Ads -->
-        
-          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- first shot -->
-<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6487568398225121" data-ad-slot="4814308751"
-     data-ad-format="auto" data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
- 
             
       </div>
       

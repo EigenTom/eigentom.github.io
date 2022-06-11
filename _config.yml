@@ -14,6 +14,9 @@ github_repo: "https://github.com/kirisamer/kirisamer.github.io.git" # you code r
 # Publish posts or collection documents with a future date.
 future: true
 
+# Display page numbers between previous page and next page button
+dispCurrPage: true
+
 # SNS settings
 RSS: false
 telegram_username:  Kirisame_Marisa

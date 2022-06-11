@@ -29,6 +29,7 @@
     --main-post-header: #F9F9F9;
     --quote-color: rgba(255, 255, 255, 0.1);
     user-select: none;
+    -webkit-user-select: none;
   }  
 }
 
@@ -63,7 +64,8 @@
     --main-post-header: #000000;
     --quote-color: rgba(0, 0, 0, 0.1);
     user-select: none;
-}
+    -webkit-user-select: none;
+  }
 }
 
 
@@ -1565,6 +1567,15 @@ footer .copyright a:focus {
   background-color: white;
   border-radius: 0;
 }
+
+.pager li > a.pageIndicator {
+  border:  none !important;
+}
+.pager li > a.pageIndicator:hover{
+  border:  none !important;
+  background-color: transparent;
+}
+
 @media only screen and (min-width: 768px) {
   .pager li > a,
   .pager li > span {

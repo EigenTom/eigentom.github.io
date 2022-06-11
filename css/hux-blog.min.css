@@ -1567,6 +1567,15 @@ footer .copyright a:focus {
   background-color: white;
   border-radius: 0;
 }
+
+.pager li > a.pageIndicator {
+  border:  none !important;
+}
+.pager li > a.pageIndicator:hover{
+  border:  none !important;
+  background-color: transparent;
+}
+
 @media only screen and (min-width: 768px) {
   .pager li > a,
   .pager li > span {

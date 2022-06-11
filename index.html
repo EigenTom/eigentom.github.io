@@ -46,7 +46,18 @@ header-img: "img/post-bg-desk.jpg"
     <li class="previous">
         <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">&larr; Newer Posts</a>
     </li>
+    
+    {% if site.dispCurrPage == true %}
+    <li>
+        <a class="pageIndicator">{{paginator.page}} / {{paginator.total_pages}}</a>
+    </li>    
     {% endif %}
+
+    {% endif %}
+    
+    
+    
+
     {% if paginator.next_page %}
     <li class="next">
         <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">Older Posts &rarr;</a>

@@ -5,9 +5,236 @@
     <description>由于作者太菜, 博客内容无法显示.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 23 May 2022 12:22:11 +0100</pubDate>
-    <lastBuildDate>Mon, 23 May 2022 12:22:11 +0100</lastBuildDate>
+    <pubDate>Sat, 11 Jun 2022 08:54:21 +0100</pubDate>
+    <lastBuildDate>Sat, 11 Jun 2022 08:54:21 +0100</lastBuildDate>
     <generator>Jekyll v4.2.1</generator>
+    
+      <item>
+        <title>计算机图形学导论：复习</title>
+        <description>&lt;h1 id=&quot;计算机图形学导论-复习&quot;&gt;计算机图形学导论: 复习&lt;/h1&gt;
+
+&lt;h2 id=&quot;quiz&quot;&gt;Quiz&lt;/h2&gt;
+
+&lt;h3 id=&quot;computer-graphics&quot;&gt;Computer Graphics&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220521125744.png&quot; alt=&quot;20220521125744&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 注意 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Fragment&lt;/code&gt; 的定义.)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220521125811.png&quot; alt=&quot;20220521125811&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 实际上还是和答案有区别的: 阳间的计算机图形学框架会提供预先实现的着色器, 甚至会在用户未指定着色器时使用默认着色器渲染.)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220521125911.png&quot; alt=&quot;20220521125911&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 这个要是考了的话我把出题人吃下去…)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220521125941.png&quot; alt=&quot;20220521125941&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220521130037.png&quot; alt=&quot;20220521130037&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 因为为了统一表示平移变换 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Translation&lt;/code&gt;, 旋转变换 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Rotation&lt;/code&gt; 和拉伸变换 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Scaling&lt;/code&gt;, 我们使用维度为 $4$ 而不为 $3$ 的齐次坐标)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220521130047.png&quot; alt=&quot;20220521130047&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 同时回顾以任意三维向量作为旋转轴时应该怎么做: 旋转轴转换到坐标轴上 - 执行旋转 - 转换回来)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220521130153.png&quot; alt=&quot;20220521130153&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 向量归一化的基本定义.)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220521130309.png&quot; alt=&quot;20220521130309&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220521130220.png&quot; alt=&quot;20220521130220&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 注意向量点乘和叉乘的基本性质, 同时回顾使用右手定则确定向量叉乘结果方向的方法)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220521130318.png&quot; alt=&quot;20220521130318&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 栅格化, 也称曲面细分, 注意 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;OpenGL&lt;/code&gt; 只能处理凸多边形. 其实解答这类题目最困难的地方在于单词背不下来….)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220521130440.png&quot; alt=&quot;20220521130440&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 视角控制的是我们观察模型的方式.)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220521130513.png&quot; alt=&quot;20220521130513&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 这也是为什么 “用固定视点模拟虚拟相机” 可行的原因.)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220521130547.png&quot; alt=&quot;20220521130547&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 实在记不住的话就回顾三维图形管线流程图: 模型变换总在视角变换之前应用.)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220521130626.png&quot; alt=&quot;20220521130626&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 平行投影和透视投影是最基本的两种投影方式.)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220521130702.png&quot; alt=&quot;20220521130702&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 此处注意 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Tetrahedron&lt;/code&gt; 就是 “台体/四面体”, 它是透视投影的视景体.)&lt;/p&gt;
+
+&lt;h3 id=&quot;image-processing&quot;&gt;Image Processing&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220606232905.png&quot; alt=&quot;20220606232905&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 计算方法不多赘述, 此处需要注意, 对于 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RGB&lt;/code&gt; 图像它包含三个颜色通道, 因此需要将计算出的, 存储单个颜色通道 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;intensity&lt;/code&gt; 的文件大小相应地 &lt;strong&gt;乘以$3$&lt;/strong&gt;.)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220606233032.png&quot; alt=&quot;20220606233032&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 第一点最全面, 也最准确. 第二点可以描述是仿射变换和镜头畸变, 第三点是图像处理的基本假设, 第四点则属于 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Region Processing&lt;/code&gt;.)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220606233152.png&quot; alt=&quot;20220606233152&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 注意 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Thresholding&lt;/code&gt; 的实质是将灰度图像转换为只包含 $0$ 和 $255$ 两种 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;intensity&lt;/code&gt; 的二值图, 其中黑色的部分是我们需要分离的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;object&lt;/code&gt;, 背景被统一设为白色)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220606233306.png&quot; alt=&quot;20220606233306&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 基于三原色理论, 我们可以使用三种基础颜色的混合得到大量的不同颜色, 同时三原色也和人眼视觉细胞对红, 绿, 蓝敏感的生理规律匹配.)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220606233425.png&quot; alt=&quot;20220606233425&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 回忆: 色彩空间的基本分类为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CIE&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;YCrCb&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Perceptual Space&lt;/code&gt;. 第一个是 $1931$ 年的古墓级标准, 第二个用于数字视频领域, 最后一个具备的特点是贴合视觉规律, 即: 我们关注色彩的变化而不是绝对准确的色彩表示. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CIE&lt;/code&gt; 色域图中边缘部分的不同色彩在人看来实际上非常相似, 这并不是我们所需要的)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220606233758.png&quot; alt=&quot;20220606233758&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 对基本 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Pointwise Processing&lt;/code&gt; 的变换原理和对应的变换矩阵表示需要非常熟悉! 显然 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Scaling&lt;/code&gt; 本质是对比度调节, 但是对比度调节中同时伴随了亮度变化.)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220606233929.png&quot; alt=&quot;20220606233929&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 回顾课上介绍的非线性变换曲线. 显然曲线的形状会决定 $x$ 轴对应 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;intensity value&lt;/code&gt; 被映射到的值. 基于曲线凹凸形状不同, 每个 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;intensity&lt;/code&gt; 可能被映射到不同的值, 具体会体现出多少效果, 体现出哪些效果完全依照曲线形状而定)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220606234145.png&quot; alt=&quot;20220606234145&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 回顾 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Slides&lt;/code&gt; 上那张曼哈顿街区的图: 灰度插值不仅会导致 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Image Histogram&lt;/code&gt; 中每一条柱之间存在间隙, 在视觉上还会有 “色彩断层” 的效果.)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220606234504.png&quot; alt=&quot;20220606234504&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 注意仿射变换是几何变换的 &lt;strong&gt;子集&lt;/strong&gt;, 任何几何变换一定会影响像素在图像坐标系中的坐标. 此处考虑一般性, 不许举诸原地旋转 $360\degree$, 缩放 $1$ 倍这种例子抬杠)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220606234646.png&quot; alt=&quot;20220606234646&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 此处注意回忆角分辨率的计算方式和性质. 可知在固定像素数量不变的情况下, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fov&lt;/code&gt; 越大角分辨率越大, 每个像素对应的视角度数越大, 能表示的最小物体的大小越大, 越不清晰.)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220609115129.png&quot; alt=&quot;20220609115129&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 注意卷积运算在图形处理中的实际作用: 检查image和template之间的相似性. 剩下的三个选项分别是template matching 卷积核, Box Filter/Gaussian Filter, Edge Detectors的功能, 它们本质上执行的都是卷积运算.)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220609164353.png&quot; alt=&quot;20220609164353&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 在正常情况下, 绝大多数噪音都是远小于实际信号的, 因此可以通过averaging让这些噪音自行互相抵消.)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220609164436.png&quot; alt=&quot;20220609164436&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 回顾课上内容: 常规的 box filter 对边缘的模糊效应最严重, Gaussian Filter 可以避免在边缘上出现 ringing effect, 但仍然会模糊边缘. median filter 则基本不会模糊边缘, 也就是 “retain significant image structures”.)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220609164618.png&quot; alt=&quot;20220609164618&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 这里实际上就是在描述 Gaussian Smoothing 不会导致边缘出现 ringing effect 的特性.)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220609164702.png&quot; alt=&quot;20220609164702&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 回忆对 Prewitt, Sobel 卷积核的, 拆成一个averaging kernel 和一个edge detection kernel 的拆解过程. 同时明确卷积计算的时间复杂度, 从此可以看出通过将 square template 拆分成两个卷积核分别计算可以节约大量的计算资源和时间.)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220609164844.png&quot; alt=&quot;20220609164844&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 避免 overflow 是老生常谈的事情)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220609164925.png&quot; alt=&quot;20220609164925&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 注意对 “边” 的定义. $12$ 题的做法实际上就是最简单的 Simple edge detection 进行的操作)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220609165136.png&quot; alt=&quot;20220609165136&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 回顾课上介绍的例子, template 源于图片本身)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220609165958.png&quot; alt=&quot;20220609165958&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 注意对 blob 的定义: 一系列连续的, 共享某些性质的像素的集合. 它被用于物体识别和表示, 我们可通过表示 blob 的外围构造 (path, chain code), 计算周长, 计算大致面积 (shoelace algorithm), 表示颜色等方式描述它的特征.)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220609170143.png&quot; alt=&quot;20220609170143&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 实际上这也是我们在课上唯一关心的, 检测 blob 的方式.)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220609170237.png&quot; alt=&quot;20220609170237&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 注意 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Path&lt;/code&gt; 是 &lt;strong&gt;首尾相连&lt;/strong&gt; 的. 一般可以用 chain code 表示.)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220609170308.png&quot; alt=&quot;20220609170308&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 回忆 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CCA&lt;/code&gt; 分为两次扫描, 得到的结果是: 同一个 blob 中所有的像素均被赋予相同的 label.)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220609170354.png&quot; alt=&quot;20220609170354&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 注意 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Central Moment&lt;/code&gt; 可视为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Moment&lt;/code&gt; 关于 blob 重心的偏置)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220609170600.png&quot; alt=&quot;20220609170600&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 注意此处 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;center of gravity&lt;/code&gt; 的计算方式: $\frac{M_{10}}{M_{00}}, \frac{M_{01}}{M_{00}}$.)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220609170728.png&quot; alt=&quot;20220609170728&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 回忆我们使用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;differential chain code&lt;/code&gt; 表示 blob 边缘的生成, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;perimeter&lt;/code&gt; 的计算涉及 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;chain code&lt;/code&gt; 中奇数和偶数的数量, 由于外部环境的影响得到的图像中 blob 的亮度可能随着光照不同发生变化, 属于干扰 blob tracking 的不利因素, 应当利用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;HSI, HSB&lt;/code&gt; 等色彩和亮度分离的色彩标准, 排除 Intensity 的影响只考虑 Chromaticity.)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220609165223.png&quot; alt=&quot;20220609165223&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ Hough Transformation 将图像平面中的点映射为一条直线, 也就是表示 “所有过这点可能的直线”; 将图像平面中的直线映射为一个点.)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220609165403.png&quot; alt=&quot;20220609165403&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220609165332.png&quot; alt=&quot;20220609165332&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 务必对 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Hough Plane&lt;/code&gt; 中, 直线的直角坐标表示和极坐标表示足够熟悉. 直线用这样的直角坐标表示是因为我们找到点之后已经固定了 $x$ 和 $y$, 此时变量就是 $m$ 和 $c$.)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220609165853.png&quot; alt=&quot;20220609165853&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ Structured elements 就是一系列像素组成的物体, 大小和形状不定.)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220609165758.png&quot; alt=&quot;20220609165758&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 如果被 erode 的 structuring element 太小的话它自身就可能会连同 noise 一起被腐蚀掉.)&lt;/p&gt;
+
+&lt;h2 id=&quot;复习笔记&quot;&gt;复习笔记&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/KirisameR/KirisameR.github.io/blob/master/_posts/IP%20REVISION.pdf&quot;&gt;Here&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Mon, 06 Jun 2022 00:00:00 +0100</pubDate>
+        <link>http://localhost:4000/2022/06/06/REV-COMP27112/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022/06/06/REV-COMP27112/</guid>
+        
+        <category>课程笔记</category>
+        
+        <category>计算机图形学</category>
+        
+        <category>大二下期末总复习</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>机器学习导论： 复习</title>
+        <description>&lt;h1 id=&quot;comp24112-期末总复习&quot;&gt;COMP24112 期末总复习&lt;/h1&gt;
+
+&lt;p&gt;见笔记: &lt;a href=&quot;https://github.com/KirisameR/KirisameR.github.io/blob/master/_posts/ML%20REVISION.pdf&quot;&gt;Here&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;直接参考资料: COMP24112全部课程内容
+框架体系直接参考对象: COMP24112复习指导Slides&lt;/p&gt;
+
+&lt;p&gt;注: 和复习指导Slides相比, 部分章节中的部分项有合并, 顺序也有重新安排.&lt;/p&gt;
+</description>
+        <pubDate>Tue, 31 May 2022 00:00:00 +0100</pubDate>
+        <link>http://localhost:4000/2022/05/31/REV-COMP24112/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022/05/31/REV-COMP24112/</guid>
+        
+        <category>课程笔记</category>
+        
+        <category>人工智能</category>
+        
+        <category>机器学习</category>
+        
+        <category>大二下期末总复习</category>
+        
+        
+      </item>
     
       <item>
         <title>数据结构与算法： 复习</title>
@@ -23,7 +250,7 @@
 
 &lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220522165219.png&quot; alt=&quot;20220522165219&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;($\uparrow$ 注意简单图的定义: 就是无圈图, 显然上面的图有圈)&lt;/p&gt;
+&lt;p&gt;($\uparrow$ 注意简单图的定义: 就是没有重复的边的图, 显然上面的图有圈)&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220522165256.png&quot; alt=&quot;20220522165256&quot; /&gt;&lt;/p&gt;
 
@@ -303,7 +530,7 @@
 
 &lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220512025430.png&quot; alt=&quot;20220512025430&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;($\uparrow$ 抓住基本定义: 对二进制形式位长为 $n$ 的数 $x$ 而言,$\pi(x)) = \ln(2^n)$.)&lt;/p&gt;
+&lt;p&gt;($\uparrow$ 抓住基本定义: 对二进制形式位长为 $n$ 的数 $x$ 而言,$\pi(x)) \approx \frac{x}{\ln(2^n)}$, 因此平均要测 $\ln(2^n)$ 次.)&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220512025549.png&quot; alt=&quot;20220512025549&quot; /&gt;&lt;/p&gt;
 
@@ -321,7 +548,7 @@
 
 &lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220512030215.png&quot; alt=&quot;20220512030215&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;($\uparrow$ 回顾我们在介绍 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Rabin-Miller&lt;/code&gt; 素数判定法时引入的结论: 当且仅当 $n$ 为素数时, 对于 $x^2 ~\equiv~1~\text{mod} (n)$ 有 $x ~\equiv~ \plusmn 1 ~\text{mod}~n$. 在本题中对 $x$ 的取值范围限定了 $x$ 绝不可能满足 $x ~\equiv~ \plusmn 1 ~\text{mod}~n$, 因此 $x$ 必不为素数.)&lt;/p&gt;
+&lt;p&gt;($\uparrow$ 回顾我们在介绍 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Rabin-Miller&lt;/code&gt; 素数判定法时引入的结论: 当且仅当 $n$ 为素数时, 对于 $x^2 ~\equiv~1~\text{mod} (n)$ 有 $x ~\equiv~ \pm 1 ~\text{mod}~n$. 在本题中对 $x$ 的取值范围限定了 $x$ 绝不可能满足 $x ~\equiv~ \pm 1 ~\text{mod}~n$, 因此 $x$ 必不为素数.)&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220512030535.png&quot; alt=&quot;20220512030535&quot; /&gt;&lt;/p&gt;
 
@@ -374,6 +601,45 @@
 &lt;p&gt;($\uparrow$ 这里的定义解释的已经很清楚了, 有时间的话最后一周的最后一个视频还是要看)&lt;/p&gt;
 
 &lt;h2 id=&quot;past-paper&quot;&gt;Past Paper&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220525164500.png&quot; alt=&quot;20220525164500&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 注意图的两种表示方式使用的数据结构区别: 列表/链表和数组. 其中后者只有 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;successor()&lt;/code&gt; 查找性能为 $O(V)$.)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220525164642.png&quot; alt=&quot;20220525164642&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 对深度优先和广度优先算法而言, 若在从 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Discovered&lt;/code&gt; 序列/栈中弹出某个节点, 检查该节点时发现了任何 &lt;strong&gt;已经在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Discovered&lt;/code&gt; 中的子顶点&lt;/strong&gt;, 则需要将这些被新发现的顶点在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Discovered&lt;/code&gt; 中的顺序 &lt;strong&gt;更新&lt;/strong&gt;: 删掉原来的, 然后按照题目给定的顺序放到序列/栈尾.)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220525164846.png&quot; alt=&quot;20220525164846&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 不作过多解释. 需要注意, 最基础的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MST&lt;/code&gt; 算法: 通用贪心算法同样是依赖 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cut&lt;/code&gt; 的. 同时回顾 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MST&lt;/code&gt; 的定义: 连接图中 &lt;strong&gt;所有&lt;/strong&gt; 顶点的树; 最小生成树可以不唯一, 也可以压根就没有.)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220525165059.png&quot; alt=&quot;20220525165059&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 处理这类题的时候务必使用 &lt;strong&gt;机器时间&lt;/strong&gt; 计算约束.)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220525165236.png&quot; alt=&quot;20220525165236&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 回忆单纯形法中选择 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pivot&lt;/code&gt; 的两条基本规则.)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220525165337.png&quot; alt=&quot;20220525165337&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 牢记 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Rabin-Miller&lt;/code&gt; 算法的基本原理和错误率 $q=0.25$.)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220525165429.png&quot; alt=&quot;20220525165429&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 注意 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;NP, NP Hard, NPC&lt;/code&gt; 之间的关系: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;NPC&lt;/code&gt; 是那些同时为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;NP&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;NP Hard&lt;/code&gt; 的问题. 因此此处的包含关系无误.)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220525165540.png&quot; alt=&quot;20220525165540&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;($\uparrow$ 注意 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Reduce&lt;/code&gt; 关系有传递性.)&lt;/p&gt;
+
+&lt;p&gt;最后注意 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Synoptic Questions&lt;/code&gt; 的答题要点:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;给定问题要求提出算法类的问题需要依次回答 &lt;strong&gt;所使用的数据结构和算法, 以及算法设计技术&lt;/strong&gt;, &lt;strong&gt;算法本身的基本流程说明 (可以附上伪代码)&lt;/strong&gt; 以及 &lt;strong&gt;复杂度分析&lt;/strong&gt;. 每个过程都要详细说清楚, 如果涉及并查集或任何涉及并查集的算法需要一并说明并查集的实现方式: 树, 以及路径优化方式: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Path Compression&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;给定问题实现要求答出使用的算法/程序设计思想类型一类的问题需要明确回答 &lt;strong&gt;所使用的算法和程序设计思想&lt;/strong&gt;, &lt;strong&gt;使用循环不变量的方式证明程序的正确性&lt;/strong&gt; (Base Case, Step Case, Final case), 并分析说明程序的时间复杂度.&lt;/li&gt;
+&lt;/ol&gt;
 </description>
         <pubDate>Sun, 22 May 2022 00:00:00 +0100</pubDate>
         <link>http://localhost:4000/2022/05/22/REV-COMP26120/</link>
@@ -389,87 +655,6 @@
       </item>
     
       <item>
-        <title>计算机图形学导论：相关题目解析</title>
-        <description>&lt;h1 id=&quot;计算机图形学相关题目解析&quot;&gt;计算机图形学相关题目解析&lt;/h1&gt;
-
-&lt;h2 id=&quot;quiz&quot;&gt;Quiz&lt;/h2&gt;
-
-&lt;h3 id=&quot;computer-graphics&quot;&gt;Computer Graphics&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220521125744.png&quot; alt=&quot;20220521125744&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;($\uparrow$ 注意 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Fragment&lt;/code&gt; 的定义.)&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220521125811.png&quot; alt=&quot;20220521125811&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;($\uparrow$ 实际上还是和答案有区别的: 阳间的计算机图形学框架会提供预先实现的着色器, 甚至会在用户未指定着色器时使用默认着色器渲染.)&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220521125911.png&quot; alt=&quot;20220521125911&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;($\uparrow$ 这个要是考了的话我把出题人吃下去…)&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220521125941.png&quot; alt=&quot;20220521125941&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220521130037.png&quot; alt=&quot;20220521130037&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;($\uparrow$ 因为为了统一表示平移变换 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Translation&lt;/code&gt;, 旋转变换 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Rotation&lt;/code&gt; 和拉伸变换 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Scaling&lt;/code&gt;, 我们使用维度为 $4$ 而不为 $3$ 的齐次坐标)&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220521130047.png&quot; alt=&quot;20220521130047&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;($\uparrow$ 同时回顾以任意三维向量作为旋转轴时应该怎么做: 旋转轴转换到坐标轴上 - 执行旋转 - 转换回来)&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220521130153.png&quot; alt=&quot;20220521130153&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;($\uparrow$ 向量归一化的基本定义.)&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220521130309.png&quot; alt=&quot;20220521130309&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220521130220.png&quot; alt=&quot;20220521130220&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;($\uparrow$ 注意向量点乘和叉乘的基本性质, 同时回顾使用右手定则确定向量叉乘结果方向的方法)&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220521130318.png&quot; alt=&quot;20220521130318&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;($\uparrow$ 栅格化, 也称曲面细分, 注意 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;OpenGL&lt;/code&gt; 只能处理凸多边形. 其实解答这类题目最困难的地方在于单词背不下来….)&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220521130440.png&quot; alt=&quot;20220521130440&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;($\uparrow$ 视角控制的是我们观察模型的方式.)&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220521130513.png&quot; alt=&quot;20220521130513&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;($\uparrow$ 这也是为什么 “用固定视点模拟虚拟相机” 可行的原因.)&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220521130547.png&quot; alt=&quot;20220521130547&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;($\uparrow$ 实在记不住的话就回顾三维图形管线流程图: 模型变换总在视角变换之前应用.)&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220521130626.png&quot; alt=&quot;20220521130626&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;($\uparrow$ 平行投影和透视投影是最基本的两种投影方式.)&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220521130702.png&quot; alt=&quot;20220521130702&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;($\uparrow$ 此处注意 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Tetrahedron&lt;/code&gt; 就是 “台体/四面体”, 它是透视投影的视景体.)&lt;/p&gt;
-
-&lt;h3 id=&quot;image-processing&quot;&gt;Image Processing&lt;/h3&gt;
-
-&lt;h2 id=&quot;past-papers&quot;&gt;Past Papers&lt;/h2&gt;
-</description>
-        <pubDate>Sat, 21 May 2022 00:00:00 +0100</pubDate>
-        <link>http://localhost:4000/2022/05/21/REV-COMP27112/</link>
-        <guid isPermaLink="true">http://localhost:4000/2022/05/21/REV-COMP27112/</guid>
-        
-        <category>课程笔记</category>
-        
-        <category>计算机图形学</category>
-        
-        <category>大二下期末总复习</category>
-        
-        
-      </item>
-    
-      <item>
         <title>数据结构与算法： 可计算性问题</title>
         <description>&lt;h1 id=&quot;可计算性问题&quot;&gt;可计算性问题&lt;/h1&gt;
 
@@ -477,7 +662,7 @@
 
 &lt;p&gt;我们还将进一步介绍可用来验证给定问题属于哪个复杂度类的基本知识和技术, 并将通过一些例子说明应用.&lt;/p&gt;
 
-&lt;h2 id=&quot;p-np-和其他非确定机&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;P&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;NP&lt;/code&gt; 和其他非确定机&lt;/h2&gt;
+&lt;h2 id=&quot;p-np-和其他非确定性问题-intractable-问题定义&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;P&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;NP&lt;/code&gt; 和其他非确定性问题 (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Intractable&lt;/code&gt;) 问题定义&lt;/h2&gt;
 
 &lt;h3 id=&quot;直观定义&quot;&gt;直观定义&lt;/h3&gt;
 
@@ -838,7 +1023,7 @@
 
 &lt;ol&gt;
   &lt;li&gt;在同一个三元组中的顶点 &lt;strong&gt;永不相连&lt;/strong&gt;.&lt;/li&gt;
-  &lt;li&gt;不连接符号相同但正负性质不同的顶点, 如形如 $a_1$ 和 $\neg a_1$ 的顶点就不能相互连接, 但 $a_1$ 和 $\neg b_2$ 就可相连.&lt;/li&gt;
+  &lt;li&gt;不连接 &lt;strong&gt;符号相同&lt;/strong&gt; 但 &lt;strong&gt;正负性质不同&lt;/strong&gt; 的顶点, 如形如 $a_1$ 和 $\neg a_1$ 的顶点就不能相互连接, 但 $a_1$ 和 $\neg b_2$ 就可相连.&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;p&gt;随后, 我们得到的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Clique&lt;/code&gt; 问题就等价于原来的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;3-SAT&lt;/code&gt; 问题.&lt;/p&gt;
@@ -855,15 +1040,43 @@
 
 &lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220522000609.png&quot; alt=&quot;20220522000609&quot; /&gt;&lt;/p&gt;
 
+&lt;p&gt;此处的简化目的是: 给定输入的图 $G = (V, E)$ 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cover&lt;/code&gt; 的大小 $k$, 要求输出一个在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Clique&lt;/code&gt; 语境下, 大小不超过 $k’$ 的新图 $G’ = (V’, E’)$.&lt;/p&gt;
+
+&lt;p&gt;而这个新图满足:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;$V’ = V$&lt;/li&gt;
+  &lt;li&gt;$E’ = \bar{E}$, 也就是对 $E$ 在 &lt;strong&gt;全体可能边集&lt;/strong&gt; 中的 &lt;strong&gt;取反&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;$k’ = \vert V \vert -k$.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;此处的原理是: $G$ 只能够存在某个最多大小为 $k$ 的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cover&lt;/code&gt;: $C$ $\leftrightarrow$ $E$ 中的任何一条边上的至少一个节点在 $C$ 里 $\leftrightarrow$ 只要任两个节点 $u, v \notin C$, 则 $(u, v) \notin E$ $\leftrightarrow$ $(u, v) \in \bar{E} \leftrightarrow$ 集合 $V-C$ 就是一个大小最多为 $\vert V \vert -k$ 的团.&lt;/p&gt;
+
 &lt;p&gt;进一步考虑从 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;3-SAT&lt;/code&gt; 向 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;3-Color&lt;/code&gt; 的简化:&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220522000744.png&quot; alt=&quot;20220522000744&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;注意此处在构造子句对应的子图时, 我们引入了 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Or Gadget&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;再进一步地, 可以依次从 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;3-SAT&lt;/code&gt; 简化到 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;k-SAT&lt;/code&gt;:&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220522000838.png&quot; alt=&quot;20220522000838&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;(这里有时间再补, 没时间就算了, 记结论就行)&lt;/p&gt;
+&lt;p&gt;&lt;del&gt;(这里有时间再补, 没时间就算了, 记结论就行)&lt;/del&gt;&lt;/p&gt;
+
+&lt;p&gt;最后对我们所介绍的各种 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;NPC&lt;/code&gt; 问题列举总结:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Circuit-SAT&lt;/li&gt;
+  &lt;li&gt;SAT&lt;/li&gt;
+  &lt;li&gt;3-SAT/k-SAT with k &amp;gt;= 3&lt;/li&gt;
+  &lt;li&gt;Vertex Cover: find a subset C of V so that for each edge in E at least one node is in C given the constraint on maximum size of C&lt;/li&gt;
+  &lt;li&gt;Clique: inverse question on independent sets, find complete sub graph’s vertex set C with constraint on the maximum size of C.&lt;/li&gt;
+  &lt;li&gt;Graph Colorng: assign color to every nodes, but each pair of neighbors cannot share the same color.&lt;/li&gt;
+  &lt;li&gt;Hamiltonian Cycle: find a shortest circle in graph that connect every vertex.&lt;/li&gt;
+  &lt;li&gt;Bin Packing: separate the set into k subsets where each subset’s total weight is no more than P.&lt;/li&gt;
+  &lt;li&gt;0-1 knapsack: given a list of weighted items and a bag no heavier than P, find an optimal combination of items to pack into the bag so that the weight constraint does not exceed but the total value can be maximised.&lt;/li&gt;
+  &lt;li&gt;Integer programming: stricter linear programming, where each variables’ value can only be integer.&lt;/li&gt;
+&lt;/ol&gt;
 
 &lt;h3 id=&quot;相关习题解析-1&quot;&gt;相关习题解析&lt;/h3&gt;
 
@@ -993,17 +1206,23 @@
 
 &lt;p&gt;因此, 基本思路是基于 &lt;strong&gt;费马小定理&lt;/strong&gt;, 检查 $x^{n-1} ~\text{mod}~(n) ~\equiv~ 1$ 是否成立, 并痛苦地接受费马小定理误报 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Carmichael Number&lt;/code&gt; 伪素数为素数的特殊情况.&lt;/p&gt;
 
-&lt;p&gt;注意到: 若 $p$ 为素数, 则: 如果有&lt;/p&gt;
+&lt;p&gt;我們同時有以下結論 (二次探測定理):&lt;/p&gt;
+
+&lt;p&gt;若 $p$ 为素数 $x$ 為 &lt;strong&gt;任意整數&lt;/strong&gt;, 則如果有&lt;/p&gt;
 
 \[x^2 ~\text{mod}~p~\equiv 1\]
 
-&lt;p&gt;则要么&lt;/p&gt;
+&lt;p&gt;则&lt;/p&gt;
 
 \[x ~\equiv~ 1 ~ \text{mod} ~p\]
 
-&lt;p&gt;要么&lt;/p&gt;
+&lt;p&gt;或&lt;/p&gt;
 
 \[x ~\equiv~ -1 ~ \text{mod} ~p\]
+
+&lt;p&gt;若 $0 &amp;lt; x &amp;lt; p$, 则解必為 $x=1$ 或 $x = p-1$.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;p&gt;进一步地, 基于数分解知识可知:&lt;/p&gt;
 
@@ -1030,12 +1249,14 @@
 
 &lt;ol&gt;
   &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;若 $n$ 可能为素数&lt;/strong&gt;, 则在某个 $k=t$ 时有 $x^{2^t \cdot m} ~\equiv~ -1 ~\text{mod}~ n$, 则可知在此之后只要 $k \neq 0$ 都有 $x^{2^k \cdot m} ~\equiv~ -1 ~\text{mod}~ n$, 而 $x^{m} ~\equiv~ 1 ~\text{mod}~ n$.&lt;/p&gt;
+    &lt;p&gt;&lt;strong&gt;若 $n$ 可能为素数&lt;/strong&gt;, 则對上述的序列中的 $x^{2i \cdot m}, i=k, k-1, …, m$ 取關於 $n$ 的餘數, &lt;strong&gt;第一個必然為 $1$&lt;/strong&gt;, 而剩下的序列中 &lt;strong&gt;第一個不為 $1$ 的數必然是 $-1$&lt;/strong&gt;.&lt;/p&gt;
 
     &lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220511222037.png&quot; alt=&quot;20220511222037&quot; /&gt;&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;若 $n$ 为合数&lt;/strong&gt;, 则从 $x^{m}$ 反推, 自 $k=0$ 开始到某个 $k=t$ 为止模运算结果都不为 $\plusmn1$, 而 $k &amp;gt; t$ 时模运算结果均为 $1$ 或都不为 $\plusmn1$.&lt;/p&gt;
+    &lt;p&gt;&lt;strong&gt;若 $n$ 为合数&lt;/strong&gt;, 则从 $x^{m}$ 反推, 自 $k=0$ 开始到某个 $k=t$ 为止模运算结果都不为 $\pm 1$, 而 $k &amp;gt; t$ 时模运算结果均为 $1$ 或都不为 $1$.&lt;/p&gt;
+
+    &lt;p&gt;(換言之, 對於 $n$ 為合數的情形, 從序列開頭 $x^{2k \cdot m}$ 開始取於數, 要麼 &lt;strong&gt;一個 $1$ 都沒有&lt;/strong&gt;, 要麼是一串 $1$ 後面緊跟著第一個數不為 $-1$.)&lt;/p&gt;
 
     &lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220511222408.png&quot; alt=&quot;20220511222408&quot; /&gt;&lt;/p&gt;
   &lt;/li&gt;
@@ -1051,9 +1272,15 @@
 
 &lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220511222508.png&quot; alt=&quot;20220511222508&quot; /&gt;&lt;/p&gt;
 
+&lt;p&gt;也就是說, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Rabin-Miller&lt;/code&gt; 算法的錯誤率最多為 $\frac{1}{4}$. 因此對於給定的顯著水平 $k$, 若將 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Rabin-Miller&lt;/code&gt; 函數作為隨機素數判定法的 &lt;strong&gt;見證函數&lt;/strong&gt;, 則知循環次數 $t$ 為:&lt;/p&gt;
+
+\[t = \lceil \frac{k}{\log_{2}(\frac{1}{q})} \rceil = \lceil \frac{k}{2} \rceil.\]
+
 &lt;p&gt;最后给出 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Rabin-Miller&lt;/code&gt; 算法的 &lt;strong&gt;时间复杂度&lt;/strong&gt;:&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220511222709.png&quot; alt=&quot;20220511222709&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;該算法的時間複雜度是 $O(k \cdot \log(n)).$&lt;/p&gt;
 
 &lt;h2 id=&quot;相关习题解析&quot;&gt;相关习题解析&lt;/h2&gt;
 
@@ -1151,7 +1378,7 @@
 
 &lt;h3 id=&quot;快速欧几里得算法&quot;&gt;快速欧几里得算法&lt;/h3&gt;
 
-&lt;p&gt;快速欧几里得算法用来计算 &lt;strong&gt;模逆&lt;/strong&gt;, 应用在 &lt;strong&gt;解密过程中&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;快速欧几里得算法用来计算 &lt;strong&gt;模逆&lt;/strong&gt;, 应用在 &lt;strong&gt;解密过程中&lt;/strong&gt;. (计算的是 $a^{-1} ~\text{mod}~b$, 就是返回的 $j$)&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220508171541.png&quot; alt=&quot;20220508171541&quot; /&gt;&lt;/p&gt;
 
@@ -1159,7 +1386,7 @@
 
 &lt;h3 id=&quot;快速模幂算法&quot;&gt;快速模幂算法&lt;/h3&gt;
 
-&lt;p&gt;快速模幂算法用于给定 $p, q, x$, 计算 $q^x ~\text{mod}~ p$, 应用在 &lt;strong&gt;加密过程中&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;快速模幂算法用于给定 $p, q, x$, 计算 $q^x ~\text{mod}~ p$, 应用在 &lt;strong&gt;加密过程中&lt;/strong&gt;. (按照下图算法计算的是 $a^{p} ~\text{mod}~ n$)&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220508171431.png&quot; alt=&quot;20220508171431&quot; /&gt;&lt;/p&gt;
 
@@ -2116,7 +2343,7 @@
 
 &lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220505211550.png&quot; alt=&quot;20220505211550&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;注意在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Rust&lt;/code&gt; 中, 我们使用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;'&lt;/code&gt; + &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;字母&lt;/code&gt; 的方式表示生命周期. 在上图所示的例子中, 对 $s$ 的不可变租赁的生命周期为&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;'m&lt;/code&gt;, 而对 $s$ 的可变租赁的生命周期为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;'n&lt;/code&gt;, 由于在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Rust&lt;/code&gt; 中, 可变租赁的生命周期 &lt;strong&gt;不能和其他任何租赁的生命周期重合&lt;/strong&gt;: &lt;a href=&quot;https://stackoverflow.com/questions/60611296/why-can-i-use-a-mutable-variable-such-that-its-lifetime-overlaps-with-an-immutab&quot;&gt;“Mutable borrows are exclusive, though – a variable that is mutably borrowed can’t be used in any other way during the lifetime of the borrow.”&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;注意在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Rust&lt;/code&gt; 中, 我们使用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;'&lt;/code&gt; + &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;字母&lt;/code&gt; 的方式表示生命周期. 在上图所示的例子中, 对 $s$ 的不可变租赁的生命周期为&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;'m&lt;/code&gt;, 而对 $s$ 的可变租赁的生命周期为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;'n&lt;/code&gt;, 由于在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Rust&lt;/code&gt; 中, 可变租赁的生命周期 &lt;strong&gt;不能和其他任何租赁同数据的生命周期重合&lt;/strong&gt;: &lt;a href=&quot;https://stackoverflow.com/questions/60611296/why-can-i-use-a-mutable-variable-such-that-its-lifetime-overlaps-with-an-immutab&quot;&gt;“Mutable borrows are exclusive, though – a variable that is mutably borrowed can’t be used in any other way during the lifetime of the borrow.”&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;以及&lt;a href=&quot;https://stackoverflow.com/questions/57620041/how-does-lifetime-rule-stops-multiple-mutable-borrow&quot;&gt;另一个 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Stack Overflow&lt;/code&gt; 上的例子&lt;/a&gt;&lt;/p&gt;
 
@@ -2417,6 +2644,8 @@
     &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;epsilon-closure(s_i)&lt;/code&gt;: 所有从状态 $s_i$ 开始, 通过空输入 $\epsilon$ 所可以 &lt;strong&gt;直接或间接&lt;/strong&gt; 转换到的状态.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ol&gt;
+
+&lt;p&gt;注意: 对 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;epsilon-closure&lt;/code&gt; 而言, 若考虑某个元素 $s$ 的闭包, 则闭包内包含的是 &lt;strong&gt;该元素本身&lt;/strong&gt; 以及 &lt;strong&gt;所有通过 $\epsilon$ 转换可以得到的其他元素&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p&gt;用于将 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;NFA&lt;/code&gt; 转换到 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DFA&lt;/code&gt; 的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Subset Construction&lt;/code&gt; 的基本逻辑是:&lt;/p&gt;
 
@@ -3161,105 +3390,24 @@
 
 &lt;p&gt;如上图所示, 在计算备选的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;exit variables&lt;/code&gt; 时, 计算出有些 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;slack&lt;/code&gt; 为 $0$, 注意此时需要 &lt;strong&gt;优先选择 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;slack&lt;/code&gt; 为 $0$ 且变量系数非负, 而且更小的对应行&lt;/strong&gt;.&lt;/p&gt;
 
+&lt;p&gt;” Towards the end of this video I state that, in the case of a choice of leaving variables with zero slack and a positive coefficient in the column for the entering variable you should chose the variable with the largest positive coefficient - this should be &lt;strong&gt;smallest positive coefficent&lt;/strong&gt; (see the reading).”&lt;/p&gt;
+
+&lt;p&gt;case1: 若无 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;zero slack variable with positive coefficient&lt;/code&gt;, 选择 $\theta$ &lt;strong&gt;为正数&lt;/strong&gt; 最小的那个. (注意 $\theta$ 的计算方式: slack variable / coefficient,)
+case2: 存在一些 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;zero slack variable with positive coefficient&lt;/code&gt;, 此时选择 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;entering variable&lt;/code&gt; 对应列系数 &lt;strong&gt;为正且最小的&lt;/strong&gt; 那一行.&lt;/p&gt;
+
 &lt;h3 id=&quot;相关习题解析-1&quot;&gt;相关习题解析:&lt;/h3&gt;
 
 &lt;p&gt;见笔记 “数据结构与算法： 复习”.&lt;/p&gt;
+
+&lt;h3 id=&quot;補充問題-單純形法的時間複雜度&quot;&gt;補充問題: 單純形法的時間複雜度&lt;/h3&gt;
+
+&lt;p&gt;在最壞情況下: $O(2^n)$ (此時 $n$ 為變量數量. 具體原因是: 在最壞情況下單純形法需要遍歷 “平面” (在高維情況下需要遍歷的是 “超立方體”) 的 &lt;strong&gt;所有節點&lt;/strong&gt;, 而由於 &lt;a href=&quot;https://en.wikipedia.org/wiki/Simplex_algorithm&quot;&gt;該原因&lt;/a&gt; 一個包含 $n$ 個 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;base variable&lt;/code&gt; 的單純形法的可行域是 $n$ 維 的, 對應空間內的超立方體有 $2^n$ 個頂點), 因此需要遍歷所有的 $2^n$ 個節點.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220524170046.png&quot; alt=&quot;20220524170046&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Sat, 12 Mar 2022 00:00:00 +0000</pubDate>
         <link>http://localhost:4000/2022/03/12/Ch6-COMP26120/</link>
         <guid isPermaLink="true">http://localhost:4000/2022/03/12/Ch6-COMP26120/</guid>
-        
-        <category>课程笔记</category>
-        
-        <category>数据结构与算法</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>数据结构与算法： 线性规划</title>
-        <description>&lt;h1 id=&quot;线性规划&quot;&gt;线性规划&lt;/h1&gt;
-
-&lt;p&gt;本章将引入线性规划问题的一般概念并讨论表示它们的不同方式.&lt;/p&gt;
-
-&lt;h2 id=&quot;1-线性规划问题的定义和表示&quot;&gt;1. 线性规划问题的定义和表示&lt;/h2&gt;
-
-&lt;p&gt;我们称 &lt;strong&gt;线性规划问题&lt;/strong&gt; 为: 在给定一系列 &lt;strong&gt;约束条件&lt;/strong&gt; 的前提下, 要求 &lt;strong&gt;最小化或最大化某个评价参数&lt;/strong&gt; 的 &lt;strong&gt;优化问题&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;一般地, 一个标准的线性规划问题由下列的元素组成:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;具线性表达形式的问题需求&lt;/p&gt;
-
-\[a_1x_1 + \cdots + a_nx_n\]
-  &lt;/li&gt;
-  &lt;li&gt;由不等号 (如 $\leqslant$, $\geqslant$) 表示的 &lt;strong&gt;约束关系&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;均大于等于 $0$ 的变量&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;考虑下面的这个简单例子:&lt;/p&gt;
-
-&lt;p&gt;假设某个农民有数量为 $F$ 和 $P$ 的肥料与农药, 可供耕种的土地容量为 $A$, 规划种植小麦 (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Wheat&lt;/code&gt;) 和大麦 (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Barley&lt;/code&gt;) 的量设为 $x_W$ 和 $x_B$, 这两种农作物的单价为 $S_B, S_W$. 而单位小麦和大麦所需要的肥料量与农药量分别为 $F_W, F_B$ 和 $P_W, P_B$. 问: 如何规划种植小麦和大麦的数量使得获利最多?&lt;/p&gt;
-
-&lt;p&gt;将上述的问题解释为线性规划问题, 则有如下的表示方法:&lt;/p&gt;
-
-&lt;p&gt;首先我们需要优化的对象是总获利:&lt;/p&gt;
-
-\[S_B\cdot x_B + S_W \cdot x_W\]
-
-&lt;p&gt;其次, 我们有下列的三个约束:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-\[x_B+ x_W \leqslant A\]
-  &lt;/li&gt;
-  &lt;li&gt;
-\[F_B \cdot x_B + F_W \cdot x_W \leqslant F\]
-  &lt;/li&gt;
-  &lt;li&gt;
-\[P_B \cdot x_B + P_W \cdot x_W \leqslant F\]
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;这三个约束分别表示:&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;对这两种作物的规划种植量恰好不超过土地的承载能力.&lt;/li&gt;
-  &lt;li&gt;持有的肥料恰好满足这两种作物的需求.&lt;/li&gt;
-  &lt;li&gt;持有的农药也恰好满足这两种作物的需求.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;2-线性规划问题的求解&quot;&gt;2. 线性规划问题的求解&lt;/h2&gt;
-
-&lt;p&gt;我们进一步将上一节中提及的种植规划问题形式化, 将问题中的 &lt;strong&gt;优化目标&lt;/strong&gt; 和 &lt;strong&gt;问题约束&lt;/strong&gt; 形式化为 &lt;strong&gt;目标式&lt;/strong&gt; 和 &lt;strong&gt;约束式&lt;/strong&gt;:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220314104452.png&quot; alt=&quot;20220314104452&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;因此有:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220314104508.png&quot; alt=&quot;20220314104508&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;3-线性规划问题的矩阵表示法&quot;&gt;3. 线性规划问题的矩阵表示法&lt;/h2&gt;
-
-&lt;p&gt;线性规划问题除了可以表示为上述的标准形式外, 还可以使用矩阵表示法表达.&lt;/p&gt;
-
-&lt;p&gt;考虑下列的线性规划问题:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220314104809.png&quot; alt=&quot;20220314104809&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;在将该问题从标准形式表示转换为矩阵表示前, 首先将所有公式 (无论是目标式还是约束式) 中变量的顺序调整到完全一致, 如上图中的顺序 $x_1, x_2, x_3$.&lt;/p&gt;
-
-&lt;p&gt;然后, 就可以将变量和常数全部分离为列向量或矩阵, 如下图所示:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220314104956.png&quot; alt=&quot;20220314104956&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;此时该问题就被转换成了下面的形式:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220314105015.png&quot; alt=&quot;20220314105015&quot; /&gt;&lt;/p&gt;
-</description>
-        <pubDate>Thu, 10 Mar 2022 00:00:00 +0000</pubDate>
-        <link>http://localhost:4000/2022/03/10/Ch5-COMP26120/</link>
-        <guid isPermaLink="true">http://localhost:4000/2022/03/10/Ch5-COMP26120/</guid>
         
         <category>课程笔记</category>
         
