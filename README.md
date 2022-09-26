@@ -22,6 +22,8 @@
 
 7. Improved Theme style on `search`, `quote`, `tags`, `breadboard notification` and `bold text style`.
 
+8. Implemented page number indicator
+
 [User Manual 👉](_doc/Manual.md)
 --------------------------------------------------
 
