@@ -5,7 +5,7 @@ subtitle:   查漏补缺
 date:       2024-01-23
 author:     R1NG
 header-img: img/post-bg-algorithm.jpg
-description: 简述深度学习分布式加速计算框架 DeepSpeed 的使用方法.
+description: 简述深度学习分布式加速计算框架 DeepSpeed 的使用方法。
 catalog: true
 tags:
     - 奇技淫巧
