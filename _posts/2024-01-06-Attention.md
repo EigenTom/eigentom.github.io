@@ -623,7 +623,7 @@ context = context.view(*new_size)
 
 ![20240130212023](https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20240130212023.png)
 
-上图中左侧和右侧部分分别对应了 `Transformer` 模块中的编码器和解码器. 我们已经知道 **多头自注意力层** 和 **全连接层** 分别起到了信息提取和作线性变换的作用. 下面解释 `LayerNorm` 层的功能:
+上图中左侧和右侧部分分别对应了 `Transformer` 模块中的编码器和解码器. 我们已经知道 **多头自注意力层** 和 **全连接层** 分别起到了信息提取和作线性变换, 对多维度信息进行混合的作用. 下面解释 `LayerNorm` 层的功能:
 
 和 `Batch Normalization` 相似, `Layer Normalization` 作为 **归一化层**, 处理的对象不是如 `Batch Normalization` **一样对输入的一批样本** 的 **同一维度特征** 作归一化, 而是对 **单个样本** 的 **所有维度特征** 作归一化. `Transformer` 架构中不适用 `Batch Normalization` 的主要原因是: 成批输入的样本 `batch` 中序列长度 **可能不一致**, 而若要对这批样本进行归一化就需要补齐长短不一的输入样本. 
 
@@ -652,9 +652,29 @@ print(output.shape)     # torch.Size([2, 16, 32])
 
 ## Transformer的应用
 
+接下来, 我们简述一些 `Transformer` 架构的应用. 
+
 ### Vision Transformer
 
+通过上文的描述我们已经知道, `Transformer` 是一种端到端的, 解决 `NLP` 任务的模型架构, 采用多头自注意力机制使得模型能够并行化地快速训练并获得对全局信息的提取能力. 通常, `Transformer` 需要在大型文本语料库中进行 **预训练**, 然后在垂直领域进行微调从而在特定任务上达到更好的性能. 
+
+`Vision Transformer` 是 `Transformer` 模型架构在计算机视觉领域中的变体, 在尽可能避免对原有模型架构的改动的前提下, 成功的将其迁移至了计算机视觉领域, 证明了 `Transformer` 架构在图形领域同样具有取代传统的 `CNN` 架构用于图像分类和检测任务的能力. 
+
+![20240131063637](https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20240131063637.png)
+
+作者将图片拆分为不重叠且大小固定的 `patch` 序列, 经过向量化后作为 **线性序列** 输入传入 `Transformer` 中, 类比 `NLP` 领域中的词组序列输入.
+
+论文中设计的 `Vision Trasformer` 图片分类器执行的操作基本如下:
+
+1. 将图片分割为大小相同 (如 $16 \times 16$) 且不重叠的 `Patches`, 然后将每个 `Patch` 展开为 **一维向量**.
+2. 一般地, 由于展开后的 `Patch` 维度较大, 还需通过线性投影层对 `Patch` 做进一步的 `Token` 化, 进行维度压缩和特征变换得到 `Patch Embeddings`.
+3. 在所得的 `Patch Embeddings` 前加入作者额外引入的 **可学习的 `Class Token`**, 方便后续分类.
+4. 在加入了 `Class Token` 的 `Patch Embeddings` 后面再加上 **位置编码** (`Position Embedding`), 然后将其作为多个 **串行** 的 `Transformer Encoders` 中进行 **全局注意力计算和特征提取**: `Transformer Encoder` 中的多头自注意力模块负责提取 `Patch` 内或 `Patch` 序列之间的特征, 在多头自注意力模块后的全连接层模块负责对所提取的特征进行线性变换. 
+5. 提取出串行的 `Transformer Encoders` 中最后一个的输出序列中对应 `Class Token` 的部分, 以其作为编码器串最终的信息提取结果, 传入作为分类器的全连接层 (`MLP`) 中, 得出最终的分类结果. 
+
 ### 大型语言模型
+
+
 
 #### Encoder-Only: BERT
 
@@ -701,3 +721,10 @@ https://blog.csdn.net/beilizhang/article/details/115282604
 https://blog.csdn.net/weixin_43334693/article/details/130189238?spm=1001.2014.3001.5502
 
 https://blog.csdn.net/hxxjxw/article/details/120134012
+
+https://zhuanlan.zhihu.com/p/481559049
+
+https://zhuanlan.zhihu.com/p/459828118
+
+https://zhuanlan.zhihu.com/p/348593638
+
