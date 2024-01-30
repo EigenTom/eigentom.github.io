@@ -9,6 +9,7 @@ description: 简述深度学习分布式加速计算框架 DeepSpeed 的使用�
 catalog: true
 tags:
     - 奇技淫巧
+    - 人工智障
 ---
 
 # DeepSpeed简介和使用说明

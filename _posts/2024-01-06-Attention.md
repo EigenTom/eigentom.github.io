@@ -5,10 +5,11 @@ subtitle:   避免退学
 date:       2024-01-06
 author:     R1NG
 header-img: img/post-bg-algorithm.jpg
-description: 头好痛, 要长脑子了
+description: 头好痛，要长脑子了
 catalog: true
 tags:
     - 奇技淫巧
+    - 人工智障
 ---
 
 # 注意力机制长文
