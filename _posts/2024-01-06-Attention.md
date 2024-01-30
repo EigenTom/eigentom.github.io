@@ -423,6 +423,38 @@ $$\text{Attention(Query, Source)} = \sum_{i=1}^{L_x} a_i \cdot \text{Value}_i$$
 
 由此, 针对 `Query` 的注意力值 (向量) 得以求出.
 
+### 注意力机制的各种变形
+
+#### 简单的 `Scaled Dot-Product Attention`
+
+首先介绍一种结构较为简单且被广泛使用的 `Attention` 构造方式. 该构造又称 `Scaled Dot-Product Attention`. 我们用文本分类任务作为例子对其进行介绍:
+
+![20240130154710](https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20240130154710.png)
+
+假设输入的文本长度为 $n$, 记为 $x = e_1, e_2, \cdots, e_n$. 则经过 `RNN` 编码后得到输入文本序列中每一步的 `RNN` 模块 `hidden state` (均为 $1 \times d$ 维的向量): 
+
+$$h_1, \cdots, h_n \in \mathbb{R}^{d}.$$
+
+接下来将它们同时视为 `Key` 和 `Value`, 而对应输出序列每一步的查询向量用 $V \in \mathbb{R}^{d}$ 表示. 
+
+接下来使用 **向量点积** 作为打分函数. 即: 对任意给定的第 $i$ 个 `Key`, 其关于查询的分数 $\text{score}$ 为:
+
+$$\text{score}_i = \frac{h_i^{\top}\cdot V}{\lambda}$$
+
+其中, $\lambda$ 为一个用于放缩点积结果, 让经过 `SoftMax` 后的所得权重更平滑的超参数, 一般设为 $\sqrt{d}$. 
+
+注意力权重 (`Attention Weight`) 由得到的打分通过 `SoftMax` 函数计算得来:
+
+$$\alpha_i = \frac{\exp(a_i)}{\sum_{j=1}^{n} \exp(a_j)}$$
+
+最后对 `Value` 关于对应的注意力权重做加权求和, 就得到了该 `Query` 的注意力值.
+
+#### `Self-Attention` 中的注意力机制实现
+
+`Self-Attention` 可视为 **特征提取层**, 此处我们只对其内部的注意力机制实现和注意力值 (向量) 计算方法进行介绍. 
+
+在 `Self-Attention` 中, 
+
 ## 注意力机制的应用
 
 下面, 我们对注意力机制的应用进行简要讨论.
@@ -480,3 +512,6 @@ https://arxiv.org/abs/1409.3215
 
 https://arxiv.org/abs/1406.1078
 
+https://github.com/EvilPsyCHo/Attention-PyTorch
+
+https://blog.csdn.net/weixin_53598445/article/details/125009686
