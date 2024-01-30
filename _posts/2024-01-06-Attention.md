@@ -443,6 +443,8 @@ $$\text{score}_i = \frac{h_i^{\top}\cdot V}{\lambda}$$
 
 其中, $\lambda$ 为一个用于放缩点积结果, 让经过 `SoftMax` 后的所得权重更平滑的超参数, 一般设为 $\sqrt{d}$. 
 
+这种通过使用超参数 $\lambda$ 进行缩放的点积计算注意力权值的方式又称 **缩放点积**.
+
 注意力权重 (`Attention Weight`) 由得到的打分通过 `SoftMax` 函数计算得来:
 
 $$\alpha_i = \frac{\exp(a_i)}{\sum_{j=1}^{n} \exp(a_j)}$$
@@ -451,9 +453,63 @@ $$\alpha_i = \frac{\exp(a_i)}{\sum_{j=1}^{n} \exp(a_j)}$$
 
 #### `Self-Attention` 中的注意力机制实现
 
-`Self-Attention` 可视为 **特征提取层**, 此处我们只对其内部的注意力机制实现和注意力值 (向量) 计算方法进行介绍. 
+`Self-Attention` 可视为 **特征提取层**, 给定输出 $I$, 得出经过特征融合后得到的输出 $O$. 此处我们只对其内部的注意力机制实现和注意力值 (向量) 计算方法进行介绍. 
 
-在 `Self-Attention` 中, 
+![20240130163222](https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20240130163222.png)
+
+假设输入的 **特征序列** 长度为 $n$, 记为 $I = a_1, a_2, \cdots, a_n$. `Self-Attention` 中规定, 注意力机制概念中的 `Query`, `Key` 和 `Value` 分别由特征向量 $a_i$ 和三个 **参数可学习** 的全连接层 (可视为矩阵) $W^q, W^k, W^v$ 计算得到:
+
+$$\begin{align}&\text{Query}: q^i = W^q \cdot a_i \\ &\text{Key}: k^i = W^k \cdot a_i \\ &\text{Value}: v^i = W^v \cdot a_i\end{align}$$
+
+由此关于输入特征 $I$ 得到关于它自身的 `Query`, `Key` 和 `Value` 矩阵: 
+
+$$\begin{align}&\text{Query}: Q = W^q \cdot I \\ &\text{Key}: K = W^k \cdot I \\ &\text{Value}: V = W^v \cdot I\end{align}$$
+
+随后计算注意力值矩阵 $A$:
+
+$$A = K^{\top} \cdot Q$$
+
+然后对 $A$ 通过 **归一化** 后得到 $\hat{A}$, 乘上 $V$, 计算得出最后的输出特征 $O$:
+
+$$O = V \cdot \hat{A}$$
+
+简单的 `PyTorch` 实现如下:
+
+~~~python
+import torch
+import torch.nn as nn
+
+class SelfAttention(nn.Module):
+    def __init__(self, embed_dim):
+        super(SelfAttention, self).__init__()
+        self.query = nn.Linear(embed_dim, embed_dim)
+        self.key = nn.Linear(embed_dim, embed_dim)
+        self.value = nn.Linear(embed_dim, embed_dim)
+
+    def forward(self, x):
+        q = self.query(x)
+        k = self.key(x)
+        v = self.value(x)
+        attn_weights = torch.matmul(q, k.transpose(1, 2))
+        attn_weights = nn.functional.softmax(attn_weights, dim=-1)
+        attended_values = torch.matmul(attn_weights, v)
+        return attended_values
+
+class SelfAttentionClassifier(nn.Module):
+    def __init__(self, embed_dim, hidden_dim, num_classes):
+        super(SelfAttentionClassifier, self).__init__()
+        self.attention = SelfAttention(embed_dim)
+        self.fc1 = nn.Linear(embed_dim, hidden_dim)
+        self.fc2 = nn.Linear(hidden_dim, num_classes)
+
+    def forward(self, x):
+        attended_values = self.attention(x)
+        x = attended_values.mean(dim=1)  
+        x = self.fc1(x)
+        x = torch.relu(x)
+        x = self.fc2(x)
+        return x
+~~~
 
 ## 注意力机制的应用
 
@@ -461,9 +517,87 @@ $$\alpha_i = \frac{\exp(a_i)}{\sum_{j=1}^{n} \exp(a_j)}$$
 
 ### 自注意力机制 `Self-Attention`
 
+自注意力机制 (`Self-Attention`) 首先在2017年的经典论文 [Attention is All you need]() 中被提出, 其核心思想为: 在处理序列数据时, 使用注意力机制计算输入序列中每个元素与 **同一个序列** 中其他元素之间的关系. `Self-Attention` 可视为 **特征提取层**, 给定输出 $I$, 得出经过特征融合后得到的输出 $O$.
+
+自注意力机制中 `Attention Mechanism` 的实现方式, 计算方法和原理参见本文章节: “注意力机制的一般化形式-注意力机制的各种变形-`Self-Attention` 中的注意力机制实现”.
 
 
-### 多头注意力 `Multi-Head Attention`
+### 多头自注意力机制 `Multi-Head Self Attention`
+
+`Self-Attention` 中实现的注意力机制中, **参数可学习** 的全连接层 (可视为矩阵) 为: $W^q, W^k, W^v$. 
+
+每个输入特征向量 $a_i$ 分别和这三个矩阵相乘得到对应的 $q^i, k^i, v^i$ 参与后续注意力权值和输出特征 $O$ 的计算. 
+
+由于只有 **一组** 可学习的, 参与计算注意力权值的矩阵 $W^q, W^k, W^v$, 这样的注意力机制又称 **单头自注意力机制**. 为了更好的并行计算捕获更多维度的信息, 包括 **多组** 可学习的, 参与计算注意力权值的矩阵 的注意力机制算法被提出, 这就是所谓的 **多头自注意力机制**.
+
+![6ba45518a73649e9818594897369ff57](https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/6ba45518a73649e9818594897369ff57.gif)
+
+上图的例子中描述的就是一个包含了两组可学习矩阵的 **双头自注意力机制**.
+
+#### 多头自注意力机制的实现
+
+首先定义注意力机制的头数, 以及输入特征维度. `hidden_size` 为 $q^i, k^i, v^i$ 的总维度.
+
+~~~python
+self.num_attention_heads = num_attention_heads
+self.attention_head_size = int(hidden_size / num_attention_heads)
+self.all_head_size = hidden_size
+~~~
+
+其次定义 $W^q, W^k, W^v$:
+
+~~~python
+self.key_layer = nn.Linear(input_size, hidden_size)
+self.query_layer = nn.Linear(input_size, hidden_size)
+self.value_layer = nn.Linear(input_size, hidden_size)
+~~~
+
+随后使用输入特征 $x$ 和 $W^q, W^k, W^v$ 相乘得到 `Query`, `Key` 和 `Value` 矩阵, 维度为 `(batch_size, seq_length, hidden_size)`:
+
+~~~python
+key = self.key_layer(x)
+query = self.query_layer(x)
+value = self.value_layer(x)
+~~~
+
+计算后需要将 `seq_length` 和 `num_attention_heads` 维度对换, 让最终得到的 $Q, K, V$ 张量维度为 `(batch_size, num_attention_heads, seq_length, attention_head_size)`:
+
+~~~python
+def trans_to_multiple_heads(self, x):
+    new_size = x.size()[ : -1] + (self.num_attention_heads, self.attention_head_size)
+    x = x.view(new_size)
+    return x.permute(0, 2, 1, 3)
+key_heads = self.trans_to_multiple_heads(key)
+query_heads = self.trans_to_multiple_heads(query)
+value_heads = self.trans_to_multiple_heads(value)
+~~~
+
+然后进行计算: $\frac{Q \cdot K}{\sqrt{\text{attention\_head\_size}}}$:
+
+~~~python
+attention_scores = torch.matmul(query_heads, key_heads.permute(0, 1, 3, 2))
+attention_scores = attention_scores / math.sqrt(self.attention_head_size)
+
+# perform normalization
+attention_probs = F.softmax(attention_scores, dim = -1)
+~~~
+
+然后将得到的注意力矩阵和 `Value` 矩阵 $V$ 相乘得到输出特征, 维度为 `(batch_size, num_attention_heads, seq_length, attention_head_size)`:
+
+~~~python
+context = torch.matmul(attention_probs, value_heads)
+~~~
+
+最后将各个头得到的输出特征进行拼接:
+
+~~~python
+# “contiguous()” is crucial to store tensor into a consecutive memory space
+# to prevent errors happen when performing .view() operation
+# REF: https://blog.csdn.net/kdongyi/article/details/108180250
+context = context.permute(0, 2, 1, 3).contiguous()
+new_size = context.size()[ : -2] + (self.all_head_size , )
+context = context.view(*new_size)
+~~~
 
 ### 与RNN的结合
 参考本文章节:  "`Bahdanau` 注意力机制-实现".
@@ -515,3 +649,5 @@ https://arxiv.org/abs/1406.1078
 https://github.com/EvilPsyCHo/Attention-PyTorch
 
 https://blog.csdn.net/weixin_53598445/article/details/125009686
+
+https://aclanthology.org/2020.acl-main.312/
