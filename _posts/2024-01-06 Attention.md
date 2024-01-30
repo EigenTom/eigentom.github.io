@@ -1,3 +1,16 @@
+---
+layout:     post
+title:      注意力机制长文
+subtitle:   避免退学
+date:       2024-01-06
+author:     R1NG
+header-img: img/post-bg-algorithm.jpg
+description: 头好痛, 要长脑子了
+catalog: true
+tags:
+    - 奇技淫巧
+---
+
 # 注意力机制长文
 
 注意力机制源于对自然语言处理领域解决 `Seq2seq` 问题的经典神经网络结构: `RNN` (循环神经网络) 的改进, 因其接近直觉的 "基于注意力和重要性对数据中元素和其他元素之间的相关性" 的逻辑设计, 在包括了自然语言处理, 计算机视觉任务, 多模态视觉语言模型等不同领域均展现出了强大的潜力和泛用性. 
