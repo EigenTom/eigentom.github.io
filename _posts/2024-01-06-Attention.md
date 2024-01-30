@@ -519,8 +519,13 @@ class SelfAttentionClassifier(nn.Module):
 
 自注意力机制 (`Self-Attention`) 首先在2017年的经典论文 [Attention is All you need]() 中被提出, 其核心思想为: 在处理序列数据时, 使用注意力机制计算输入序列中每个元素与 **同一个序列** 中其他元素之间的关系. `Self-Attention` 可视为 **特征提取层**, 给定输出 $I$, 得出经过特征融合后得到的输出 $O$.
 
+由此, 自注意力机制得以解决 **神经网络对多个相关的输入之间无法建立起相关性** 的问题. 作为注意力机制的变体, 自注意力机制中的 $Q, K, V$ 均 **来源相同**, 因此自注意力机制中的 `Q, K, V` 计算方式也和常规的注意力机制有很大不同. 
+
 自注意力机制中 `Attention Mechanism` 的实现方式, 计算方法和原理参见本文章节: “注意力机制的一般化形式-注意力机制的各种变形-`Self-Attention` 中的注意力机制实现”.
 
+自注意力机制的功能是筛选出重要信息而将相对不那么重要的信息过滤. 在 `CV` 领域应用时, 由于自注意力机制无法充分利用图像的尺度和平移不变性, 以及图像的特征局部性等先验知识, 因此需要通过大量数据学习它们, 由此导致自注意力机制对有效信息的提取能力要 **比卷积神经网络更差**, 只有在 **训练数据规模较大** 的前提下才能有效地建立准确的全局关系. 
+
+此外, 自注意力机制 **并不保留输入序列中向量之间的位置关系**. 在 `NLP` 领域应用中, 由于单词/文字在句中的位置会导致词语具有不同的性质, 因此需要引入 **位置编码 (`Positional Encoding`)** 进行信息的补齐: 对每个输入向量加上位置向量, 一并带入自注意力层进行计算. 
 
 ### 多头自注意力机制 `Multi-Head Self Attention`
 
@@ -529,6 +534,12 @@ class SelfAttentionClassifier(nn.Module):
 每个输入特征向量 $a_i$ 分别和这三个矩阵相乘得到对应的 $q^i, k^i, v^i$ 参与后续注意力权值和输出特征 $O$ 的计算. 
 
 由于只有 **一组** 可学习的, 参与计算注意力权值的矩阵 $W^q, W^k, W^v$, 这样的注意力机制又称 **单头自注意力机制**. 为了更好的并行计算捕获更多维度的信息, 包括 **多组** 可学习的, 参与计算注意力权值的矩阵 的注意力机制算法被提出, 这就是所谓的 **多头自注意力机制**.
+
+在实践中, 我们希望在给定相同的查询, 键值对的集合时, 模型能够基于 **相同的注意力机制** 学习到不同的相关关系. 随后, 通过将这些 **独立** 学习得到的信息组合起来, 从而得以捕捉到序列内各种范围的依赖关系. 
+
+由此, 我们使用 **独立学习** 得到的多组不同的注意力权值计算矩阵 `W^q, W^k, W^v` 变换给定的查询和键值对, 将这些独立学习得到的信息提取输出相 **拼接**, 通过另一个可学习的线性投影 (`Linear Projection`) 进行变换, 产生最终输出. 
+
+![20240130211250](https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20240130211250.png)
 
 ![6ba45518a73649e9818594897369ff57](https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/6ba45518a73649e9818594897369ff57.gif)
 
@@ -604,9 +615,40 @@ context = context.view(*new_size)
 
 ### Transformer
 
+`Transformer` 是 `Google` 在 [Attention is all you need](https://arxiv.org/abs/1706.03762) 中提出的一种 **完全基于注意力机制** 的新模型结构, 完全摒弃了传统 `Seq2Seq` 模型架构中的 `RNN` 结构, 具有并行度高, 计算时间短等显著优势. 
+
 #### 解释
 
+`Transformer` 的基础结构仍然包括编码器 (`Encoder`) 和解码器 (`Decoder`) 两部分. 编码器和解码器均由三类网络结构组成: **多头自注意力层**, **前馈神经网络 (全连接层)** 和 **`LayerNorm` 层**. 
+
+![20240130212023](https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20240130212023.png)
+
+上图中左侧和右侧部分分别对应了 `Transformer` 模块中的编码器和解码器. 我们已经知道 **多头自注意力层** 和 **全连接层** 分别起到了信息提取和作线性变换的作用. 下面解释 `LayerNorm` 层的功能:
+
+和 `Batch Normalization` 相似, `Layer Normalization` 作为 **归一化层**, 处理的对象不是如 `Batch Normalization` **一样对输入的一批样本** 的 **同一维度特征** 作归一化, 而是对 **单个样本** 的 **所有维度特征** 作归一化. `Transformer` 架构中不适用 `Batch Normalization` 的主要原因是: 成批输入的样本 `batch` 中序列长度 **可能不一致**, 而若要对这批样本进行归一化就需要补齐长短不一的输入样本. 
+
+使用 $0$ 等空数据补齐样本, 将使较短序列中实际包含信息的向量规模相对减小而较长序列中实际包含信息的向量规模相对增大, 导致误差抖动增加, 无法起到稳定输入分布的效果. 
+
+[TODO: 增加完整论文精读笔记]
+
 #### 实现
+
+下面展示 `PyTorch` 中预实现的 `Transformer` 层的调用:
+
+~~~python
+import torch
+import torch.nn as nn
+
+transformer_layer = nn.TransformerEncoderLayer(
+    d_model = 32,        # input dimension
+    nhead = 8,           # number of attention heads in multi-head self-attention layers
+    batch_first = True   
+)
+
+x = torch.rand(2, 16, 32)
+output = transformer_layer(x)
+print(output.shape)     # torch.Size([2, 16, 32])
+~~~
 
 ## Transformer的应用
 
@@ -646,8 +688,16 @@ https://arxiv.org/abs/1409.3215
 
 https://arxiv.org/abs/1406.1078
 
+https://arxiv.org/abs/1706.03762
+
 https://github.com/EvilPsyCHo/Attention-PyTorch
 
 https://blog.csdn.net/weixin_53598445/article/details/125009686
 
 https://aclanthology.org/2020.acl-main.312/
+
+https://blog.csdn.net/beilizhang/article/details/115282604
+
+https://blog.csdn.net/weixin_43334693/article/details/130189238?spm=1001.2014.3001.5502
+
+https://blog.csdn.net/hxxjxw/article/details/120134012
