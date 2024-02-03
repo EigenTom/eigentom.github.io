@@ -717,7 +717,7 @@ print(output.shape)     # torch.Size([2, 16, 32])
 4. 在加入了 `Class Token` 的 `Patch Embeddings` 后面再加上 **位置编码** (`Position Embedding`), 然后将其作为多个 **串行** 的 `Transformer Encoders` 中进行 **全局注意力计算和特征提取**: `Transformer Encoder` 中的多头自注意力模块负责提取 `Patch` 内或 `Patch` 序列之间的特征, 在多头自注意力模块后的全连接层模块负责对所提取的特征进行线性变换. 
 5. 提取出串行的 `Transformer Encoders` 中最后一个的输出序列中对应 `Class Token` 的部分, 以其作为编码器串最终的信息提取结果, 传入作为分类器的全连接层 (`MLP`) 中, 得出最终的分类结果. 
 
-### 预训练语言模型和大型语言模型
+### 预训练语言模型
 
 预训练语言模型是 `Transformer` 架构的重要应用之一. 预训练语言模型通过使用大量的语料数据对模型进行 **无监督或弱监督学习** (`Unsupervised` or `Weak-supervised`), 使参数规模庞大的语言模型具备句法, 语法规律等足够多的语言知识. 然后在下游任务中再对模型进行相应的 `finetune`. 
 
@@ -754,16 +754,6 @@ print(output.shape)     # torch.Size([2, 16, 32])
 1. 自编码语言模型存在 **输入噪声** 的问题: 由于 `BERT` 类模型在预训练过程中必须使用在下游 `finetune` 任务中永不会出现的掩膜符号 `[MASK]` 对输入进行遮盖, 因此会产生 **预训练-微调差异**, 而自回归语言模型由于不依赖被掩膜遮盖的输入训练, 因此不存在这种问题. 
 2. `BERT` 假设, 在给定 `unmasked tokens` 时, 所有待预测 (`masked`) 的 `tokens` 都是相互独立的, 而这一点是与事实不符的.
 
-下面我们简述典型的自编码模型: `BERT`.
-
-##### 介绍
-
-
-
-##### 模型架构
-
-##### 实现
-
 #### 自回归语言模型
 
 自回归语言模型 (`AR` 模型) 的代表为 `GPT`, 本质是 `Transformer` 架构中的解码器, 其学习模式为: 给定一系列按照时序排序的输入序列, 每一次给定一个输入, 预测下一个 `timestep` 的输出, 并将其输出作为预测下下个 `timestep` 的值时的输入. 自回归语言模型因其特性常用于 **生成式任务**, 如自然语言生成 (`Natural Language Generation`) 领域中的文本摘要, 文本翻译, 对话问答等一系列任务. 
@@ -790,24 +780,748 @@ $$p(T) = \prod_{i={L_T}}^{1} p(x_i \vert x_{>i})$$
 
 缺点: 无法同时利用和建模双向的上下文信息, 无法完全捕捉文本中 `tokens` 的内在联系. 
 
-下面我们简述典型的自回归模型: `GPT`.
-
-##### 介绍
-
-##### 模型架构
-
-##### 实现
-
 #### `Encoder-Decoder` 模型
 
 `Encoder-Decoder` 模型同时使用编码和解码器, 将所有的下游任务视为 **`Seq2Seq`** 任务: 文本-文本, 文本-图像, 图像-文本, 文本-序列等. 
 
-下面我们简述典型的 `Encoder-Decoder` 模型: `T5`.
+### `BERT`
 
-##### 介绍
+`BERT` 是自编码模型的典型代表. 
 
-##### 模型架构
+#### 介绍
 
+`BERT` 全称 `Bidirectional Encoder Representation from Transformer`, 中文译为 “来自 `Transformer` 的双向编码器表征”, 蕴含了它的数个特点: 架构源于 `Transformer` 中的编码器, 可通过编码生成文本的隐表示, 以及具有双向编码文本序列中上下文的能力. 
+
+![20240202171509](https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20240202171509.png)
+
+`BERT` 具有两个版本: `base` 和 `large`, 二者在堆叠的 `多头自注意力机制层` 的层数, 头数和隐藏层维度上有区别, 后者的参数总量约为前者的三倍.
+
+作为 `Transformer` 架构中的编码器部分, `BERT` 的训练和应用同样遵循 **预训练-下游任务微调** 的模式. `BERT` 的模型训练目标包括 **掩膜语言模型 (`Masked Language Model`)** 和 **下一结构预测 (`Next Sentence Prediction`)**. 下面对这两个训练目标进行简要介绍:
+
+1. `Masked Language Model`
+
+    `Masked Language Model` 训练目标就是要求模型掌握做 “完形填空” 的能力. 文本序列作为输入数据, 被随机使用掩膜 "`[MASK]`" 遮盖掉序列中约 $15\%$ 的单词, 对模型的优化目标是检查 **模型能否通过剩下的上下文信息预测出被遮盖的单词原本应该是什么**. 在该训练过程中, 上下文的语义信息被注意力机制层提取和学习, 并储存在模型参数中.
+    
+    由于在下游的实际 `NLU` 任务中绝无可能出现掩膜 `[MASK]`, 因此在训练时需要使用下列的策略进行遮盖. 对每个被选定了要被遮盖的位置: 
+    
+    1. 有 $80%$ 的概率使用掩膜 `[MASK]` 遮盖它, 作为 **未知信息** 赋予模型预测能力.
+    2. 有 $10\%$ 的概率用 **随机采样** 的单催替换它, 作为 **噪声** 赋予模型 **自行纠错** 的能力. 
+    3. 有 $10\%$ 的概率不做替换, 作为正确的信息. 
+    
+    由此, 强迫被训练的模型 **不依赖当前的词而必须考虑其上下文** 进行完形填空的预测, 获取全量全局的信息.
+
+    比如:
+
+    ![20240202171616](https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20240202171616.png)
+
+2. `Next Sentence Prediction`
+
+    由于部分 `NLU` 下游任务, 比如问答和推理均基于 **给定的两个句子之间关系** 的理解, 因此要让 `BERT` 具有解决这类任务的能力, 就需要设计训练目标增强模型对句子的 **理解能力**. 
+
+    因此, 在训练中, 将会有 $50\%$ 有关联的句子 (实际上是 `Token` 序列) 对, 和 $50\%$ 无关的句子对进行训练, 让模型判断抽取的这对句子是否存在关联. 其输入形式为:
+
+    ~~~
+    # 输入用 [CLS] 作为开头, 句子之间用 [SEP] 进行隔断, 每个句子中要被掩盖的部份用掩膜 [MASK] 覆盖
+
+    Input = [CLS] the man went to [MASK] store [SEP]he bought a gallon [MASK] milk [SEP]
+    Label = IsNext
+    Input = [CLS] the man [MASK] to the store [SEP]penguin [MASK] are flight ##less birds[SEP]
+    Label = NotNext
+    ~~~    
+
+    比如:
+
+    ![20240202171557](https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20240202171557.png)
+
+#### 模型架构
+
+为了完成 `BERT` 的两个训练目标, 其输入需要经过较为复杂的处理流程:
+
+1. 将作为输入的句子进行分词, 加上开头指示符 `[CLS]` 和 隔断符 (如果只有一个句子则不用) `[SEP]`, 并用掩膜 `[MASK]` 基于上文描述的策略随机掩盖句子中的文本. 
+2. 将处理后的句子向量化, 得到 `Token Embeddings`
+3. 额外计算句子中每个单词的 `Positional Embeddings`.
+4. 为了让模型具备区分输入的不同句子的能力, 额外构造 `Segment Embeddings`: 上句的任何位置上 `Segment Token` 均为 $0$, 下句均为 $1$.
+5. 将 `Token Embeddings`, `Segment Embeddings` 和 `Position Embeddings` 三个向量累加 (`Element-wise Addition`), 得到最终传入模型的输入. 
+
+计算流程如下图所示:
+
+![20240202171130](https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20240202171130.png)
+
+#### 实现
+
+参考 [](), 下面简要介绍 `BERT` 模型的 `PyTorch` 实现, 数据预处理和模型训练.
+
+`Google` 发布的 `BERT` 模型使用了 `BooksCorpus` 和 `English Wikipedia` 语料进行训练, 规模达到千万级别. 由于本实现仅为学习目的, 因此仅使用 `IMDB` 影评数据集进行训练, 数据集规模约为 $7200$ 词.
+
+数据集可通过 [Kaggle 上的相关页面](https://www.kaggle.com/datasets/lakshmi25npathi/imdb-dataset-of-50k-movie-reviews) 下载. 我们构建数据集类 `IMDBBertDataset()`, 并分别实现:
+
+1. 将数据集按照 **句子** 拆分. 
+2. 基于拆分出的句子, 进一步将其拆分为单词, 并构建 **单词表**.
+3. 基于上文提及的规则, 为 `NSP` 训练目标构建句子对, 以及对每个句子进行相应的掩膜掩盖 (`Masking`). 
+
+训练集构建部分的代码展示如下:
+
+~~~python
+import random
+import typing
+from collections import Counter
+from pathlib import Path
+
+import numpy as np
+import pandas as pd
+import torch
+
+from tqdm import tqdm
+from torch.utils.data import Dataset
+from torchtext.vocab import vocab
+from torchtext.data.utils import get_tokenizer
+
+from typing import List
+
+# select CUDA, CPU or MPS device accordingly
+device = torch.device("cuda" if torch.cuda.is_available() else ("mps" if torch.backends.mps.is_available() else "cpu"))
+
+class IMDBBertDataset(Dataset):
+    CLS = '[CLS]'
+    PAD = '[PAD]'
+    SEP = '[SEP]'
+    MASK = '[MASK]'
+    UNK = '[UNK]'
+
+    MASK_PERCENTAGE = 0.15  # according to original paper
+    MASKED_INDICES_COLUMN = 'masked_indices'
+    TARGET_COLUMN = 'indices'
+    NSP_TARGET_COLUMN = 'is_next'       # Next Sentence Prediction
+    TOKEN_MASK_COLUMN = 'token_mask'
+
+    OPTIMAL_LENGTH_PERCENTILE = 70
+
+    def __init__(self, path: str, ds_from: int = None, ds_to: int = None, should_include_text: bool = False):
+        # in IMDB dataset, two columns exist: 'review' and 'sentiment'
+        self.ds: pd.Series = pd.read_csv(path)['review']
+
+        if ds_from is not None or ds_to is not None:
+            self.ds = self.ds[ds_from : ds_to]
+
+        self.tokenizer = get_tokenizer('basic_english')
+        self.counter = Counter()
+        self.vocab = None
+
+        self.optimal_sentence_length = None
+        self.should_include_text = should_include_text
+
+        # include textual representations for debug purposes on-demand
+        if should_include_text:
+            self.columns = ['masked_sentence', self.MASKED_INDICES_COLUMN, 'sentence', self.TARGET_COLUMN,
+                            self.TOKEN_MASK_COLUMN,
+                            self.NSP_TARGET_COLUMN]
+        else:
+            self.columns = [self.MASKED_INDICES_COLUMN, self.TARGET_COLUMN, self.TOKEN_MASK_COLUMN,
+                            self.NSP_TARGET_COLUMN]
+
+        self.df = self.prepare_dataset()
+
+    # implement standard operational methods in torch.utils.data.Dataset class
+    def __len__(self):
+        return len(self.df)
+
+    def __getitem__(self, idx):
+        # method for preparing a training-item tensors
+        item = self.df.iloc[idx]
+        
+        inp = torch.Tensor(item[self.MASKED_INDICES_COLUMN]).long()
+        token_mask = torch.Tensor(item[self.TOKEN_MASK_COLUMN]).bool()
+
+        # restrict the model prediction on masked tokens (MLM Target)
+        mask_target = torch.Tensor(item[self.TARGET_COLUMN]).long()
+        # set all non-masked integers (tokens) in the target to 0
+        mask_target = mask_target.masked_fill_(token_mask, 0)
+
+        attention_mask = (inp == self.vocab[self.PAD]).unsqueeze(0)
+
+        # set the nsp target
+        # nsp is a binary classification problem, create nsp target as a tensor of two items
+        # train the model for NSP: use BCEWithLogitsLoss (Binary Cross Entropy Loss)
+        if item[self.NSP_TARGET_COLUMN] == 0:
+            t = [1, 0]  # NOT next
+        else:
+            t = [0, 1]  # IS next
+
+        nsp_target = torch.Tensor(t)
+
+        return (
+            inp.to(device),
+            attention_mask.to(device),
+            token_mask.to(device),
+            mask_target.to(device),
+            nsp_target.to(device)
+        )
+
+    def prepare_dataset(self) -> pd.DataFrame:
+        # prepare the dataset, steps:
+        # 1. split dataset on sentences
+        # 2. create a vocabulary for word-token pair: {<word> : <token>}
+        # 3. create training dataset:
+        # 3.1 add special tokens like '[SEP]' to the sentence
+        # 3.2 randomly mask 15% words with '[MASK]' in each sentences
+        # 3.3 pad sentences to predifined length
+        # 3.4 ccreate NSP items for sentence pairs
+
+        sentences, nsp, sentence_lens = [], [], []
+
+        # split the dataset on sentences
+        for review in self.ds:
+            # split sentences with commas
+            review_sentences = review.split('. ')
+            sentences += review_sentences
+            self._update_length(review_sentences, sentence_lens)
+        
+        self.optimal_sentence_length = self._find_optimal_sentence_length(sentence_lens)
+        print("[INF] Creating vocabulary...")
+        for sentence in tqdm(sentences):
+            s = self.tokenizer(sentence)
+            self.counter.update(s)
+        
+        self._fill_vocab()
+
+        print("[INF] Preprocessing dataset...")
+        for review in tqdm(self.ds):
+            review_sentences = review.split('. ')
+            if len(review_sentences) > 1:
+                # Produce true and false NSP item pairs
+                for i in range(len(review_sentences) - 1):
+                    # produce true pairs:
+                    first, second = self.tokenizer(review_sentences[i]), self.tokenizer(review_sentences[i+1])
+                    nsp += [self._create_item(first, second, 1)]
+
+                    # produce false pairs
+                    first, second = self._select_false_nsp_sentences(sentences)
+                    first, second = self.tokenizer(first), self.tokenizer(second)
+                    nsp += [self._create_item(first, second, 0)]
+        
+        return pd.DataFrame(nsp, columns=self.columns)
+
+    def _update_length(self, sentences: List[str], lengths: List[int]):
+        for v in sentences:
+            l = len(v.split())
+            lengths += [l]
+        return lengths
+
+    def _find_optimal_sentence_length(self, lengths: List[int]):
+        return int(np.percentile(np.array(lengths), self.OPTIMAL_LENGTH_PERCENTILE))
+    
+    def _fill_vocab(self):
+        # specials= argument is only in 0.12.0 version
+        # specials=[self.CLS, self.PAD, self.MASK, self.SEP, self.UNK]
+        self.vocab = vocab(self.counter, min_freq=2)
+
+        # 0.11.0 uses this approach to insert specials
+        self.vocab.insert_token(self.CLS, 0)
+        self.vocab.insert_token(self.PAD, 1)
+        self.vocab.insert_token(self.MASK, 2)
+        self.vocab.insert_token(self.SEP, 3)
+        self.vocab.insert_token(self.UNK, 4)
+        self.vocab.set_default_index(4)
+    
+    def _create_item(self, first: List[str], second: List[str], target: int = 1):
+        # create masked sentence items
+
+        updated_first, first_mask = self._preprocess_sentence(first.copy())
+        updated_second, second_mask = self._preprocess_sentence(second.copy())
+        nsp_sentence = updated_first + [self.SEP] + updated_second
+        nsp_indices = self.vocab.lookup_indices(nsp_sentence)
+        inverse_token_mask = first_mask + [True] + second_mask
+
+        # create sentence items without masking random words
+        first, _ = self._preprocess_sentence(first.copy(), should_mask=False)
+        second, _ = self._preprocess_sentence(second.copy(), should_mask=False)
+        original_nsp_sentence = first + [self.SEP] + second
+        original_nsp_indices = self.vocab.lookup_indices(original_nsp_sentence)
+
+        if self.should_include_text: 
+            return(
+                nsp_sentence,
+                nsp_indices,
+                original_nsp_sentence,
+                original_nsp_indices,
+                inverse_token_mask,
+                target
+            )
+        else:
+            return (
+                nsp_indices, 
+                original_nsp_indices,
+                inverse_token_mask,
+                target
+            )
+
+    def _select_false_nsp_sentences(self, sentences: List[str]):
+        """Select sentences to create false NSP item
+
+        Args:
+            sentences: list of all sentences
+
+        Returns:
+            tuple of two sentences. The second one NOT the next sentence
+        """
+        sentences_len = len(sentences)
+        sentence_index = random.randint(0, sentences_len - 1)
+        next_sentence_index = random.randint(0, sentences_len - 1)
+
+        # To be sure that it's not real next sentence
+        while next_sentence_index == sentence_index + 1:
+            next_sentence_index = random.randint(0, sentences_len - 1)
+
+        return sentences[sentence_index], sentences[next_sentence_index]
+
+    def _preprocess_sentence(self, sentence: List[str], should_mask: bool = True):
+        inverse_token_mask = []
+        if should_mask:
+            sentence, inverse_token_mask = self._mask_sentence(sentence)
+        
+        sentence, inverse_token_mask = self._pad_sentence([self.CLS] + sentence, [True] + inverse_token_mask)
+        
+        return sentence, inverse_token_mask
+    
+    def _mask_sentence(self, sentence: List[str]):
+        """Replace MASK_PERCENTAGE (15%) of words with special [MASK] symbol
+        or with random word from vocabulary
+
+        Args:
+            sentence: sentence to process
+
+        Returns:
+            tuple of processed sentence and inverse token mask
+        """
+        len_s = len(sentence)
+        inverse_token_mask = [True for _ in range(max(len_s, self.optimal_sentence_length))]
+
+        mask_amount = round(len_s * self.MASK_PERCENTAGE)
+        for _ in range(mask_amount):
+            i = random.randint(0, len_s - 1)
+
+            if random.random() < 0.8:
+                sentence[i] = self.MASK
+            else:
+                # All is below 5 is special token
+                # see self._insert_specials method
+                j = random.randint(5, len(self.vocab) - 1)
+                sentence[i] = self.vocab.lookup_token(j)
+            inverse_token_mask[i] = False
+        return sentence, inverse_token_mask
+
+    def _pad_sentence(self, sentence: typing.List[str], inverse_token_mask: typing.List[bool] = None):
+        # preprocess [CLS] and [PAD] sentendce
+
+        len_s = len(sentence)
+        
+        if len_s >= self.optimal_sentence_length:
+            # truncate
+            s = sentence[:self.optimal_sentence_length]
+        else:
+            # pad the sentence to optimal sentence length
+            s = sentence + [self.PAD] * (self.optimal_sentence_length - len_s)
+        
+        if inverse_token_mask:
+            len_m = len(inverse_token_mask)
+            if len_m >= self.optimal_sentence_length:
+                inverse_token_mask = inverse_token_mask[:self.optimal_sentence_length]
+            else:
+                inverse_token_mask = inverse_token_mask + [True] * (self.optimal_sentence_length - len_m)
+        
+        return s, inverse_token_mask
+
+
+# testing
+if __name__ == '__main__':
+    BASE_DIR = Path(__file__).resolve().parent.parent
+
+    ds = IMDBBertDataset(BASE_DIR.joinpath('data/imdb.csv'), ds_from=0, ds_to=50000,
+                            should_include_text=True)
+    print(ds.df)
+~~~
+
+接下来构建 `BERT` 模型. 根据论文描述, 我们将模型拆分为以下的几个部分:
+
+1. `JointEmbedding`: 负责建模 `Word Embedding`, `Segment Embedding` 和 `Position Embedding`.
+
+    ~~~python
+
+    class JointEmbedding(nn.Module):
+        def __init__(self, vocab_size, size):
+            super(JointEmbedding, self).__init__()
+
+            self.size = size
+
+            self.token_emb = nn.Embedding(vocab_size, size)
+            self.segment_emb = nn.Embedding(vocab_size, size)
+
+            self.norm = nn.LayerNorm(size)
+
+        def forward(self, input_tensor):
+            # compute the embeddings, add them together and normalize them
+            sentence_size = input_tensor.size(-1)
+
+            pos_tensor = self.attention_position(self.size, input_tensor)
+            segment_tensor = torch.zeros_like(input_tensor).to(device)
+            # this is achievable as we have padded each sentence to identical length during data preprocessing
+            # in original paper, first and second sentence's segment embeddings are set to 0 and 1 so as to enable the model to differentiate sentences
+            segment_tensor[:, sentence_size // 2 + 1:] = 1  
+
+            # follow the paper's description 
+            output = self.token_emb(input_tensor) + self.segment_emb(segment_tensor) + pos_tensor
+            return self.norm(output)
+        
+        def attention_position(self, dim, input_tensor):
+            # compute positional embeddings for each token
+
+            batch_size = input_tensor.size(0)
+            sentence_size = input_tensor.size(-1)
+
+            pos = torch.arange(sentence_size, dtype=torch.long).to(device)
+            d = torch.arange(dim, dtype=torch.long).to(device)
+            d = (2 * d / dim)
+
+            pos = pos.unsqueeze(1)
+            pos = pos / (1e4 ** d)
+
+            pos[:, ::2] = torch.sin(pos[:, ::2])
+            pos[:, 1::2] = torch.cos(pos[:, 1::2])
+
+            return pos.expand(batch_size, *pos.size())
+
+        def numeric_position(self, dim, input_tensor):
+            pos_tensor = torch.arange(dim, dtype=torch.long).to(device)
+            return pos_tensor.expand_as(input_tensor)
+    ~~~
+
+2. 自注意力机制和多头注意力机制层:
+
+    ~~~python 
+    class AttentionHead(nn.Module):
+        def __init__(self, dim_inp, dim_out):
+            super(AttentionHead, self).__init__()
+
+            self.dim_inp = dim_inp
+
+            self.q = nn.Linear(dim_inp, dim_out)
+            self.k = nn.Linear(dim_inp, dim_out)
+            self.v = nn.Linear(dim_inp, dim_out)
+
+        def forward(self, input_tensor: torch.Tensor, attention_mask: torch.Tensor = None):
+            query, key, value = self.q(input_tensor), self.k(input_tensor), self.v(input_tensor)
+
+            scale = query.size(1) ** 0.5    # \sqrt(input_size)
+            attention_scores = torch.bmm(query, key.transpose(1, 2)) / scale  # A = Q*(K^T)/sqrt(input_size); bmm == Batched Matrix Multiplication
+            
+            attention_scores = attention_scores.masked_fill_(attention_mask, -1e9)  # prevent division by zero
+            attention_val = f.softmax(attention_scores, dim=-1)    # normalize attention scores
+            attention_context = torch.bmm(attention_val, value)
+
+            return attention_context
+
+    class MultiHeadAttention(nn.Module):
+        def __init__(self, num_heads, dim_inp, dim_out):
+            super(MultiHeadAttention, self).__init__()
+
+            # produce a batch of attention heads in parallel
+            self.heads = nn.ModuleList([
+                AttentionHead(dim_inp, dim_out) for _ in range(num_heads)
+            ])
+
+            # produce a linear layer for feature merging
+            self.linear = nn.Linear(dim_out * num_heads, dim_inp)
+            # normalize
+            self.norm = nn.LayerNorm(dim_inp)
+
+        def forward(self, input_tensor: torch.Tensor, attention_mask: torch.Tensor):
+            s = [head(input_tensor, attention_mask) for head in self.heads]
+            attention_values = torch.cat(s, dim=-1)
+            attention_values = self.linear(attention_values)
+            return self.norm(attention_values)
+    ~~~
+
+3. `Transformer Encoder`:
+   ~~~python
+    class Encoder(nn.Module):
+        def __init__(self, dim_inp, dim_out, attention_heads=4, dropout=0.1):
+            super(Encoder, self).__init__()
+            
+            # batch_size x sentence size x dim_inp
+            self.attention = MultiHeadAttention(attention_heads, dim_inp, dim_out)
+            self.feed_forward = nn.Sequential(
+                nn.Linear(dim_inp, dim_out), 
+                nn.Dropout(dropout), 
+                nn.GELU(), 
+                nn.Linear(dim_out, dim_inp),
+                nn.Dropout(dropout)
+            )
+            self.norm = nn.LayerNorm(dim_inp)
+
+        def forward(self, input_tensor: torch.Tensor, attention_mask: torch.Tensor):
+            context = self.attention(input_tensor, attention_mask)
+            res = self.feed_forward(context)
+            return self.norm(res)
+   ~~~
+
+4. 调用和集成上述类的 `BERT` 类:
+    ~~~python
+    class BERT(nn.Module):
+        def __init__(self, vocab_size, dim_inp, dim_out, attention_heads=4):
+            super(BERT, self).__init__()
+
+            self.embedding = JointEmbedding(vocab_size, dim_inp)
+            self.encoder = Encoder(dim_inp, dim_out, attention_heads)
+
+            self.token_prediction_layer = nn.Linear(dim_inp, vocab_size)
+            self.softmax = nn.LogSoftmax(dim=-1)
+
+            self.classification_layer = nn.Linear(dim_inp, 2)
+
+        def forward(self, input_tensor: torch.Tensor, attention_mask: torch.Tensor):
+            embeddeding = self.embedding(input_tensor)
+            encoded_embedding = self.encoder(embeddeding, attention_mask)
+
+            token_predictions = self.token_prediction_layer(encoded_embedding)
+            first_word = encoded_embedding[:, 0, :]
+
+            return self.softmax(token_predictions), self.classification_layer(first_word)
+    ~~~
+
+最后编写 `Loss` 计算和模型训练逻辑:
+
+~~~python
+import time
+from datetime import datetime
+from pathlib import Path
+
+import torch
+
+from torch import nn
+from torch.utils.data import DataLoader
+from torch.utils.tensorboard import SummaryWriter
+
+from bert.dataset import IMDBBertDataset
+from bert.model import BERT
+
+# select CUDA, CPU or MPS device accordingly
+device = torch.device("cuda" if torch.cuda.is_available() else ("mps" if torch.backends.mps.is_available() else "cpu"))
+
+def percentage(batch_size: int, max_index: int, current_index: int):
+    """Calculate epoch progress percentage
+
+    Args:
+        batch_size: batch size
+        max_index: max index in epoch
+        current_index: current index
+
+    Returns:
+        Passed percentage of dataset
+    """
+    batched_max = max_index // batch_size
+    return round(current_index / batched_max * 100, 2)
+
+
+def nsp_accuracy(result: torch.Tensor, target: torch.Tensor):
+    """Calculate NSP accuracy between two tensors
+
+    Args:
+        result: result calculated by model
+        target: real target
+
+    Returns:
+        NSP accuracy
+    """
+    s = (result.argmax(1) == target.argmax(1)).sum()
+    return round(float(s / result.size(0)), 2)
+
+def token_accuracy(result: torch.Tensor, target: torch.Tensor, inverse_token_mask: torch.Tensor):
+    """Calculate MLM accuracy between ONLY masked words
+
+    Args:
+        result: result calculated by model
+        target: real target
+        inverse_token_mask: well-known inverse token mask
+
+    Returns:
+        MLM accuracy
+    """
+    r = result.argmax(-1).masked_select(~inverse_token_mask)
+    t = target.masked_select(~inverse_token_mask)
+    s = (r == t).sum()
+    return round(float(s / (result.size(0) * result.size(1))), 2)
+
+class BertTrainer:
+
+    def __init__(self,
+                 model: BERT,
+                 dataset: IMDBBertDataset,
+                 log_dir: Path,
+                 checkpoint_dir: Path = None,
+                 print_progress_every: int = 10,
+                 print_accuracy_every: int = 50,
+                 batch_size: int = 24,
+                 learning_rate: float = 0.005,
+                 epochs: int = 5,
+                 ):
+        self.model = model
+        self.dataset = dataset
+
+        self.batch_size = batch_size
+        self.epochs = epochs
+        self.current_epoch = 0
+
+        self.loader = DataLoader(self.dataset, batch_size=self.batch_size, shuffle=True)
+
+        self.writer = SummaryWriter(str(log_dir))
+        self.checkpoint_dir = checkpoint_dir
+
+        self.criterion = nn.BCEWithLogitsLoss().to(device)
+        self.ml_criterion = nn.NLLLoss(ignore_index=0).to(device)
+        self.optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate, weight_decay=0.015)
+
+        self._splitter_size = 35
+
+        self._ds_len = len(self.dataset)
+        self._batched_len = self._ds_len // self.batch_size
+
+        self._print_every = print_progress_every
+        self._accuracy_every = print_accuracy_every
+
+    def print_summary(self):
+        ds_len = len(self.dataset)
+
+        print("Model Summary\n")
+        print('=' * self._splitter_size)
+        print(f"Device: {device}")
+        print(f"Training dataset len: {ds_len}")
+        print(f"Max / Optimal sentence len: {self.dataset.optimal_sentence_length}")
+        print(f"Vocab size: {len(self.dataset.vocab)}")
+        print(f"Batch size: {self.batch_size}")
+        print(f"Batched dataset len: {self._batched_len}")
+        print('=' * self._splitter_size)
+        print()
+
+    def __call__(self):
+        for self.current_epoch in range(self.current_epoch, self.epochs):
+            loss = self.train(self.current_epoch)
+            self.save_checkpoint(self.current_epoch, step=-1, loss=loss)
+
+    def train(self, epoch: int):
+        print(f"Begin epoch {epoch}")
+
+        prev = time.time()
+        average_nsp_loss = 0
+        average_mlm_loss = 0
+        for i, value in enumerate(self.loader):
+            index = i + 1
+            inp, mask, inverse_token_mask, token_target, nsp_target = value
+            self.optimizer.zero_grad()
+
+            token, nsp = self.model(inp, mask)
+
+            tm = inverse_token_mask.unsqueeze(-1).expand_as(token)
+            token = token.masked_fill(tm, 0)
+
+            loss_token = self.ml_criterion(token.transpose(1, 2), token_target)  # 1D tensor as target is required
+            loss_nsp = self.criterion(nsp, nsp_target)
+
+            loss = loss_token + loss_nsp
+            average_nsp_loss += loss_nsp
+            average_mlm_loss += loss_token
+
+            loss.backward()
+            self.optimizer.step()
+
+            if index % self._print_every == 0:
+                elapsed = time.gmtime(time.time() - prev)
+                s = self.training_summary(elapsed, index, average_nsp_loss, average_mlm_loss)
+
+                if index % self._accuracy_every == 0:
+                    s += self.accuracy_summary(index, token, nsp, token_target, nsp_target, inverse_token_mask)
+
+                print(s)
+
+                average_nsp_loss = 0
+                average_mlm_loss = 0
+        return loss
+    
+    def training_summary(self, elapsed, index, average_nsp_loss, average_mlm_loss):
+        passed = percentage(self.batch_size, self._ds_len, index)
+        global_step = self.current_epoch * len(self.loader) + index
+
+        print_nsp_loss = average_nsp_loss / self._print_every
+        print_mlm_loss = average_mlm_loss / self._print_every
+
+        s = f"{time.strftime('%H:%M:%S', elapsed)}"
+        s += f" | Epoch {self.current_epoch + 1} | {index} / {self._batched_len} ({passed}%) | " \
+             f"NSP loss {print_nsp_loss:6.2f} | MLM loss {print_mlm_loss:6.2f}"
+
+        self.writer.add_scalar("NSP loss", print_nsp_loss, global_step=global_step)
+        self.writer.add_scalar("MLM loss", print_mlm_loss, global_step=global_step)
+        return s
+
+    def accuracy_summary(self, index, token, nsp, token_target, nsp_target, inverse_token_mask):
+        global_step = self.current_epoch * len(self.loader) + index
+        nsp_acc = nsp_accuracy(nsp, nsp_target)
+        token_acc = token_accuracy(token, token_target, inverse_token_mask)
+
+        self.writer.add_scalar("NSP train accuracy", nsp_acc, global_step=global_step)
+        self.writer.add_scalar("Token train accuracy", token_acc, global_step=global_step)
+
+        return f" | NSP accuracy {nsp_acc} | Token accuracy {token_acc}"
+
+    def save_checkpoint(self, epoch, step, loss):
+        if not self.checkpoint_dir:
+            return
+
+        prev = time.time()
+        name = f"bert_epoch{epoch}_step{step}_{datetime.utcnow().timestamp():.0f}.pt"
+
+        torch.save({
+            'epoch': epoch,
+            'model_state_dict': self.model.state_dict(),
+            'optimizer_state_dict': self.optimizer.state_dict(),
+            'loss': loss,
+        }, self.checkpoint_dir.joinpath(name))
+
+        print()
+        print('=' * self._splitter_size)
+        print(f"Model saved as '{name}' for {time.time() - prev:.2f}s")
+        print('=' * self._splitter_size)
+        print()
+    
+    def load_checkpoint(self, path: Path):
+        print('=' * self._splitter_size)
+        print(f"Restoring model {path}")
+        checkpoint = torch.load(path)
+        self.current_epoch = checkpoint['epoch']
+        self.model.load_state_dict(checkpoint['model_state_dict'])
+        self.optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
+        print("Model is restored.")
+        print('=' * self._splitter_size)
+~~~
+
+完整代码参见: [此处](https://github.com/KirisameR/LLMs/tree/main/BERT)
+
+### `GPT`
+
+`GPT` 是典型的自回归模型.
+
+#### 介绍
+
+#### 模型架构
+
+#### 实现
+
+
+### `T5`
+
+我们简述典型的 `Encoder-Decoder` 模型: `T5`.
+
+#### 介绍
+
+#### 模型架构
 
 ### 多模态视觉语言模型
 
@@ -864,3 +1578,11 @@ https://zhuanlan.zhihu.com/p/625714067?utm_id=0
 https://huggingface.co/docs/transformers/model_summary
 
 https://aman.ai/primers/ai/autoregressive-vs-autoencoder-models/
+
+https://blog.csdn.net/weixin_44750512/article/details/128903695
+
+https://zhuanlan.zhihu.com/p/609284285?utm_id=0
+
+https://coaxsoft.com/blog/building-bert-with-pytorch-from-scratch
+
+https://towardsdatascience.com/bert-explained-state-of-the-art-language-model-for-nlp-f8b21a9b6270
