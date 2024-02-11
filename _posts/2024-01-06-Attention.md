@@ -1506,11 +1506,17 @@ class BertTrainer:
 
 ### `GPT`
 
-`GPT` 是典型的自回归模型.
+由于不同代际的 `GPT` 类模型网络架构基本相同, 此处仅描述 `GPT-1` 和 `GPT-2`.
 
 #### 介绍
 
+`GPT` 是典型的自回归模型, 适用于文本生成任务. 为了构造 **既能捕捉文本内在信息, 又能广泛适应多种场景** 的优化目标, `OpenAI` 提出了 `GPT-1`. 和 `BERT` 相同, `GPT` 的训练方法也是 **无监督预训练**, 并基于 **自然语言处理领域中多种任务** 均可被视为 **基于输入生成某种输出** 的范式, 其训练目标被设计为 **文本补全** (也就是文本续写). 
+
 #### 模型架构
+
+为了服务文本补全的设计目标, `GPT` 基于 `Transformer` 架构中的解码器 (`Decoder`) 构建. 在 `GPT-1` 中, 输入`Embedding` 被设计为 $768$ 维, 并堆叠了 $12$ 个解码器基本层, 每个基本层由 **`Masked Multi-Head Self Attention`** 层, `Layer Norm` 和前馈神经网络结合残差连接构成. 
+
+![20240204024425](https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20240204024425.png)
 
 #### 实现
 
