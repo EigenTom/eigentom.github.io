@@ -23,4 +23,4 @@ I am currently working as a full-time co-op applied research intern at ModiFace 
 {% include_relative _includes/publications.md %}
 
 
-<script type='text/javascript' id='clustrmaps' src='//cdn.clustrmaps.com/map_v2.js?cl=ffffff&w=300&t=tt&d=ObqgpeoqT1b3O21DlyRV6L2rujBvm3r-Lpod84URhy0&cmn=3acc3a&cmo=3acc3a&co=2d78ad&ct=ffffff'></script>
+<script type="text/javascript" id="clustrmaps" src="//clustrmaps.com/map_v2.js?d=BCu1-gPEyfGJL5ES9RU4NKrRerm46H-2_SCFXBOZCIs&cl=ffffff&w=a"></script>
