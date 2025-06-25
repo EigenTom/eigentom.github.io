@@ -1,7 +1,7 @@
-.DS_Store 
-*/.DS_Store 
+_site
+.sass-cache
+Gemfile.lock
+*.gem
 .DS_Store
-.DS_Store
-_site/*
-_site/
-.jekyll-cache/
+.jekyll-cache
+git-update.sh

@@ -1,0 +1,23 @@
+main:
+  - title: "RSVP: Reasoning Segmentation via Visual Prompting and Multi-modal Chain-of-Thought"
+    authors: "<strong>Yi Lu*</strong>, Jiawang Cao*, Yongliang Wu*, Bozheng Li, Licheng Tang, Yangguang Ji, Chong Wu, Jay Wu, Wenbo Zhu"
+    conference_short: ACL
+    conference: "Annual Meeting of the Association for Computational Linguistics (ACL), 2025."
+    image: ./assets/img/rsvp.png
+
+  - title: "VEU-Bench: Towards Comprehensive Understanding of Video Editing"
+    authors: "Bozheng Li, Yongliang Wu*, <strong>Yi Lu*</strong>, Jiashuo Yu, Licheng Tang, Jiawang Cao, Wenqing Zhu, Yuyang Sun, Jay Wu, Wenbo Zhu"
+    conference_short: CVPR
+    conference: "IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), 2025. "
+    image: ./assets/img/veu-bench.png
+    pdf: https://arxiv.org/abs/2504.17828
+    notes: Highlight
+
+    
+  - title: "Video Repurposing from User Generated Content: A Large-scale Dataset and Benchmark"
+    authors: "Yongliang Wu*, Wenbo Zhu*, Jiawang Cao*, <strong>Yi Lu</strong>, Bozheng Li, Weiheng Chi, Zihan Qiu, Lirian Su, Haolin Zheng, Jay Wu, Xu Yang"
+    conference_short: AAAI
+    conference: "AAAI Conference on Artificial Intelligence (AAAI), 2025."
+    pdf: https://arxiv.org/abs/2412.08879
+    code: https://github.com/yongliang-wu/Repurpose
+    image: ./assets/img/repurpose.png

@@ -1,1287 +1,249 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
+  <head>
+    <title>Yi Lu | Department of Computer Science, University of Toronto</title>
 
-
-<head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <meta name="description" content="由于作者太菜, 博客内容无法显示.">
-    <meta name="keywords" content="菜">
-    <meta name="theme-color" content="#333">
-
-    <!-- Open Graph -->
-    <meta property="og:title"
-        content="某一般线性空间 | Ramdom Linear Space">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="This is the personal homepage of Yi Lu, a Master Student in the Department of Computer Science at the University of Toronto.">
     
-    <meta property="og:type" content="website">
-    <meta property="og:description"
-        content="高阶线性微分方程组会梦见基础解系吗?">
+    <meta name="keywords" content="Yi Lu, Computer Science, University of Toronto">
     
-    <meta property="og:image" content="http://localhost:4000https://github.com/KirisameR.png">
-    <meta property="og:url" content="http://localhost:4000/">
-    <meta property="og:site_name" content="某一般线性空间 | Ramdom Linear Space">
-
-    <title>某一般线性空间 | Ramdom Linear Space</title>
-
-    <!-- Web App Manifest -->
-    <link rel="manifest" href="/pwa/manifest.json">
-
-    <!-- Favicon -->
-    <link rel="shortcut icon" href="/img/favicon.ico">
-
-    <!-- Canonical URL -->
-    <link rel="canonical" href="http://localhost:4000/">
-
-    <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href=" /css/bootstrap.min.css">
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href=" /css/hux-blog.min.css">
     
-    <!-- Local Dev Debugging
-    <link rel="stylesheet" href=" /css/font-awesome.min.css"> 
-    -->
+    <link rel="canonical" href="https://minimal-light-theme.yliu.me/"/>
     
 
-    <!-- Custom Fonts -->
-    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
-    <!-- Hux change font-awesome CDN to qiniu -->
-    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"type="text/css">
-    <!-- Add Parallex Effect-->
-    <script src="/js/jquery.min.js "></script>
-    <script src="/js/locomotive-scroll.min.js"></script>
+    <link rel="icon" media="(prefers-color-scheme:dark)" href="./assets/img/favicon-light.png" type="image/png" />
+    <link rel="icon" media="(prefers-color-scheme:light)" href="./assets/img/favicon.png" type="image/png" />
+    <script src="./assets/js/favicon-switcher.js" type="application/javascript"></script>
 
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <!-- ga & ba script hoook -->
-    <script></script>
-
-    <!-- 数学公式 -->
-    <script type="text/javascript" async
-      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML"></script>
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-            showProcessingMessages: true, //关闭js加载过程信息
-            messageStyle: "none", //不显示信息
-            extensions: ["tex2jax.js"],
-            jax: ["input/TeX", "output/HTML-CSS"],
-            tex2jax: {
-                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-                displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code','a'], //避开某些标签
-                ignoreClass:"comment-content" //避开含该Class的标签
-            },
-            "HTML-CSS": {
-                availableFonts: ["STIX","TeX"], //可选字体
-                showMathMenu: false //关闭右击菜单显示
-            }
-        });
-        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
-    </script>
-
+    <link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin=anonymous>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    
+    <link rel="stylesheet" href="./assets/css/font.css">
+    
+    
+    <link rel="stylesheet" href="./assets/css/style-no-dark-mode.css">
+    <link rel="stylesheet" href="./assets/css/publications-no-dark-mode.css">
     
 
-    <!-- Google AdSense 
-    <script data-ad-client="ca-pub-6487568398225121" async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>-->
-</head>
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        
+        
+        <a class="image avatar"><img src="./assets/img/avatar.png" alt="avatar" /></a>
+        
+
+        <h1>Yi Lu</h1>
+
+        
+        <position style="font-size:1.10rem;">Master Student</position>
+        <br>
+        
+        
+        <a href="" rel="noopener"><autocolor>Department of Computer Science, University of Toronto</autocolor></a>
+        <br>
+        
+        
+        <email>tomlu@cs.toronto.edu</email>
+        
+
+        <br>
+        <br>
+        <div class="social-icons">
+        
+        <a style="margin: 0 5px 0 0" href="https://scholar.google.com/citations?user=MrOZk28AAAAJ&hl=en">
+          <i class="ai ai-google-scholar" style="font-size:1.2rem"></i>
+        </a>  
+        
+
+        
+        <a style="margin: 0 5px 0 0" href="assets/files/curriculum_vitae.pdf">
+          <i class="ai ai-cv" style="font-size:1.3rem;"></i>
+        </a>
+        
+
+        
+        <a style="margin: 0 5px 0 0" href="https://github.com/EigenTom">
+          <i class="fab fa-github"></i>
+        </a>
+        
+
+        
+        <a style="margin: 0 5px 0 0" href="https://www.linkedin.com/in/yi-lu-tom/">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        
+
+        
+        </div>
+        <br>
+
+      </header>
+      <section>
+
+      <h2 id="about-me">About Me</h2>
+
+<p>I am a current Master student (Master of Science in Applied Computing programme) at the University of Toronto. My research interests lies broadly in Multi-Modal Language Model, Reinforcement Learning, Agentic LLMs and Generative AI.</p>
+
+<p>I am currently working as a full-time co-op applied research intern at ModiFace (L’Oréal’s AI Lab) focusing on controllable video generation. I am also working as a part-time research intern in TIGER Lab under the supervision of Prof. Wenhu Chen, working on a project focusing on Agentic-RL based Tool-calling LLMs. Prior to that, I worked as an research intern at Opus AI Research, where I publiched two papers in top conferences.</p>
+
+<p><strong>🎓 I’m currently looking for a PhD position starting from 2026 spring/fall. Feel free to contact me regarding any related opportunities. Here is my <a href="./assets/files/wuyongliang_resume.pdf">resume</a>.</strong></p>
+
+<h2 id="research-interests">Research Interests</h2>
+<ul>
+  <li><strong>Vision-Language Model</strong></li>
+  <li><strong>Generative AI</strong></li>
+  <li><strong>Agentic LLMs</strong></li>
+</ul>
+
+<h2 id="news">News</h2>
+<ul>
+  <li><strong>[May 2025]</strong> 🎉 One paper is accepted by ACL 2025.</li>
+  <li><strong>[Feb. 2025]</strong> 🎉 One paper is accepted by CVPR 2025.</li>
+  <li><strong>[Dec. 2024]</strong> 🎉 One papers is accepted by AAAI 2025.</li>
+</ul>
+
+<h2 id="publications" style="margin: 2px 0px -15px;">Publications</h2>
+
+<div class="publications">
+<ol class="bibliography">
 
 
 
-<!-- hack iOS CSS :active style -->
-<body ontouchstart="">
-    <!-- Search -->
-<div class="search-page">
-  <div class="search-icon-close-container">
-    <span class="search-icon-close">
-      <i class="fa fa-times"></i>
-    </span>
+<li>
+<div class="pub-row">
+  <div class="col-sm-3 abbr" style="position: relative;padding-right: 15px;padding-left: 15px;">
+     
+    <img src="./assets/img/rsvp.png" class="teaser img-fluid z-depth-1" style="width=100;height=40%" />
+    
+     
+    <abbr class="badge">ACL</abbr>
+    
   </div>
-  <div class="search-main container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <form></form>
-        <input type="text" id="search-input" placeholder="$ grep...">
-        </form>
-        <div id="search-results" class="mini-post-list"></div>
+  <div class="col-sm-9" style="position: relative;padding-right: 15px;padding-left: 20px;">
+      <div class="title"><a href="">RSVP: Reasoning Segmentation via Visual Prompting and Multi-modal Chain-of-Thought</a></div>
+      <div class="author"><strong>Yi Lu*</strong>, Jiawang Cao*, Yongliang Wu*, Bozheng Li, Licheng Tang, Yangguang Ji, Chong Wu, Jay Wu, Wenbo Zhu</div>
+      <div class="periodical"><em>Annual Meeting of the Association for Computational Linguistics (ACL), 2025.</em>
       </div>
-    </div>
-  </div>
-</div>
-    
-<div class="floatbtn" onclick='window.scrollTo({top: 0, behavior: "smooth"})'>
-    <i class="fa fa-arrow-up"></i>
-</div>
-
-
-
-
-    
-    <!-- Navigation -->
-
-    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
-        
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header page-scroll">
-                <button type="button" class="navbar-toggle">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/">RANDOM LINEAR SPACE</a>
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div id="huxblog_navbar">
-                <div class="navbar-collapse">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="/">Home</a>
-                        </li>
-                        
-                        
-                        
-                        
-                        <li>
-                            <a href="/about/">About</a>
-                        </li>
-                        
-                        
-                        
-                        <li>
-                            <a href="/archive/">Archive</a>
-                        </li>
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        <li class="search-icon">
-                            <a href="javascript:void(0)">
-                                <i class="fa fa-search"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
-
-    <script>
-        // Drop Bootstarp low-performance Navbar
-        // Use customize navbar with high-quality material design animation
-        // in high-perf jank-free CSS3 implementation
-        var $body = document.body;
-        var $toggle = document.querySelector('.navbar-toggle');
-        var $navbar = document.querySelector('#huxblog_navbar');
-        var $collapse = document.querySelector('.navbar-collapse');
-
-        var __HuxNav__ = {
-            close: function () {
-                $navbar.className = " ";
-                // wait until animation end.
-                setTimeout(function () {
-                    // prevent frequently toggle
-                    if ($navbar.className.indexOf('in') < 0) {
-                        $collapse.style.height = "0px"
-                    }
-                }, 400)
-            },
-            open: function () {
-                $collapse.style.height = "auto"
-                $navbar.className += " in";
-            }
-        }
-
-        // Bind Event
-        $toggle.addEventListener('click', function (e) {
-            if ($navbar.className.indexOf('in') > 0) {
-                __HuxNav__.close()
-            } else {
-                __HuxNav__.open()
-            }
-        })
-
-        /**
-         * Since Fastclick is used to delegate 'touchstart' globally
-         * to hack 300ms delay in iOS by performing a fake 'click',
-         * Using 'e.stopPropagation' to stop 'touchstart' event from 
-         * $toggle/$collapse will break global delegation.
-         * 
-         * Instead, we use a 'e.target' filter to prevent handler
-         * added to document close HuxNav.  
-         *
-         * Also, we use 'click' instead of 'touchstart' as compromise
-         */
-        document.addEventListener('click', function (e) {
-            if (e.target == $toggle) return;
-            if (e.target.className == 'icon-bar') return;
-            __HuxNav__.close();
-        })
-    </script>
-    <!-- Page Header -->
-
-
-
-
-
-
-
-<!-- fuck css... transform and position:fixed cannot coexist..
-<header class="intro-header" style="background-image: url('/img/post-bg-desk.jpg')">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        
-        <div class="site-heading">
-        
-          <h1>某一般线性空间</h1>
-          <span class="subheading">高阶线性微分方程组会梦见基础解系吗?</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</header>
--->
-
-<header class="intro-header">  
-    
-    <div data-scroll-container>
-
-        <p data-scroll >
-            <img src="/img/post-bg-desk.jpg" class="bg-image"> 
-        </p>        
-    </div>
-
-<!-- buggy...
-    <script src="/js/locomotive-scroll.min.js"></script>
-    <script>
-        (function () {
-            var scroll = new LocomotiveScroll({
-                            el: document.querySelector("[data-scroll-container]"),
-                            smooth: true
-                        });
-        })();
-    </script>
--->
-
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="site-heading">
-                
-                <h1>某一般线性空间</h1>
-                <span class="subheading">高阶线性微分方程组会梦见基础解系吗?</span>
-            </div>
-        </div>
-    </div>
-</div>
-</header>
-
-
-
-<!-- Main Content -->
-<div class="main-container">
-  <div class="container">
-    <div class="row">
+    <div class="links">
       
-
-      <!-- USE SIDEBAR -->
-      <!-- PostList Container -->
-      <div class="col-lg-8 col-lg-offset-1 col-md-8 col-md-offset-1 col-sm-12
-        col-xs-12 postlist-container">
-        
-<div class="post-preview">
-    <a href="/2022/06/06/REV-COMP27112/">
-        <h2 class="post-title">
-            计算机图形学导论：复习
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Revision
-        </h3>
-        
-        <!--
-        <div class="post-content-preview">
-            
-                # 计算机图形学导论: 复习
-
-## Quiz
-
-### Computer Graphics
-
-![20220521125744](https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220521125744.png)
-
-($\uparrow$ 注意 `Fragment` 的定义.)
-...
-            
-        </div>
-        -->
-        
-        <div class="post-content-preview">
-                
-                    期末总复习
-                
-        </div>
-            
-    </a>
-    <p class="post-meta">
-        Posted by R1NG on June 6, 2022
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2022/05/31/REV-COMP24112/">
-        <h2 class="post-title">
-            机器学习导论： 复习
-        </h2>
-        
-        <h3 class="post-subtitle">
-            REVISION
-        </h3>
-        
-        <!--
-        <div class="post-content-preview">
-            
-                # COMP24112 期末总复习
-
-见笔记: [Here](https://github.com/KirisameR/KirisameR.github.io/blob/master/_posts/ML%20REVISION.pdf)
-
-直接参考资料: COMP24112全部课程内容
-框架体系直接参考对象: COMP24112复习指导Slides
-
-注: 和复习指导Slides相比, 部分章...
-            
-        </div>
-        -->
-        
-        <div class="post-content-preview">
-                
-                    期末总复习
-                
-        </div>
-            
-    </a>
-    <p class="post-meta">
-        Posted by R1NG on May 31, 2022
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2022/05/22/REV-COMP26120/">
-        <h2 class="post-title">
-            数据结构与算法： 复习
-        </h2>
-        
-        <h3 class="post-subtitle">
-            REVISION
-        </h3>
-        
-        <!--
-        <div class="post-content-preview">
-            
-                # COMP26120 算法期末总复习
-
-## Quiz
-
-### Week1: Graph Traverse and Topological Sorting
-
-![20220522165005](https://cdn.jsdelivr.net/gh/KirisameR/KirisameR.github.io/img/blogpost_images/20220522165005.png)
-...
-            
-        </div>
-        -->
-        
-        <div class="post-content-preview">
-                
-                    期末总复习
-                
-        </div>
-            
-    </a>
-    <p class="post-meta">
-        Posted by R1NG on May 22, 2022
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2022/05/01/Ch9-COMP26120/">
-        <h2 class="post-title">
-            数据结构与算法： 可计算性问题
-        </h2>
-        
-        <h3 class="post-subtitle">
-            (In)Tractability Problem
-        </h3>
-        
-        <!--
-        <div class="post-content-preview">
-            
-                # 可计算性问题
-
-在本章中, 我们将对 **可计算性问题** 进行介绍. 我们将依序介绍三种 **问题的复杂度类**: 可使用确定性算法在 **多项式时间内** 被求解的问题类 `P` (`Polynomial Time`), **使用确定性算法在多项式时间内无法求解但可验证** 的问题类 `NP` (`Non-Polynomial Time`), **比 `NP` 问题更难求解且无法确定...
-            
-        </div>
-        -->
-        
-        <div class="post-content-preview">
-                
-                    本章介绍可计算性问题.
-                
-        </div>
-            
-    </a>
-    <p class="post-meta">
-        Posted by R1NG on May 1, 2022
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2022/04/02/Ch8-COMP26120/">
-        <h2 class="post-title">
-            数据结构与算法： 素数查找问题
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Primality Testing
-        </h3>
-        
-        <!--
-        <div class="post-content-preview">
-            
-                # 素数检测问题
-
-在本章中, 我们考虑 **寻找素数** 的问题. 由 **素数定理** (`Prime Number Theorem`):
-
-记 $\pi(n)$ 为 **数值小于等于 $n$ 的所有数中素数的个数**, 则对任意 $n$, 有:
-
-$$\lim_{n \rightarrow \infty} \frac{\pi(n)}{\frac{n}{\ln(n)}} = 1.$$
-
-...
-            
-        </div>
-        -->
-        
-        <div class="post-content-preview">
-                
-                    本章介绍素数查找/检测问题.
-                
-        </div>
-            
-    </a>
-    <p class="post-meta">
-        Posted by R1NG on April 2, 2022
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2022/03/25/Ch7-COMP26120/">
-        <h2 class="post-title">
-            数据结构与算法： El Gamal加密算法
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Introducing El Gamal Encryption Algorithm
-        </h3>
-        
-        <!--
-        <div class="post-content-preview">
-            
-                # `El Gamal` 加密算法
-
-本节简单介绍 `El Gamal` 加密算法的基本原则, 涉及的计算算法和操作步骤. 
-
-## `El Gamal` 加密算法的基本原则
-
-`El Gamal` 算法是一种 **公钥-私钥** 加密算法, 其基本思路是: 构造一个 **从自变量计算出因变量相对容易, 但反过来给定因变量反推自变量极其困难** 的 **单向函数**.
-
-而在公钥-私钥加密算...
-            
-        </div>
-        -->
-        
-        <div class="post-content-preview">
-                
-                    本章介绍 El Gamal 加密算法.
-                
-        </div>
-            
-    </a>
-    <p class="post-meta">
-        Posted by R1NG on March 25, 2022
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2022/03/15/Ch6-COMP27112/">
-        <h2 class="post-title">
-            计算机图形学导论：渲染
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Rendering
-        </h3>
-        
-        <!--
-        <div class="post-content-preview">
-            
-                # 渲染
-
-在前面依次讨论完图形管线的基本组成, 顶点和边的渲染与近似, 几何变换的表示, 曲面的表示/存储和上色, 视角的确定和投影后, 我们在本章中讨论对物体表面的渲染问题.
-
-此时, 我们所得到的是在屏幕平面上已经处于合适的视角, 清除了隐藏面的网格. 要进行渲染, 就需要结合 **光照模型** (`Illumination Model`) 的基础上对网格表示的曲面进行 **平滑上色*...
-            
-        </div>
-        -->
-        
-        <div class="post-content-preview">
-                
-                    本章讨论渲染.
-                
-        </div>
-            
-    </a>
-    <p class="post-meta">
-        Posted by R1NG on March 15, 2022
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2022/03/15/Ch4-COMP26020/">
-        <h2 class="post-title">
-            进阶课题：并行计算和内存安全语言
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Introduction to Solidity
-        </h3>
-        
-        <!--
-        <div class="post-content-preview">
-            
-                # 进阶课题：并行计算和内存安全语言
-
-本章将简介 **程序语言与程序范式** 课程的最后一部分: 进阶课题. 我们将在这部分中首先介绍用于构造 **智能契约 (程序被部署在网络上自动运行并通过信息传递互相交互)** 的 `Solidity`, 并以此为契机引入一系列关于 **并行编程** (`Concurrent Programming`) 的基本概念; 随后介绍一种较新的程序设计语言: ...
-            
-        </div>
-        -->
-        
-        <div class="post-content-preview">
-                
-                    本章介绍并行计算的基本概念并引入两种程序设计语言：契约语言 Solidity 和 Rust, 讨论现代程序设计语言如何实现资源管理.
-                
-        </div>
-            
-    </a>
-    <p class="post-meta">
-        Posted by R1NG on March 15, 2022
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2022/03/14/Ch3-COMP26020/">
-        <h2 class="post-title">
-            编译器引论
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Introduction to Compilation
-        </h3>
-        
-        <!--
-        <div class="post-content-preview">
-            
-                # 编译器引论
-
-任何使用程序设计语言编写的计算机程序在被实际执行前都必须 **转译为机器语言**, 而负责这一转译过程的软件系统就是 **编译器** (`Compiler`). 
-
-在本章中, 我们将简要介绍 **编译** 流程的基本原理和技术, 并简单讨论在构造编译器时可能遇到的一些常见问题.
-
-## 1. 绪论
-
-### 定义
-
-我们首先为 **编译器** 的概念给出形式化的定义.
-
-...
-            
-        </div>
-        -->
-        
-        <div class="post-content-preview">
-                
-                    本章介绍编译器的基本结构.
-                
-        </div>
-            
-    </a>
-    <p class="post-meta">
-        Posted by R1NG on March 14, 2022
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2022/03/12/Ch6-COMP26120/">
-        <h2 class="post-title">
-            数据结构与算法： 单纯形法
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Simplex Algorithm and Linear Programming
-        </h3>
-        
-        <!--
-        <div class="post-content-preview">
-            
-                # 单纯形法
-
-**单纯形法** (`Simplex Algorithm`) 是一种用于 **求解线性约束问题最优解** 的有效算法. 
-
-本章介绍 **单纯形法**. 我们首先通过介绍线性规划问题的图像化表示引入单纯形法的基本思路, 介绍单纯形法中的一些定义, 并通过例子说明使用它求解线性规划问题的操作流程.
-
-## 单纯形法的引子: 线性规划问题的图像化表示
-
-我们下面回顾 **线性规划...
-            
-        </div>
-        -->
-        
-        <div class="post-content-preview">
-                
-                    本章介绍一种用于解决线性规划问题的有效算法：单纯形法.
-                
-        </div>
-            
-    </a>
-    <p class="post-meta">
-        Posted by R1NG on March 12, 2022
-    </p>
-</div>
-<hr>
-
-
-<!-- Pager -->
-
-<ul class="pager">
-    
-    
-    
-
-
-    
-
-    
-    <li>
-        <a class="pageIndicator" style="margin-left: 190px">1 / 15</a>
-    </li>    
-        
-
-    
-
-    
-    
-    
-    <li class="next">
-        <a href="/page2">Older Posts &rarr;</a>
-    </li>
-    
-</ul>
-
-
-      </div>
-      <!-- Sidebar Container -->
-      <div class="col-lg-3 col-lg-offset-0 col-md-3 col-md-offset-0 col-sm-12
-        col-xs-12 sidebar-container">
-
-        <!--Busuanzi Statistics-->
-        
-
-
-<section>
-    
-    <h5><a >STATISTICS</a></h5>
-    <div class="stats">
-        <span id="busuanzi_container_site_uv">
-            Viewed by <b style="color: var(--sidebar-main-color); background-color: transparent !important; font-style: bold;"><i><span id="busuanzi_value_site_uv"><i class="fa fa-spinner fa-spin"></i></span></i></b> Users<br>
-        </span>
-    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    </div>
-</section>
-<hr>
-
-
-
-
-
-        <!-- Featured Tags -->
-        
-
-
-<section>
-    
-    <h5><a href="/archive/">FEATURED TAGS</a></h5>
-    <div class="tags">
-        
-        
-        
-        
-        
-        
-                <a data-sort="0134" 
-                    href="/archive/?tag=COMP12111"
-                    title="COMP12111"
-                    rel="10">COMP12111</a>
-        
-                <a data-sort="0072" 
-                    href="/archive/?tag=%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0"
-                    title="课程笔记"
-                    rel="72">课程笔记</a>
-        
-                <a data-sort="0104" 
-                    href="/archive/?tag=%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0"
-                    title="前端学习"
-                    rel="40">前端学习</a>
-        
-                <a data-sort="0104" 
-                    href="/archive/?tag=50P50D"
-                    title="50P50D"
-                    rel="40">50P50D</a>
-        
-                <a data-sort="0131" 
-                    href="/archive/?tag=%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD"
-                    title="人工智能"
-                    rel="13">人工智能</a>
-        
-                <a data-sort="0132" 
-                    href="/archive/?tag=%E9%80%BB%E8%BE%91%E5%AD%A6"
-                    title="逻辑学"
-                    rel="12">逻辑学</a>
-        
-                <a data-sort="0133" 
-                    href="/archive/?tag=%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95"
-                    title="数据结构与算法"
-                    rel="11">数据结构与算法</a>
-        
-                <a data-sort="0134" 
-                    href="/archive/?tag=COMP15111"
-                    title="COMP15111"
-                    rel="10">COMP15111</a>
-        
-                <a data-sort="0135" 
-                    href="/archive/?tag=%E6%89%A9%E5%B1%95%E8%87%AA%E4%B9%A0"
-                    title="扩展自习"
-                    rel="9">扩展自习</a>
-        
-                <a data-sort="0135" 
-                    href="/archive/?tag=COMP21111"
-                    title="COMP21111"
-                    rel="9">COMP21111</a>
-        
-                <a data-sort="0136" 
-                    href="/archive/?tag=%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0"
-                    title="机器学习"
-                    rel="8">机器学习</a>
-        
-                <a data-sort="0137" 
-                    href="/archive/?tag=%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6"
-                    title="计算机图形学"
-                    rel="7">计算机图形学</a>
-        
-                <a data-sort="0137" 
-                    href="/archive/?tag=COMP11212"
-                    title="COMP11212"
-                    rel="7">COMP11212</a>
-        
-                <a data-sort="0138" 
-                    href="/archive/?tag=Prolog"
-                    title="Prolog"
-                    rel="6">Prolog</a>
-        
-                <a data-sort="0140" 
-                    href="/archive/?tag=%E5%A4%A7%E4%BA%8C%E4%B8%8B%E6%9C%9F%E6%9C%AB%E6%80%BB%E5%A4%8D%E4%B9%A0"
-                    title="大二下期末总复习"
-                    rel="4">大二下期末总复习</a>
-        
-                <a data-sort="0140" 
-                    href="/archive/?tag=%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AF%BC%E8%AE%BA"
-                    title="数据库导论"
-                    rel="4">数据库导论</a>
-        
-                <a data-sort="0140" 
-                    href="/archive/?tag=COMP15212"
-                    title="COMP15212"
-                    rel="4">COMP15212</a>
-        
-                <a data-sort="0141" 
-                    href="/archive/?tag=%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95"
-                    title="数据结构和算法"
-                    rel="3">数据结构和算法</a>
-        
-                <a data-sort="0142" 
-                    href="/archive/?tag=%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7"
-                    title="奇技淫巧"
-                    rel="2">奇技淫巧</a>
-        
-                <a data-sort="0142" 
-                    href="/archive/?tag=%E7%AE%97%E6%B3%95"
-                    title="算法"
-                    rel="2">算法</a>
-        
-                <a data-sort="0142" 
-                    href="/archive/?tag=%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E6%A6%82%E8%AE%BA"
-                    title="软件工程概论"
-                    rel="2">软件工程概论</a>
-        
-                <a data-sort="0142" 
-                    href="/archive/?tag=Lab"
-                    title="Lab"
-                    rel="2">Lab</a>
-    </div>
-</section>
-
-
-        <!-- Short About -->
-        <section class="visible-md visible-lg">
-  <hr>
-  <h5><a href="/about/">ABOUT ME</a></h5>
-  <div class="short-about">
-    
-    <img src="https://github.com/KirisameR.png" />
-    
-    
-    <p>菜</p>
-    
-    <!-- SNS Link -->
-    
-
-
-<ul class="list-inline">
-
-
-  
-  
-  <li>
-    <a href="https://twitter.com/eigentom">
-      <span class="fa-stack fa-lg">
-        <i class="fa fa-circle fa-stack-2x"></i>
-        <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-      </span>
-    </a>
-  </li>
-  
-  
-  
-  <li>
-    <a target="_blank" href="http://t.me/Kirisame_Marisa">
-      <span class="fa-stack fa-lg">
-        <i class="fa fa-circle fa-stack-2x"></i>
-        <i class="fa fa-telegram fa-stack-1x fa-inverse"></i>
-      </span>
-    </a>
-  </li>
-  
-  
-  
-  <li>
-    <a target="_blank" href="https://github.com/KirisameR">
-      <span class="fa-stack fa-lg">
-        <i class="fa fa-circle fa-stack-2x"></i>
-        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-      </span>
-    </a>
-  </li>
-  
-  
-  <li>
-    <a target="_blank" href="https://www.linkedin.com/in/yilu-82589933">
-      <span class="fa-stack fa-lg">
-        <i class="fa fa-circle fa-stack-2x"></i>
-        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-      </span>
-    </a>
-  </li>
-  
-</ul>
-  </div>
-</section>
-
-        <!-- Friends Blog -->
-        
-<hr>
-<h5>FRIENDS</h5>
-<ul class="list-inline">
-  
-  <li><a href="http://ryanxin.cn">琳若尘泥 十里琅居</a></li>
-  
-  <li><a href="https://flyhigher.top">无垠 - 飞翔的天空无限大</a></li>
-  
-  <li><a href="https://graynekocafe.net">灰貓咖啡廳</a></li>
-  
-  <li><a href="Gnefil.github.io">GNEFIL</a></li>
-  
-  <li><a href="https://www.asakura.jp.net/release/">NEKO ASAKURA</a></li>
-  
-</ul>
-
-
-        <!-- Ads -->
-            
-      </div>
+      
+      
+      
+      
       
     </div>
   </div>
+</div>
+</li>
+
+<br />
+
+
+
+<li>
+<div class="pub-row">
+  <div class="col-sm-3 abbr" style="position: relative;padding-right: 15px;padding-left: 15px;">
+     
+    <img src="./assets/img/veu-bench.png" class="teaser img-fluid z-depth-1" style="width=100;height=40%" />
+    
+     
+    <abbr class="badge">CVPR</abbr>
+    
   </div>
-
-
-
-
-
-<!-- Add support for Mathjax by Voleking-->
-<!-- If you want to see formulars well in post preview, Maybe you should add this.-->
-<!-- However, most of the time formulars may not appear in the post preview, you can delete it.-->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    TeX: {
-      equationNumbers: {
-        autoNumber: "AMS"
-      }
-    },
-    tex2jax: {
-      inlineMath: [ ['$','$'] ],
-      displayMath: [ ['$$','$$'] ],
-      processEscapes: true,
-    }
-  });
-</script>
-<script type="text/javascript"
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-    
-    <!-- Footer -->
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <!-- SNS Link -->
-                
-
-
-<ul class="list-inline text-center">
-
-
-  
-  
-  <li>
-    <a href="https://twitter.com/eigentom">
-      <span class="fa-stack fa-lg">
-        <i class="fa fa-circle fa-stack-2x"></i>
-        <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-      </span>
-    </a>
-  </li>
-  
-  
-  
-  <li>
-    <a target="_blank" href="http://t.me/Kirisame_Marisa">
-      <span class="fa-stack fa-lg">
-        <i class="fa fa-circle fa-stack-2x"></i>
-        <i class="fa fa-telegram fa-stack-1x fa-inverse"></i>
-      </span>
-    </a>
-  </li>
-  
-  
-  
-  <li>
-    <a target="_blank" href="https://github.com/KirisameR">
-      <span class="fa-stack fa-lg">
-        <i class="fa fa-circle fa-stack-2x"></i>
-        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-      </span>
-    </a>
-  </li>
-  
-  
-  <li>
-    <a target="_blank" href="https://www.linkedin.com/in/yilu-82589933">
-      <span class="fa-stack fa-lg">
-        <i class="fa fa-circle fa-stack-2x"></i>
-        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-      </span>
-    </a>
-  </li>
-  
-</ul>
-
-                <p class="copyright text-muted">
-                    Copyright &copy; 某一般线性空间 2022
-                    <br>
-                    Powered by <a href="616.sb">Hux Enhanced</a> |
-                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="100px"
-                        height="20px"
-                        src="https://ghbtns.com/github-btn.html?user=huxpro&repo=huxpro.github.io&type=star&count=true">
-                    </iframe>
-                </p>
-            </div>
-        </div>
+  <div class="col-sm-9" style="position: relative;padding-right: 15px;padding-left: 20px;">
+      <div class="title"><a href="https://arxiv.org/abs/2504.17828">VEU-Bench: Towards Comprehensive Understanding of Video Editing</a></div>
+      <div class="author">Bozheng Li, Yongliang Wu*, <strong>Yi Lu*</strong>, Jiashuo Yu, Licheng Tang, Jiawang Cao, Wenqing Zhu, Yuyang Sun, Jay Wu, Wenbo Zhu</div>
+      <div class="periodical"><em>IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), 2025. </em>
+      </div>
+    <div class="links">
+       
+      <a href="https://arxiv.org/abs/2504.17828" class="btn btn-sm z-depth-0" role="button" target="_blank" style="font-size:12px;">PDF</a>
+      
+      
+      
+      
+       
+      <strong> <i style="color:#e74d3c">Highlight</i></strong>
+      
+      
     </div>
-</footer>
+  </div>
+</div>
+</li>
 
-
-<!-- jQuery -->
-<script src="/js/jquery.min.js "></script>
-
-<!-- Bootstrap Core JavaScript -->
-<!-- Currently, only navbar scroll-down effect at desktop still depends on this -->
-<script src="/js/bootstrap.min.js "></script>
-
-<!-- Custom Theme JavaScript -->
-<script src="/js/hux-blog.min.js "></script>
-
-<!-- Simple Jekyll Search -->
-<script src="/js/simple-jekyll-search.min.js"></script>
-
-<!-- Service Worker -->
-
-<script src="/js/snackbar.js "></script>
-<script src="/js/sw-registration.js "></script>
-
-
-<!-- async load function -->
-<script>
-    function async(u, c) {
-        var d = document, t = 'script',
-            o = d.createElement(t),
-            s = d.getElementsByTagName(t)[0];
-        o.src = u;
-        if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
-        s.parentNode.insertBefore(o, s);
-    }
-</script>
-
-<!--
-     Because of the native support for backtick-style fenced code blocks
-     right within the Markdown is landed in Github Pages,
-     From V1.6, There is no need for Highlight.js,
-     so Huxblog drops it officially.
-
-     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
-     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
-     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers
--->
-<!--
-    <script>
-        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
-            hljs.initHighlightingOnLoad();
-        })
-    </script>
-    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
--->
+<br />
 
 
 
-
-
-
-
-<!--fastClick.js -->
-<script>
-    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function () {
-        var $nav = document.querySelector("nav");
-        if ($nav) FastClick.attach($nav);
-    })
-</script>
-
-
-<!-- Google Analytics -->
-
-
-
-<!-- Baidu Tongji -->
-
-
-
-<!-- Side Catalog -->
-
-<script type="text/javascript">
-    function generateCatalog(selector) {
-
-        // interop with multilangual 
-        if ('' == 'true') {
-            _containerSelector = 'div.post-container.active'
-        } else {
-            _containerSelector = 'div.post-container'
-        }
-
-        // init
-        var P = $(_containerSelector), a, n, t, l, i, c;
-        a = P.find('h1,h2,h3,h4,h5,h6');
-
-        // clean
-        $(selector).html('')
-
-        // appending
-        a.each(function () {
-            n = $(this).prop('tagName').toLowerCase();
-            i = "#" + $(this).prop('id');
-            t = $(this).text();
-            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
-            l = $('<li class="' + n + '_nav"></li>').append(c);
-            $(selector).append(l);
-        });
-        return true;
-    }
-
-    generateCatalog(".catalog-body");
-
-    // toggle side catalog
-    $(".catalog-toggle").click((function (e) {
-        e.preventDefault();
-        $('.side-catalog').toggleClass("fold")
-    }))
-
-    /*
-     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
-     * Fork by Hux to support padding
-     */
-    async("/js/jquery.nav.js", function () {
-        $('.catalog-body').onePageNav({
-            currentClass: "active",
-            changeHash: !1,
-            easing: "swing",
-            filter: "",
-            scrollSpeed: 700,
-            scrollOffset: 0,
-            scrollThreshold: .2,
-            begin: null,
-            end: null,
-            scrollChange: null,
-            padding: 80
-        });
-    });
-</script>
-
-
-
-<!-- Multi-Lingual -->
-
-
-<!-- Simple Jekyll Search -->
-<script>
-    // https://stackoverflow.com/questions/1912501/unescape-html-entities-in-javascript
-    function htmlDecode(input) {
-        var e = document.createElement('textarea');
-        e.innerHTML = input;
-        // handle case of empty input
-        return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
-    }
-
-    SimpleJekyllSearch({
-        searchInput: document.getElementById('search-input'),
-        resultsContainer: document.getElementById('search-results'),
-        json: '/search.json',
-        searchResultTemplate: '<div class="post-preview item"><a href="{url}"><h2 class="post-title">{title}</h2><h3 class="post-subtitle">{subtitle}</h3><hr></a></div>',
-        noResultsText: 'No results',
-        limit: 50,
-        fuzzy: false,
-        // a hack to get escaped subtitle unescaped. for some reason, 
-        // post.subtitle w/o escape filter nuke entire search.
-        templateMiddleware: function (prop, value, template) {
-            if (prop === 'subtitle' || prop === 'title') {
-                if (value.indexOf("code")) {
-                    return htmlDecode(value);
-                } else {
-                    return value;
-                }
-            }
-        }
-    });
-
-    $(document).ready(function () {
-        var $searchPage = $('.search-page');
-        var $searchOpen = $('.search-icon');
-        var $searchClose = $('.search-icon-close');
-        var $searchInput = $('#search-input');
-        var $body = $('body');
-
-        $searchOpen.on('click', function (e) {
-            e.preventDefault();
-            $searchPage.toggleClass('search-active');
-            var prevClasses = $body.attr('class') || '';
-            setTimeout(function () {
-                $body.addClass('no-scroll');
-            }, 400)
-
-            if ($searchPage.hasClass('search-active')) {
-                $searchClose.on('click', function (e) {
-                    e.preventDefault();
-                    $searchPage.removeClass('search-active');
-                    $body.attr('class', prevClasses);  // from closure 
-                });
-                $searchInput.focus();
-            }
-        });
-    });
-</script>
-    <!-- Image to hack wechat -->
-    <img src="/img/icon_wechat.png" width="0" height="0" />
-    <!-- Migrate from head to bottom, no longer block render and still work -->
+<li>
+<div class="pub-row">
+  <div class="col-sm-3 abbr" style="position: relative;padding-right: 15px;padding-left: 15px;">
+     
+    <img src="./assets/img/repurpose.png" class="teaser img-fluid z-depth-1" style="width=100;height=40%" />
     
-</body>
+     
+    <abbr class="badge">AAAI</abbr>
+    
+  </div>
+  <div class="col-sm-9" style="position: relative;padding-right: 15px;padding-left: 20px;">
+      <div class="title"><a href="https://arxiv.org/abs/2412.08879">Video Repurposing from User Generated Content: A Large-scale Dataset and Benchmark</a></div>
+      <div class="author">Yongliang Wu*, Wenbo Zhu*, Jiawang Cao*, <strong>Yi Lu</strong>, Bozheng Li, Weiheng Chi, Zihan Qiu, Lirian Su, Haolin Zheng, Jay Wu, Xu Yang</div>
+      <div class="periodical"><em>AAAI Conference on Artificial Intelligence (AAAI), 2025.</em>
+      </div>
+    <div class="links">
+       
+      <a href="https://arxiv.org/abs/2412.08879" class="btn btn-sm z-depth-0" role="button" target="_blank" style="font-size:12px;">PDF</a>
+      
+       
+      <a href="https://github.com/yongliang-wu/Repurpose" class="btn btn-sm z-depth-0" role="button" target="_blank" style="font-size:12px;">Code</a>
+      
+      
+      
+      
+      
+    </div>
+  </div>
+</div>
+</li>
 
+<br />
+
+
+
+</ol>
+</div>
+
+<script type="text/javascript" id="clustrmaps" src="//cdn.clustrmaps.com/map_v2.js?cl=ffffff&amp;w=300&amp;t=tt&amp;d=ObqgpeoqT1b3O21DlyRV6L2rujBvm3r-Lpod84URhy0&amp;cmn=3acc3a&amp;cmo=3acc3a&amp;co=2d78ad&amp;ct=ffffff"></script>
+
+
+
+      <br>
+
+      
+      <p><small>Powered by Jekyll and <a href="https://github.com/yaoyao-liu/minimal-light" target="_blank" rel="noopener">Minimal Light</a> theme.</small></p>
+      
+
+      </section>
+      <footer>
+        
+      </footer>
+    </div>
+    <script src="/assets/js/scale.fix.js"></script>
+    
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-111540567-4', 'auto');
+      ga('send', 'pageview');
+    </script>
+    
+  </body>
 </html>

@@ -1,131 +1,56 @@
-# Site settings
-title: 某一般线性空间
-engtitle: RANDOM LINEAR SPACE
-SEOTitle: 某一般线性空间 | Ramdom Linear Space
-header-img: img/post-bg-desk.jpg
-email: Luyi1720839132@Gmail.com
-description: "由于作者太菜, 博客内容无法显示."
-keyword: "菜"
-url: "https://kirisamer.github.io"          # your host, for absolute URL
-baseurl: ""      # for example, '/blog' if your blog hosted on 'host/blog'
-projectsurl: "/projects/main.html"
-github_repo: "https://github.com/kirisamer/kirisamer.github.io.git" # you code repository
+# Basic Information 
+title: Yi Lu
+position: Master Student
+affiliation: Department of Computer Science, University of Toronto
+email: tomlu@cs.toronto.edu
 
-# Publish posts or collection documents with a future date.
-future: true
+# Search Engine Optimization (SEO)
+# The following information is used to improve the website traffic from search engines, e.g., Google.
+keywords: Yi Lu, Computer Science, University of Toronto
+description: This is the personal homepage of Yi Lu, a Master Student in the Department of Computer Science at the University of Toronto.
+canonical: https://minimal-light-theme.yliu.me/
 
-# Display page numbers between previous page and next page button
-dispCurrPage: true
+# Links 
+# If you don't need one of them, you may delete the corresponding line.
+google_scholar: https://scholar.google.com/citations?user=MrOZk28AAAAJ&hl=en
+cv_link: assets/files/curriculum_vitae.pdf
+github_link: https://github.com/EigenTom
+linkedin: https://www.linkedin.com/in/yi-lu-tom/
 
-# SNS settings
-RSS: false
-telegram_username:  Kirisame_Marisa
-github_username:    KirisameR
-twitter_username:   eigentom
-linkedin_username:  yilu-82589933
-#zhihu_username:     
-#facebook_username:  
+# Images (e.g., your profile picture and your website's favicon) 
+# "favicon" and "favicon_dark" are used for the light and dark modes, respectively. 
+avatar: ./assets/img/avatar.png
+favicon: ./assets/img/favicon.png
+favicon_dark: ./assets/img/favicon-light.png
 
+# Footnote
+# You may use the option to disable the footnote, "Powered by Jekyll and Minimal Light theme."
+enable_footnote: true
 
+# Auto Dark Mode
+# You may use the option to disable the automatic dark theme
+auto_dark_mode: false
 
-# Build settings
-# from 2016, 'pygments' is unsupported on GitHub Pages. Use 'rouge' for highlighting instead.
-highlighter: rouge
-permalink: pretty
-paginate: 10
-exclude: ["less","node_modules","Gruntfile.js","package.json","README.md","README.zh.md"]
-anchorjs: true                          # if you want to customize anchor. check out line:181 of `post.html`
-# If you have timezone issue (e.g. #68) in China, uncomment to use this:
-#timezone: CN  
+# Font
+# You can use this option to choose between Serif or Sans Serif fonts.
+font: "Serif" # or "Sans Serif"
 
+# Google Analytics ID
+# Please remove this if you don't use Google Analytics
+google_analytics: UA-111540567-4
 
+# Use this project as a remote theme for GitHub Pages
+# See the guide here: https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/adding-a-theme-to-your-github-pages-site-using-jekyll
+remote_theme: yaoyao-liu/minimal-light
 
-# Gems
-# from PR#40, to support local preview for Jekyll 3.0
-# make sure you have this gem installed
-# `$ gem install jekyll-paginate`
-plugins: [jekyll-paginate]
-
-
-
-# Markdown settings
-# replace redcarpet to kramdown,
-# although redcarpet can auto highlight code, the lack of header-id make the catalog impossible, so I switch to kramdown
-# document: http://jekyllrb.com/docs/configuration/#kramdown
-markdown: kramdown
-highlighter: rouge
-kramdown:
-  input: GFM                            # use Github Flavored Markdown !important
-  syntax_highlighter_opts:
-    span:
-      line_numbers: false
-    block:
-      line_numbers: true
-      start_line: 1
-
-
-
-# Disqus settings
-disqus_username: KirisameR
-
-# Netease settings
-netease_comment: false
-
-
-
-# Analytics settings
-# Baidu Analytics 
-# ba_track_id: [your track id]
-
-# Google Analytics
-# ga_track_id: ''            # Format: UA-xxxxxx-xx
-# ga_domain: 
-
-# Busuanzi Ananytics
-busuanzi-active: true
-
-# Sidebar settings
-sidebar: true                           # whether or not using Sidebar.
-sidebar-about-description: "菜"
-sidebar-avatar: https://github.com/KirisameR.png # use absolute URL, seeing it's used in both `/` and `/about/`
-
-# Float button settings
-float-btn-active: true
-
-# Featured Tags
-featured-tags: true                     # whether or not using Feature-Tags
-featured-condition-size: 1              # A tag will be featured if the size of it is more than this condition value
-
-
-
-# Progressive Web Apps
-chrome-tab-theme-color: "#333"
-service-worker: true
-
-# Control Google AD
-allowAds: false
-
-# MathJax rendering for layout:page (e.g. post preview)
-page-mathjax: true
-
-
-
-# Friends
-friends: [
-    {
-        title: "琳若尘泥 十里琅居",
-        href: "http://ryanxin.cn"
-    },{
-        title: "无垠 - 飞翔的天空无限大",
-        href: "https://flyhigher.top"
-    },{
-        title: "灰貓咖啡廳",
-        href: "https://graynekocafe.net"
-    },{
-        title: "GNEFIL",
-        href: "Gnefil.github.io"
-    },{
-        title: "NEKO ASAKURA",
-        href: "https://www.asakura.jp.net/release/"
-    }
-]
+# The following files will be removed from the generated website.
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - README_zh_Hans.md
+  - README_zh_Hant.md
+  - README_de.md
+  - LICENSE
+  - minimal-light.gemspec
+  - html_source_file/
