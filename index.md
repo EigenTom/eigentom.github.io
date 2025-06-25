@@ -8,7 +8,7 @@ I am a current Master student (Master of Science in Applied Computing programme)
 
 I am currently working as a full-time co-op applied research intern at ModiFace (L'Oréal's AI Lab) focusing on controllable video generation. I am also working as a part-time research intern in TIGER Lab under the supervision of Prof. Wenhu Chen, working on a project focusing on Agentic-RL based Tool-calling LLMs. Prior to that, I worked as an research intern at Opus AI Research, where I publiched two papers in top conferences.
 
-**🎓 I'm currently looking for a PhD position starting from 2026 spring/fall. Feel free to contact me regarding any related opportunities. Here is my [resume](./assets/files/wuyongliang_resume.pdf).**
+**🎓 I'm currently looking for a PhD position starting from 2026 spring/fall. Feel free to contact me regarding any related opportunities. Here is my [resume](./assets/files/yilu_academical_resume.pdf).**
 
 ## Research Interests
 - **Vision-Language Model**
