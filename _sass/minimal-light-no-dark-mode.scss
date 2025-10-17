@@ -516,3 +516,52 @@ footer {
   display:none;
   font-family: monospace;
 }
+
+/* Scroll to Top Button with Progress */
+#scroll-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 4px 8px rgba(4, 51, 97, 0.3));
+}
+
+#scroll-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+#scroll-to-top:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 6px 12px rgba(4, 51, 97, 0.4));
+}
+
+#scroll-to-top .progress-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: rotate(-90deg);
+}
+
+#scroll-to-top .progress-ring-circle {
+  transition: stroke-dashoffset 0.1s linear;
+  stroke: #043361;
+  filter: drop-shadow(0 2px 4px rgba(4, 51, 97, 0.25));
+}
+
+#scroll-to-top i {
+  font-size: 20px;
+  color: #043361;
+  position: relative;
+  z-index: 1;
+}
+

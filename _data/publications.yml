@@ -1,15 +1,26 @@
 main:
+  - title: "VerlTool: Towards Holistic Agentic Reinforcement Learning with Tool Use"
+    authors: "Dongfu Jiang*, <strong>Yi Lu*</strong>, Zhuofeng Li*, Zhiheng Lyu, Ping Nie, Haozhe Wang, Alex Su, Hui Chen, Kai Zou, Chao Du, Tianyu Pang, Wenhu Chen"
+    conference_short: arXiv
+    conference: "In Submission"
+    image: ./assets/img/papers/verltool.png
+    pdf: https://arxiv.org/abs/2509.01055
+    code: https://github.com/TIGER-AI-Lab/verl-tool
+    notes: 600+ ⭐ on GitHub
+
   - title: "RSVP: Reasoning Segmentation via Visual Prompting and Multi-modal Chain-of-Thought"
     authors: "<strong>Yi Lu*</strong>, Jiawang Cao*, Yongliang Wu*, Bozheng Li, Licheng Tang, Yangguang Ji, Chong Wu, Jay Wu, Wenbo Zhu"
     conference_short: ACL
     conference: "Annual Meeting of the Association for Computational Linguistics (ACL), 2025."
-    image: ./assets/img/rsvp.png
+    image: ./assets/img/papers/rsvp.png
+    pdf: https://arxiv.org/abs/2506.04277
+    notes: Main Conference
 
   - title: "VEU-Bench: Towards Comprehensive Understanding of Video Editing"
     authors: "Bozheng Li, Yongliang Wu*, <strong>Yi Lu*</strong>, Jiashuo Yu, Licheng Tang, Jiawang Cao, Wenqing Zhu, Yuyang Sun, Jay Wu, Wenbo Zhu"
     conference_short: CVPR
     conference: "IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), 2025. "
-    image: ./assets/img/veu-bench.png
+    image: ./assets/img/papers/veu-bench.png
     pdf: https://arxiv.org/abs/2504.17828
     notes: Highlight
 
@@ -20,4 +31,4 @@ main:
     conference: "AAAI Conference on Artificial Intelligence (AAAI), 2025."
     pdf: https://arxiv.org/abs/2412.08879
     code: https://github.com/yongliang-wu/Repurpose
-    image: ./assets/img/repurpose.png
+    image: ./assets/img/papers/repurpose.png

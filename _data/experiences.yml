@@ -1,0 +1,32 @@
+main:
+  # Research Internships
+  - role: "Research Intern"
+    company: "TIGER Lab @ University of Waterloo"
+    logo: ./assets/img/companies/uwaterloo.png
+    start_date: "Mar. 2025"
+    end_date: "Present"
+    
+  - role: "Applied Research Intern"
+    company: "ModiFace (L'Oréal's AI Lab)"
+    logo: ./assets/img/companies/modiface.png
+    start_date: "May. 2025"
+    end_date: "Present"
+    
+  - role: "Applied Research Intern"
+    company: "Opus AI Research"
+    logo: ./assets/img/companies/opusclip.png
+    start_date: "Jan. 2025"
+    end_date: "May. 2025"
+
+  # Industrial Internships
+  - role: "Machine Learning Engineer"
+    company: "OpusClip"
+    logo: ./assets/img/companies/opusclip.png
+    start_date: "Apr. 2024"
+    end_date: "Jan. 2025"
+    
+  - role: "Data Scientist Intern"
+    company: "ByteDance"
+    logo: ./assets/img/companies/bytedance.png
+    start_date: "Aug. 2023"
+    end_date: "Dec. 2023"

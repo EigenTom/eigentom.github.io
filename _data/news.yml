@@ -1,0 +1,24 @@
+main:
+  - date: "Oct. 2025"
+    content: "🔥 <a href='https://github.com/TIGER-AI-Lab/verl-tool'>VerlTool</a> has reached 600+ stars on Github. It's becoming a key infrastructure for Tool-Augmented Agent RL Post Training."
+    
+  - date: "Sep. 2025"
+    content: "🎉 One paper accepted at NeurIPS 2025 NextVid Workshop."
+    
+  - date: "Aug. 2025"
+    content: "🤫 VerlTool's tech report (co-first author) is released."
+    
+  - date: "Jul. 2025"
+    content: "🏆 Achieved #1 on Multilingual Video Reasoning Evaluation Challenge @CVPR 2025."
+    
+  - date: "May. 2025"
+    content: "🎉 One paper is accepted by ACL 2025."
+    
+  - date: "Feb. 2025"
+    content: "🎉 One paper is accepted by CVPR 2025."
+    
+  - date: "Dec. 2024"
+    content: "🎉 One paper is accepted by AAAI 2025."
+    
+  - date: "Oct. 2024"
+    content: "🏆 Achieved #1 on Long-Term VideoQA Challenge of LOVEU Workshop @CVPR 2024."
