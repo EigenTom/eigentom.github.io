@@ -611,7 +611,7 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
-  filter: drop-shadow(0 4px 8px rgba(4, 51, 97, 0.3));
+  // filter: drop-shadow(0 4px 8px rgba(4, 51, 97, 0.3));
 }
 
 #scroll-to-top.visible {
@@ -621,7 +621,7 @@ footer {
 
 #scroll-to-top:hover {
   transform: scale(1.05);
-  filter: drop-shadow(0 6px 12px rgba(4, 51, 97, 0.4));
+  // filter: drop-shadow(0 6px 12px rgba(4, 51, 97, 0.4));
 }
 
 #scroll-to-top .progress-ring {
@@ -634,7 +634,7 @@ footer {
 #scroll-to-top .progress-ring-circle {
   transition: stroke-dashoffset 0.1s linear;
   stroke: #043361;
-  filter: drop-shadow(0 2px 4px rgba(4, 51, 97, 0.25));
+  // filter: drop-shadow(0 2px 4px rgba(4, 51, 97, 0.25));
 }
 
 #scroll-to-top i {
@@ -646,16 +646,16 @@ footer {
 
 @media (prefers-color-scheme: dark) {
   #scroll-to-top {
-    filter: drop-shadow(0 4px 8px rgba(51, 122, 183, 0.3));
+    // filter: drop-shadow(0 4px 8px rgba(51, 122, 183, 0.3));
   }
   
   #scroll-to-top:hover {
-    filter: drop-shadow(0 6px 12px rgba(51, 122, 183, 0.4));
+    // filter: drop-shadow(0 6px 12px rgba(51, 122, 183, 0.4));
   }
   
   #scroll-to-top .progress-ring-circle {
     stroke: #337ab7 !important;
-    filter: drop-shadow(0 2px 4px rgba(51, 122, 183, 0.25));
+    // filter: drop-shadow(0 2px 4px rgba(51, 122, 183, 0.25));
   }
   
   #scroll-to-top i {
