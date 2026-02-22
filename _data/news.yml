@@ -1,4 +1,10 @@
 main:
+  - date: "Dec. 2025"
+    content: "🔥 <a href='https://github.com/TIGER-AI-Lab/verl-tool'>VerlTool</a> has reached 800+ stars on Github."
+  
+  - date: "Nov. 2025"
+    content: "🚀 Started my part-time research internship at Texas A&M University."
+
   - date: "Oct. 2025"
     content: "🔥 <a href='https://github.com/TIGER-AI-Lab/verl-tool'>VerlTool</a> has reached 600+ stars on Github. It's becoming a key infrastructure for Tool-Augmented Agent RL Post Training."
     

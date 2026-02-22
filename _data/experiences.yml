@@ -1,6 +1,12 @@
 main:
   # Research Internships
   - role: "Research Intern"
+    company: "Texas A&M University"
+    logo: ./assets/img/companies/tamu.png
+    start_date: "Nov. 2025"
+    end_date: "Present"
+    
+  - role: "Research Intern"
     company: "TIGER Lab @ University of Waterloo"
     logo: ./assets/img/companies/uwaterloo.png
     start_date: "Mar. 2025"
