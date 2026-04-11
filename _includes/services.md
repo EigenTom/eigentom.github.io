@@ -1,8 +1,8 @@
 ## Services
 
-<h4 style="margin:0 10px 0;">Conference Reviewers</h4>
+<h4>Conference Reviewers</h4>
 
-<ul style="margin:0 0 5px;">
+<ul class="service-list">
   <li><a href="https://aaai.org/conference/aaai/aaai-26/"><autocolor>The 40th Annual AAAI Conference on Artificial Intelligence 2026</autocolor></a></li>
   <!-- <li><a href="http://iccv2021.thecvf.com/"><autocolor>IEEE/CVF International Conference on Computer Vision (ICCV) 2021</autocolor></a></li>
   <li><a href="https://eccv2022.ecva.net/"><autocolor>European Conference on Computer Vision (ECCV) 2022</autocolor></a></li> -->

@@ -29,6 +29,6 @@ I am actively seeking research collaborations and research internship opportunit
 
 {% include_relative _includes/clustermap.md %}
 
-<p style="text-align:center;">
+<p class="last-updated">
     Last Updated: October 2025
 </p>
