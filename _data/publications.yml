@@ -1,4 +1,12 @@
 main:
+  - title: "ReviewGrounder: Improving Review Substantiveness with Rubric-Guided, Tool-Integrated Agents"
+    authors: "Zhuofeng Li*, <strong>Yi Lu*</strong>, Dongfu Jiang, Haoxiang Zhang, Yuyang Bai, Chuan Li, Yu Wang, Shuiwang Ji, Jianwen Xie, Yu Zhang"
+    conference_short: ACL
+    conference: "Annual Meeting of the Association for Computational Linguistics (ACL), 2026."
+    image: ./assets/img/papers/reviewgrounder.png
+    code: https://github.com/EigenTom/ReviewGrounder
+    notes: Main Conference
+
   - title: "VerlTool: Towards Holistic Agentic Reinforcement Learning with Tool Use"
     authors: "Dongfu Jiang*, <strong>Yi Lu*</strong>, Zhuofeng Li*, Zhiheng Lyu, Ping Nie, Haozhe Wang, Alex Su, Hui Chen, Kai Zou, Chao Du, Tianyu Pang, Wenhu Chen"
     conference_short: arXiv
@@ -6,7 +14,7 @@ main:
     image: ./assets/img/papers/verltool.png
     pdf: https://arxiv.org/abs/2509.01055
     code: https://github.com/TIGER-AI-Lab/verl-tool
-    notes: 600+ ⭐ on GitHub
+    notes: 900+ ⭐ on GitHub
 
   - title: "RSVP: Reasoning Segmentation via Visual Prompting and Multi-modal Chain-of-Thought"
     authors: "<strong>Yi Lu*</strong>, Jiawang Cao*, Yongliang Wu*, Bozheng Li, Licheng Tang, Yangguang Ji, Chong Wu, Jay Wu, Wenbo Zhu"
@@ -24,7 +32,6 @@ main:
     pdf: https://arxiv.org/abs/2504.17828
     notes: Highlight
 
-    
   - title: "Video Repurposing from User Generated Content: A Large-scale Dataset and Benchmark"
     authors: "Yongliang Wu*, Wenbo Zhu*, Jiawang Cao*, <strong>Yi Lu</strong>, Bozheng Li, Weiheng Chi, Zihan Qiu, Lirian Su, Haolin Zheng, Jay Wu, Xu Yang"
     conference_short: AAAI

@@ -1,4 +1,7 @@
 main:
+  - date: "Apr. 2026"
+    content: "🎉 Two papers are accepted by ACL 2026."
+    
   - date: "Dec. 2025"
     content: "🔥 <a href='https://github.com/TIGER-AI-Lab/verl-tool'>VerlTool</a> has reached 800+ stars on Github."
   
