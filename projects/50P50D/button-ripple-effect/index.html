@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button Ripple Effect</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #660099;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            flex-direction: column;
+            margin: 0;
+            overflow: hidden;
+        }
+        button {
+            background-color: #FFCC33;
+            color: #fff;
+            border: 1px #999999 solid;
+            font-size: 14px;
+            border-radius: 2px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 20px 30px;
+            margin: 10p 0x;
+            position: relative;
+            overflow: hidden;
+        }
+        button:focus {
+            outline: none;
+        }
+
+        button .circle {
+            position: absolute;
+            background-color: #fff;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            animation: scale .5s ease-out;
+        }
+
+        @keyframes scale {
+            to {
+                transform: translate(-50%, -50%) scale(3);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="ripple">Click Me</button>
+    <script>
+        const buttons = document.querySelectorAll('.ripple');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', function (e) {
+                const x = e.clientX;
+                const y = e.clientY;
+
+                const buttonTop = e.target.offsetTop;
+                const buttonLeft = e.target.offsetLeft;
+
+                const xInside = x - buttonLeft;
+                const yInside = y - buttonTop;
+
+                const circle = document.createElement('span');
+                circle.classList.add('circle');
+                circle.style.top = yInside + 'px';
+                circle.style.left = xInside + 'px';
+
+                // this ==> button
+                this.appendChild(circle);
+
+                setTimeout(() => circle.remove(), 500);
+            })
+        })
+    </script>
+    
+</body>
+</html>

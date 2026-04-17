@@ -10,6 +10,26 @@ keywords: Yi Lu, Computer Science, University of Toronto
 description: This is the personal homepage of Yi Lu, a Master Student in the Department of Computer Science at the University of Toronto.
 canonical: https://minimal-light-theme.yliu.me/
 
+# Blog
+blog_title: 某一般线性空间
+blog_engtitle: RANDOM LINEAR SPACE
+blog_description: 高阶线性微分方程组会梦见基础解系吗?
+blog_header_img: img/post-bg-desk.jpg
+blog_sidebar_description: 菜
+blog_featured_condition_size: 1
+blog_disqus_username: KirisameR
+blog_friends:
+  - title: 琳若尘泥 十里琅居
+    href: http://ryanxin.cn
+  - title: 无垠 - 飞翔的天空无限大
+    href: https://flyhigher.top
+  - title: 灰貓咖啡廳
+    href: https://graynekocafe.net
+  - title: GNEFIL
+    href: https://Gnefil.github.io
+  - title: NEKO ASAKURA
+    href: https://www.asakura.jp.net/release/
+
 # Links 
 # If you don't need one of them, you may delete the corresponding line.
 google_scholar: https://scholar.google.com/citations?user=MrOZk28AAAAJ&hl=en
@@ -39,6 +59,27 @@ font: "Serif" # or "Sans Serif"
 # Please remove this if you don't use Google Analytics
 google_analytics: UA-111540567-4
 
+# Blog post routes
+permalink: /blog/:year/:month/:day/:title/
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    span:
+      line_numbers: false
+    block:
+      line_numbers: true
+      start_line: 1
+
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: post
+
 # Use this project as a remote theme for GitHub Pages
 # See the guide here: https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/adding-a-theme-to-your-github-pages-site-using-jekyll
 remote_theme: yaoyao-liu/minimal-light
@@ -54,3 +95,5 @@ exclude:
   - LICENSE
   - minimal-light.gemspec
   - html_source_file/
+  - vendor/
+  - .sass-cache/

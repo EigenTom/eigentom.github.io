@@ -1,0 +1,102 @@
+body {
+  min-height: 100vh;
+  padding-top: 68px !important;
+  background-color: #111820 !important;
+  background-size: 96px !important;
+  color: #eef4f8 !important;
+  font-family: "Inter", "Helvetica Neue", Arial, sans-serif !important;
+  overflow-x: hidden;
+  scrollbar-color: #31b7e8 transparent;
+}
+
+.touhou-nav {
+  position: fixed;
+  z-index: 30;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  min-height: 58px;
+  padding: 12px clamp(14px, 4vw, 44px);
+  border-bottom: 1px solid rgba(230, 240, 248, 0.16);
+  background: rgba(12, 18, 25, 0.86);
+  backdrop-filter: blur(16px);
+}
+
+.touhou-nav a {
+  color: #eef4f8;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.touhou-nav a:hover {
+  color: #31b7e8;
+}
+
+.touhou-title {
+  color: #31b7e8;
+}
+
+#status {
+  color: #d8e5ee !important;
+}
+
+#progress {
+  accent-color: #31b7e8;
+}
+
+canvas.emscripten {
+  max-width: 100vw;
+  height: auto;
+  image-rendering: pixelated;
+}
+
+div.emscripten_border {
+  width: 100%;
+  overflow: auto;
+}
+
+div.softkbd {
+  width: min(1200px, calc(100vw - 24px)) !important;
+  overflow-x: auto;
+  border: 1px solid rgba(230, 240, 248, 0.18) !important;
+  background: rgba(19, 27, 35, 0.92) !important;
+  box-shadow: 0 22px 70px rgba(0, 0, 0, 0.32);
+}
+
+.arrow_keys,
+.ctrl_keys {
+  background-color: #04406f !important;
+  border-color: rgba(230, 240, 248, 0.18) !important;
+  transition: background-color 120ms ease;
+}
+
+.arrow_keys:hover,
+.ctrl_keys:hover {
+  background-color: #31b7e8 !important;
+}
+
+input[type="button"] {
+  min-height: 30px !important;
+  padding: 4px 10px;
+  border: 1px solid #31b7e8;
+  border-radius: 4px;
+  background: #04406f;
+  color: #fff;
+}
+
+@media (max-width: 760px) {
+  body {
+    padding-top: 92px !important;
+  }
+
+  .touhou-nav {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

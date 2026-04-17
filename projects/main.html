@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Projects | RANDOM LINEAR SPACE</title>
+    <link rel="stylesheet" href="./assets/projects.css">
+  </head>
+  <body class="project-page">
+    <nav class="project-nav" aria-label="Project navigation">
+      <a class="project-brand" href="/blog/">RANDOM LINEAR SPACE</a>
+      <div class="project-nav-links">
+        <a href="/">Research</a>
+        <a href="/blog/">Blog</a>
+        <a href="#touhou">Touhou</a>
+        <a href="#demos">50P50D</a>
+        <a href="#jailbreak">Jailbreak</a>
+      </div>
+    </nav>
+
+    <header class="project-hero" style="--project-hero-image: url('/blog/img/post-bg-ioses.jpg')">
+      <div>
+        <h1>Projects</h1>
+        <p>Old browser toys, strange simulators, frontend exercises, and PC-98 experiments kept alive as a hidden corner of the site.</p>
+      </div>
+    </header>
+
+    <main>
+      <section class="project-section" id="touhou">
+        <h2>Touhou PC-98 Emulators</h2>
+        <p>Five Emscripten builds of the classic PC-98 titles. They are preserved as static pages with a cleaned shell and the original WASM loaders intact.</p>
+        <div class="project-grid">
+          <a class="project-card" href="./thWASM/th1e.html" style="--card-image: linear-gradient(135deg, rgba(12, 18, 25, 0.9), rgba(49, 183, 232, 0.38)), url('./thWASM/thbg.png')">
+            <small>Touhou 1</small>
+            <strong>Touhou Reiiden</strong>
+            <span>Open emulator</span>
+          </a>
+          <a class="project-card" href="./thWASM/th2e.html" style="--card-image: linear-gradient(135deg, rgba(12, 18, 25, 0.9), rgba(228, 70, 91, 0.38)), url('./thWASM/thbg.png')">
+            <small>Touhou 2</small>
+            <strong>Touhou Fuumaroku</strong>
+            <span>Open emulator</span>
+          </a>
+          <a class="project-card" href="./thWASM/th3e.html" style="--card-image: linear-gradient(135deg, rgba(12, 18, 25, 0.9), rgba(79, 181, 112, 0.38)), url('./thWASM/thbg.png')">
+            <small>Touhou 3</small>
+            <strong>Touhou Yumejikuu</strong>
+            <span>Open emulator</span>
+          </a>
+          <a class="project-card" href="./thWASM/th4e.html" style="--card-image: linear-gradient(135deg, rgba(12, 18, 25, 0.9), rgba(184, 103, 224, 0.38)), url('./thWASM/thbg.png')">
+            <small>Touhou 4</small>
+            <strong>Touhou Gensokyou</strong>
+            <span>Open emulator</span>
+          </a>
+          <a class="project-card" href="./thWASM/th5e.html" style="--card-image: linear-gradient(135deg, rgba(12, 18, 25, 0.9), rgba(238, 189, 76, 0.38)), url('./thWASM/thbg.png')">
+            <small>Touhou 5</small>
+            <strong>Touhou Kaikidan</strong>
+            <span>Open emulator</span>
+          </a>
+        </div>
+      </section>
+
+      <section class="project-section" id="demos">
+        <h2>50 Projects 50 Days</h2>
+        <p>The old frontend practice demos now have a local index, so the links no longer depend on the legacy tag page.</p>
+        <div class="project-grid">
+          <a class="project-card" href="./50P50D/" style="--card-image: linear-gradient(135deg, rgba(12, 18, 25, 0.86), rgba(11, 127, 179, 0.42)), url('/blog/img/post-bg-desk.jpg')">
+            <small>Collection</small>
+            <strong>Open Demo Index</strong>
+            <span>Browse all restored frontend pages</span>
+          </a>
+          <a class="project-card" href="./50P50D/unified-project/" style="--card-image: linear-gradient(135deg, rgba(12, 18, 25, 0.86), rgba(123, 72, 151, 0.48)), url('/blog/img/post-bg-comp23111.jpg')">
+            <small>Legacy</small>
+            <strong>Unified Project</strong>
+            <span>A preserved experimental mashup page</span>
+          </a>
+        </div>
+      </section>
+
+      <section class="project-section" id="jailbreak">
+        <h2>Jailbreak Restore</h2>
+        <p>A historical iOS 9.2-9.3.3 restore page from the old blog. The styling is refreshed, while the original exploit code is left untouched.</p>
+        <div class="project-note">
+          Run only on the old target devices and browser versions it was written for. Modern browsers will usually block or fail the exploit path.
+        </div>
+        <p style="margin-top: 22px">
+          <a class="project-button" href="./jailbreak/jailbreak.html">Open Jailbreak Page</a>
+        </p>
+      </section>
+    </main>
+
+    <footer class="project-footer">
+      <p>RANDOM LINEAR SPACE / archived projects</p>
+    </footer>
+
+    <script src="./assets/projects.js"></script>
+  </body>
+</html>

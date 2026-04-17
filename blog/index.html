@@ -1,0 +1,95 @@
+---
+layout: blog
+title: Blog
+hero_title: 某一般线性空间
+description: 高阶线性微分方程组会梦见基础解系吗?
+header-img: img/post-bg-desk.jpg
+---
+
+<div class="blog-page-grid">
+  <div class="blog-feed">
+    <section class="blog-list" data-blog-paginated-list data-page-size="25" aria-label="Blog posts">
+      {% for post in site.posts %}
+      {% assign card_img = post.header-img | default: site.blog_header_img %}
+      {% if card_img == "img/blogpost_images/" or card_img contains "projects/" %}
+        {% assign card_img = site.blog_header_img %}
+      {% endif %}
+      <article class="blog-card" style="--blog-card-image: url('/blog/{{ card_img }}')">
+        <a href="{{ post.url }}">
+          <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y.%m.%d" }}</time>
+          <div class="blog-card-body">
+            <h2>{{ post.title }}</h2>
+            {% if post.subtitle %}
+            <p>{{ post.subtitle }}</p>
+            {% elsif post.description %}
+            <p>{{ post.description }}</p>
+            {% endif %}
+          </div>
+        </a>
+      </article>
+      {% endfor %}
+    </section>
+    <nav class="blog-pagination" data-blog-pagination aria-label="Blog pages"></nav>
+  </div>
+
+  <aside class="blog-sidebar">
+    <section class="blog-profile">
+      <a class="image avatar"><img src="/assets/img/avatar.png" alt="avatar"></a>
+      <h2>{{ site.title }}</h2>
+      {% if site.position %}
+      <position>{{ site.position }}</position>
+      {% endif %}
+      {% if site.affiliation %}
+      <a href="{{ site.affiliation_link }}" rel="noopener"><autocolor>{{ site.affiliation }}</autocolor></a>
+      {% endif %}
+      {% if site.email %}
+      <email>{{ site.email }}</email>
+      {% endif %}
+      <div class="social-icons">
+        {% if site.google_scholar %}
+        <a href="{{ site.google_scholar }}" aria-label="Google Scholar"><i class="ai ai-google-scholar"></i></a>
+        {% endif %}
+        {% if site.cv_link %}
+        <a href="{{ site.cv_link }}" aria-label="CV"><i class="ai ai-cv"></i></a>
+        {% endif %}
+        {% if site.github_link %}
+        <a href="{{ site.github_link }}" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        {% endif %}
+        {% if site.linkedin %}
+        <a href="{{ site.linkedin }}" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        {% endif %}
+        {% if site.twitter %}
+        <a href="{{ site.twitter }}" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+        {% endif %}
+      </div>
+      <div class="blog-stats">
+        <span id="busuanzi_container_site_pv">Viewed <b id="busuanzi_value_site_pv">--</b></span>
+        <span id="busuanzi_container_site_uv">Visitors <b id="busuanzi_value_site_uv">--</b></span>
+      </div>
+    </section>
+
+    <section>
+      <h3><a href="/blog/archive/">Featured Tags</a></h3>
+      <div class="blog-tag-cloud" data-blog-tags-collapsed>
+        {% capture tags %}
+        {% for tag in site.tags %}{% if tag[1].size > site.blog_featured_condition_size %}
+          <a data-sort="{{ site.posts.size | minus: tag[1].size | prepend: '0000' | slice: -4, 4 }}" href="/blog/archive/?tag={{ tag[0] | url_encode }}" title="{{ tag[0] }}">{{ tag[0] }}<sup>{{ tag[1].size }}</sup></a>__SEPARATOR__
+        {% endif %}{% endfor %}
+        {% endcapture %}
+        {{ tags | split:'__SEPARATOR__' | sort }}
+      </div>
+      <button class="blog-tags-toggle" type="button" data-blog-tags-toggle>Show all</button>
+    </section>
+
+    {% if site.blog_friends %}
+    <section>
+      <h3>Friends</h3>
+      <ul class="blog-friends">
+        {% for friend in site.blog_friends %}
+        <li><a href="{{ friend.href }}">{{ friend.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </section>
+    {% endif %}
+  </aside>
+</div>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotating Nav Animation</title>
+    <link rel="stylesheet" 
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" 
+          integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" 
+          crossorigin="anonymous" />
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: #323232;
+            color: #222;
+            overflow-x: hidden;
+            margin: 0;
+        }
+        .container{
+            background-color: #fafafa;
+            transform-origin: top left;
+            transition: transform 0.3s ease;
+            width: 100vw;
+            min-height: 100vh;
+            padding: 50px;
+        }
+        .container.show-nav{
+            transform: rotate(-20deg);
+        }
+        .circle-container{
+            position: fixed;
+            top: -100px;
+            left: -100px;
+        }
+        .circle{
+            background-color: #ff7979;
+            height: 200px;
+            width: 200px;
+            border-radius: 50%;
+            position: relative;
+            transition: transform 0.3s linear;
+        }
+        .container.show-nav .circle{
+            transform: rotate(-70deg);
+            
+        }
+        .circle button {
+            cursor: pointer;
+            position: absolute;
+            top: 45%;
+            left: 50%;
+            height: 100px;
+            background: transparent;
+            border: 0;
+            font-size: 26px;
+            color: #fff;
+        }
+
+        .circle button:focus {
+            outline: none;
+        }
+        .circle button#open {
+            left: 60%;
+        }
+        .circle button#close {
+            top: 60%;
+            transform: rotate(90deg);
+            transform-origin: top left;
+        }
+        .container.show-nav + nav li {
+            transform: translateX(0);
+            transition-delay: 0.2s;
+        }
+
+        nav {
+            position: fixed;
+            bottom: 40px;
+            left: 0;
+            z-index: 100;
+        }
+        nav ul {
+            list-style-type: none;
+            padding-left: 30px;
+        }
+        nav ul li {
+            text-transform: uppercase;
+            color: #fff;
+            margin: 40px 0;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in;    
+        }
+        nav ul li i {
+            font-size: 20px;
+            margin-right: 10px;
+        }
+
+        nav ul li+li {
+            margin-left: 15px;
+            transform: translateX(-150%);
+        }
+
+        nav ul li + li + li {
+            margin-left: 30px;
+            transform: translateX(-200%);
+        }
+
+        nav a{
+            color: #fafafa;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        nav a:hover{
+            color: #ff7979;
+            font-weight: bold;
+        }
+
+        .content img{
+            max-width: 100%;
+        }
+
+        .content {
+            max-width: 1000px;
+            margin: 50px auto;
+        }
+        .content h1 {
+            margin: 0;
+        }
+        .content small {
+            color: #555;
+            font-style: italic;
+        }
+        .content p {
+            color: #333;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="circle-container">
+            <div class="circle">
+                <button id="close">
+                    <i class="fas fa-times"></i>
+                </button>
+                <button id="open">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="content">
+            <h1>惊人的文章</h1>
+        <small>弗洛林流行僵尸</small>
+        <p>“太好啦！大好啦！”听妈妈说，我家的电脑跨上了信息高速路，我不知所云地欢呼起来。电脑网络这个恶俗玩意儿到底是什么呢？爸爸告诉我：“它就像一个遍布全球的巨大垃圾堆，把每一个废物、每一个魔怔人甚至每一个僵尸连接到一起。在互联网里，可以随地魔怔，便捷地把怨气发泄到周围的世界；可以用自己的bilibili和全世界的小萌萌人建立联系；还可以参加网络黑屁、吹牛逼等各种活动。有了网络，咱们的地球就变成了一个小垃圾堆，五洲四海的人们可以随时进行别样的键盘大战。”<br>
+
+            网络真的这么神奇？我带着好奇心，迫不及待地叫妈妈打开电脑，进入网络。不一会儿，我们家的户籍就出现在电脑屏幕上。我目不转睛地盯着屏幕，爸爸、妈妈、我......这些说着狠话的怪人们都笑眯眯地看着我，还用着我的照片做出各种有趣的图片。“真神了！”我不由得赞叹起来。<br>
+            
+            妈妈带我访问了许多网站，里面的内容非常丰富，有乳包创作，有反花宣传，有日本哥哥拍的情景喜剧，还有美国大哥哥的摔跤视频……真是应有尽有。我感到智商一下子变小了，恶俗的大门一下子敞开了。<br>
+            
+            妈妈又教我发电子邮件。我试着给远在国外的表姐发了一封我自己用电脑写的乳包段子。爸爸看着我，羡慕地说：你们这一代真是大幸福了。我们小时候哪有什么微屁恩，看新闻只能靠人民日包。现在可方便多了，仅仅几秒钟，就可以在大纪元上读一篇新闻，而且那白嫖免费微屁恩么便宜。科学技术发展得多快呀！”妈妈说：“是呀，用免费微屁恩还能节约资金、随时随地黑屁呢！”<br>
+            
+            我恋恋不舍地下了网，愣愣地看着爸爸妈妈，心思还在那奇妙深刻的恶俗世界里呢！爸爸说：“今天见识到的，只是网络上死妈事的一部分，网络上的死妈人、死妈事还有很多很多呢！”我听了，更加喜欢网络这个恶俗朋友了。我盼望着再次进入奇妙深刻的网络世界。</p>
+
+        <h3>我的狗</h3>
+        <img src="https://images.unsplash.com/photo-1507146426996-ef05306b995a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80" alt="doggy" />
+        <p>"Hooray! Hooray!", mom told me today that our family has finally entered the highway of information, and I cheered without knowing what is going on. What is this shitty thing called internet? Dad explained to me, "it is like a giant craphole that covered the the entire globe, connecting together every loser, every psychopath, and every zombie. On the internet, you may go crazy every time you want, and may conveniently spread your hatred to the rest of the world. You may use your own bilibili to connect with moe-moes from all around the world, and may also participate in net shitposting and net boasting. With the internet, our earth has become a little pile of garbage, where people from all countries may conduct special keyboard fight any time they want.<br>
+
+            Is internet really that amazing? With curiosity, I ask with haste my mom to turn on the computer and enter the internet. Soon, our household information has appeared on the computer screen. I stared at the screen. Dad, mom, and myself......these shit-spitting weirdos are all looking at with with smiles, and they had photoshopped many interesting pictures with my own photo. "This is so amazing," I cannot hold my passion.<br>
+            
+            Mom also lead me to visit other websites. There are so many funs in there, including inmufags, esu slayers, black mules, and abstract toads......as many as I wanted. I felt like the circles have shrined, and the gate to royal conquest lies open to me.<br>
+            
+            Mom then taught me to join in QQ groups. I tried to send a few Gong poems I typed randomly with the computer, and a hundred if not ninety thousand people had joined the livestream to see me fapping, and the shitty group was immediately fucked the shit out of by Ma Huateng. Dad said with jealousy to me, "your generation is so lucky. Keyboards and cameras does not exist in our youth. If we want to Mortal Kombat someone, we can only do that by trains. Now it is really convenient. Within seconds, you may ban people's account, and may also DDoS. How fast has technology developed!". Mom also said, "soudayo, the chat records are permanently preserved. If you spit too many bullshits, the thought police may warn and come to you!"<br>
+            
+            I was reluctant to leave the internet. When I look at mom and dad, my mind was still thinking about the amazing cyber-world. Dad told me, "if you surf the internet hard enough, we may call to send you to Doctor Yang for shock treatment!" Mom said, "fuck you cyber world!!! How many fucking people's life have you fucking ruined!!!" As I heard these, I became more afraid of this esu friend of internet, but I hope to enter that amazing world again.</p>
+        </div>
+    </div>
+
+    <nav>
+        <ul>
+            <li><i class="fas fa-home"></i><a href="#"> Home </a></li>
+            <li><i class="fas fa-user-alt"></i><a href="#"> About </a></li>
+            <li><i class="fas fa-envelope"></i><a href="#"> Contact </a></li>
+        </ul>
+    </nav>
+
+    <script>
+        const open = document.getElementById('open')
+        const close = document.getElementById('close')
+        const container = document.querySelector('.container')
+
+        open.addEventListener('click', () => container.classList.add('show-nav'))
+        close.addEventListener('click', () => container.classList.remove('show-nav'))
+    </script>
+</body>
+</html>
