@@ -10,13 +10,13 @@ main:
     company: "TIGER Lab @ University of Waterloo"
     logo: ./assets/img/companies/uwaterloo.png
     start_date: "Mar. 2025"
-    end_date: "Present"
+    end_date: "Dec. 2025"
     
   - role: "Applied Research Intern"
     company: "ModiFace (L'Oréal's AI Lab)"
     logo: ./assets/img/companies/modiface.png
     start_date: "May. 2025"
-    end_date: "Present"
+    end_date: "Dec. 2025"
     
   - role: "Applied Research Intern"
     company: "Opus AI Research"

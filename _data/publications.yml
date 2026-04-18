@@ -3,6 +3,7 @@ main:
     authors: "Zhuofeng Li*, <strong>Yi Lu*</strong>, Dongfu Jiang, Haoxiang Zhang, Yuyang Bai, Chuan Li, Yu Wang, Shuiwang Ji, Jianwen Xie, Yu Zhang"
     conference_short: ACL
     conference: "Annual Meeting of the Association for Computational Linguistics (ACL), 2026."
+    pdf: https://arxiv.org/abs/2604.14261v1
     image: ./assets/img/papers/reviewgrounder.png
     code: https://github.com/EigenTom/ReviewGrounder
     notes: Main Conference

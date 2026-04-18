@@ -1,0 +1,24 @@
+---
+layout: null
+---
+[
+  {% for post in site.posts %}
+  {
+    "title": {{ post.title | jsonify }},
+    "subtitle": {{ post.subtitle | default: "" | jsonify }},
+    "description": {{ post.description | default: "" | jsonify }},
+    "tags": {{ post.tags | join: ", " | jsonify }},
+    "url": {{ post.url | jsonify }},
+    "date": {{ post.date | date: "%Y.%m.%d" | jsonify }}
+  }{% unless forloop.last %},{% endunless %}
+  {% endfor %}
+  {% if site.posts.size > 0 %},{% endif %}
+  {
+    "title": "Project Archive",
+    "subtitle": "Restored HTML toys, 50P50D demos, jailbreak page, and Touhou PC-98 emulators",
+    "description": "Projects archive and hidden legacy pages",
+    "tags": "projects, archive, 50P50D, Touhou, emulator, jailbreak",
+    "url": "/projects/main.html",
+    "date": "Archive"
+  }
+]

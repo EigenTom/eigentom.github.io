@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Carousel</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        img {
+            width: 550px;
+            height: 500px;
+            object-fit: cover;
+        }
+        .carousel {
+            box-shadow: 2px 2px 5px rgba(0,0,0,.3);
+            height: 545px;
+            width: 550px;
+            overflow: hidden;
+            border-radius: 3px;
+        }
+        .image-container {
+            display: flex;
+            transform: translateX(0);
+            transition: transform .5s ease-in-out;
+        }
+
+        .buttons-container {
+            display: flex;
+            justify-content: space-between;
+            margin: 5px;
+        }
+        .btn {
+            background-color: #1f1e33;
+            color: #fff;
+            border: none;
+            padding: .5rem;
+            cursor: pointer;
+            width: 49.5%;
+            border-radius: 3px;
+            font-size: 0.8rem;
+        }
+        .btn hover {
+            opacity: .9;
+        }
+        .btn:focus {
+            outline: none;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="carousel">
+        <div class="image-container" id="imgs">
+            <img src= "../expanding-cards/avatar0.JPG" alt="first-image"/>
+            <img src= "../expanding-cards/avatar1.JPG" alt="second-image"/>
+            <img src= "../expanding-cards/avatar2.JPG" alt="third-image"/>
+            <img src= "../expanding-cards/avatar3.JPG" alt="fourth-image"/>
+        </div>
+
+        <div class="buttons-container">
+            <button id="left" class="btn">Prev</button>
+            <button id="right" class="btn">Next</button>
+        </div>
+    </div>
+
+    <script>
+        const imgs = document.getElementById('imgs');
+        const leftBtn = document.getElementById('left');
+        const rightBtn = document.getElementById('right');
+        const img = document.querySelectorAll('#imgs img');
+
+        let idx = 0;
+        let interval = setInterval(run, 2000);
+
+        function run() {
+            idx++;
+            changeImage();
+        }
+
+        function changeImage() {
+            if (idx>img.length-1) {
+                idx=0;
+            } else if (idx<0) {
+                idx = img.length-1;
+            }
+            imgs.style.transform = `translateX(${-idx * 550}px)`;
+        }
+
+        function resetInterval() {
+            clearInterval(interval);
+            interval = setInterval(run, 2000);
+        }
+
+        rightBtn.addEventListener('click', () => {
+            idx++;
+            changeImage();
+            resetInterval();
+        })
+        leftBtn.addEventListener('click', () => {
+            idx--;
+            changeImage();
+            resetInterval();
+        })
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Let us know your feedback!</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #fef9f2;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+            margin: 0;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        .panel-container {
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+            border-radius: 4px;
+            font-size: 90%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 30px;
+            max-width: 400px;
+        }
+        .panel-container strong {
+            line-height: 20px;
+        }
+        .ratings-container {
+            display: flex;
+            margin: 20px 0;
+        }
+
+        .rating {
+            flex:1;
+            cursor: pointer;
+            padding: 20px;
+            margin: 10px 5px;
+        }
+
+        .rating:hover, 
+        .rating.active {
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+        }
+        .rating img {
+            width: 40px;
+        }
+        .rating small {
+            color: #555;
+            display: inline-block;
+            margin: 10px 0 0;
+        }
+
+        .rating:hover small, 
+        .rating.active small {
+            color: #111
+        }
+
+        .btn {
+            background-color: #302d2b;
+            color: #fff;
+            border: 0;
+            border-radius: 4px;
+            padding: 12px 30px;
+        }
+
+        .btn:focus {
+            outline: 0;
+        }
+        .btn:active {
+            transform: scale(.98);
+        }
+        .fa-heart {
+            color: red;
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="panel" class="panel-container">
+        <strong>How satisfied are you with our <br/> Customer Support Performance?</strong>
+        <div class="ratings-container">
+            <div class="rating">
+                <img src="https://image.flaticon.com/icons/svg/187/187150.svg" alt="">
+                <small>Unhappy</small>
+            </div>
+
+            <div class="rating">
+                <img src="https://image.flaticon.com/icons/svg/187/187136.svg" alt=""/>
+                <small>Neutral</small>
+            </div>
+
+            <div class="rating active">
+                <img src="https://image.flaticon.com/icons/svg/187/187133.svg" alt=""/>
+                <small>Satisfied</small>
+            </div>
+        </div>
+        <button class="btn" id="send">Send Review</button>
+    </div>
+
+    <script>
+        const ratings = document.querySelectorAll('.rating');
+        const ratingsContainer = document.querySelector('.ratings-container');
+        const sendBtn = document.querySelector('#send');
+        const panel = document.querySelector('#panel');
+        let selectedRating = 'Satisfied';
+
+        ratingsContainer.addEventListener('click', (e) => {
+            if (e.target.parentNode.classList.contains('rating')) {
+                removeActive();
+                e.target.parentNode.classList.add('active');
+                selectedRating = e.target.nextElementSibling.innerHTML;
+            }
+            if (e.target.classList.contains('rating')) {
+                removeActive();
+                e.target.classList.add('active');
+                selectedRating = e.target.nextElementSibling.innerHTML;
+            }
+        })
+
+        sendBtn.addEventListener('click', (e) => {
+            panel.innerHTML = `
+                <i class="fas fa-heart"></i>
+                <strong>Thank You!</strong>
+                <br>
+                <strong>Feedback: ${selectedRating}</strong>
+                <p>We will use your feedback to improve our customer service.</p>`;
+        })
+
+        function removeActive() {
+            for (let i=0; i<ratings.length; i++) {
+                ratings[i].classList.remove('active');
+            }
+        }
+    </script>
+</body>
+</html>

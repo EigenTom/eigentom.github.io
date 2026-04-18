@@ -22,15 +22,25 @@ header {
   -webkit-font-smoothing: antialiased;
 }
 
-header::before {
-  content: "HOMEPAGE";
-  display: block;
+.profile-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
   margin-bottom: 48px;
+}
+
+.site-switch {
+  display: block;
   color: var(--text-faint);
   font-family: var(--mono-font);
   font-size: 12px;
   line-height: 1.5;
   letter-spacing: 1.4px;
+  text-transform: uppercase;
+}
+
+.site-switch:hover {
+  color: var(--theme-color-bright);
 }
 
 section {
@@ -533,8 +543,13 @@ papertitle,
     border-bottom: 1px solid var(--border-color);
   }
 
-  header::before {
+  .profile-nav {
     margin-bottom: 32px;
+  }
+
+  section > h2:first-child {
+    padding-top: 0;
+    border-top: 0;
   }
 
   header h1 {

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: 'en-US' }}">
+  <head>
+    <title>{{ page.title }} | {{ site.blog_title }}</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{{ page.description | default: page.subtitle | default: site.blog_description }}">
+    <link rel="icon" href="/assets/img/favicon.png" type="image/png">
+    <link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin=anonymous>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/assets/css/font.css">
+    <link rel="stylesheet" href="/assets/css/blog.css">
+  </head>
+  <body class="blog-shell">
+    <header class="blog-nav is-top" data-blog-nav>
+      <a class="blog-brand" href="/blog/">{{ site.blog_engtitle | default: site.blog_title }}</a>
+      <button class="blog-nav-toggle" type="button" data-blog-menu-toggle aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="blog-links" data-blog-menu aria-label="Blog navigation">
+        <button type="button" class="blog-search-trigger" data-blog-search-open><span class="blog-search-icon" aria-hidden="true"></span>Search</button>
+        <a href="/blog/archive/">Archive</a>
+        <a href="/">About</a>
+      </nav>
+    </header>
+
+    <section class="blog-hero blog-post-hero">
+      {% assign hero_img = page.header-img | default: site.blog_header_img %}
+      {% if hero_img == "img/blogpost_images/" or hero_img contains "projects/" %}
+        {% assign hero_img = site.blog_header_img %}
+      {% endif %}
+      {% if hero_img %}
+      <img src="/blog/{{ hero_img }}" alt="">
+      {% endif %}
+      <div class="blog-hero-mask"></div>
+      <div class="blog-hero-content">
+        <div class="blog-hero-tags">
+          {% for tag in page.tags %}
+          <a href="/blog/archive/?tag={{ tag | url_encode }}">{{ tag }}</a>
+          {% endfor %}
+        </div>
+        <h1>{{ page.title }}</h1>
+        {% if page.subtitle %}
+        <span>{{ page.subtitle }}</span>
+        {% endif %}
+        <p>Posted by {% if page.author %}{{ page.author }}{% else %}{{ site.blog_title }}{% endif %} on {{ page.date | date: "%B %-d, %Y" }}</p>
+      </div>
+    </section>
+
+    <main class="blog-main blog-post-main">
+      <div class="blog-post-frame">
+      <article class="blog-post">
+        <div class="blog-content">
+          {{ content }}
+        </div>
+
+        <nav class="blog-post-pager" aria-label="Post navigation">
+          {% if page.previous.url %}
+          <a href="{{ page.previous.url }}">Previous<br><span>{{ page.previous.title }}</span></a>
+          {% endif %}
+          {% if page.next.url %}
+          <a href="{{ page.next.url }}">Next<br><span>{{ page.next.title }}</span></a>
+          {% endif %}
+        </nav>
+        {% if site.blog_disqus_username %}
+        <section class="blog-comments" aria-label="Comments">
+          <div id="disqus_thread"></div>
+        </section>
+        {% endif %}
+      </article>
+
+      {% unless page.no-catalog %}
+      <aside class="blog-toc" data-blog-toc>
+        <button type="button" data-blog-toc-toggle>Catalog</button>
+        <ol data-blog-toc-body></ol>
+      </aside>
+      {% endunless %}
+      </div>
+    </main>
+
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$', '$$'], ['\\[', '\\]']],
+          processEscapes: true,
+          tags: 'ams'
+        }
+      };
+    </script>
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    {% if site.blog_disqus_username %}
+    <script>
+      var disqus_config = function () {
+        this.page.url = "{{ site.url | default: '' }}{{ page.url }}";
+        this.page.identifier = "{{ page.id | default: page.url }}";
+      };
+      (function() {
+        var d = document;
+        var s = d.createElement('script');
+        s.src = 'https://{{ site.blog_disqus_username }}.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    {% endif %}
+    <section class="blog-search" data-blog-search hidden>
+      <button class="blog-search-close" type="button" data-blog-search-close aria-label="Close search">×</button>
+      <div class="blog-search-panel">
+        <label for="blog-search-input">$ grep</label>
+        <input id="blog-search-input" type="search" data-blog-search-input placeholder="Search posts, tags, notes">
+        <div class="blog-search-results" data-blog-search-results></div>
+      </div>
+    </section>
+    <button class="blog-backtop" type="button" data-blog-backtop aria-label="Back to top">
+      <span class="scroll-fill" aria-hidden="true"></span>
+      <span class="blog-backtop-icon">↑</span>
+    </button>
+    <script src="/assets/js/blog.js"></script>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  </body>
+</html>

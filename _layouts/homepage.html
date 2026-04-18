@@ -38,6 +38,10 @@
   <body>
     <div class="wrapper">
       <header>
+        <nav class="profile-nav" aria-label="Site navigation">
+          <a class="site-switch" href="/" aria-label="Open research homepage">HOMEPAGE</a>
+          <a class="site-switch" href="/blog/" aria-label="Open personal blog">BLOG</a>
+        </nav>
         
         {% if site.avatar %}
         <a class="image avatar"><img src="{{ site.avatar }}" alt="avatar" /></a>

