@@ -55,14 +55,85 @@
     if (target.requestFullscreen) target.requestFullscreen();
   }
 
-  function requestEmulatorFullscreen() {
-    var resize = document.getElementById("resize");
-    var pointerLock = document.getElementById("pointerLock");
-    if (window.Module && typeof window.Module.requestFullscreen === "function") {
-      window.Module.requestFullscreen(Boolean(pointerLock && pointerLock.checked), Boolean(resize && resize.checked));
-    } else {
-      requestPageFullscreen();
+  var fullscreenSnapshot = null;
+
+  function focusCanvas() {
+    var canvas = document.getElementById("canvas");
+    if (!canvas) return;
+    if (!canvas.hasAttribute("tabindex")) canvas.setAttribute("tabindex", "-1");
+    try {
+      canvas.focus({ preventScroll: true });
+    } catch (error) {
+      canvas.focus();
     }
+  }
+
+  function resumeAudio() {
+    focusCanvas();
+    var contexts = [];
+    if (window.SDL2 && window.SDL2.audioContext) contexts.push(window.SDL2.audioContext);
+    if (window.Module && window.Module.SDL2 && window.Module.SDL2.audioContext) contexts.push(window.Module.SDL2.audioContext);
+
+    contexts.forEach(function (context) {
+      if (!context) return;
+      if (context.state === "suspended" && typeof context.resume === "function") {
+        try {
+          context.resume();
+        } catch (error) {}
+      }
+      if (!context.__touhouUnlocked) {
+        try {
+          var buffer = context.createBuffer(1, 1, context.sampleRate || 44100);
+          var source = context.createBufferSource();
+          source.buffer = buffer;
+          source.connect(context.destination);
+          if (source.start) source.start(0);
+          else if (source.noteOn) source.noteOn(0);
+          context.__touhouUnlocked = true;
+        } catch (error) {}
+      }
+    });
+  }
+
+  function requestEmulatorFullscreen() {
+    resumeAudio();
+    var win = document.querySelector(".win95-window");
+    if (!win) {
+      requestPageFullscreen();
+      return;
+    }
+
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+      return;
+    }
+
+    fullscreenSnapshot = {
+      width: getComputedStyle(document.documentElement).getPropertyValue("--touhou-canvas-width").trim(),
+      height: getComputedStyle(document.documentElement).getPropertyValue("--touhou-canvas-height").trim(),
+      left: win.style.left,
+      top: win.style.top,
+      widthStyle: win.style.width
+    };
+    document.body.classList.add("touhou-fullscreen");
+    if (win.requestFullscreen) {
+      var request = win.requestFullscreen();
+      if (request && typeof request.catch === "function") request.catch(restoreFullscreenSnapshot);
+    }
+  }
+
+  function restoreFullscreenSnapshot() {
+    var win = document.querySelector(".win95-window");
+    document.body.classList.remove("touhou-fullscreen");
+    if (!fullscreenSnapshot) return;
+    if (fullscreenSnapshot.width) document.documentElement.style.setProperty("--touhou-canvas-width", fullscreenSnapshot.width);
+    if (fullscreenSnapshot.height) document.documentElement.style.setProperty("--touhou-canvas-height", fullscreenSnapshot.height);
+    if (win) {
+      win.style.left = fullscreenSnapshot.left;
+      win.style.top = fullscreenSnapshot.top;
+      win.style.width = fullscreenSnapshot.widthStyle;
+    }
+    fullscreenSnapshot = null;
   }
 
   function setupWindow() {
@@ -89,7 +160,6 @@
       win.classList.add("is-floating");
       win.style.left = rect.left + "px";
       win.style.top = rect.top + "px";
-      win.style.width = rect.width + "px";
       shell.style.minHeight = Math.max(shell.offsetHeight, rect.height + 32) + "px";
       bar.setPointerCapture(event.pointerId);
       event.preventDefault();
@@ -127,6 +197,10 @@
 
     var fullButton = document.querySelector("[data-win-fullscreen]");
     if (fullButton) fullButton.addEventListener("click", requestEmulatorFullscreen);
+
+    document.addEventListener("fullscreenchange", function () {
+      if (!document.fullscreenElement) restoreFullscreenSnapshot();
+    });
 
     var closeButton = document.querySelector("[data-win-close]");
     if (closeButton) {
@@ -190,19 +264,39 @@
     var resizing = false;
     var startX = 0;
     var startWidth = 0;
+    var aspect = 1.5;
+    var userResized = false;
 
     function clamp(value, min, max) {
       return Math.max(min, Math.min(max, value));
     }
 
     function currentCanvasWidth() {
-      return canvas.getBoundingClientRect().width || canvas.width || 900;
+      var cssWidth = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--touhou-canvas-width"));
+      return cssWidth || canvas.getBoundingClientRect().width || canvas.width || 900;
+    }
+
+    function setCanvasSize(width) {
+      var nextWidth = clamp(width, 420, Math.max(420, window.innerWidth - 80));
+      win.style.width = "";
+      document.documentElement.style.setProperty("--touhou-canvas-width", nextWidth.toFixed(0) + "px");
+      document.documentElement.style.setProperty("--touhou-canvas-height", (nextWidth / aspect).toFixed(0) + "px");
+    }
+
+    function syncAspect(keepUserWidth) {
+      var sourceWidth = canvas.width || canvas.getAttribute("width") || canvas.getBoundingClientRect().width || 900;
+      var sourceHeight = canvas.height || canvas.getAttribute("height") || canvas.getBoundingClientRect().height || 600;
+      aspect = Number(sourceWidth) / Math.max(1, Number(sourceHeight));
+      document.documentElement.style.setProperty("--touhou-canvas-aspect", aspect.toFixed(6));
+      if (!keepUserWidth) setCanvasSize(currentCanvasWidth());
     }
 
     function start(event) {
+      syncAspect(true);
       resizing = true;
       startX = event.clientX;
       startWidth = currentCanvasWidth();
+      userResized = true;
       document.body.classList.add("canvas-resize");
       grip.setPointerCapture(event.pointerId);
       event.preventDefault();
@@ -212,10 +306,7 @@
       if (!resizing) return;
       var maxWidth = Math.max(360, window.innerWidth - 80);
       var nextWidth = clamp(startWidth + event.clientX - startX, 420, maxWidth);
-      document.documentElement.style.setProperty("--touhou-canvas-width", nextWidth.toFixed(0) + "px");
-      if (win.classList.contains("is-floating")) {
-        win.style.width = "";
-      }
+      setCanvasSize(nextWidth);
       event.preventDefault();
     }
 
@@ -232,6 +323,13 @@
     grip.addEventListener("pointermove", move);
     grip.addEventListener("pointerup", stop);
     grip.addEventListener("pointercancel", stop);
+    window.setTimeout(function () {
+      syncAspect(false);
+    }, 500);
+    window.addEventListener("resize", function () {
+      syncAspect(userResized);
+      if (userResized) setCanvasSize(currentCanvasWidth());
+    });
   }
 
   function setupJoystick() {
@@ -286,6 +384,7 @@
       var keyCode = parseInt(button.getAttribute("data-key"), 10);
 
       function down(event) {
+        resumeAudio();
         holdKey(keyCode, true);
         button.classList.add("is-active");
         event.preventDefault();
@@ -349,6 +448,7 @@
     }
 
     function startJoystick(event) {
+      resumeAudio();
       joystickActive = true;
       joystick.classList.add("is-active");
       joystick.setPointerCapture(event.pointerId);
@@ -395,6 +495,7 @@
       var keyCode = parseInt(button.getAttribute("data-dpad-key"), 10);
 
       function down(event) {
+        resumeAudio();
         holdKey(keyCode, true);
         button.classList.add("is-active");
         event.preventDefault();
@@ -450,11 +551,13 @@
     });
 
     logButton.addEventListener("click", function () {
+      resumeAudio();
       document.body.classList.toggle("show-log");
     });
 
     command.addEventListener("submit", function (event) {
       event.preventDefault();
+      resumeAudio();
       var input = command.querySelector("[data-dos-command]");
       var text = input.value;
       if (!text) return;
@@ -514,7 +617,19 @@
     }
   }
 
+  function setupAudioUnlock() {
+    var canvas = document.getElementById("canvas");
+    var shell = document.querySelector(".touhou-shell");
+    [canvas, shell, document].forEach(function (target) {
+      if (!target) return;
+      target.addEventListener("pointerdown", resumeAudio, true);
+      target.addEventListener("touchstart", resumeAudio, true);
+      target.addEventListener("keydown", resumeAudio, true);
+    });
+  }
+
   window.addEventListener("DOMContentLoaded", function () {
+    setupAudioUnlock();
     setupWindow();
     setupJoystick();
     setupResizeToggle();

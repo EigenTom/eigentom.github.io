@@ -1,27 +1,70 @@
+@font-face {
+  font-family: "PP Mondwest";
+  src: url("./fonts/ppmondwest-regular.otf") format("opentype");
+  font-display: swap;
+}
+
+:root {
+  --touhou-canvas-width: 900px;
+  --touhou-canvas-height: 600px;
+  --touhou-canvas-aspect: 1.5;
+  --touhou-window-chrome: 36px;
+}
+
+* {
+  -webkit-font-smoothing: none;
+  font-smooth: never;
+  font-kerning: none;
+  text-rendering: geometricPrecision;
+}
+
 body {
   min-height: 100vh;
   padding-top: 0 !important;
   background-color: #111820 !important;
   background-image:
-    linear-gradient(rgba(17, 24, 32, 0.82), rgba(17, 24, 32, 0.82)),
+    linear-gradient(rgba(17, 24, 32, 0.1), rgba(17, 24, 32, 0.05)),
     url("./thbg.png") !important;
   background-size: 96px !important;
   color: #eef4f8 !important;
-  font-family: "MS Sans Serif", "Tahoma", "Times New Roman", serif !important;
+  font-family: "PP Mondwest", "MS Sans Serif", "Tahoma", "Times New Roman", serif !important;
   overflow-x: hidden;
-  scrollbar-color: #31b7e8 transparent;
+}
+
+body.touhou-fullscreen {
+  overflow: hidden;
+  background: #000 !important;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: "PP Mondwest", "MS Sans Serif", "Tahoma", "Times New Roman", serif !important;
+  -webkit-font-smoothing: none;
+  font-smooth: never;
+  font-kerning: none;
+  letter-spacing: 0;
+  text-rendering: geometricPrecision;
 }
 
 .touhou-shell {
-  width: min(1160px, calc(100vw - 32px));
+  width: min(calc(var(--touhou-canvas-width) + var(--touhou-window-chrome)), calc(100vw - 32px));
   margin: 36px auto 56px;
   min-height: 620px;
+}
+
+body.touhou-fullscreen .touhou-shell {
+  width: 100vw;
+  height: 100vh;
+  min-height: 0;
+  margin: 0;
 }
 
 .win95-window {
   position: relative;
   width: min-content;
-  max-width: 100%;
+  max-width: calc(100vw - 32px);
   margin: 0 auto;
   border: 2px solid #f2f2f2;
   border-right-color: #404040;
@@ -33,6 +76,18 @@ body {
     6px 6px 0 rgba(0, 0, 0, 0.32),
     18px 18px 42px rgba(0, 0, 0, 0.34);
   touch-action: none;
+}
+
+body.touhou-fullscreen .win95-window {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 100;
+  width: 100vw !important;
+  max-width: none !important;
+  height: 100vh;
+  margin: 0;
+  border-width: 0;
+  box-shadow: none;
 }
 
 .win95-resize-grip {
@@ -66,7 +121,7 @@ body {
   padding: 4px 5px 4px 9px;
   background: linear-gradient(90deg, #000080, #1084d0);
   color: #fff;
-  font-family: "MS Sans Serif", sans-serif;
+  font-family: "PP Mondwest", "MS Sans Serif", sans-serif;
   font-size: 14px;
   font-weight: 700;
   cursor: move;
@@ -92,16 +147,40 @@ body {
   line-height: 1;
   padding: 0;
   cursor: pointer;
-  font-family: "MS Sans Serif", sans-serif;
+  font-family: "PP Mondwest", "MS Sans Serif", sans-serif;
 }
 
 .win95-body {
-  width: min-content;
-  max-width: calc(100vw - 40px);
+  width: min(var(--touhou-canvas-width), calc(100vw - 72px));
+  max-width: calc(100vw - 72px);
   padding: 10px;
+  overflow: hidden;
   border: 2px solid #808080;
   border-right-color: #fff;
   border-bottom-color: #fff;
+}
+
+body.touhou-fullscreen .win95-body {
+  box-sizing: border-box;
+  width: 100vw !important;
+  max-width: none;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border-width: 0;
+  background: #000;
+}
+
+body.touhou-fullscreen #spinner,
+body.touhou-fullscreen #status,
+body.touhou-fullscreen #progress,
+body.touhou-fullscreen #output,
+body.touhou-fullscreen .win95-titlebar,
+body.touhou-fullscreen .win95-resize-grip,
+body.touhou-fullscreen .win95-body > .emscripten {
+  display: none !important;
 }
 
 .touhou-nav {
@@ -153,7 +232,7 @@ body {
   border-radius: 0;
   background: #fff;
   color: #111;
-  font-family: "MS Sans Serif", sans-serif;
+  font-family: "PP Mondwest", "MS Sans Serif", sans-serif;
 }
 
 #controls button,
@@ -187,27 +266,44 @@ body {
 }
 
 canvas.emscripten {
+  box-sizing: border-box;
   display: block !important;
   margin: 0 auto;
-  max-width: calc(100vw - 72px);
-  height: auto !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
   image-rendering: pixelated;
+  image-rendering: crisp-edges;
 }
 
 body.canvas-resize canvas.emscripten {
-  width: min(var(--touhou-canvas-width, 960px), calc(100vw - 72px)) !important;
+  width: 100% !important;
+  height: 100% !important;
 }
 
 div.emscripten_border {
-  width: min-content !important;
+  display: block;
+  width: min(var(--touhou-canvas-width), calc(100vw - 72px)) !important;
+  height: min(var(--touhou-canvas-height), calc((100vw - 72px) / var(--touhou-canvas-aspect))) !important;
   max-width: calc(100vw - 52px);
   margin: 0 auto;
-  overflow: auto;
+  overflow: hidden;
   padding: 0;
   border: 2px solid #808080 !important;
   border-right-color: #fff !important;
   border-bottom-color: #fff !important;
   background: #000;
+}
+
+body.touhou-fullscreen div.emscripten_border {
+  width: min(100vw, calc(100vh * var(--touhou-canvas-aspect))) !important;
+  height: min(100vh, calc(100vw / var(--touhou-canvas-aspect))) !important;
+  max-width: none;
+  border-width: 0 !important;
+}
+
+body.touhou-fullscreen div.softkbd {
+  display: none;
 }
 
 div.softkbd {
@@ -279,7 +375,6 @@ div.softkbd {
   row-gap: 10px;
   align-items: center;
   justify-content: center;
-  width: fit-content !important;
   box-sizing: border-box;
   min-height: 116px;
   padding: 12px;
@@ -291,7 +386,7 @@ body.dpad-mode .joystick-panel {
 
 .joystick {
   position: relative;
-  width: 140px;
+  width: 160px;
   height: 140px;
   border: 2px solid #808080;
   border-right-color: #fff;
@@ -351,7 +446,7 @@ body.dpad-mode .dpad {
   position: absolute;
   color: #111;
   font-size: 12px;
-  line-height: 1;
+  line-height: 0;
   pointer-events: none;
 }
 
@@ -410,7 +505,7 @@ body.dpad-mode .dpad {
   border-bottom-color: #404040 !important;
   background-color: #c0c0c0 !important;
   color: #111 !important;
-  font-family: "MS Sans Serif", sans-serif !important;
+  font-family: "PP Mondwest", "MS Sans Serif", sans-serif !important;
   transition: background-color 120ms ease;
 }
 
@@ -514,7 +609,7 @@ body.show-log .win95-log-window {
   border-bottom-color: #fff;
   background: #000;
   color: #33ff66;
-  font-family: "Lucida Console", "Courier New", monospace;
+  font-family: "PP Mondwest", "Lucida Console", "Courier New", monospace;
   font-size: 13px;
   resize: vertical;
 }

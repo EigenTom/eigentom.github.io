@@ -181,6 +181,10 @@ body.project-page a {
   transition: transform 180ms ease, border-color 180ms ease;
 }
 
+.project-card > strong {
+  color: white;
+}
+
 .project-card::before {
   content: "";
   position: absolute;
