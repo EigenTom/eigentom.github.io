@@ -161,6 +161,7 @@ body.project-page a {
 }
 
 .project-card {
+  position: relative;
   min-height: 260px;
   display: flex;
   flex-direction: column;
@@ -169,9 +170,7 @@ body.project-page a {
   padding: 22px;
   border: 1px solid var(--project-line);
   border-radius: 6px;
-  background:
-    linear-gradient(180deg, rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.42)),
-    var(--card-image, linear-gradient(135deg, #16384f, #0b7fb3));
+  background: var(--card-image, linear-gradient(135deg, #16384f, #0b7fb3));
   background-size: cover;
   background-position: center;
   color: #fff;
@@ -180,6 +179,18 @@ body.project-page a {
   overflow: hidden;
   transform: translateY(0);
   transition: transform 180ms ease, border-color 180ms ease;
+}
+
+.project-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.36);
+}
+
+.project-card > * {
+  position: relative;
+  z-index: 1;
 }
 
 .project-card:hover {

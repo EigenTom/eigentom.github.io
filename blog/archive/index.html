@@ -11,7 +11,7 @@ hero_compact: true
   <button type="button" class="is-active" data-tag="">Show All <sup>{{ site.posts.size }}</sup></button>
   {% capture tags %}
   {% for tag in site.tags %}
-  <button type="button" data-sort="{{ site.posts.size | minus: tag[1].size | prepend: '0000' | slice: -4, 4 }}" data-tag="{{ tag[0] | strip | escape }}">{{ tag[0] }} <sup>{{ tag[1].size }}</sup></button>__SEPARATOR__
+  <button type="button" data-sort="{{ site.posts.size | minus: tag[1].size | prepend: '0000' | slice: -4, 4 }}" data-tag="{{ tag[0] | strip | url_encode }}">{{ tag[0] }} <sup>{{ tag[1].size }}</sup></button>__SEPARATOR__
   {% endfor %}
   {% endcapture %}
   {{ tags | split:'__SEPARATOR__' | sort }}
@@ -23,7 +23,16 @@ hero_compact: true
   <section class="blog-archive-year">
     <h2>{{ year.name }}</h2>
     {% for post in year.items %}
-    <article data-tags="{{ post.tags | join: '||' | escape }}">
+    {% assign encoded_tags = "" %}
+    {% for tag in post.tags %}
+      {% assign encoded_tag = tag | strip | url_encode %}
+      {% if forloop.first %}
+        {% assign encoded_tags = encoded_tag %}
+      {% else %}
+        {% assign encoded_tags = encoded_tags | append: "," | append: encoded_tag %}
+      {% endif %}
+    {% endfor %}
+    <article data-tags="{{ encoded_tags }}">
       <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%m.%d" }}</time>
       <a href="{{ post.url }}">{{ post.title }}</a>
       {% if post.tags %}

@@ -145,6 +145,7 @@
     var input = document.querySelector("[data-blog-search-input]");
     var results = document.querySelector("[data-blog-search-results]");
     var index = null;
+    var closeTimer = null;
 
     if (!overlay || !input || !results || !openers.length) return;
 
@@ -202,7 +203,14 @@
     }
 
     function openSearch() {
+      if (closeTimer) {
+        window.clearTimeout(closeTimer);
+        closeTimer = null;
+      }
       overlay.hidden = false;
+      window.requestAnimationFrame(function () {
+        overlay.classList.add("is-open");
+      });
       document.documentElement.classList.add("blog-search-open");
       input.focus();
       if (!index) {
@@ -221,8 +229,11 @@
     }
 
     function closeSearch() {
-      overlay.hidden = true;
+      overlay.classList.remove("is-open");
       document.documentElement.classList.remove("blog-search-open");
+      closeTimer = window.setTimeout(function () {
+        overlay.hidden = true;
+      }, 180);
     }
 
     openers.forEach(function (opener) {
@@ -301,8 +312,18 @@
 
     function normalizeTag(tag) {
       if (!tag) return "";
+      if (tag.indexOf("%25") !== -1) {
+        try {
+          tag = decodeURIComponent(tag);
+        } catch (error) {
+          return tag;
+        }
+      }
+      if (tag.indexOf("%") === -1) {
+        return encodeURIComponent(tag).replace(/%20/g, "+");
+      }
       try {
-        return decodeURIComponent(tag);
+        return encodeURIComponent(decodeURIComponent(tag)).replace(/%20/g, "+");
       } catch (error) {
         return tag;
       }
@@ -315,7 +336,7 @@
       });
 
       items.forEach(function (item) {
-        var tags = (item.getAttribute("data-tags") || "").split("||").filter(Boolean);
+        var tags = (item.getAttribute("data-tags") || "").split(",").filter(Boolean);
         item.hidden = Boolean(tag) && tags.indexOf(tag) === -1;
       });
 
@@ -326,14 +347,17 @@
         year.hidden = !visible;
       });
 
-      var params = new URLSearchParams(window.location.search);
-      if (tag) {
-        params.set("tag", tag);
-      } else {
-        params.delete("tag");
-      }
-      var next = window.location.pathname + (params.toString() ? "?" + params.toString() : "");
+      var next = window.location.pathname + (tag ? "?tag=" + tag : "");
       window.history.replaceState({}, "", next);
+    }
+
+    function rawQueryTag() {
+      var query = window.location.search.replace(/^\?/, "").split("&");
+      for (var i = 0; i < query.length; i += 1) {
+        var pair = query[i].split("=");
+        if (pair[0] === "tag") return pair.slice(1).join("=");
+      }
+      return "";
     }
 
     buttons.forEach(function (button) {
@@ -342,7 +366,7 @@
       });
     });
 
-    filter(new URLSearchParams(window.location.search).get("tag") || "");
+    filter(rawQueryTag());
   }
 
   window.addEventListener("scroll", updateChrome, { passive: true });
