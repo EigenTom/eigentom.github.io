@@ -400,7 +400,7 @@
   margin: 0 0 24px;
   color: var(--text-color);
   font-family: var(--mono-font);
-  font-size: clamp(48px, 4.8vw, 76px);
+  font-size: clamp(48px, 4.8vw, 42px);
   font-weight: 300;
   line-height: 1.05;
   letter-spacing: 0;
@@ -964,7 +964,7 @@
   bottom: 0;
   left: 0;
   height: calc(var(--scroll-progress, 0) * 100%);
-  background: var(--scroll-fill-color, var(--scroll-fill-start));
+  background: var(--theme-color-bright);
   transition: height 0.08s linear, background-color 0.08s linear;
 }
 
@@ -1108,7 +1108,7 @@
   }
 
   .blog-profile h2 {
-    font-size: clamp(48px, 12vw, 72px);
+    font-size: clamp(48px, 4.8vw, 42px);
   }
 
   .blog-toc {
@@ -1131,6 +1131,14 @@
 
   .blog-nav-toggle {
     display: block;
+    color: #fff !important;
+  }
+
+  .blog-nav-toggle span,
+  .blog-nav-toggle:hover span,
+  .blog-nav.is-fixed .blog-nav-toggle span,
+  .blog-nav.is-fixed .blog-nav-toggle:hover span {
+    background: #fff;
   }
 
   .blog-links {

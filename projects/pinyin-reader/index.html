@@ -1,0 +1,1480 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>拼音播报助手</title>
+  <script src="./pinyin-data.js"></script>
+  <style>
+    :root {
+      --bg: #f6efe1;
+      --bg-2: #efe2c6;
+      --surface: #fffaf0;
+      --surface-2: #f4ead3;
+      --surface-3: #ead8b4;
+      --gold: #ca8a04;
+      --gold-deep: #8a5d0a;
+      --brown: #6f4e2f;
+      --brown-soft: #9c7b59;
+      --text: #3c2a18;
+      --text-soft: #765a3c;
+      --border: #d1b07f;
+      --shadow: 0 2px 8px rgba(202, 138, 4, 0.18);
+      --shadow-glow: 0 0 18px rgba(202, 138, 4, 0.2);
+      --reader-font: "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB", sans-serif;
+      --pinyin-font: "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", sans-serif;
+      --reader-size: 35px;
+      --ruby-size: 0.45em;
+      --page-width: min(100%, 860px);
+      --page-height: min(72vh, 900px);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+    }
+
+    body {
+      font-family: "Palatino Linotype", Georgia, "Times New Roman", "Songti SC", serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top, rgba(202, 138, 4, 0.12), transparent 22%),
+        linear-gradient(180deg, var(--bg) 0%, #f2e8d4 55%, var(--bg-2) 100%);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(90deg, transparent 0, rgba(202, 138, 4, 0.03) 50%, transparent 100%),
+        radial-gradient(circle at 20% 0%, rgba(202, 138, 4, 0.06), transparent 22%);
+      opacity: 0.95;
+    }
+
+    .app-shell {
+      position: relative;
+      width: min(1120px, calc(100% - 24px));
+      margin: 12px auto 24px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .panel {
+      background: linear-gradient(180deg, rgba(255, 249, 237, 0.98), rgba(246, 237, 218, 0.98));
+      border: 1px solid var(--border);
+      border-top: 2px solid rgba(202, 138, 4, 0.95);
+      border-radius: 4px;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+
+    .panel::before {
+      content: "";
+      position: absolute;
+      inset: 6px;
+      border: 1px solid rgba(202, 138, 4, 0.12);
+      border-radius: 3px;
+      pointer-events: none;
+    }
+
+    .controls,
+    .reader {
+      padding: 18px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .topbar {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: start;
+    }
+
+    .headline {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .headline h1,
+    .reader-top h2,
+    .section-title {
+      margin: 0;
+      font-family: "Palatino Linotype", Georgia, "Times New Roman", serif;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      color: var(--gold-deep);
+      text-shadow: 0 0 10px rgba(202, 138, 4, 0.12);
+    }
+
+    .headline h1 {
+      font-size: clamp(28px, 5vw, 40px);
+      line-height: 1.15;
+      text-transform: uppercase;
+    }
+
+    .headline-main {
+      display: grid;
+      gap: 6px;
+      min-height: 52px;
+      align-content: center;
+    }
+
+    .gear-button {
+      min-width: 88px;
+      min-height: 52px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, #fff7e6, #f0e0bd);
+      color: var(--gold-deep);
+      border-radius: 4px;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+    }
+
+    .gear-button:hover {
+      box-shadow: var(--shadow-glow);
+    }
+
+      padding: 10px 18px;
+      letter-spacing: 0.08em;
+    }
+
+    .helper,
+    .reader-top p,
+    .status-text,
+    .hint {
+      margin: 0;
+      color: var(--text-soft);
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    .card {
+      background: linear-gradient(180deg, rgba(255, 251, 242, 0.96), rgba(244, 234, 211, 0.96));
+      border: 1px solid var(--border);
+      border-top: 2px solid rgba(202, 138, 4, 0.55);
+      border-radius: 4px;
+      padding: 16px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      text-transform: uppercase;
+    }
+
+    textarea,
+    select {
+      width: 100%;
+      font: inherit;
+      color: var(--text);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      outline: none;
+      transition: border-color 180ms ease, box-shadow 180ms ease;
+    }
+
+    textarea:focus,
+    select:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(202, 138, 4, 0.18);
+    }
+
+    textarea {
+      min-height: 240px;
+      resize: vertical;
+      padding: 14px;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    .input-actions,
+    .small-actions,
+    .status-bar,
+    .page-tools,
+    .center-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .input-actions {
+      justify-content: space-between;
+    }
+
+    .input-actions-left,
+    .input-actions-right {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    button,
+    .file-trigger {
+      min-height: 44px;
+      padding: 10px 18px;
+      border-radius: 4px;
+      border: 1px solid transparent;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+    }
+
+    button:hover,
+    .file-trigger:hover {
+      box-shadow: 0 0 0 2px rgba(202, 138, 4, 0.24);
+    }
+
+    button:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .primary-btn {
+      background: var(--gold);
+      color: #1a0f0a;
+      border-color: #daa520;
+      box-shadow: var(--shadow-glow);
+    }
+
+    .primary-btn:hover {
+      background: #b8780a;
+    }
+
+    .secondary-btn,
+    .file-trigger {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: rgba(202, 138, 4, 0.08);
+      color: var(--text);
+      border-color: var(--gold);
+    }
+
+    .secondary-btn:hover,
+    .file-trigger:hover {
+      background: rgba(202, 138, 4, 0.18);
+    }
+
+    .ghost-btn {
+      background: transparent;
+      color: var(--text-soft);
+      border-color: var(--border);
+    }
+
+    .ghost-btn:hover {
+      background: var(--surface-3);
+    }
+
+    .file-input {
+      display: none;
+    }
+
+    .status-chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 4px 12px;
+      border-radius: 2px;
+      border: 1px solid transparent;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .status-chip.info {
+      color: var(--gold-deep);
+      background: rgba(88, 28, 135, 0.08);
+      border-color: rgba(202, 138, 4, 0.16);
+    }
+
+    .status-chip.success {
+      color: #2f7d32;
+      background: rgba(34, 197, 94, 0.08);
+      border-color: rgba(34, 197, 94, 0.18);
+    }
+
+    .status-chip.warn {
+      color: var(--gold-deep);
+      background: rgba(202, 138, 4, 0.1);
+      border-color: rgba(202, 138, 4, 0.24);
+    }
+
+    .advanced-panel {
+      display: none;
+      gap: 12px;
+      padding: 14px;
+      border-radius: 4px;
+      background: rgba(250, 244, 231, 0.92);
+      border: 1px solid var(--border);
+    }
+
+    .advanced-panel.open {
+      display: grid;
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .field {
+      display: grid;
+      gap: 6px;
+    }
+
+    .field label {
+      color: var(--text-soft);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    select {
+      height: 42px;
+      padding: 0 12px;
+    }
+
+    .slider-box {
+      display: grid;
+      gap: 8px;
+      padding: 12px;
+      border-radius: 4px;
+      background: rgba(255, 248, 234, 0.95);
+      border: 1px solid var(--border);
+    }
+
+    .slider-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--text-soft);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--gold);
+    }
+
+    .reader {
+      min-height: calc(100vh - 60px);
+    }
+
+    .reader-top {
+      display: grid;
+      gap: 12px;
+    }
+
+    .reader-top h2 {
+      font-size: clamp(22px, 4vw, 32px);
+      line-height: 1.2;
+    }
+
+    .reader-heading {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .status-wrap {
+      display: grid;
+      gap: 10px;
+    }
+
+    .page-info {
+      min-height: 42px;
+      padding: 10px 16px;
+      display: inline-flex;
+      align-items: center;
+      border-radius: 4px;
+      background: rgba(255, 248, 234, 0.9);
+      border: 1px solid var(--border);
+      color: var(--text-soft);
+      font-size: 14px;
+    }
+
+    .center-tools {
+      justify-content: center;
+    }
+
+    .page-stage {
+      position: relative;
+      display: grid;
+      justify-items: center;
+      padding: 8px;
+      border-radius: 4px;
+      background: linear-gradient(180deg, rgba(251, 245, 231, 0.76), rgba(238, 224, 189, 0.88));
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .page-shell {
+      width: var(--page-width);
+      height: var(--page-height);
+      padding: clamp(22px, 4vw, 40px);
+      border-radius: 4px;
+    }
+
+    .page-shell {
+      background:
+        linear-gradient(180deg, rgba(251, 247, 235, 0.98), rgba(244, 235, 214, 0.98)),
+        linear-gradient(90deg, rgba(202, 138, 4, 0.04), transparent 16%, transparent 84%, rgba(202, 138, 4, 0.04));
+      color: #161616;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+      overflow: auto;
+      border: 1px solid rgba(153, 126, 72, 0.35);
+      position: relative;
+      scroll-behavior: smooth;
+    }
+
+    .page-content {
+      font-family: var(--reader-font);
+      font-size: var(--reader-size);
+      line-height: 2.15;
+      letter-spacing: 0.02em;
+      color: #182234;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+      min-height: 100%;
+    }
+
+    .token-unit {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      vertical-align: top;
+      margin: 0 0.05em 0.2em;
+      line-height: 1;
+    }
+
+    .token-pinyin {
+      font-family: var(--pinyin-font);
+      font-size: var(--ruby-size);
+      line-height: 1;
+      font-weight: 600;
+      color: #be123c;
+      user-select: none;
+      letter-spacing: 0;
+      min-height: 1em;
+      white-space: pre;
+      margin-bottom: 0.16em;
+    }
+
+    .token-pinyin.empty {
+      visibility: hidden;
+    }
+
+    .token-base {
+      white-space: pre;
+      line-height: 1;
+    }
+
+    .token-unit.text-unit .token-base {
+      color: #334155;
+    }
+
+    .paragraph-gap {
+      display: block;
+      width: 100%;
+      height: 1.1em;
+    }
+
+    .page-overlay {
+      position: absolute;
+      inset: clamp(22px, 4vw, 40px);
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      text-align: center;
+      background: rgba(255, 250, 240, 0.86);
+      border: 2px dashed rgba(100, 116, 139, 0.28);
+      border-radius: 6px;
+      color: #475569;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .empty-state,
+    .loading-state {
+      display: grid;
+      place-items: center;
+      height: 100%;
+      padding: 24px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.52);
+      color: #475569;
+      border: 2px dashed rgba(100, 116, 139, 0.35);
+      border-radius: 6px;
+    }
+
+    .loading-state strong {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--gold-deep);
+      letter-spacing: 0.05em;
+    }
+
+    .tap-zones {
+      display: none;
+    }
+
+    body.fullscreen-reading .tap-zones {
+      display: block;
+    }
+
+    body.fullscreen-reading .tap-zone {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      width: 50vw;
+      z-index: 999;
+      background: transparent;
+      border: none;
+    }
+
+    body.fullscreen-reading .tap-zone.left {
+      left: 0;
+    }
+
+    body.fullscreen-reading .tap-zone.right {
+      right: 0;
+    }
+
+    @media (max-width: 900px) {
+      .field-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar {
+        grid-template-columns: 1fr;
+      }
+
+      .input-actions {
+        display: grid;
+        gap: 10px;
+      }
+
+      .input-actions-left,
+      .input-actions-right {
+        justify-content: flex-start;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .app-shell {
+        width: min(100% - 12px, 100%);
+      }
+
+      .controls,
+      .reader,
+      .card {
+        padding: 14px;
+      }
+
+      textarea {
+        min-height: 180px;
+      }
+
+      :root {
+        --page-width: min(100%, 100%);
+        --page-height: min(68vh, 820px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <section class="panel controls">
+      <div class="topbar">
+        <div class="headline">
+          <div class="headline-main">
+            <h1>拼音播报助手</h1>
+          </div>
+          <button class="gear-button" id="toggleSettingsButton" type="button" aria-label="高级设置">设置</button>
+        </div>
+      </div>
+
+      <section class="card">
+        <h2 class="section-title">输入选择</h2>
+        <textarea id="sourceText" placeholder="把需要播报的文字粘贴到这里。&#10;&#10;你也可以点“选择 TXT / DOCX 文件”导入内容。"></textarea>
+        <div class="input-actions">
+          <div class="input-actions-left">
+            <label class="file-trigger" for="fileInput">选择 TXT / DOCX 文件</label>
+            <button class="secondary-btn" id="pasteButton" type="button">粘贴剪贴板</button>
+            <button class="ghost-btn" id="clearButton" type="button">清空文字</button>
+            <button class="primary-btn" id="renderButton" type="button">生成拼音稿</button>
+            <input class="file-input" id="fileInput" type="file" accept=".txt,.docx,text/plain,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+          </div>
+        </div>
+        <p class="helper">推荐做法：在微信、备忘录、Word 或文档 App 里复制文字，然后回到这里长按粘贴。</p>
+      </section>
+
+      <div class="advanced-panel" id="advancedPanel">
+        <div class="field-grid">
+          <div class="field">
+            <label for="fontSelect">阅读字体</label>
+            <select id="fontSelect">
+              <option value='"Microsoft YaHei", "PingFang SC", "Hiragino Sans GB", sans-serif' selected>系统黑体</option>
+              <option value='"SimHei", "Microsoft YaHei", sans-serif'>黑体偏粗</option>
+              <option value='"SimSun", "Songti SC", serif'>宋体</option>
+              <option value='"KaiTi", "Kaiti SC", serif'>楷体</option>
+              <option value='"FangSong", "STFangsong", serif'>仿宋</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="toneSelect">拼音样式</label>
+            <select id="toneSelect">
+              <option value="symbol" selected>带声调</option>
+              <option value="none">无声调</option>
+              <option value="num">数字声调</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-grid">
+          <div class="field">
+            <label for="batchSizeSelect">分批渲染强度</label>
+            <select id="batchSizeSelect">
+              <option value="5">较轻</option>
+              <option value="10" selected>标准</option>
+              <option value="20">较快</option>
+              <option value="30">更快</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="heightSelect">页面高度</label>
+            <select id="heightSelect">
+              <option value="62vh">较紧凑</option>
+              <option value="72vh" selected>标准</option>
+              <option value="80vh">更多内容</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="slider-box">
+          <div class="slider-head">
+            <span>正文字号</span>
+            <span id="fontSizeValue">35px</span>
+          </div>
+          <input id="fontSizeRange" type="range" min="24" max="54" step="1" value="35">
+        </div>
+
+        <div class="slider-box">
+          <div class="slider-head">
+            <span>拼音相对大小</span>
+            <span id="rubySizeValue">45%</span>
+          </div>
+          <input id="rubySizeRange" type="range" min="30" max="62" step="1" value="45">
+        </div>
+
+        <div class="field-grid">
+          <div class="field">
+            <label for="widthSelect">页面宽度</label>
+            <select id="widthSelect">
+              <option value="760px">窄一些</option>
+              <option value="860px" selected>标准</option>
+              <option value="940px">宽一些</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>全屏阅读</label>
+            <div class="status-text">按钮已移动到“拼音阅读页”标题右侧。</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <main class="panel reader">
+      <div class="reader-top">
+        <div class="reader-heading">
+          <h2>拼音阅读页</h2>
+          <button class="secondary-btn" id="fullscreenButton" type="button">全屏阅读</button>
+        </div>
+        <p class="status-text" id="readerIntro">把文字放进来，点“生成拼音稿”后，这里会显示带拼音的阅读稿。支持手机、平板和电脑滚动阅读。</p>
+        <div class="status-wrap">
+          <div class="status-bar">
+            <span class="status-chip info" id="libraryStatus">本地词典待机</span>
+            <span class="status-chip warn" id="textStatus">还没有内容</span>
+            <span class="status-chip info" id="progressStatus">0%</span>
+          </div>
+          <p class="status-text" id="fileLabel">还没有选择文件，也还没有粘贴文字。</p>
+        </div>
+      </div>
+
+      <section class="page-stage">
+        <article class="page-shell" id="pageShell">
+          <div class="page-content" id="pageContent">
+            <div class="empty-state">把文字粘贴进上面的文本框，或者选择 TXT / DOCX 文件，再点“生成拼音稿”。</div>
+          </div>
+        </article>
+      </section>
+
+      <div class="center-tools">
+        <button class="ghost-btn" id="prevButton" type="button">上一屏</button>
+        <div class="page-info" id="pageInfo">阅读进度 0%</div>
+        <button class="primary-btn" id="nextButton" type="button">下一屏</button>
+      </div>
+
+      <p class="hint">如果改了高级设置，当前内容会自动更新显示。进入全屏后，点击屏幕左半边回上一屏，右半边到下一屏。</p>
+    </main>
+  </div>
+
+  <div class="tap-zones" aria-hidden="true">
+    <button class="tap-zone left" id="tapPrev" type="button" tabindex="-1"></button>
+    <button class="tap-zone right" id="tapNext" type="button" tabindex="-1"></button>
+  </div>
+
+  <script>
+    const sourceText = document.getElementById("sourceText");
+    const fileInput = document.getElementById("fileInput");
+    const renderButton = document.getElementById("renderButton");
+    const pasteButton = document.getElementById("pasteButton");
+    const clearButton = document.getElementById("clearButton");
+    const toggleSettingsButton = document.getElementById("toggleSettingsButton");
+    const advancedPanel = document.getElementById("advancedPanel");
+    const fontSelect = document.getElementById("fontSelect");
+    const toneSelect = document.getElementById("toneSelect");
+    const widthSelect = document.getElementById("widthSelect");
+    const heightSelect = document.getElementById("heightSelect");
+    const batchSizeSelect = document.getElementById("batchSizeSelect");
+    const fontSizeRange = document.getElementById("fontSizeRange");
+    const rubySizeRange = document.getElementById("rubySizeRange");
+    const fontSizeValue = document.getElementById("fontSizeValue");
+    const rubySizeValue = document.getElementById("rubySizeValue");
+    const pageShell = document.getElementById("pageShell");
+    const pageContent = document.getElementById("pageContent");
+    const prevButton = document.getElementById("prevButton");
+    const nextButton = document.getElementById("nextButton");
+    const pageInfo = document.getElementById("pageInfo");
+    const libraryStatus = document.getElementById("libraryStatus");
+    const textStatus = document.getElementById("textStatus");
+    const progressStatus = document.getElementById("progressStatus");
+    const fileLabel = document.getElementById("fileLabel");
+    const readerIntro = document.getElementById("readerIntro");
+    const fullscreenButton = document.getElementById("fullscreenButton");
+    const tapPrev = document.getElementById("tapPrev");
+    const tapNext = document.getElementById("tapNext");
+
+    const state = {
+      sourceText: "",
+      sourceName: "",
+      tokens: [],
+      generationId: 0,
+      renderJobId: 0,
+      renderedTokenCount: 0,
+      tokenCacheKey: "",
+    };
+
+    const TOKEN_CACHE_VERSION = "v3";
+
+    const ESCAPE_MAP = {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      "\"": "&quot;",
+      "'": "&#39;",
+    };
+
+    const TONE_MARKS = {
+      a: ["a", "ā", "á", "ǎ", "à"],
+      e: ["e", "ē", "é", "ě", "è"],
+      i: ["i", "ī", "í", "ǐ", "ì"],
+      o: ["o", "ō", "ó", "ǒ", "ò"],
+      u: ["u", "ū", "ú", "ǔ", "ù"],
+      v: ["ü", "ǖ", "ǘ", "ǚ", "ǜ"],
+      ü: ["ü", "ǖ", "ǘ", "ǚ", "ǜ"],
+    };
+
+    function escapeHtml(value) {
+      return value.replace(/[&<>"']/g, (char) => ESCAPE_MAP[char]);
+    }
+
+    function getRenderBatchSize() {
+      return Number(batchSizeSelect.value || 10) * 250;
+    }
+
+    function isChineseChar(char) {
+      return /[\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff]/.test(char);
+    }
+
+    function isDictionaryReady() {
+      return Boolean(window.PINYIN_CHAR_DICT && window.PINYIN_PHRASE_DICT);
+    }
+
+    function updateStatuses(message, type = "info", pagingMessage = "未生成", pagingType = "warn") {
+      libraryStatus.textContent = message;
+      libraryStatus.className = `status-chip ${type}`;
+      textStatus.textContent = pagingMessage;
+      textStatus.className = `status-chip ${pagingType}`;
+    }
+
+    function updateProgress(value) {
+      progressStatus.textContent = `${value}%`;
+    }
+
+    function hashText(value) {
+      let hash = 5381;
+      for (let i = 0; i < value.length; i += 1) {
+        hash = ((hash << 5) + hash) ^ value.charCodeAt(i);
+      }
+      return (hash >>> 0).toString(36);
+    }
+
+    function getTokenCacheKey(text) {
+      return `pinyin-reader:${TOKEN_CACHE_VERSION}:${hashText(text)}`;
+    }
+
+    function loadTokenCache(key) {
+      const stores = [window.localStorage, window.sessionStorage];
+      for (const store of stores) {
+        try {
+          const raw = store.getItem(key);
+          if (!raw) {
+            continue;
+          }
+          const parsed = JSON.parse(raw);
+          if (parsed && Array.isArray(parsed.tokens)) {
+            return parsed.tokens;
+          }
+        } catch (error) {
+          continue;
+        }
+      }
+      return null;
+    }
+
+    function saveTokenCache(key, tokens) {
+      const payload = JSON.stringify({ tokens });
+      const stores = [window.localStorage, window.sessionStorage];
+      for (const store of stores) {
+        try {
+          store.setItem(key, payload);
+          return true;
+        } catch (error) {
+          continue;
+        }
+      }
+      return false;
+    }
+
+    function updateLoadedProgress() {
+      if (!state.tokens.length) {
+        updateProgress(0);
+        return;
+      }
+
+      const covered = Math.min(state.renderedTokenCount || 0, state.tokens.length);
+      const percent = Math.max(46, Math.min(100, Math.round(45 + ((covered / state.tokens.length) * 55))));
+      updateProgress(percent);
+    }
+
+    function updateSourceText(text, sourceName) {
+      state.sourceText = String(text || "");
+      state.sourceName = sourceName || "";
+      state.tokens = [];
+      state.tokenCacheKey = "";
+      resetRenderingState();
+      sourceText.value = state.sourceText;
+      pageContent.innerHTML = state.sourceText.trim()
+        ? '<div class="empty-state">内容已更新。点“生成拼音稿”后，这里会按新内容重新排版。</div>'
+        : '<div class="empty-state">把文字粘贴进上面的文本框，或者选择 TXT / DOCX 文件，再点“生成拼音稿”。</div>';
+      pageShell.scrollTop = 0;
+      pageInfo.textContent = "阅读进度 0%";
+      prevButton.disabled = true;
+      nextButton.disabled = true;
+
+      if (state.sourceText.trim()) {
+        const prefix = sourceName ? `${sourceName} · ` : "";
+        fileLabel.textContent = `${prefix}${state.sourceText.length.toLocaleString("zh-CN")} 字符`;
+        updateStatuses("本地词典已就绪", "success", "内容已准备好", "info");
+      } else {
+        fileLabel.textContent = "还没有选择文件，也还没有粘贴文字。";
+        updateStatuses("本地词典已就绪", "success", "还没有内容", "warn");
+      }
+
+      updateProgress(0);
+    }
+
+    function applyReaderSettings() {
+      document.documentElement.style.setProperty("--reader-font", fontSelect.value);
+      document.documentElement.style.setProperty("--reader-size", `${fontSizeRange.value}px`);
+      document.documentElement.style.setProperty("--ruby-size", `${Number(rubySizeRange.value) / 100}em`);
+      document.documentElement.style.setProperty("--page-width", `min(100%, ${widthSelect.value})`);
+      document.documentElement.style.setProperty("--page-height", `min(${heightSelect.value}, 900px)`);
+      fontSizeValue.textContent = `${fontSizeRange.value}px`;
+      rubySizeValue.textContent = `${rubySizeRange.value}%`;
+    }
+
+    function splitSyllableAndTone(pinyin) {
+      const match = String(pinyin).match(/^([a-züv:]+)([0-5]?)$/i);
+      if (!match) {
+        return { syllable: String(pinyin), tone: 0 };
+      }
+
+      return {
+        syllable: match[1].replace(/u:/g, "v"),
+        tone: Number(match[2] || 0),
+      };
+    }
+
+    function applyToneMark(syllable, tone) {
+      if (!tone || tone === 5) {
+        return syllable.replace(/v/g, "ü");
+      }
+
+      const lower = syllable.toLowerCase();
+      let index = lower.indexOf("a");
+      if (index === -1) index = lower.indexOf("e");
+      if (index === -1 && lower.includes("ou")) index = lower.indexOf("o");
+
+      if (index === -1) {
+        for (let i = lower.length - 1; i >= 0; i -= 1) {
+          if ("aeiouvü".includes(lower[i])) {
+            index = i;
+            break;
+          }
+        }
+      }
+
+      if (index === -1) {
+        return syllable.replace(/v/g, "ü");
+      }
+
+      const chars = syllable.split("");
+      const vowel = chars[index].toLowerCase();
+      const marks = TONE_MARKS[vowel] || TONE_MARKS[vowel.replace(":", "")];
+      if (!marks) {
+        return syllable.replace(/v/g, "ü");
+      }
+
+      chars[index] = marks[tone];
+      return chars.join("").replace(/v/g, "ü");
+    }
+
+    function formatPinyin(pinyin) {
+      if (toneSelect.value === "num") {
+        return String(pinyin).replace(/u:/g, "ü").replace(/v/g, "ü");
+      }
+
+      if (toneSelect.value === "none") {
+        return String(pinyin).replace(/[0-5]/g, "").replace(/u:/g, "ü").replace(/v/g, "ü");
+      }
+
+      const { syllable, tone } = splitSyllableAndTone(pinyin);
+      return applyToneMark(syllable, tone);
+    }
+
+    function findPhraseMatch(text, start) {
+      const list = window.PINYIN_PHRASE_DICT[text[start]];
+      if (!list) {
+        return null;
+      }
+
+      for (const [phrase, pinyins] of list) {
+        if (text.startsWith(phrase, start)) {
+          return { phrase, pinyins };
+        }
+      }
+
+      return null;
+    }
+
+    function buildTokensChunked(text, generationId, onDone) {
+      const normalized = text.replace(/\r\n/g, "\n");
+      const tokens = [];
+      let index = 0;
+
+      const step = () => {
+        if (generationId !== state.generationId) {
+          return;
+        }
+
+        const startedAt = performance.now();
+        while (index < normalized.length && performance.now() - startedAt < 14) {
+          const char = normalized[index];
+
+          if (char === "\n") {
+            tokens.push({ kind: "break" });
+            index += 1;
+            continue;
+          }
+
+          if (!isChineseChar(char)) {
+            tokens.push({ kind: "text", text: char });
+            index += 1;
+            continue;
+          }
+
+          const match = findPhraseMatch(normalized, index);
+          if (match) {
+            for (let offset = 0; offset < match.phrase.length; offset += 1) {
+              tokens.push({
+                kind: "zh",
+                text: match.phrase[offset],
+                pinyinRaw: match.pinyins[offset] || window.PINYIN_CHAR_DICT[match.phrase[offset]] || "",
+              });
+            }
+            index += match.phrase.length;
+            continue;
+          }
+
+          tokens.push({
+            kind: "zh",
+            text: char,
+            pinyinRaw: window.PINYIN_CHAR_DICT[char] || "",
+          });
+          index += 1;
+        }
+
+        const percent = normalized.length ? Math.min(45, Math.max(1, Math.round((index / normalized.length) * 45))) : 0;
+        updateProgress(percent);
+
+        if (index >= normalized.length) {
+          onDone(tokens);
+          return;
+        }
+
+        window.setTimeout(step, 0);
+      };
+
+      window.setTimeout(step, 0);
+    }
+
+    function renderToken(token, index) {
+      if (token.kind === "break") {
+        return `<span class="paragraph-gap" data-token-index="${index}"></span>`;
+      }
+
+      const pinyin = token.kind === "zh" ? formatPinyin(token.pinyinRaw || "") : "";
+      const pinyinClass = pinyin ? "token-pinyin" : "token-pinyin empty";
+      const unitClass = token.kind === "zh" ? "token-unit zh-unit" : "token-unit text-unit";
+
+      if (token.kind === "zh") {
+        return `<span class="${unitClass}" data-token-index="${index}"><span class="${pinyinClass}">${escapeHtml(pinyin || " ")}</span><span class="token-base">${escapeHtml(token.text)}</span></span>`;
+      }
+
+      return `<span class="${unitClass}" data-token-index="${index}"><span class="${pinyinClass}"> </span><span class="token-base">${escapeHtml(token.text)}</span></span>`;
+    }
+
+    function renderFlowContentChunked(onDone) {
+      if (!state.tokens.length) {
+        pageContent.innerHTML = '<div class="empty-state">把文字粘贴进上面的文本框，或者选择 TXT / DOCX 文件，再点“生成拼音稿”。</div>';
+        state.renderedTokenCount = 0;
+        updateScrollProgress();
+        onDone?.();
+        return;
+      }
+
+      const jobId = ++state.renderJobId;
+      const batchSize = getRenderBatchSize();
+      let index = 0;
+      pageContent.innerHTML = "";
+      pageShell.scrollTop = 0;
+      state.renderedTokenCount = 0;
+
+      const step = () => {
+        if (jobId !== state.renderJobId) {
+          return;
+        }
+
+        const chunk = state.tokens
+          .slice(index, index + batchSize)
+          .map((token, tokenIndex) => renderToken(token, index + tokenIndex))
+          .join("");
+        pageContent.insertAdjacentHTML("beforeend", chunk);
+        index += batchSize;
+        state.renderedTokenCount = Math.min(index, state.tokens.length);
+        updateLoadedProgress();
+        updateScrollProgress();
+
+        if (index >= state.tokens.length) {
+          onDone?.();
+          return;
+        }
+
+        window.setTimeout(step, 0);
+      };
+
+      window.setTimeout(step, 0);
+    }
+
+    function resetRenderingState() {
+      state.renderJobId += 1;
+      state.renderedTokenCount = 0;
+    }
+
+    function updateScrollProgress() {
+      const maxScroll = Math.max(0, pageShell.scrollHeight - pageShell.clientHeight);
+      const percent = maxScroll > 0 ? Math.round((pageShell.scrollTop / maxScroll) * 100) : (state.tokens.length ? 100 : 0);
+      pageInfo.textContent = `阅读进度 ${percent}%`;
+      prevButton.disabled = !state.tokens.length || pageShell.scrollTop <= 4;
+      nextButton.disabled = !state.tokens.length || pageShell.scrollTop >= maxScroll - 4;
+    }
+
+    function showCurrentPage() {
+      if (!state.tokens.length) {
+        pageContent.innerHTML = '<div class="empty-state">把文字粘贴进上面的文本框，或者选择 TXT / DOCX 文件，再点“生成拼音稿”。</div>';
+        pageShell.scrollTop = 0;
+        pageInfo.textContent = "阅读进度 0%";
+        prevButton.disabled = true;
+        nextButton.disabled = true;
+        return;
+      }
+
+      updateStatuses("本地词典已就绪", "success", "阅读稿已生成", "info");
+      updateLoadedProgress();
+      updateScrollProgress();
+    }
+
+    function repaginateIfReady() {
+      applyReaderSettings();
+      state.sourceText = sourceText.value;
+      if (!state.sourceText.trim() || !state.tokens.length) {
+        return;
+      }
+
+      resetRenderingState();
+      renderFlowContentChunked(() => {
+        window.requestAnimationFrame(() => {
+          showCurrentPage();
+        });
+      });
+    }
+
+    function finishWithTokens(tokens, cacheKey, fromCache) {
+      state.tokens = tokens;
+      state.tokenCacheKey = cacheKey;
+      if (!fromCache) {
+        saveTokenCache(cacheKey, tokens);
+      }
+      resetRenderingState();
+      renderFlowContentChunked(() => {
+        window.requestAnimationFrame(() => {
+          showCurrentPage();
+        });
+      });
+    }
+
+    function generate() {
+      applyReaderSettings();
+      state.sourceText = sourceText.value;
+
+      if (!isDictionaryReady()) {
+        updateStatuses("本地词典未加载", "warn", "缺少 pinyin-data.js", "warn");
+        pageContent.innerHTML = '<div class="empty-state">未找到本地拼音词典文件 `pinyin-data.js`。</div>';
+        return;
+      }
+
+      if (!state.sourceText.trim()) {
+        updateStatuses("本地词典已就绪", "success", "请先放入文字", "warn");
+        updateProgress(0);
+        pageContent.innerHTML = '<div class="empty-state">请先粘贴文字，或选择 TXT / DOCX 文件。</div>';
+        return;
+      }
+
+      fileLabel.textContent = `${state.sourceName ? `${state.sourceName} · ` : ""}${state.sourceText.length.toLocaleString("zh-CN")} 字符`;
+      readerIntro.textContent = "当前内容已经生成拼音阅读稿。可以滚动阅读；进入全屏后，点击屏幕左右两侧即可上一屏或下一屏。";
+      const cacheKey = getTokenCacheKey(state.sourceText);
+      const cachedTokens = loadTokenCache(cacheKey);
+      if (cachedTokens) {
+        updateStatuses("已读取拼音缓存", "success", "正在生成阅读稿", "info");
+        updateProgress(45);
+        finishWithTokens(cachedTokens, cacheKey, true);
+        return;
+      }
+
+      updateStatuses("正在生成拼音", "info", "正在缓存拼音结果", "warn");
+      state.generationId += 1;
+      const generationId = state.generationId;
+      updateProgress(1);
+      buildTokensChunked(state.sourceText, generationId, (tokens) => {
+        if (generationId !== state.generationId) {
+          return;
+        }
+        finishWithTokens(tokens, cacheKey, false);
+      });
+    }
+
+    function scrollByViewport(direction) {
+      const delta = Math.max(120, Math.round(pageShell.clientHeight * 0.82)) * direction;
+      pageShell.scrollBy({ top: delta, behavior: "smooth" });
+    }
+
+    function goPrevPage() {
+      if (!state.tokens.length) {
+        return;
+      }
+
+      scrollByViewport(-1);
+    }
+
+    function goNextPage() {
+      if (!state.tokens.length) {
+        return;
+      }
+
+      scrollByViewport(1);
+    }
+
+    function stripXml(xmlText) {
+      return xmlText
+        .replace(/<w:tab[^>]*\/>/g, "\t")
+        .replace(/<w:br[^>]*\/>/g, "\n")
+        .replace(/<w:cr[^>]*\/>/g, "\n")
+        .replace(/<\/w:p>/g, "\n")
+        .replace(/<[^>]+>/g, "");
+    }
+
+    async function inflateRaw(data) {
+      const ds = new DecompressionStream("deflate-raw");
+      const stream = new Blob([data]).stream().pipeThrough(ds);
+      return new Uint8Array(await new Response(stream).arrayBuffer());
+    }
+
+    function readUInt16LE(bytes, offset) {
+      return bytes[offset] | (bytes[offset + 1] << 8);
+    }
+
+    function readUInt32LE(bytes, offset) {
+      return (
+        bytes[offset] |
+        (bytes[offset + 1] << 8) |
+        (bytes[offset + 2] << 16) |
+        (bytes[offset + 3] << 24)
+      ) >>> 0;
+    }
+
+    async function extractTextFromDocx(arrayBuffer) {
+      const bytes = new Uint8Array(arrayBuffer);
+      const decoder = new TextDecoder("utf-8");
+      let eocd = -1;
+
+      for (let i = bytes.length - 22; i >= Math.max(0, bytes.length - 65557); i -= 1) {
+        if (
+          bytes[i] === 0x50 &&
+          bytes[i + 1] === 0x4b &&
+          bytes[i + 2] === 0x05 &&
+          bytes[i + 3] === 0x06
+        ) {
+          eocd = i;
+          break;
+        }
+      }
+
+      if (eocd === -1) {
+        throw new Error("无法识别 DOCX 文件结构。");
+      }
+
+      const centralDirSize = readUInt32LE(bytes, eocd + 12);
+      const centralDirOffset = readUInt32LE(bytes, eocd + 16);
+      let pointer = centralDirOffset;
+      const entries = new Map();
+
+      while (pointer < centralDirOffset + centralDirSize) {
+        if (
+          bytes[pointer] !== 0x50 ||
+          bytes[pointer + 1] !== 0x4b ||
+          bytes[pointer + 2] !== 0x01 ||
+          bytes[pointer + 3] !== 0x02
+        ) {
+          break;
+        }
+
+        const compression = readUInt16LE(bytes, pointer + 10);
+        const compressedSize = readUInt32LE(bytes, pointer + 20);
+        const nameLength = readUInt16LE(bytes, pointer + 28);
+        const extraLength = readUInt16LE(bytes, pointer + 30);
+        const commentLength = readUInt16LE(bytes, pointer + 32);
+        const localHeaderOffset = readUInt32LE(bytes, pointer + 42);
+        const name = decoder.decode(bytes.slice(pointer + 46, pointer + 46 + nameLength));
+
+        entries.set(name, {
+          compression,
+          compressedSize,
+          localHeaderOffset,
+        });
+
+        pointer += 46 + nameLength + extraLength + commentLength;
+      }
+
+      const documentEntry = entries.get("word/document.xml");
+      if (!documentEntry) {
+        throw new Error("DOCX 中没有找到正文内容。");
+      }
+
+      const headerOffset = documentEntry.localHeaderOffset;
+      const fileNameLength = readUInt16LE(bytes, headerOffset + 26);
+      const extraLength = readUInt16LE(bytes, headerOffset + 28);
+      const dataOffset = headerOffset + 30 + fileNameLength + extraLength;
+      const compressed = bytes.slice(dataOffset, dataOffset + documentEntry.compressedSize);
+
+      let xmlBytes;
+      if (documentEntry.compression === 0) {
+        xmlBytes = compressed;
+      } else if (documentEntry.compression === 8) {
+        xmlBytes = await inflateRaw(compressed);
+      } else {
+        throw new Error("这个 DOCX 使用了暂不支持的压缩方式。");
+      }
+
+      const xmlText = decoder.decode(xmlBytes);
+      const raw = stripXml(xmlText)
+        .replace(/&amp;/g, "&")
+        .replace(/&lt;/g, "<")
+        .replace(/&gt;/g, ">")
+        .replace(/&quot;/g, "\"")
+        .replace(/&#39;/g, "'")
+        .replace(/\n{3,}/g, "\n\n")
+        .trim();
+
+      if (!raw) {
+        throw new Error("DOCX 已读取，但没有提取到可用文字。");
+      }
+
+      return raw;
+    }
+
+    async function handleLocalFile(file) {
+      if (!file) {
+        return;
+      }
+
+      const lowerName = file.name.toLowerCase();
+
+      try {
+        updateStatuses("正在读取文件", "info", "请稍候", "warn");
+        updateProgress(1);
+
+        if (lowerName.endsWith(".txt")) {
+          const text = await file.text();
+          updateSourceText(text, file.name);
+          return;
+        }
+
+        if (lowerName.endsWith(".docx")) {
+          const arrayBuffer = await file.arrayBuffer();
+          const text = await extractTextFromDocx(arrayBuffer);
+          updateSourceText(text, file.name);
+          return;
+        }
+
+        updateStatuses("文件格式不支持", "warn", "请使用 TXT 或 DOCX", "warn");
+        updateProgress(0);
+      } catch (error) {
+        updateStatuses("读取文件失败", "warn", "请换一个文件再试", "warn");
+        fileLabel.textContent = error instanceof Error ? error.message : "读取文件失败。";
+        updateProgress(0);
+      }
+    }
+
+    async function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        await pageShell.requestFullscreen?.();
+        document.body.classList.add("fullscreen-reading");
+        fullscreenButton.textContent = "退出全屏模式";
+      } else {
+        await document.exitFullscreen?.();
+        document.body.classList.remove("fullscreen-reading");
+        fullscreenButton.textContent = "进入全屏模式";
+      }
+    }
+
+    document.addEventListener("fullscreenchange", () => {
+      const active = Boolean(document.fullscreenElement);
+      document.body.classList.toggle("fullscreen-reading", active);
+      fullscreenButton.textContent = active ? "退出全屏模式" : "进入全屏模式";
+    });
+
+    fileInput.addEventListener("change", (event) => {
+      handleLocalFile(event.target.files && event.target.files[0]);
+    });
+
+    sourceText.addEventListener("input", () => {
+      state.sourceName = "";
+      updateSourceText(sourceText.value, "");
+      if (state.sourceText.trim()) {
+        fileLabel.textContent = `手动输入 / 粘贴 · ${state.sourceText.length.toLocaleString("zh-CN")} 字符`;
+      }
+    });
+
+    renderButton.addEventListener("click", generate);
+    toggleSettingsButton.addEventListener("click", () => {
+      advancedPanel.classList.toggle("open");
+    });
+
+    pasteButton.addEventListener("click", async () => {
+      try {
+        const text = await navigator.clipboard.readText();
+        updateSourceText(text, "");
+        fileLabel.textContent = `剪贴板内容 · ${text.length.toLocaleString("zh-CN")} 字符`;
+      } catch (error) {
+        updateStatuses("无法直接读取剪贴板", "warn", "请手动长按粘贴", "warn");
+      }
+    });
+
+    clearButton.addEventListener("click", () => {
+      state.generationId += 1;
+      state.sourceName = "";
+      state.sourceText = "";
+      state.tokens = [];
+      resetRenderingState();
+      sourceText.value = "";
+      updateSourceText("", "");
+      readerIntro.textContent = "把文字放进来，点“生成拼音稿”后，这里会显示带拼音的阅读稿。支持手机、平板和电脑滚动阅读。";
+    });
+
+    prevButton.addEventListener("click", goPrevPage);
+    nextButton.addEventListener("click", goNextPage);
+    tapPrev.addEventListener("click", goPrevPage);
+    tapNext.addEventListener("click", goNextPage);
+    fullscreenButton.addEventListener("click", toggleFullscreen);
+
+    [fontSelect, toneSelect, widthSelect, heightSelect, fontSizeRange, rubySizeRange, batchSizeSelect].forEach((element) => {
+      element.addEventListener("input", repaginateIfReady);
+    });
+
+    pageShell.addEventListener("scroll", updateScrollProgress);
+    window.addEventListener("resize", repaginateIfReady);
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        goPrevPage();
+      } else if (event.key === "ArrowRight") {
+        event.preventDefault();
+        goNextPage();
+      }
+    });
+
+    applyReaderSettings();
+    updateStatuses(isDictionaryReady() ? "本地词典已就绪" : "本地词典缺失", isDictionaryReady() ? "success" : "warn", "还没有内容", "warn");
+    updateProgress(0);
+  </script>
+</body>
+</html>

@@ -93,7 +93,7 @@ header h1 {
   margin-bottom: 24px;
   color: var(--text-color);
   font-family: var(--mono-font);
-  font-size: clamp(48px, 4.8vw, 76px);
+  font-size: clamp(40px, 2.4vw, 76px);
   font-weight: 300;
   line-height: 1.05;
   letter-spacing: 0;
@@ -101,11 +101,15 @@ header h1 {
 }
 
 h2 {
-  margin-top: 72px;
-  padding-top: 24px;
+  margin-top: 20px;
+  padding-top: 30px;
   border-top: 1px solid var(--border-color);
   color: var(--text-color);
   font-size: 30px;
+}
+
+h2#about-me {
+  font-size: 26px;
 }
 
 section > h2:first-child {
@@ -139,7 +143,7 @@ section > ul:not(.news-list):not(.bibliography) li {
 }
 
 #news {
-  margin-top: 48px;
+  margin-top: 25px;
   padding-top: 18px;
 }
 
@@ -330,7 +334,7 @@ papertitle,
 
 .experiences li,
 .publications ol.bibliography li {
-  padding: 24px;
+  padding: 12px;
   border: 1px solid var(--border-color);
   background: var(--surface-color);
   transition: border-color 0.16s ease, background-color 0.16s ease;
@@ -442,7 +446,7 @@ papertitle,
   align-items: center;
   color: var(--theme-color-bright);
   font-family: var(--mono-font);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 400;
   min-height: 32px;
   letter-spacing: 1px;
@@ -510,7 +514,7 @@ papertitle,
   bottom: 0;
   left: 0;
   height: calc(var(--scroll-progress, 0) * 100%);
-  background: var(--scroll-fill-color, var(--scroll-fill-start));
+  background: var(--theme-color-bright);
   transition: height 0.08s linear, background-color 0.08s linear;
 }
 

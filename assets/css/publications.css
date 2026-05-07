@@ -108,7 +108,7 @@ blockquote {
 .publications ol.bibliography li .title {
   margin-bottom: 8px;
   color: var(--text-color, #ffffff);
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 500;
   line-height: 1.35;
 }
@@ -124,6 +124,7 @@ blockquote {
 .publications ol.bibliography li .author,
 .publications ol.bibliography li .periodical {
   color: var(--text-secondary, rgba(255, 255, 255, 0.7));
+  font-size: 13px;
 }
 
 .publications ol.bibliography li .periodical {
@@ -150,6 +151,7 @@ blockquote {
   align-items: center;
   gap: 8px;
   margin-top: 12px;
+  font-size: 10px;
 }
 
 .publications ol.bibliography li .links a.btn {
@@ -163,7 +165,7 @@ blockquote {
   background: transparent;
   color: var(--text-color, #ffffff);
   font-family: var(--mono-font);
-  font-size: 12px !important;
+  font-size: 11px !important;
   font-weight: 400;
   letter-spacing: 1px;
   line-height: 1.5;
@@ -174,6 +176,7 @@ blockquote {
   display: inline-flex;
   align-items: center;
   min-height: 32px;
+  font-size: 11px;
 }
 
 .publications ol.bibliography li .links a.btn:hover {
@@ -250,8 +253,8 @@ blockquote {
 .experiences .title {
   margin-bottom: 6px;
   color: var(--text-color, #ffffff);
-  font-size: 18px;
-  line-height: 1.35;
+  font-size: 15px;
+  line-height: 1.2;
 }
 
 .experiences .periodical,
