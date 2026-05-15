@@ -132,28 +132,6 @@
       align-content: center;
     }
 
-    .gear-button {
-      min-width: 88px;
-      min-height: 52px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid var(--border);
-      background: linear-gradient(180deg, #fff7e6, #f0e0bd);
-      color: var(--gold-deep);
-      border-radius: 4px;
-      cursor: pointer;
-      box-shadow: var(--shadow);
-    }
-
-    .gear-button:hover {
-      box-shadow: var(--shadow-glow);
-    }
-
-      padding: 10px 18px;
-      letter-spacing: 0.08em;
-    }
-
     .helper,
     .reader-top p,
     .status-text,
@@ -276,6 +254,22 @@
     .secondary-btn:hover,
     .file-trigger:hover {
       background: rgba(202, 138, 4, 0.18);
+    }
+
+    .topbar .secondary-btn,
+    .reader-heading .secondary-btn,
+    .fullscreen-exit {
+      min-width: 88px;
+      min-height: 52px;
+      padding: 10px 18px;
+      letter-spacing: 0.08em;
+      box-shadow: var(--shadow);
+    }
+
+    .topbar .secondary-btn:hover,
+    .reader-heading .secondary-btn:hover,
+    .fullscreen-exit:hover {
+      box-shadow: var(--shadow-glow);
     }
 
     .ghost-btn {
@@ -567,6 +561,28 @@
       right: 0;
     }
 
+    .fullscreen-exit {
+      position: fixed;
+      left: 50%;
+      bottom: 20px;
+      z-index: 1001;
+      display: none;
+      transform: translateX(-50%);
+      background: #f4ead3;
+      border-color: var(--gold);
+      color: var(--gold-deep);
+      box-shadow: 0 10px 24px rgba(111, 78, 47, 0.24);
+      opacity: 1;
+    }
+
+    body.fullscreen-reading .fullscreen-exit {
+      display: inline-flex;
+    }
+
+    body.fullscreen-reading #fullscreenButton {
+      display: none;
+    }
+
     @media (max-width: 900px) {
       .field-grid {
         grid-template-columns: 1fr;
@@ -617,7 +633,7 @@
           <div class="headline-main">
             <h1>拼音播报助手</h1>
           </div>
-          <button class="gear-button" id="toggleSettingsButton" type="button" aria-label="高级设置">设置</button>
+          <button class="secondary-btn" id="toggleSettingsButton" type="button" aria-label="高级设置">设置</button>
         </div>
       </div>
 
@@ -733,6 +749,7 @@
           <div class="page-content" id="pageContent">
             <div class="empty-state">把文字粘贴进上面的文本框，或者选择 TXT / DOCX 文件，再点“生成拼音稿”。</div>
           </div>
+          <button class="secondary-btn fullscreen-exit" id="fullscreenExitButton" type="button">退出全屏</button>
         </article>
       </section>
 
@@ -779,6 +796,7 @@
     const fileLabel = document.getElementById("fileLabel");
     const readerIntro = document.getElementById("readerIntro");
     const fullscreenButton = document.getElementById("fullscreenButton");
+    const fullscreenExitButton = document.getElementById("fullscreenExitButton");
     const tapPrev = document.getElementById("tapPrev");
     const tapNext = document.getElementById("tapNext");
 
@@ -1398,18 +1416,16 @@
       if (!document.fullscreenElement) {
         await pageShell.requestFullscreen?.();
         document.body.classList.add("fullscreen-reading");
-        fullscreenButton.textContent = "退出全屏模式";
       } else {
         await document.exitFullscreen?.();
         document.body.classList.remove("fullscreen-reading");
-        fullscreenButton.textContent = "进入全屏模式";
       }
     }
 
     document.addEventListener("fullscreenchange", () => {
       const active = Boolean(document.fullscreenElement);
       document.body.classList.toggle("fullscreen-reading", active);
-      fullscreenButton.textContent = active ? "退出全屏模式" : "进入全屏模式";
+      fullscreenButton.textContent = "全屏阅读";
     });
 
     fileInput.addEventListener("change", (event) => {
@@ -1455,6 +1471,7 @@
     tapPrev.addEventListener("click", goPrevPage);
     tapNext.addEventListener("click", goNextPage);
     fullscreenButton.addEventListener("click", toggleFullscreen);
+    fullscreenExitButton.addEventListener("click", toggleFullscreen);
 
     [fontSelect, toneSelect, widthSelect, heightSelect, fontSizeRange, rubySizeRange, batchSizeSelect].forEach((element) => {
       element.addEventListener("input", repaginateIfReady);
