@@ -14,7 +14,7 @@
     <link rel="canonical" href="https://eigentom.github.io"/>
     
 
-    <link rel="icon" media="(prefers-color-scheme:dark)" href="./assets/img/favicon-light.png" type="image/png" />
+    <link rel="icon" media="(prefers-color-scheme:dark)" href="./assets/img/favicon-dark.png" type="image/png" />
     <link rel="icon" media="(prefers-color-scheme:light)" href="./assets/img/favicon.png" type="image/png" />
     <script src="./assets/js/favicon-switcher.js" type="application/javascript"></script>
 
@@ -87,15 +87,15 @@
 
       <h2 id="about-me">About Me</h2>
 
-<p>I am a recent graduate from the University of Toronto’s Master of Science in Applied Computing programme. My research interests lies broadly in Multi-Modal Language Model, Reinforcement Learning, Agentic MLLMs and Generative AI.</p>
+<p>I am a recent graduate from the University of Toronto’s Master of Science in Applied Computing programme. My research interests lies in LLM/MLLM Post Training, Reinforcement Learning, and Agentic Systems.</p>
 
 <p>Currently I am working as a part-time research intern at Texas A&amp;M University under the supervision of <a href="https://yuzhimanhua.github.io/">Prof. Yu Zhang</a>, with the topic of LLM Agents. During my master’s study, I served as a full-time co-op applied research intern at <a href="http://modiface.com">ModiFace</a> (L’Oréal’s AI Lab) focusing on controllable video generation. Prior to that, I worked as a part-time research intern in <a href="https://wenhuchen.github.io/lab.html">TIGER Lab</a> under the supervision of <a href="https://wenhuchen.github.io/lab.html">Prof. Wenhu Chen</a> focused on Agentic-RL based Tool-calling LLMs. I was fortunate to work under the supervision of the wonderful <a href="https://scholar.google.com/citations?user=UJ1OJPwAAAAJ&amp;hl=en">Jiawang Cao</a> and <a href="https://scholar.google.com/citations?user=z_4-QfQAAAAJ&amp;hl=en">Wenbo Zhu</a> during my research internship at <a href="https://www.opus.pro">Opus AI Research</a>, where I worked on Multimodal Reasoning and MLLM Benchmarking, with two papers published in top conferences.</p>
 
 <h2 id="research-interests">Research Interests</h2>
 <ul>
-  <li><strong>Multimodality and Generative AI</strong></li>
-  <li><strong>LLM/MLLM Agentic Post Training (Reasoning, RL, Benchmarking)</strong></li>
-  <li><strong>Controllable Image/Video Generation</strong></li>
+  <li><strong>LLM/MLLM Reinforcement Learning</strong></li>
+  <li><strong>Agentic Post Training</strong></li>
+  <li><strong>Multimodal Understanding</strong></li>
 </ul>
 
 <h2 id="news">News</h2>
@@ -103,6 +103,19 @@
 <div class="news">
 <div class="news-scroll">
 <ul class="news-list">
+
+
+
+<li>
+<div class="news-row">
+  <div class="news-date">
+    Jun. 2026
+  </div>
+  <div class="news-content">
+    🎉 Verltool is accepted by TMLR 2026.
+  </div>
+</div>
+</li>
 
 
 
@@ -305,13 +318,13 @@
     <img src="./assets/img/papers/verltool.png" class="teaser img-fluid z-depth-1" />
     
      
-    <abbr class="badge">arXiv</abbr>
+    <abbr class="badge">TMLR</abbr>
     
   </div>
   <div class="col-sm-9">
       <div class="title"><a href="https://arxiv.org/abs/2509.01055">VerlTool: Towards Holistic Agentic Reinforcement Learning with Tool Use</a></div>
       <div class="author">Dongfu Jiang*, <strong>Yi Lu*</strong>, Zhuofeng Li*, Zhiheng Lyu, Ping Nie, Haozhe Wang, Alex Su, Hui Chen, Kai Zou, Chao Du, Tianyu Pang, Wenhu Chen</div>
-      <div class="periodical"><em>In Submission</em>
+      <div class="periodical"><em>Transactions on Machine Learning Research (TMLR), 2026.</em>
       </div>
     <div class="links">
        
@@ -323,7 +336,7 @@
       
       
        
-      <strong class="pub-note">900+ ⭐ on GitHub</strong>
+      <strong class="pub-note">1k+ ⭐ on GitHub</strong>
       
       
     </div>
@@ -590,7 +603,9 @@
 <h4>Conference Reviewers</h4>
 
 <ul class="service-list">
+  <li><a href="https://aaai.org/conference/aaai/aaai-27/"><autocolor>The 40th Annual AAAI Conference on Artificial Intelligence 2027</autocolor></a></li>
   <li><a href="https://aaai.org/conference/aaai/aaai-26/"><autocolor>The 40th Annual AAAI Conference on Artificial Intelligence 2026</autocolor></a></li>
+  
   <!-- <li><a href="http://iccv2021.thecvf.com/"><autocolor>IEEE/CVF International Conference on Computer Vision (ICCV) 2021</autocolor></a></li>
   <li><a href="https://eccv2022.ecva.net/"><autocolor>European Conference on Computer Vision (ECCV) 2022</autocolor></a></li> -->
 </ul>
@@ -604,10 +619,40 @@
 
 <p><br /></p>
 
-<script type="text/javascript" id="clustrmaps" src="//cdn.clustrmaps.com/map_v2.js?cl=ffffff&amp;w=250&amp;t=n&amp;d=BCu1-gPEyfGJL5ES9RU4NKrRerm46H-2_SCFXBOZCIs"></script>
+<script type="text/javascript">
+	(function() {
+		var mediaQuery = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
+
+		function buildParams(isDark) {
+			return isDark
+				? "cl=0a6ca8&co=1f2228&cmo=7f2f2f&cmn=2f7f3a&ct=ffffff"
+				: "cl=0a6ca8&co=f7f8fa&cmo=f1b7b7&cmn=b8e8b8&ct=16191f";
+		}
+
+		var script = document.createElement("script");
+		var isDark = mediaQuery && mediaQuery.matches;
+
+		script.type = "text/javascript";
+		script.id = "mapmyvisitors";
+		script.src = "https://mapmyvisitors.com/map.js?" + buildParams(isDark) + "&w=a&t=m&d=aHCMdlI2tDN-xAebM-gf37yJNxg9UMxmIFPrWPcuqsM";
+		document.currentScript.parentNode.insertBefore(script, document.currentScript);
+
+		if (mediaQuery) {
+			var reloadOnThemeChange = function() {
+				window.location.reload();
+			};
+
+			if (typeof mediaQuery.addEventListener === "function") {
+				mediaQuery.addEventListener("change", reloadOnThemeChange);
+			} else if (typeof mediaQuery.addListener === "function") {
+				mediaQuery.addListener(reloadOnThemeChange);
+			}
+		}
+	})();
+</script>
 
 <p class="last-updated">
-    Last Updated: October 2025
+    Last Updated: June 2026
 </p>
 
 

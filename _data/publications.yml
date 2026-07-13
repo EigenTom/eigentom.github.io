@@ -15,7 +15,7 @@ main:
     image: ./assets/img/papers/verltool.png
     pdf: https://arxiv.org/abs/2509.01055
     code: https://github.com/TIGER-AI-Lab/verl-tool
-    notes: 980+ ⭐ on GitHub
+    notes: 1k+ ⭐ on GitHub
 
   - title: "RSVP: Reasoning Segmentation via Visual Prompting and Multi-modal Chain-of-Thought"
     authors: "<strong>Yi Lu*</strong>, Jiawang Cao*, Yongliang Wu*, Bozheng Li, Licheng Tang, Yangguang Ji, Chong Wu, Jay Wu, Wenbo Zhu"
